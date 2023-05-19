@@ -1,0 +1,47 @@
+name: Syncing two repo
+on: push
+
+env:
+  SOURCE_REPO: "" #Insert source url of the git source repo
+  DEST_REPO: "" #Insert Destination url of the git dest repo
+
+jobs:
+  check_repo:
+    name: "Check if the repo is clean"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - id: check_repo
+        run: |
+          BAD_FILES=$(find . -type f -not -path "./.git/*" -wholename "*tmp/*" -or -name "*~" -or -name "*.o" -or -name "*.a" -or -name "*.so" -or -name "*.gcno" -or -name "*.gdca" -or -name "*.gcov")
+          for FILES in $BAD_FILES; do
+            echo "::error file=${FILE#./}, title=Unwanted file detected::${FILE#./}"
+          done
+          if [ "$BAD_FILES" != ""]; then
+            exit 1
+          fi
+  
+  testing:
+    name: "Testing the program"
+    runs-on: ubuntu-latest
+    container:
+      image: epitechcontent/epitest-docker:latest
+    steps:
+      - uses: actions/checkout@v3
+      - id: run_tests
+        run: |
+          make
+        timeout-minutes: 2
+            
+  git-sync:
+    needs: check_repo
+    runs-on: ubuntu-latest
+    steps:
+      - name: git-sync
+        uses: wei/git-sync@v3
+        with:
+          source_repo: ${{ env.SOURCE_REPO }}
+          source_branch: "main"
+          destination_repo: ${{ env.DEST_REPO }}
+          destination_branch: "main"
+          ssh_private_key: ${{ secrets.SSH_KEY }}
