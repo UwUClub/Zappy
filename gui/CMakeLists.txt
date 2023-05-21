@@ -1,19 +1,17 @@
 cmake_minimum_required(VERSION 3.13)  # CMake version check
-set(PROJECT_NAME ZappyGui)
+set(PROJECT_NAME )
 project(${PROJECT_NAME})            # Create project "simple_example"
 set(CMAKE_CXX_STANDARD 20)            # Enable c++14 standard
-set(EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wpedantic")
-set(CMAKE_CXX_FLAGS_DEBUG "-lcriterion")
 
-add_executable(${PROJECT_NAME})
+include_directories(src)
 
+set(SOURCE_FILES
+
+)
+
+add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 set_target_properties(${PROJECT_NAME} PROPERTIES
     CXX_STANDARD 20
     COMPILE_FLAGS ""
-    RUNTIME_OUTPUT_DIRECTORY "../"
 )
-
-add_subdirectory(gui)
-add_subdirectory(server)
-add_subdirectory(ia)

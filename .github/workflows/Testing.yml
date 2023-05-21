@@ -1,0 +1,20 @@
+name: Syncing two repo
+on: push
+
+env:
+  SOURCE_REPO: "git@github.com:UwUClub/Zappy.git" #Insert source url of the git source repo
+  DEST_REPO: "git@github.com:EpitechPromo2026/B-YEP-400-TLS-4-1-zappy-maxence.labourel.git" #Insert Destination url of the git dest repo
+
+jobs:
+  testing:
+    name: "Testing the program"
+    runs-on: ubuntu-latest
+    container:
+      image: epitechcontent/epitest-docker:latest
+    steps:
+      - uses: actions/checkout@v3
+      - id: run_tests
+        run: |
+          cmake .
+          make
+        timeout-minutes: 5

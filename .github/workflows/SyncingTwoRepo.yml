@@ -2,37 +2,10 @@ name: Syncing two repo
 on: push
 
 env:
-  SOURCE_REPO: "" #Insert source url of the git source repo
-  DEST_REPO: "" #Insert Destination url of the git dest repo
+  SOURCE_REPO: "git@github.com:UwUClub/Zappy.git" #Insert source url of the git source repo
+  DEST_REPO: "git@github.com:EpitechPromo2026/B-YEP-400-TLS-4-1-zappy-maxence.labourel.git" #Insert Destination url of the git dest repo
 
 jobs:
-  check_repo:
-    name: "Check if the repo is clean"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - id: check_repo
-        run: |
-          BAD_FILES=$(find . -type f -not -path "./.git/*" -wholename "*tmp/*" -or -name "*~" -or -name "*.o" -or -name "*.a" -or -name "*.so" -or -name "*.gcno" -or -name "*.gdca" -or -name "*.gcov")
-          for FILES in $BAD_FILES; do
-            echo "::error file=${FILE#./}, title=Unwanted file detected::${FILE#./}"
-          done
-          if [ "$BAD_FILES" != ""]; then
-            exit 1
-          fi
-  
-  testing:
-    name: "Testing the program"
-    runs-on: ubuntu-latest
-    container:
-      image: epitechcontent/epitest-docker:latest
-    steps:
-      - uses: actions/checkout@v3
-      - id: run_tests
-        run: |
-          make
-        timeout-minutes: 2
-            
   git-sync:
     needs: check_repo
     runs-on: ubuntu-latest
