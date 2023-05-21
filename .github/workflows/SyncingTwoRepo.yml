@@ -7,7 +7,6 @@ env:
 
 jobs:
   git-sync:
-    needs: check_repo
     runs-on: ubuntu-latest
     steps:
       - name: git-sync
