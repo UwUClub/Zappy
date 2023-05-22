@@ -13,3 +13,5 @@ CMakeCache.txt
 *.ninja*
 Makefile
 .cmake*
+.cache
+build
