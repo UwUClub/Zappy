@@ -23,8 +23,8 @@ jobs:
       - name: run tests
         run: |
           sudo dnf install -y libconfig-devel
-          sh build.sh
-          ./build/tests/unit_tests
+          cmake .
+          make
         timeout-minutes: 5
 
       - name: Perform CodeQL Analysis
