@@ -19,7 +19,7 @@ jobs:
 
       - name: Build documentation
         run: |
-          doxygen ./Doxyfile
+          doxygen doxyfile
           touch documentation/docs/.nojekyll
 
       - name: deploy
