@@ -1,13 +1,14 @@
 namespace Zappy::GUI {
-    class ClientApi {
+class ClientApi
+{
 
-    public:
-        ClientApi();
-        ~ClientApi() = default;
+  public:
+    ClientApi();
+    ~ClientApi() = default;
 
-        void connect();
-        // void disconnect();
-        // void send();
-        // void receive();
-    };
-}
+    void connect();
+    // void disconnect();
+    // void send();
+    // void receive();
+};
+}// namespace Zappy::GUI

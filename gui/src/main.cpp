@@ -2,8 +2,8 @@
 // Created by beafowl on 22/05/23.
 //
 
-#include <iostream>
 #include "ClientApi.hpp"
+#include <iostream>
 
 int main(int argc, char **argv)
 {

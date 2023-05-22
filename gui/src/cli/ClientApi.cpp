@@ -2,10 +2,7 @@
 #include <iostream>
 
 namespace Zappy::GUI {
-    ClientApi::ClientApi() {
-    }
+ClientApi::ClientApi() {}
 
-    void ClientApi::connect() {
-        std::cout << "connect" << std::endl;
-    }
-}
+void ClientApi::connect() { std::cout << "connect" << std::endl; }
+}// namespace Zappy::GUI
