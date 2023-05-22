@@ -1,5 +1,8 @@
 name: Syncing two repo
-on: push
+on:
+  push:
+    branches:
+      - main
 
 env:
   SOURCE_REPO: "git@github.com:UwUClub/Zappy.git" #Insert source url of the git source repo

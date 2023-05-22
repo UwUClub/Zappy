@@ -1,20 +1,33 @@
-name: Testing program
+name: Testing the program
 on: push
-
-env:
-  SOURCE_REPO: "git@github.com:UwUClub/Zappy.git" #Insert source url of the git source repo
-  DEST_REPO: "git@github.com:EpitechPromo2026/B-YEP-400-TLS-4-1-zappy-maxence.labourel.git" #Insert Destination url of the git dest repo
 
 jobs:
   testing:
-    name: "Testing the program"
+    name: "Testing the program and codeql"
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'cpp' ]
     container:
       image: epitechcontent/epitest-docker:latest
     steps:
-      - uses: actions/checkout@v3
-      - id: run_tests
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: ${{ matrix.language }}
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: run tests
         run: |
-          cmake .
-          make
+          sudo dnf install -y libconfig-devel
+          sh build.sh
+          ./build/tests/unit_tests
         timeout-minutes: 5
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+        with:
+          category: "/language:${{matrix.language}}"
