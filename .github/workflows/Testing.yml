@@ -22,7 +22,7 @@ jobs:
 
       - name: Run dependencies
         run: |
-          sudo dnf install -y libconfig-devel
+          sudo dnf install -y libconfig-devel libasan libubsan
           cmake -S . -B ./build
         timeout-minutes: 10
 
