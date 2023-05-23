@@ -1,13 +1,9 @@
 #include <vector>
 
-enum class Orientation {
-    NORTH,
-    EAST,
-    SOUTH,
-    WEST
-};
+enum class Orientation { NORTH, EAST, SOUTH, WEST };
 
-struct ServerData {
+struct ServerData
+{
     std::pair<unsigned int, unsigned int> _mapSize;
     std::vector<std::vector<std::string>> _mapTiles;
     std::vector<std::string> _teamNames;
