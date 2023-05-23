@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2023
-** my_teams
+** zappy_server
 ** File description:
 ** write_to_client
 */
@@ -16,19 +16,17 @@ void add_output(client_t **client, const char *msg)
     (*client)->output = concat_str((*client)->output, msg);
 }
 
-void broadcast_uuid(client_t **clients, const char *uuid, const char *msg)
+void send_to_client(client_t **clients, const int id, const char *msg)
 {
-    for (int i = 0; i < MAX_CONNECTIONS; i++) {
-        if (clients[i]->fd != -1 && !strcmp(clients[i]->uuid, uuid)) {
-            clients[i]->output = concat_str(clients[i]->output, msg);
-        }
+    if (clients[id] && clients[id]->fd != -1) {
+        clients[id]->output = concat_str(clients[id]->output, msg);
     }
 }
 
-void broadcast_everyone(client_t **clients, const char *msg)
+void send_to_everyone(client_t **clients, const char *msg)
 {
     for (int i = 0; i < MAX_CONNECTIONS; i++) {
-        if (clients[i]->fd != -1 && clients[i]->uuid != NULL) {
+        if (clients[i]->fd != -1) {
             clients[i]->output = concat_str(clients[i]->output, msg);
         }
     }

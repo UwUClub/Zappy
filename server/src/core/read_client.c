@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2023
-** my_teams
+** zappy_server
 ** File description:
 ** read_client
 */
@@ -33,9 +33,6 @@ static void handle_quit(data_t *data)
 {
     client_t *cli = data->clients[data->current_client_index];
 
-    if (cli->uuid) {
-        broadcast_logout_response(cli, data->clients);
-    }
     close_single_client(cli);
     init_single_client(&cli);
 }
@@ -52,7 +49,7 @@ void read_selected_client(data_t *data)
         bufferize_cmd(&cli, buffer, size);
         if (buffer[size - 1] != '\n')
             return;
-        parse_instruction(data);
+        // FUTURE IMPLEMENTATION CALL: parse_instruction(data);
         free(cli->input);
         cli->input = NULL;
     } else if (size == 0) {

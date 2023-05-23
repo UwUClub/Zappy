@@ -1,12 +1,12 @@
 /*
 ** EPITECH PROJECT, 2023
-** my_teams
+** zappy_server
 ** File description:
 ** Header for server network
 */
 
-#ifndef MYTEAMS_SERVER_CORE_H
-    #define MYTEAMS_SERVER_CORE_H
+#ifndef ZAPPY_SERVER_CORE_H
+    #define ZAPPY_SERVER_CORE_H
 
     #include <stdio.h>
     #include <stdlib.h>
@@ -20,15 +20,24 @@
 
     #define MAX_CONNECTIONS 1000
 
+    typedef enum orientation_e {
+        UNKNOWN = 0,
+        NORTH,
+        EAST,
+        SOUTH,
+        WEST
+    } orientation_t;
+
     typedef struct client_s {
         int fd;
-        char *username;
-        char *uuid;
+        int pos_x;
+        int pos_y;
+        orientation_t orientation;
+        int level;
+        int inventory[7];
+        char *team_name;
         char *input;
         char *output;
-        char *team_uuid;
-        char *channel_uuid;
-        char *thread_uuid;
     } client_t;
 
     typedef struct data_s {
@@ -48,12 +57,11 @@
     void close_clients(client_t **clients);
     void select_clients(struct sockaddr_in *addr, int server_fd, data_t *data);
     void add_output(client_t **client, const char *msg);
-    void broadcast_uuid(client_t **clients, const char *uuid, const char *msg);
-    void broadcast_everyone(client_t **clients, const char *msg);
+    void send_to_client(client_t **clients, const int id, const char *msg);
+    void send_to_everyone(client_t **clients, const char *msg);
     void welcome_selected_client(struct sockaddr *addr, int server_fd,
     client_t **clients);
     void read_selected_client(data_t *data);
     void write_to_selected_client(client_t **client);
-    client_t **get_clients_by_uuid(client_t **clients, char *uuid);
 
-#endif /* MYTEAMS_SERVER_CORE_H */
+#endif /* ZAPPY_SERVER_CORE_H */

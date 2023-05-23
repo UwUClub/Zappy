@@ -12,7 +12,6 @@ include_directories(include)
 
 set(SOURCE_FILES
     src/main.c
-    src/core/get_client.c
     src/core/handle_clients.c
     src/core/launch_server.c
     src/core/read_client.c
@@ -21,7 +20,6 @@ set(SOURCE_FILES
     src/core/write_to_client.c
     src/utils/concat_str.c
     src/utils/free_word_array.c
-    src/utils/generate_uuid.c
     src/utils/get_file_length.c
     src/utils/get_sockaddr.c
     src/utils/inttos.c
@@ -29,7 +27,6 @@ set(SOURCE_FILES
     src/utils/parse_quotes.c
     src/utils/revstr.c
     src/utils/rm_line_from_file.c
-    src/utils/str_to_time.c
     src/utils/str_to_word_array.c
     src/utils/word_array_len.c
     include/server_implementation.h

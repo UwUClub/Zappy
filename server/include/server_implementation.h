@@ -1,39 +1,14 @@
 /*
 ** EPITECH PROJECT, 2023
-** my_teams
+** zappy_server
 ** File description:
 ** Header for server app
 */
 
-#ifndef MYTEAMS_SERVER_IMPLEMENTATION_H
-    #define MYTEAMS_SERVER_IMPLEMENTATION_H
+#ifndef ZAPPY_SERVER_IMPLEMENTATION_H
+    #define ZAPPY_SERVER_IMPLEMENTATION_H
 
     #include "server_core.h"
-
-    #define MAX_NAME_LENGTH 32
-    #define MAX_DESCRIPTION_LENGTH 255
-    #define MAX_BODY_LENGTH 512
-
-    typedef struct user_info_s {
-        char *uuid;
-        char *name;
-        int status;
-    } user_info_t;
-
-    typedef struct thread_s {
-        char *uuid;
-        char *name;
-        char *first_reply;
-        char *author_uuid;
-        char creation_date[11];
-    } thread_t;
-
-    typedef struct reply_s {
-        char *author_uuid;
-        char *thread_uuid;
-        char *message;
-        char creation_date[11];
-    } reply_t;
 
     int parse_instruction(data_t *data);
     int help(data_t *data, char **args);
@@ -82,9 +57,6 @@
     const char *msg);
 
     int get_users_nbr(void);
-    user_info_t *get_users_info(int usr_nbr);
-    void set_users_status(client_t **clients, user_info_t *users_info,
-    int usr_nbr);
     char *get_offline_user_name(char *uuid);
 
-#endif /* MYTEAMS_SERVER_IMPLEMENTATION_H */
+#endif /* ZAPPY_SERVER_IMPLEMENTATION_H */

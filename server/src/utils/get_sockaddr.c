@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2023
-** my_teams
+** zappy_server
 ** File description:
 ** launch_server
 */

@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2023
-** my_teams
+** zappy_server
 ** File description:
 ** main
 */
@@ -11,7 +11,7 @@
 
 static void print_help(void)
 {
-    printf("USAGE: ./myteams_server port\n\n");
+    printf("USAGE: ./zappy_server port\n\n");
     printf("\tport is the port number on which the server socket listens.\n");
 }
 

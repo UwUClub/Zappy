@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2023
-** myteams
+** zappy
 ** File description:
 ** parse_quotes
 */

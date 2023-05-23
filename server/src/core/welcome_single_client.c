@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2023
-** my_teams
+** zappy_server
 ** File description:
 ** handle_single_client
 */
@@ -18,10 +18,11 @@ client_t **clients)
     if (client_fd < 0) {
         fprintf(stderr, "Accept failed [%s]\n", strerror(errno));
     }
-    printf("Accepted a new connection with fd: %d\n", client_fd);
-    for (int i = 0; i < MAX_CONNECTIONS; i++) {
-        if (clients[i]->fd < 0) {
-            clients[i]->fd = client_fd;
+    printf("@client joined (fd: %d)\n", client_fd);
+    for (int id = 0; id < MAX_CONNECTIONS; id++) {
+        if (clients[id]->fd < 0) {
+            clients[id]->fd = client_fd;
+            send_to_client(clients, id, "WELCOME\n");
             break;
         }
     }

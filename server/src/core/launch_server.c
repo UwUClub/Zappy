@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2023
-** my_teams
+** zappy_server
 ** File description:
 ** launch_server
 */
@@ -56,8 +56,7 @@ int launch_server(unsigned int port)
         return 84;
     if (listen(server_fd, MAX_CONNECTIONS) < 0)
         return 84;
-    init_save_dirs();
-    printf("Listening on port %i...\n", port);
+    printf("Port : %i\n", port);
     listen_to_inputs(&my_addr, server_fd);
     close(server_fd);
     return 0;
