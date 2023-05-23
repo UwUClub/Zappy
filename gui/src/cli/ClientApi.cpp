@@ -17,18 +17,12 @@ ClientApi::ClientApi(std::string aAddress, unsigned int aPort, std::string aTeam
     _readBuffer(strdup("")), _writeBuffer(strdup("")), _serverFd(-1)
 {}
 
-    ClientApi::~ClientApi()
-    {
-        if (_readBuffer) {
-            free(_readBuffer);
-        }
-        if (_writeBuffer) {
-            free(_writeBuffer);
-        }
-        if (_serverFd != -1) {
-            close(_serverFd);
-        }
-    }
+ClientApi::~ClientApi()
+{
+    if (_readBuffer) { free(_readBuffer); }
+    if (_writeBuffer) { free(_writeBuffer); }
+    if (_serverFd != -1) { close(_serverFd); }
+}
 
 void ClientApi::joinGame()
 {

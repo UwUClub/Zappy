@@ -12,9 +12,7 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char **argv)
         Zappy::GUI::ClientApi clientApi("127.0.0.1", 4242, "a");
         clientApi.joinGame();
         while (true) {
-            if (clientApi.update() >= 1) {
-                break;
-            }
+            if (clientApi.update() >= 1) { break; }
         }
     } catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
