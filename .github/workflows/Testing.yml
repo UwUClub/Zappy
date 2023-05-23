@@ -1,0 +1,50 @@
+name: Testing the program
+on: push
+
+jobs:
+  testing:
+    name: "Testing the program and codeql"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'cpp' ]
+    container:
+      image: epitechcontent/epitest-docker:latest
+    steps:
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: ${{ matrix.language }}
+
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Run dependencies
+        run: |
+          sudo dnf install -y libconfig-devel
+          cmake -S . -B ./build
+        timeout-minutes: 10
+
+      - name: Run compilation of gui
+        run: |
+          cd build
+          make zappy_gui
+        timeout-minutes: 5
+
+      - name: Run compilation of server
+        run: |
+          cd build
+          make zappy_server
+        timeout-minutes: 5
+
+      - name: Run compilation of ia
+        run: |
+          cd build
+          make zappy_ia
+        timeout-minutes: 5
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+        with:
+          category: "/language:${{matrix.language}}"
