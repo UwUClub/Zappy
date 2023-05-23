@@ -11,11 +11,6 @@
 #include "server_core.h"
 #include "utils.h"
 
-void add_output(client_t **client, const char *msg)
-{
-    (*client)->output = concat_str((*client)->output, msg);
-}
-
 void send_to_client(client_t **clients, const int id, const char *msg)
 {
     if (clients[id] && clients[id]->fd != -1) {

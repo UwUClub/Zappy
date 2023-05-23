@@ -11,24 +11,19 @@
 
 static void print_help(void)
 {
-    printf("USAGE: ./zappy_server port\n\n");
-    printf("\tport is the port number on which the server socket listens.\n");
+    printf("USAGE: ./zappy_server ...\n\n");
 }
 
 int main(int ac, char **av)
 {
-    if (ac != 2) {
-        print_help();
-        return 84;
-    }
-    if (strcmp(av[1], "-help") == 0) {
+    data_t *data = NULL;
+
+    if (ac >= 2 && (!strcmp(av[1], "-help") || !strcmp(av[1], "-h"))) {
         print_help();
         return 0;
     }
-    if (!is_int(av[1])) {
-        printf("Port must be an integer.\n");
-        return 84;
-    }
-    launch_server(atoi(av[1]));
+    data = init_data();
+    launch_server(4242, data);
+    free_data(data);
     return 0;
 }

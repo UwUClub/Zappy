@@ -31,7 +31,7 @@ const unsigned int size)
 
 static void handle_quit(data_t *data)
 {
-    client_t *cli = data->clients[data->current_client_index];
+    client_t *cli = data->clients[data->curr_cli_index];
 
     close_single_client(cli);
     init_single_client(&cli);
@@ -41,7 +41,7 @@ void read_selected_client(data_t *data)
 {
     char buffer[1024];
     int size = 0;
-    client_t *cli = data->clients[data->current_client_index];
+    client_t *cli = data->clients[data->curr_cli_index];
 
     size = read(cli->fd, buffer, 1024);
     if (size > 0) {
@@ -49,7 +49,7 @@ void read_selected_client(data_t *data)
         bufferize_cmd(&cli, buffer, size);
         if (buffer[size - 1] != '\n')
             return;
-        // FUTURE IMPLEMENTATION CALL: parse_instruction(data);
+        parse_cmd(data);
         free(cli->input);
         cli->input = NULL;
     } else if (size == 0) {

@@ -40,9 +40,19 @@
         char *output;
     } client_t;
 
+    typedef struct map_s {
+        int width;
+        int height;
+        int **tiles;
+    } map_t;
+
     typedef struct data_s {
-        int current_client_index;
+        int curr_cli_index;
         client_t **clients;
+        map_t *map;
+        char **team_names;
+        int cli_per_team;
+        int freq;
     } data_t;
 
     typedef struct instruction_s {
@@ -50,13 +60,14 @@
         int (*func)(data_t *data, char **args);
     } instruction_t;
 
-    int launch_server(unsigned int port);
+    data_t *init_data();
+    void free_data(data_t *data);
+    int launch_server(unsigned int port, data_t *data);
     void init_single_client(client_t **client);
     void close_single_client(client_t *client);
     client_t **init_clients(void);
     void close_clients(client_t **clients);
     void select_clients(struct sockaddr_in *addr, int server_fd, data_t *data);
-    void add_output(client_t **client, const char *msg);
     void send_to_client(client_t **clients, const int id, const char *msg);
     void send_to_everyone(client_t **clients, const char *msg);
     void welcome_selected_client(struct sockaddr *addr, int server_fd,

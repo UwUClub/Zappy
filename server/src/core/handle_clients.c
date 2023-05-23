@@ -59,7 +59,7 @@ void select_clients(struct sockaddr_in *addr, int server_fd, data_t *data)
         }
         if (data->clients[i]->fd > 0 &&
             FD_ISSET(data->clients[i]->fd, &read_fd_set)) {
-            data->current_client_index = i;
+            data->curr_cli_index = i;
             read_selected_client(data);
         }
     }

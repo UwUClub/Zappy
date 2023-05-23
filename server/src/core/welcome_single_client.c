@@ -18,7 +18,6 @@ client_t **clients)
     if (client_fd < 0) {
         fprintf(stderr, "Accept failed [%s]\n", strerror(errno));
     }
-    printf("@client joined (fd: %d)\n", client_fd);
     for (int id = 0; id < MAX_CONNECTIONS; id++) {
         if (clients[id]->fd < 0) {
             clients[id]->fd = client_fd;
