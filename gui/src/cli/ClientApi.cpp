@@ -16,14 +16,11 @@ namespace Zappy::GUI {
 
     ClientApi::~ClientApi()
     {
-        if (_address) {
-            delete _address;
-        }
         if (_readBuffer) {
-            delete _readBuffer;
+            free(_readBuffer);
         }
         if (_writeBuffer) {
-            delete _writeBuffer;
+            free(_writeBuffer);
         }
         if (_serverFd != -1) {
             close(_serverFd);
