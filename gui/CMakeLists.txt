@@ -11,6 +11,7 @@ set(SOURCE_FILES
     src/main.cpp
     src/cli/ClientApi.cpp
     src/cli/ClientApi.hpp
+    src/cli/ServerData.hpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})

@@ -1,5 +1,7 @@
 #include <netinet/in.h>
 #include <string>
+#include <unordered_map>
+#include "ServerData.hpp"
 
 namespace Zappy::GUI {
 class ClientApi
@@ -42,5 +44,6 @@ class ClientApi
     char *_readBuffer;
     char *_writeBuffer;
     int _serverFd;
+    ServerData _serverData;
 };
 }// namespace Zappy::GUI
