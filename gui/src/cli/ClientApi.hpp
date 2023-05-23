@@ -1,5 +1,5 @@
-#include <string>
 #include <netinet/in.h>
+#include <string>
 
 namespace Zappy::GUI {
 class ClientApi
@@ -18,21 +18,15 @@ class ClientApi
 
     class ClientException : public std::exception
     {
-        public:
-            explicit ClientException(const std::string &aMessage)
-                : _message(aMessage)
-            {
-            }
+      public:
+        explicit ClientException(const std::string &aMessage) : _message(aMessage) {}
 
-            ~ClientException() override = default;
+        ~ClientException() override = default;
 
-            [[nodiscard]] const char *what() const noexcept override
-            {
-                return _message.c_str();
-            }
+        [[nodiscard]] const char *what() const noexcept override { return _message.c_str(); }
 
-        private:
-            std::string _message;
+      private:
+        std::string _message;
     };
 
   private:
