@@ -31,3 +31,6 @@ link.txt
 gui/gui
 ia/ia
 server/server
+a.out
+compile_commands.json
+compiler_depend.*
