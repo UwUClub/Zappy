@@ -38,12 +38,6 @@ jobs:
           make zappy_server
         timeout-minutes: 5
 
-      - name: Run compilation of ia
-        run: |
-          cd build
-          make zappy_ia
-        timeout-minutes: 5
-
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v2
         with:
