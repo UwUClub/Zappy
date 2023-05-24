@@ -12,14 +12,14 @@ class Player:
 
     ## @brief Connect to the server
     ## @param info The connection information
-    def connect(self, a_info):
-        self._socket = Connection(a_info.host, int(a_info.port))
+    def connect(self, aInfo):
+        self._socket = Connection(aInfo.host, int(aInfo.port))
         return self._socket.connect()
 
     ## @brief Send data to the server
     ## @param data The data to send
-    def send(self, a_data):
-        self._socket.send(a_data)
+    def send(self, aData):
+        self._socket.send(aData)
 
     ## @brief Receive data from the server
     ## @return The data received
@@ -40,8 +40,8 @@ class Player:
 
     ## @brief Set the team name
     ## @param name The team name
-    def setTeamName(self, name):
-        self._name = name
+    def setTeamName(self, aName):
+        self._name = aName
 
     ## @brief Get the map size
     ## @return None

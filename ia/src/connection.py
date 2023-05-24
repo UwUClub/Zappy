@@ -8,10 +8,10 @@ debug = False
 ## @brief Class that contains the connection information
 class Connection:
     ## @brief Constructor
-    def __init__(self, a_host, a_port):
+    def __init__(self, aHost, aPort):
         self._socket = None
-        self._host = a_host
-        self._port = a_port
+        self._host = aHost
+        self._port = aPort
 
     ## @brief Connect to the server
     ## @return 0 if the connection is successful, -1 otherwise
@@ -36,10 +36,10 @@ class Connection:
 
     ## @brief Send data to the server
     ## @param data The data to send
-    def send(self, a_data):
+    def send(self, aData):
         if debug:
-            print("Sending data: {}".format(a_data))
-        self._socket.send(str.encode(a_data + "\n"))
+            print("Sending data: {}".format(aData))
+        self._socket.send(str.encode(aData + "\n"))
 
     ## @brief Receive data from the server
     ## @return The data received
