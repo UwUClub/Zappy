@@ -1,7 +1,7 @@
 include(cmake/SystemLink.cmake)
 include(CMakeDependentOption)
 include(CheckCXXCompilerFlag)
-set(FORCE_LIBASAN FALSE)
+set(DONT_FORCE_LIBASAN TRUE)
 
 
 macro(myproject_supports_sanitizers)
@@ -21,7 +21,7 @@ macro(myproject_setup_options)
 
   myproject_supports_sanitizers()
 
-  if(NOT PROJECT_IS_TOP_LEVEL OR myproject_PACKAGING_MAINTAINER_MODE)
+  if(NOT PROJECT_IS_TOP_LEVEL OR myproject_PACKAGING_MAINTAINER_MODE OR DONT_FORCE_LIBASAN)
     option(myproject_ENABLE_IPO "Enable IPO/LTO" OFF)
     option(myproject_WARNINGS_AS_ERRORS "Treat Warnings As Errors" OFF)
     option(myproject_ENABLE_USER_LINKER "Enable user-selected linker" OFF)
