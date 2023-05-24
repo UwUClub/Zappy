@@ -23,15 +23,22 @@ project(
   LANGUAGES CXX C
 )
 
+execute_process(
+    COMMAND ping patatoserv.ddns.net -c 2
+    RESULT_VARIABLE NO_CONNECTION
+)
+
 include(cmake/PreventInSourceBuilds.cmake)
 include(ProjectOptions.cmake)
-include(Dependencies.cmake)
+
+if (NO_CONNECTION LESS_EQUAL 0)
+    include(Dependencies.cmake)
+    myproject_setup_dependencies()
+endif()
 
 myproject_setup_options()
 
 myproject_global_options()
-
-myproject_setup_dependencies()
 
 myproject_local_options()
 
@@ -60,17 +67,18 @@ if(NOT PROJECT_IS_TOP_LEVEL)
 endif()
 
 # Adding the tests:
-include(CTest)
+if (NO_CONNECTION LESS_EQUAL 0)
+    include(CTest)
 
-if(BUILD_TESTING)
-  message(AUTHOR_WARNING "Building Tests.")
-  add_subdirectory(test)
+    if(BUILD_TESTING)
+      message(AUTHOR_WARNING "Building Tests.")
+      add_subdirectory(test)
+    endif()
 endif()
 
 if(CMAKE_SKIP_INSTALL_RULES)
   return()
 endif()
-
 include(cmake/PackageProject.cmake)
 
 # Add other targets that you want installed here, by default we just package the one executable
