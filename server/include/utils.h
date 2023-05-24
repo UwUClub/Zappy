@@ -12,15 +12,55 @@
     #include <sys/types.h>
     #include <netinet/in.h>
 
+    /**
+    * @brief Concatenate two strings
+    * @param str1 The first string
+    * @param str2 The second string
+    * @return char * Concatenated string
+    */
     char *concat_str(char *str1, const char *str2);
+    /**
+    * @brief Generate a sockaddr_in struct
+    * @param address The address to bind
+    * @param port The port to bind
+    * @return The generated struct
+    */
     struct sockaddr_in get_sockaddr(in_addr_t address, unsigned int port);
+    /**
+    * @brief Split a string by a delimiter
+    * @param str The string to split
+    * @param delim The delimiter
+    * @return Array of strings splitted by the delimiter
+    */
     char **str_to_word_array(char *str, char *delim);
+    /**
+    * @brief Free a word array
+    * @param words The word array to free
+    */
     void free_word_array(char **words);
+    /**
+    * @brief Get the length of a word array
+    * @param words The word array
+    * @return The length of the word array
+    */
     int word_array_len(char **words);
-    int get_file_length(char const *filepath);
+    /**
+    * @brief Convert an int to string
+    * @param nbr The int to convert
+    * @return The converted string
+    */
     char *inttos(int nbr);
+    /**
+    * @brief Reverse a string
+    * @param str The string to reverse
+    * @return The reversed string
+    */
     char *revstr(char *str);
-    void rm_line_from_file(const char *filename, int line_to_delete);
+    /**
+    * @brief Check if a string can be converted to an int
+    * @param p The string to check
+    * @return 1 if the string can be converted to an int, 0 otherwise
+    */
     int is_int(char const *p);
 
 #endif /* ZAPPY_UTILS_H */
