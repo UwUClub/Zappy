@@ -18,7 +18,7 @@ class ClientApi
     int getServerFd() const;
     int update();
 
-    ClientApi argumentParser(int argc, char **argv);
+    static ClientApi argumentParser(int argc, char **argv);
 
     class ClientException : public std::exception
     {
