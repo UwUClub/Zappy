@@ -13,7 +13,7 @@ class Player:
     ## @brief Connect to the server
     ## @param info The connection information
     def connect(self, aInfo):
-        self._socket = Connection(aInfo.host, int(aInfo.port))
+        self._socket = Connection(aInfo._host, int(aInfo._port))
         return self._socket.connect()
 
     ## @brief Send data to the server

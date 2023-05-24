@@ -26,7 +26,7 @@ def printUsage(binName):
 def helpDef(aArgv):
     for myFlag in aArgv:
         if myFlag == "-help":
-            usage(aArgv[0])
+            printUsage(aArgv[0])
             return True
     return False
 
@@ -40,14 +40,14 @@ def parse(aArgv):
     try:
         myOpts, myArgs = getopt.getopt(aArgv[1:], "p:n:h:", ["port=", "name=", "host="])
     except getopt.GetoptError:
-        usage(aArgv[0])
+        printUsage(aArgv[0])
         return None
     myConfig = Config()
     for myOpt, myArg in myOpts:
         if myOpt in "-p":
-            myConfig.port = myArg
+            myConfig._port = myArg
         elif myOpt in "-n":
-            myConfig.name = myArg
+            myConfig._name = myArg
         elif myOpt in "-h":
-            myConfig.host = myArg
+            myConfig._host = myArg
     return myConfig
