@@ -13,8 +13,8 @@ class Config:
 ## @brief Print the usage of the program
 ## @param bin_name The name of the binary
 ## @return None
-def usage(bin_name):
-    print("USAGE: " + bin_name + " -p port -n name -h machine")
+def usage(binName):
+    print("USAGE: " + binName + " -p port -n name -h machine")
     print("\tport\tis the port number")
     print("\tname\tis the name of the team")
     print("\tmachine\tis the name of the machine; localhost by default")
