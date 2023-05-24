@@ -20,11 +20,28 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: run tests
+      - name: Run dependencies
         run: |
-          sudo dnf install -y libconfig-devel
-          cmake .
-          make
+          sudo dnf install -y libconfig-devel libasan libubsan
+          cmake -S . -B ./build
+        timeout-minutes: 10
+
+      - name: Run compilation of gui
+        run: |
+          cd build
+          make zappy_gui
+        timeout-minutes: 5
+
+      - name: Run compilation of server
+        run: |
+          cd build
+          make zappy_server
+        timeout-minutes: 5
+
+      - name: Run compilation of ia
+        run: |
+          cd build
+          make zappy_ia
         timeout-minutes: 5
 
       - name: Perform CodeQL Analysis
