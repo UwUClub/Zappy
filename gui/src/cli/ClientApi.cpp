@@ -99,12 +99,8 @@ ParserData ClientApi::argumentParser(int argc, char **argv)
 {
     ParserData myData;
 
-    if (argc < 3) {
-        throw ClientException("Not enough arguments");
-    }
-    if (argv[1] == NULL || argv[2] == NULL) {
-        throw ClientException("Invalid arguments given");
-    }
+    if (argc < 3) { throw ClientException("Not enough arguments"); }
+    if (argv[1] == NULL || argv[2] == NULL) { throw ClientException("Invalid arguments given"); }
     myData.port = atoi(argv[2]);
     if (argv[3] != NULL && argv[4] != NULL) {
         myData.teamName = argv[3];

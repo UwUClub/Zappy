@@ -1,5 +1,5 @@
-#include "ServerData.hpp"
 #include "ParserData.hpp"
+#include "ServerData.hpp"
 #include <netinet/in.h>
 #include <string>
 #include <unordered_map>
