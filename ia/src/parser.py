@@ -23,9 +23,9 @@ def usage(bin_name):
 ## @brief Check if the help flag is present
 ## @param argv The arguments of the program
 ## @return True if the help flag is present, False otherwise
-def help_def(a_argv):
-    for my_flag in a_argv:
-        if my_flag == "-help":
+def helpDef(a_argv):
+    for myFlag in a_argv:
+        if myFlag == "-help":
             usage(a_argv[0])
             return True
     return False
@@ -35,19 +35,19 @@ def help_def(a_argv):
 ## @param argv The arguments of the program
 ## @return The configuration of the program
 def parse(a_argv):
-    if help_def(a_argv):
+    if helpDef(a_argv):
         return None
     try:
-        my_opts, my_args = getopt.getopt(a_argv[1:], "p:n:h:", ["port=", "name=", "host="])
+        myOpts, myArgs = getopt.getopt(a_argv[1:], "p:n:h:", ["port=", "name=", "host="])
     except getopt.GetoptError:
         usage(a_argv[0])
         return None
-    my_config = Config()
-    for my_opt, my_arg in my_opts:
-        if my_opt in "-p":
-            my_config.port = my_arg
-        elif my_opt in "-n":
-            my_config.name = my_arg
-        elif my_opt in "-h":
-            my_config.host = my_arg
-    return my_config
+    myConfig = Config()
+    for myOpt, myArg in myOpts:
+        if myOpt in "-p":
+            myConfig.port = myArg
+        elif myOpt in "-n":
+            myConfig.name = myArg
+        elif myOpt in "-h":
+            myConfig.host = myArg
+    return myConfig

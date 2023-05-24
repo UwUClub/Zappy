@@ -40,16 +40,16 @@ class Player:
 
     ## @brief Set the team name
     ## @param name The team name
-    def set_team_name(self, name):
+    def setTeamName(self, name):
         self._name = name
 
     ## @brief Get the map size
     ## @return None
     def msz(self):
         self.send("msz")
-        my_msz = self.receive()
-        my_msz = my_msz.split(" ")
-        if my_msz[0] == "msz":
-            my_msz = my_msz[1:]
-        self._map_width = int(my_msz[0])
-        self._map_height = int(my_msz[1])
+        myMsz = self.receive()
+        myMsz = myMsz.split(" ")
+        if myMsz[0] == "msz":
+            my_msz = myMsz[1:]
+        self._map_width = int(myMsz[0])
+        self._map_height = int(myMsz[1])

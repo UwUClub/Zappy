@@ -21,8 +21,8 @@ class Connection:
         self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         try:
             self._socket.connect((self._host, self._port))
-        except Exception as e:
-            print("Error: {}".format(e))
+        except Exception as myException:
+            print("Error: {}".format(myException))
             return -1
         return 0
 
@@ -44,7 +44,7 @@ class Connection:
     ## @brief Receive data from the server
     ## @return The data received
     def receive(self):
-        data = self._socket.recv(2048).decode()
+        myData = self._socket.recv(2048).decode()
         if debug:
-            print("Received data: {}".format(data))
-        return data
+            print("Received data: {}".format(myData))
+        return myData
