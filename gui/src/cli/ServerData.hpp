@@ -1,4 +1,5 @@
 #include <vector>
+#include <iostream>
 
 enum class Orientation { NORTH, EAST, SOUTH, WEST };
 
