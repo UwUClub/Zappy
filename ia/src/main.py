@@ -10,7 +10,6 @@ def main():
         exit(84)
     if player.connect(info) == -1:
         exit(84)
-    player.set_team_name(info.name)
+    player.setTeamName(info.name)
     player.preliminaries()
     player.disconnect()
-
