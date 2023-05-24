@@ -4,17 +4,8 @@ include(CheckCXXCompilerFlag)
 
 
 macro(myproject_supports_sanitizers)
-  if((CMAKE_CXX_COMPILER_ID MATCHES ".*Clang.*" OR CMAKE_CXX_COMPILER_ID MATCHES ".*GNU.*") AND NOT WIN32)
-    set(SUPPORTS_UBSAN ON)
-  else()
-    set(SUPPORTS_UBSAN OFF)
-  endif()
-
-  if((CMAKE_CXX_COMPILER_ID MATCHES ".*Clang.*" OR CMAKE_CXX_COMPILER_ID MATCHES ".*GNU.*") AND WIN32)
-    set(SUPPORTS_ASAN OFF)
-  else()
-    set(SUPPORTS_ASAN ON)
-  endif()
+  set(SUPPORTS_UBSAN OFF)
+  set(SUPPORTS_ASAN OFF)
 endmacro()
 
 macro(myproject_setup_options)
