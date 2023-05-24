@@ -9,7 +9,7 @@ int main(int argc, char **argv)
 {
     std::cout << "Hello, world!" << std::endl;
     try {
-        //call ClientApi::argumentParser
+        // call ClientApi::argumentParser
         Zappy::GUI::ClientApi clientApi = Zappy::GUI::ClientApi::argumentParser(argc, argv);
         clientApi.joinGame();
         while (true) {

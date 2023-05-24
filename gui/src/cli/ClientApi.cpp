@@ -100,12 +100,8 @@ ClientApi ClientApi::argumentParser(int argc, char **argv)
     std::string portCommand;
     std::string nameCommand;
 
-    if (argc < 3) { 
-       throw ClientException("Not enough arguments");
-    }
-    if (argv[1] == NULL || argv[2] == NULL) { 
-       throw ClientException("Invalid arguments given");
-    }
+    if (argc < 3) { throw ClientException("Not enough arguments"); }
+    if (argv[1] == NULL || argv[2] == NULL) { throw ClientException("Invalid arguments given"); }
     portCommand = argv[1];
     portCommand.compare("-p") == 0 ? portCommand = argv[2] : throw ClientException("Invalid arguments given");
     nameCommand = "localhost";
