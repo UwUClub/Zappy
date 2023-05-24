@@ -8,6 +8,11 @@ CMakeCache.txt
 *.ninja*
 Makefile
 .cache
+cmake
+zappy_server
+zappy_ia
+zappy_gui
+CMakeFiles
 
 # User spesific settings
 CMakeUserPresets.json
@@ -43,3 +48,4 @@ Thumbs.db
 .gcno
 .gcda
 .gcov
+.project

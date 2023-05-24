@@ -8,3 +8,8 @@ target_link_libraries(zappy_gui
   PRIVATE myproject::myproject_options
         myproject::myproject_warnings
 )
+
+set_target_properties(zappy_gui
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "../../"
+)
