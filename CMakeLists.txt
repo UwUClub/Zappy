@@ -85,13 +85,6 @@ include(cmake/PackageProject.cmake)
 # we know we want to ship
 myproject_package_project(
   TARGETS
-  zappy_ia
-  myproject_options
-  myproject_warnings
-)
-
-myproject_package_project(
-  TARGETS
   zappy_server
   myproject_options
   myproject_warnings

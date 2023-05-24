@@ -7,5 +7,4 @@ cmake ..
 make -j16
 cp zappy_gui ../
 cp zappy_server ../
-cp zappy_ia ../
 cd ..
