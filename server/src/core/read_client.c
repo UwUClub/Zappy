@@ -49,7 +49,7 @@ void read_selected_client(data_t *data)
         bufferize_cmd(&cli, buffer, size);
         if (buffer[size - 1] != '\n')
             return;
-        parse_cmd(data);
+        parse_input(data);
         free(cli->input);
         cli->input = NULL;
     } else if (size == 0) {

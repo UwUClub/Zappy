@@ -19,15 +19,15 @@ set(SOURCE_FILES
     src/core/welcome_single_client.c
     src/core/write_to_client.c
     src/implementation/cmd_parser.c
-    src/implementation/msz.c
-    src/implementation/forward.c
+    src/implementation/get_remaining_slots.c
+    src/implementation/cmd/msz.c
+    src/implementation/cmd/forward.c
     src/utils/concat_str.c
     src/utils/free_word_array.c
     src/utils/get_file_length.c
     src/utils/get_sockaddr.c
     src/utils/inttos.c
     src/utils/is_int.c
-    src/utils/parse_quotes.c
     src/utils/revstr.c
     src/utils/rm_line_from_file.c
     src/utils/str_to_word_array.c

@@ -17,7 +17,6 @@
     char **str_to_word_array(char *str, char *delim);
     void free_word_array(char **words);
     int word_array_len(char **words);
-    char **parse_quotes(const char *str);
     int get_file_length(char const *filepath);
     char *inttos(int nbr);
     char *revstr(char *str);
