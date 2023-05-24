@@ -30,7 +30,7 @@ static int parse_cmd(data_t *data)
         args = str_to_word_array(client->input + strlen(cmd_name) + 1, " ");
     for (int i = 0; commands[i].name != NULL; i++)
         if (!strcmp(cmd_name, commands[i].name))
-            status = commands[i].func(data, args); 
+            status = commands[i].func(data, args);
     if (status == -1)
         send_to_client(data->clients, data->curr_cli_index, "ko\n");
     free(cmd_name);

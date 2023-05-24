@@ -32,7 +32,8 @@ static int append_to_team(data_t *data, char *team_name)
 int parse_team_name(data_t *data)
 {
     for (int i = 0; data->team_names[i]; i++) {
-        if (!strcmp(data->team_names[i], data->clients[data->curr_cli_index]->input)) {
+        if (!strcmp(data->team_names[i],
+            data->clients[data->curr_cli_index]->input)) {
             return append_to_team(data, data->team_names[i]);
         }
     }
