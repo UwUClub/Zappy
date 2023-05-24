@@ -10,9 +10,10 @@ Makefile
 .cache
 cmake
 zappy_server
-zappy_ia
 zappy_gui
 CMakeFiles
+__pycache__
+venv
 
 # User spesific settings
 CMakeUserPresets.json

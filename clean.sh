@@ -3,7 +3,6 @@
 rm -rf build
 rm -rf zappy_gui
 rm -rf zappy_server
-rm -rf zappy_ia
 rm -rf _deps
 rm -rf cmake/CPM_*
 rm -rf CMakeFiles
