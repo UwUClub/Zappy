@@ -6,6 +6,8 @@
 
 int main(__attribute__((unused)) int argc, __attribute__((unused)) char **argv)
 {
-    std::cout << "Hello, world!" << std::endl;
-    return 0;
+  (void)argc;
+  (void)argv;
+  std::cout << "Hello, world!" << std::endl;
+  return 0;
 }
