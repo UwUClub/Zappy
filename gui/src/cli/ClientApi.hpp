@@ -1,4 +1,5 @@
 #include "ServerData.hpp"
+#include "ParserData.hpp"
 #include <netinet/in.h>
 #include <string>
 #include <unordered_map>
@@ -6,7 +7,6 @@
 namespace Zappy::GUI {
 class ClientApi
 {
-
   public:
     ClientApi(std::string aAddress, unsigned int aPort, std::string aTeamName);
     ~ClientApi();
@@ -19,11 +19,11 @@ class ClientApi
     int update();
 
     /**
-     * @brief  class
+     * @brief class
      * @param argc, argv
      * @return ClientApi
      */
-    static ClientApi argumentParser(int argc, char **argv);
+    static ParserData argumentParser(int argc, char **argv);
 
     class ClientException : public std::exception
     {

@@ -95,20 +95,22 @@ char *ClientApi::concatStr(char *aStr1, const char *aStr2)
     return myResult;
 }
 
-ClientApi ClientApi::argumentParser(int argc, char **argv)
+ParserData ClientApi::argumentParser(int argc, char **argv)
 {
-    std::string portCommand;
-    std::string nameCommand;
+    ParserData myData;
 
-    if (argc < 3) { throw ClientException("Not enough arguments"); }
-    if (argv[1] == NULL || argv[2] == NULL) { throw ClientException("Invalid arguments given"); }
-    portCommand = argv[1];
-    portCommand.compare("-p") == 0 ? portCommand = argv[2] : throw ClientException("Invalid arguments given");
-    nameCommand = "localhost";
-    if (argv[3] != NULL && argv[4] != NULL) {
-        nameCommand = argv[3];
-        nameCommand.compare("-n") == 0 ? nameCommand = argv[4] : throw ClientException("Invalid arguments given");
+    if (argc < 3) {
+        throw ClientException("Not enough arguments");
     }
-    return ClientApi("127.0.0.1", std::stoi(portCommand), nameCommand);
+    if (argv[1] == NULL || argv[2] == NULL) {
+        throw ClientException("Invalid arguments given");
+    }
+    myData.port = atoi(argv[2]);
+    if (argv[3] != NULL && argv[4] != NULL) {
+        myData.teamName = argv[3];
+    } else {
+        myData.teamName = "localhost";
+    }
+    return myData;
 }
 }// namespace Zappy::GUI
