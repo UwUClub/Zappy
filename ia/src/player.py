@@ -7,8 +7,8 @@ class Player:
     def __init__(self):
         self._socket = None
         self._name = ""
-        self._map_width = 0
-        self._map_height = 0
+        self._mapWidth = 0
+        self._mapHeight = 0
 
     ## @brief Connect to the server
     ## @param info The connection information
@@ -51,5 +51,5 @@ class Player:
         myMsz = myMsz.split(" ")
         if myMsz[0] == "msz":
             my_msz = myMsz[1:]
-        self._map_width = int(myMsz[0])
-        self._map_height = int(myMsz[1])
+        self._mapWidth = int(myMsz[0])
+        self._mapHeight = int(myMsz[1])
