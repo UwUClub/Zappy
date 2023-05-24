@@ -45,9 +45,9 @@ static int parse_team_name(data_t *data)
 
     for (int i = 0; data->team_names[i]; i++) {
         if (!strcmp(data->team_names[i], data->clients[data->curr_cli_index]->input)) {
+            data->clients[data->curr_cli_index]->team_name = strdup(data->team_names[i]);
             remaining_slots = get_remaining_slots(data, data->team_names[i]);
             world_dimensions = get_world_dimensions(data);
-            data->clients[data->curr_cli_index]->team_name = strdup(data->team_names[i]);
             send_to_client(data->clients, data->curr_cli_index, remaining_slots);
             send_to_client(data->clients, data->curr_cli_index, world_dimensions);
             free(remaining_slots);
