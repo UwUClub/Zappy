@@ -38,27 +38,6 @@ static int parse_cmd(data_t *data)
     return status;
 }
 
-static int parse_team_name(data_t *data)
-{
-    char *remaining_slots = NULL;
-    char *world_dimensions = NULL;
-
-    for (int i = 0; data->team_names[i]; i++) {
-        if (!strcmp(data->team_names[i], data->clients[data->curr_cli_index]->input)) {
-            data->clients[data->curr_cli_index]->team_name = strdup(data->team_names[i]);
-            remaining_slots = get_remaining_slots(data, data->team_names[i]);
-            world_dimensions = get_world_dimensions(data);
-            send_to_client(data->clients, data->curr_cli_index, remaining_slots);
-            send_to_client(data->clients, data->curr_cli_index, world_dimensions);
-            free(remaining_slots);
-            free(world_dimensions);
-            return 0;
-        }
-    }
-    send_to_client(data->clients, data->curr_cli_index, "ko\n");
-    return 0;
-}
-
 int parse_input(data_t *data)
 {
     client_t *client = data->clients[data->curr_cli_index];

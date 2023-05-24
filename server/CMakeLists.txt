@@ -19,6 +19,7 @@ set(SOURCE_FILES
     src/core/welcome_single_client.c
     src/core/write_to_client.c
     src/implementation/cmd_parser.c
+    src/implementation/team_parser.c
     src/implementation/get_remaining_slots.c
     src/implementation/cmd/msz.c
     src/implementation/cmd/forward.c

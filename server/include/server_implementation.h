@@ -16,7 +16,8 @@
     } cmd_t;
 
     int parse_input(data_t *data);
-    char *get_remaining_slots(data_t *data, char *team_name);
+    int get_remaining_slots(data_t *data, char *team_name);
+    int parse_team_name(data_t *data);
     int msz(data_t *data, char **args);
     char *get_world_dimensions(data_t *data);
     int forward(data_t *data, char **args);

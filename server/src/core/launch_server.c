@@ -37,7 +37,7 @@ data_t *init_data()
     data->team_names[0] = strdup("red");
     data->team_names[1] = strdup("blue");
     data->team_names[2] = NULL;
-    data->cli_per_team = 3;
+    data->cli_per_team = 1;
     data->freq = 7;
     return data;
 }
