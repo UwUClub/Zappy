@@ -22,7 +22,7 @@ class ClientApi
      * @brief  class
      * @param argc, argv
      * @return ClientApi
-    */
+     */
     static ClientApi argumentParser(int argc, char **argv);
 
     class ClientException : public std::exception
