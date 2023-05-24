@@ -8,13 +8,8 @@
 #include <stdio.h>
 #include "server_implementation.h"
 
-int forward(data_t *data, char **args)
+int forward(__attribute__ ((unused)) data_t *data,
+    __attribute__ ((unused)) char **args)
 {
-    printf("forward\n");
-    if (args) {
-        for (int i = 0; args[i]; i++) {
-            printf(" - %s\n", args[i]);
-        }
-    }
     return 0;
 }
