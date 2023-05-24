@@ -1,24 +1,11 @@
-def help_def(argv):
-    for flag in argv:
-        if flag == "-help":
-            usage(argv[0])
-            return True
-    return False
+import getopt
 
 
-def get_info(info, argv, i):
-    keys = {
-        "-p": "port",
-        "-n": "name",
-        "-h": "host"
-    }
-    args = ["-p", "-n", "-h"]
-
-    for argument in args:
-        if argv[i] == argument:
-            info[keys[argument]] = argv[i + 1]
-            return info
-    return None
+class Config:
+    def __init__(self):
+        self.host = "localhost"
+        self.port = 0
+        self.name = ""
 
 
 def usage(bin_name):
@@ -28,21 +15,28 @@ def usage(bin_name):
     print("\tmachine\tis the name of the machine; localhost by default")
 
 
-def parse(argv):
-    info = {
-        "host": "localhost",
-        "port": 0,
-        "name": ""
-    }
-
-    if len(argv) == 1:
-        return None
-    if help_def(argv):
-        exit(0)
-    for i in range(1, len(argv)):
-        if i % 2 == 1:
-            info = get_info(info, argv, i)
-        if info is None:
+def help_def(argv):
+    for flag in argv:
+        if flag == "-help":
             usage(argv[0])
-            return None
-        return info
+            return True
+    return False
+
+
+def parse(argv):
+    if help_def(argv):
+        return None
+    try:
+        opts, args = getopt.getopt(argv[1:], "p:n:h:", ["port=", "name=", "host="])
+    except getopt.GetoptError:
+        usage(argv[0])
+        return None
+    config = Config()
+    for opt, arg in opts:
+        if opt in "-p":
+            config.port = arg
+        elif opt in "-n":
+            config.name = arg
+        elif opt in "-h":
+            config.host = arg
+    return config

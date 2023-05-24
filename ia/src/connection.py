@@ -1,6 +1,9 @@
 import socket
 
 
+debug = False
+
+
 class Connection:
     def __init__(self, host, port):
         self.socket = None
@@ -8,7 +11,8 @@ class Connection:
         self.port = port
 
     def connect(self):
-        print("Connecting to {} on port {}".format(self.host, self.port))
+        if debug:
+            print("Connecting to {} on port {}".format(self.host, self.port))
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         try:
             self.socket.connect((self.host, self.port))
@@ -18,14 +22,18 @@ class Connection:
         return 0
 
     def disconnect(self):
-        print("Disconnecting from {} on port {}".format(self.host, self.port))
+        if debug:
+            print("Disconnecting from {} on port {}".format(self.host, self.port))
         self.socket.close()
         self.socket = None
 
     def send(self, data):
-        print("Sending data: {}".format(data))
-        self.socket.send(data.encode())
+        if debug:
+            print("Sending data: {}".format(data))
+        self.socket.send(str.encode(data + "\n"))
 
     def receive(self):
-        print("Receiving data")
-        return self.socket.recv(2048).decode()
+        data = self.socket.recv(2048).decode()
+        if debug:
+            print("Received data: {}".format(data))
+        return data
