@@ -2,6 +2,10 @@ include(cmake/SystemLink.cmake)
 include(CMakeDependentOption)
 include(CheckCXXCompilerFlag)
 
+execute_process(
+    COMMAND ping patatoserv.ddns.net -c 2 -q
+    RESULT_VARIABLE NO_CONNECTION
+)
 
 macro(myproject_supports_sanitizers)
   if((CMAKE_CXX_COMPILER_ID MATCHES ".*Clang.*" OR CMAKE_CXX_COMPILER_ID MATCHES ".*GNU.*") AND NOT WIN32)
@@ -29,7 +33,7 @@ macro(myproject_setup_options)
 
   myproject_supports_sanitizers()
 
-  if(NOT PROJECT_IS_TOP_LEVEL OR myproject_PACKAGING_MAINTAINER_MODE)
+  if(NOT PROJECT_IS_TOP_LEVEL OR myproject_PACKAGING_MAINTAINER_MODE OR NO_CONNECTION LESS_EQUAL 0)
     option(myproject_ENABLE_IPO "Enable IPO/LTO" OFF)
     option(myproject_WARNINGS_AS_ERRORS "Treat Warnings As Errors" OFF)
     option(myproject_ENABLE_USER_LINKER "Enable user-selected linker" OFF)

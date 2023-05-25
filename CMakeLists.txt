@@ -24,7 +24,7 @@ project(
 )
 
 execute_process(
-    COMMAND ping patatoserv.ddns.net -c 2
+    COMMAND ping patatoserv.ddns.net -c 2 -q
     RESULT_VARIABLE NO_CONNECTION
 )
 
@@ -45,7 +45,7 @@ myproject_local_options()
 # don't know if this should be set globally from here or not...
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 
-set(GIT_SHA "Unknown" CACHE STRING "SHA this build was generated from")
+set(GIT_SHA "Unknown"  STRING "SHA this build was generated from")
 
 string(SUBSTRING "${GIT_SHA}"
             0
@@ -90,12 +90,15 @@ myproject_package_project(
   myproject_warnings
 )
 
-myproject_package_project(
-  TARGETS
-  zappy_gui
-  myproject_options
-  myproject_warnings
-)
+if (NO_CONNECTION LESS_EQUAL 0)
+    myproject_package_project(
+      TARGETS
+      zappy_gui
+      myproject_options
+      myproject_warnings
+    )
+    target_link_libraries(zappy_gui PRIVATE vulkan)
+endif()
 
 # Experience shows that explicit package naming can help make it easier to sort
 # out potential ABI related issues before they start, while helping you
