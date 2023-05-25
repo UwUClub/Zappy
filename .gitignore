@@ -9,6 +9,11 @@ cmake-build-debug
 cmake-build-release
 cmake-build-debug-clang
 cmake-build-release-clang
+# Build directories and binary files
+build/
+out/
+cmake-build-*/
+conan-cache/
 cmake_install.cmake
 CMakeCache.txt
 TargetDirectories.txt
@@ -34,3 +39,46 @@ server/server
 a.out
 compile_commands.json
 compiler_depend.*
+.cache
+cmake
+zappy_server
+zappy_gui
+CMakeFiles
+__pycache__
+venv
+
+# User spesific settings
+CMakeUserPresets.json
+
+# IDE files
+.vs/
+.idea/
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.swp
+*~
+_ReSharper*
+*.log
+
+# OS Generated Files
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+.Trash-*
+$RECYCLE.BIN/
+.TemporaryItems
+ehthumbs.db
+Thumbs.db
+
+# Useless files
+.o
+.gcno
+.gcda
+.gcov
+.project
