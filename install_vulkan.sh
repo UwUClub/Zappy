@@ -9,15 +9,19 @@ echo "Operating System: $OS"
 case $OS in
   '"Ubuntu"')
     echo "Installing Vulkan for Ubuntu..."
-    apt update -y && apt install -y vulkan-tools vulkan-dev vulkan-validationlayers-dev
+    sudo apt update -y && apt install -y vulkan-tools vulkan-dev vulkan-validationlayers-dev
     ;;
-  '"Fedora"')
+  '"Fedora Linux"')
     echo "Installing Vulkan for Fedora..."
-    dnf update -y && dnf install -y vulkan-tools vulkan-headers vulkan-loader-devel mesa-vulkan-devel vulkan-validation-layers-devel
+    sudo dnf update -y && dnf install -y vulkan-tools vulkan-headers vulkan-loader-devel vulkan-validation-layers-devel
     ;;
   '"Arch Linux"')
     echo "Installing Vulkan for Arch Linux..."
-    pacman -Syu --noconfirm vulkan-devel
+    sudo pacman -Syu --noconfirm vulkan-devel
+    ;;
+  '"Garuda Linux"')
+    echo "Installing Vulkan for Garuda Linux..."
+    sudo pacman -Syu --noconfirm vulkan-devel
     ;;
   *)
     echo "Sorry, this script doesn't support your OS."

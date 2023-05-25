@@ -24,7 +24,7 @@ project(
 )
 
 execute_process(
-    COMMAND ping patatoserv.ddns.net -c 2 -q
+    COMMAND ping patatoserv.ddns.net -c 1 -q
     RESULT_VARIABLE NO_CONNECTION
 )
 
@@ -67,7 +67,7 @@ if(NOT PROJECT_IS_TOP_LEVEL)
 endif()
 
 # Adding the tests:
-if (NO_CONNECTION LESS_EQUAL 0)
+if (NO_CONNECTION EQUAL 0)
     include(CTest)
 
     if(BUILD_TESTING)
@@ -90,7 +90,7 @@ myproject_package_project(
   myproject_warnings
 )
 
-if (NO_CONNECTION LESS_EQUAL 0)
+if (NO_CONNECTION EQUAL 0)
     myproject_package_project(
       TARGETS
       zappy_gui
