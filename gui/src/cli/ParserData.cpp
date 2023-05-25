@@ -49,13 +49,9 @@ namespace Zappy::GUI {
         }
     }
 
-    std::string ParserData::getAddress() const {
-        return _address;
-    }
+std::string ParserData::getAddress() const { return _address; }
 
-    int ParserData::getPort() const {
-        return _port;
-    }
+int ParserData::getPort() const { return _port; }
 
     std::string ParserData::getMachineName() const {
         return _machineName;
