@@ -13,7 +13,7 @@ namespace Zappy::GUI {
              * @param aPort
              * @param aTeamName
              */
-            ClientApi(const std::string& aAddress, unsigned int aPort, const std::string& aTeamName);
+            ClientApi(const std::string &aAddress, unsigned int aPort, const std::string &aTeamName);
 
             /**
              * @brief ClientApi destructor

@@ -11,7 +11,7 @@
 #include <unistd.h>
 
 namespace Zappy::GUI {
-    ClientApi::ClientApi(const std::string& aAddress, unsigned int aPort, const std::string& aTeamName)
+    ClientApi::ClientApi(const std::string &aAddress, unsigned int aPort, const std::string &aTeamName)
         : _address(const_cast<char *>(aAddress.c_str())), _port(aPort), _teamName(aTeamName), _connectStatus(-1),
           _readBuffer(strdup("")), _writeBuffer(strdup("")), _serverFd(-1)
     {}
