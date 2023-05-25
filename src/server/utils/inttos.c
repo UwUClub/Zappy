@@ -24,7 +24,7 @@ static char *rec_inttos(int nbr, int index, char *str)
         return "0";
     }
     rec_inttos(nbr / 10, index + 1, str);
-    str[index] = nbr % 10 + '0';
+    str[index] = ((char) nbr) % 10 + '0';
     return str;
 }
 

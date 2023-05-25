@@ -19,7 +19,7 @@ char *revstr(char *str)
     int rev_cmpt;
     int len;
 
-    len = strlen(str);
+    len = (int) strlen(str);
     rev_cmpt = len - 1;
     while (rev_cmpt - cmpt > 0) {
         temp = str[cmpt];

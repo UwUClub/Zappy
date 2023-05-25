@@ -24,7 +24,7 @@ char *get_world_dimensions(data_t *data)
     return result;
 }
 
-int msz(data_t *data, char **args)
+int msz(data_t *data, __attribute__((unused)) char **args)
 {
     char *msg = strdup("msz ");
     char *world_dimensions = get_world_dimensions(data);

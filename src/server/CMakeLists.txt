@@ -1,3 +1,5 @@
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wpedantic")
+
 include_directories(core)
 include_directories(implementation)
 include_directories(utils)

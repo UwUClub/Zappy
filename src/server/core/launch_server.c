@@ -20,8 +20,8 @@ static map_t *init_map(const unsigned int width, const unsigned int height)
 {
     map_t *map = malloc(sizeof(map_t));
 
-    map->width = width;
-    map->height = height;
+    map->width = (int) width;
+    map->height = (int) height;
     map->tiles = NULL;
     return map;
 }
