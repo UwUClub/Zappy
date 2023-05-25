@@ -2,9 +2,9 @@
 // Created by beafowl on 22/05/23.
 //
 
+#include <iostream>
 #include "ClientApi.hpp"
 #include "ParserData.hpp"
-#include <iostream>
 
 int main(int argc, char **argv)
 {
@@ -14,7 +14,9 @@ int main(int argc, char **argv)
         Zappy::GUI::ClientApi clientApi(parserData.getAddress(), parserData.getPort(), "");
         clientApi.joinGame();
         while (true) {
-            if (clientApi.update() >= 1) { break; }
+            if (clientApi.update() >= 1) {
+                break;
+            }
         }
     } catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
