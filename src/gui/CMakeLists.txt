@@ -1,4 +1,4 @@
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lvulkan -lglfw -ldl -lpthread -lX11 -lXxf86vm -lXrandr -lXi")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lvulkan -lglfw -ldl -lpthread -lX11 -lXrandr -lXi")
 
 add_executable(zappy_gui
         main.cpp
