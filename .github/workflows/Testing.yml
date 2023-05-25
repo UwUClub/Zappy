@@ -22,6 +22,7 @@ jobs:
 
       - name: Run dependencies
         run: |
+          sh install_vulkan.sh
           cmake -S . -B ./build
         timeout-minutes: 10
 
