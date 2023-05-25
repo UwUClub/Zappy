@@ -1,3 +1,6 @@
+#add flags to compil
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lglfw -lvulkan -ldl -lpthread -lX11 -lXxf86vm -lXrandr -lXi")
+
 add_executable(zappy_gui
         main.cpp
         )
