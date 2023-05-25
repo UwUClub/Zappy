@@ -94,23 +94,4 @@ char *ClientApi::concatStr(char *aStr1, const char *aStr2)
     free(aStr1);
     return myResult;
 }
-
-ParserData ClientApi::argumentParser(int argc, char **argv)
-{
-    ParserData myData;
-
-    if (argc < 3) {
-        throw ClientException("Not enough arguments");
-    }
-    if (argv[1] == NULL || argv[2] == NULL) {
-        throw ClientException("Invalid arguments given");
-    }
-    myData.port = atoi(argv[2]);
-    if (argv[3] != NULL && argv[4] != NULL) {
-        myData.teamName = argv[3];
-    } else {
-        myData.teamName = "localhost";
-    }
-    return myData;
-}
 }// namespace Zappy::GUI
