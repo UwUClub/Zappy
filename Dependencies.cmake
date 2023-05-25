@@ -12,7 +12,7 @@ function(myproject_setup_dependencies)
     cpmaddpackage("gh:catchorg/Catch2@3.3.2")
   endif()
 
-  if (NOT TARGET vulkan)
+  if (NOT vulkan_FOUND AND NOT TARGET Vulkan)
     execute_process(
             COMMAND ./install_vulkan.sh
     )
