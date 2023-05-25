@@ -14,8 +14,8 @@
 #include <stdexcept>
 
 namespace Zappy::GUI {
-    const uint32_t WIDTH = 800;
-    const uint32_t HEIGHT = 600;
+    const constexpr uint32_t WIDTH = 800;
+    const constexpr uint32_t HEIGHT = 600;
 
     class App
     {

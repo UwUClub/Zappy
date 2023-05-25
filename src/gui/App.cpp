@@ -9,17 +9,14 @@
 #include <vulkan/vulkan.h>
 
 namespace Zappy::GUI {
-    App::App() : _window(glfwCreateWindow(WIDTH, HEIGHT, "Zappy", nullptr, nullptr))
+    App::App() : _window(nullptr)
     {
-        auto win = glfwCreateWindow(WIDTH, HEIGHT, "Zappy", nullptr, nullptr);
-        if (!glfwInit())
+        if (glfwInit() == 0) {
             throw std::runtime_error("Failed to initialize GLFW");
+        }
         glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
         glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-        if (!win)
-            throw std::runtime_error("Failed to create wi");
-        if (!_window)
-            throw std::runtime_error("Failed to create window");
+        _window = glfwCreateWindow(WIDTH, HEIGHT, "Zappy", nullptr, nullptr);
     }
 
     App::~App()
@@ -42,7 +39,7 @@ namespace Zappy::GUI {
 
     void App::run()
     {
-        while (!glfwWindowShouldClose(_window)) {
+        while (glfwWindowShouldClose(_window) == 0) {
             glfwPollEvents();
         }
     }
