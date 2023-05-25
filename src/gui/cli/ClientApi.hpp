@@ -7,31 +7,45 @@ namespace Zappy::GUI {
     class ClientApi
     {
         public:
-            ClientApi(std::string aAddress, unsigned int aPort, std::string aTeamName);
+            /**
+             * @brief ClientApi constructor
+             * @param aAddress
+             * @param aPort
+             * @param aTeamName
+             */
+            ClientApi(const std::string &aAddress, unsigned int aPort, const std::string &aTeamName);
+
+            /**
+             * @brief ClientApi destructor
+             */
             ~ClientApi();
 
             /**
-            * @brief Connect to the server
-            */
+             * @brief joinGame
+             */
             void joinGame();
+
             /**
-            * @brief Disconnect from the server
-            */
+             * @brief disconnect
+             */
             void disconnect();
+
             /**
-            * @brief Get connection status: 0 if not connected, 1 if connected
-            * @return Status
-            */
-            int getConnectStatus() const;
+             * @brief geting the connect status
+             * @return connectStatus
+             */
+            [[nodiscard]] int getConnectStatus() const;
+
             /**
-            * @brief Get the file descriptor used to write to the server
-            * @return File descriptor
-            */
-            int getServerFd() const;
+             * @brief geting the server fd
+             * @return serverFd
+             */
+            [[nodiscard]] int getServerFd() const;
+
             /**
-            * @brief Execute read / write flow with the server
-            * @return Update status
-            */
+             * @brief geting the server data
+             * @return serverData
+             */
             int update();
             /**
             * @brief Append a command to the write buffer
@@ -39,14 +53,28 @@ namespace Zappy::GUI {
             */
             void sendCommand(const std::string &aCommand);
 
+            /**
+             * @brief ClientException class
+             */
             class ClientException : public std::exception
             {
                 public:
+                    /**
+                     * @brief ClientException constructor
+                     * @param aMessage
+                     */
                     explicit ClientException(const std::string &aMessage) : _message(aMessage)
                     {}
 
+                    /**
+                     * @brief ClientException destructor
+                     */
                     ~ClientException() override = default;
 
+                    /**
+                     * @brief Return the message of the exception
+                     * @return message
+                     */
                     [[nodiscard]] const char *what() const noexcept override
                     {
                         return _message.c_str();
@@ -58,28 +86,32 @@ namespace Zappy::GUI {
 
         private:
             /**
-            * @brief Get a sockaddr_in structure
-            * @param aAddress Address
-            * @param aPort Port
-            * @return sockaddr_in structure
-            */
-            struct sockaddr_in getSockaddr(in_addr_t aAddress, unsigned int aPort);
-            /**
-            * @brief Read from the server and append the result to the read buffer
-            */
-            void readFromServer();
-            /**
-            * @brief Write to the server and remove the written data from the write buffer
-            */
-            void writeToServer();
-            /**
-            * @brief Concatenate two char *
-            * @param aStr1 First string
-            * @param aStr2 Second string
-            * @return Concatenated string
-            */
-            char *concatStr(char *aStr1, const char *aStr2);
+             * @brief get socket address
+             * @param aAddress
+             * @param aPort
+             * @return sockaddr_in
+             */
+            static struct sockaddr_in getSockaddr(in_addr_t aAddress, unsigned int aPort);
 
+            /**
+             * @brief reading information from server
+             */
+            void readFromServer();
+
+            /**
+             * @brief writing information to server
+             */
+            void writeToServer();
+
+            /**
+             * @brief concat two strings
+             * @param aStr1
+             * @param aStr2
+             * @return char *
+             */
+            static char *concatStr(char *aStr1, const char *aStr2);
+
+            // Attributes
             char *_address;
             unsigned int _port;
             std::string _teamName;

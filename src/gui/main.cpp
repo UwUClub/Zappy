@@ -15,7 +15,7 @@ int main(__attribute__((unused)) int argc, __attribute__((unused)) char **argv)
         clientApi.joinGame();
         clientApi.sendCommand("Forward");
         while (true) {
-            if (clientApi.update() >= 1) {
+            if (myClientApi.update() >= 1) {
                 break;
             }
         }

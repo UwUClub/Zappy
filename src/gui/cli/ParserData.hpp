@@ -9,31 +9,28 @@ namespace Zappy::GUI {
 
             /**
              * @brief update the address, port and machine name
-             * @return void
-             * @param argc, argv
+             * @param argv
+             * @param argc
              */
             void parseData(int argc, char **argv);
 
             /**
-             * @brief return the address
+             * @brief get the address
              * @return std::string
-             * @param void
              */
-            std::string getAddress() const;
+            [[nodiscard]] std::string getAddress() const;
 
             /**
-             * @brief return the port
-             * @return int
-             * @param void
+             * @brief get the port
+             * @return unsigned int
              */
-            unsigned int getPort() const;
+            [[nodiscard]] unsigned int getPort() const;
 
             /**
              * @brief return the machine name
              * @return std::string
-             * @param void
              */
-            std::string getMachineName() const;
+            [[nodiscard]] std::string getMachineName() const;
 
             /**
              * @brief exception class for parser
@@ -41,11 +38,22 @@ namespace Zappy::GUI {
             class ParserException : public std::exception
             {
                 public:
+                    /**
+                     * @brief ParserException constructor
+                     * @param aMessage
+                     */
                     explicit ParserException(const std::string &aMessage) : _message(aMessage)
                     {}
 
+                    /**
+                     * @brief ParserException destructor
+                     */
                     ~ParserException() override = default;
 
+                    /**
+                     * @brief return the message of the exception
+                     * @return message
+                     */
                     [[nodiscard]] const char *what() const noexcept override
                     {
                         return _message.c_str();
