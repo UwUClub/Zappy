@@ -1,6 +1,7 @@
 #include "ClientApi.hpp"
 #include <arpa/inet.h>
 #include <errno.h>
+#include <functional>
 #include <iostream>
 #include <netinet/in.h>
 #include <stdio.h>
@@ -9,7 +10,6 @@
 #include <sys/select.h>
 #include <sys/socket.h>
 #include <unistd.h>
-#include <functional>
 #include <unordered_map>
 
 namespace Zappy::GUI {
@@ -110,8 +110,8 @@ namespace Zappy::GUI {
     void ClientApi::ParseServerResponses()
     {
         std::unordered_map<std::string, std::function<void(ClientApi &, std::string)>> myResponses = {
-            { "WELCOME", &ClientApi::ReceiveWelcome },
-            { "msz", &ClientApi::ReceiveMsz },
+            {"WELCOME", &ClientApi::ReceiveWelcome},
+            {"msz", &ClientApi::ReceiveMsz},
         };
 
         while (_readBuffer.find("\n") != std::string::npos) {
