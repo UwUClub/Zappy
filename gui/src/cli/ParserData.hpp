@@ -11,33 +11,33 @@ class ParserData
      * @brief update the address, port and machine name
      * @return void
      * @param argc, argv
-    */
+     */
     void parseData(int argc, char **argv);
 
     /**
      * @brief return the address
      * @return std::string
      * @param void
-    */
+     */
     std::string getAddress() const;
 
     /**
      * @brief return the port
      * @return int
      * @param void
-    */
+     */
     int getPort() const;
 
     /**
      * @brief return the machine name
      * @return std::string
      * @param void
-    */
+     */
     std::string getMachineName() const;
 
     /**
      * @brief exception class for parser
-    */
+     */
     class ParserException : public std::exception
     {
       public:
