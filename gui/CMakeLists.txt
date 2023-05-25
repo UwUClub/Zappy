@@ -11,6 +11,8 @@ set(SOURCE_FILES
     src/main.cpp
     src/cli/ClientApi.cpp
     src/cli/ClientApi.hpp
+    src/cli/ParserData.cpp
+    src/cli/ParserData.hpp
     src/cli/ServerData.hpp
 )
 

@@ -6,7 +6,6 @@
 namespace Zappy::GUI {
 class ClientApi
 {
-
   public:
     ClientApi(std::string aAddress, unsigned int aPort, std::string aTeamName);
     ~ClientApi();
