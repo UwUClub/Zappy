@@ -104,20 +104,27 @@ namespace Zappy::GUI {
             void writeToServer();
 
             /**
-             * @brief concat two strings
-             * @param aStr1
-             * @param aStr2
-             * @return char *
+             * @brief parse information from server
              */
-            static char *concatStr(char *aStr1, const char *aStr2);
+            void ParseServerResponses();
+
+            /**
+             * @brief parse welcome response
+             */
+            void ReceiveWelcome(std::string aResponse);
+
+            /**
+             * @brief parse msz response
+             */
+            void ReceiveMsz(std::string aResponse);
 
             // Attributes
             char *_address;
             unsigned int _port;
             std::string _teamName;
             int _connectStatus;
-            char *_readBuffer;
-            char *_writeBuffer;
+            std::string _readBuffer;
+            std::string _writeBuffer;
             int _serverFd;
             ServerData _serverData;
     };

@@ -9,21 +9,17 @@
 #include <sys/select.h>
 #include <sys/socket.h>
 #include <unistd.h>
+#include <functional>
+#include <unordered_map>
 
 namespace Zappy::GUI {
     ClientApi::ClientApi(const std::string &aAddress, unsigned int aPort, const std::string &aTeamName)
         : _address(const_cast<char *>(aAddress.c_str())), _port(aPort), _teamName(aTeamName), _connectStatus(-1),
-          _readBuffer(strdup("")), _writeBuffer(strdup("")), _serverFd(-1)
+          _readBuffer(""), _writeBuffer(""), _serverFd(-1)
     {}
 
     ClientApi::~ClientApi()
     {
-        if (_readBuffer != nullptr) {
-            free(_readBuffer);
-        }
-        if (_writeBuffer != nullptr) {
-            free(_writeBuffer);
-        }
         if (_serverFd != -1) {
             close(_serverFd);
         }
@@ -38,24 +34,17 @@ namespace Zappy::GUI {
         if (_connectStatus == -1) {
             throw ClientException(strerror(errno));
         }
-        _writeBuffer = concatStr(_writeBuffer, (_teamName + "\n").c_str());
-        update();
     }
 
     int ClientApi::update()
     {
-<<<<<<< HEAD
-        fd_set readFds;
-        fd_set writeFds;
-=======
         fd_set myReadFds;
         fd_set myWriteFds;
->>>>>>> bce4312967f5b9bb0418fcde49b5411a19d79c08
 
         FD_ZERO(&myReadFds);
         FD_ZERO(&myWriteFds);
         FD_SET(_serverFd, &myReadFds);
-        if ((_writeBuffer != nullptr) && strlen(_writeBuffer) > 0) {
+        if (_writeBuffer.length() > 0) {
             FD_SET(_serverFd, &myWriteFds);
         }
         select(FD_SETSIZE, &myReadFds, &myWriteFds, nullptr, nullptr);
@@ -70,7 +59,7 @@ namespace Zappy::GUI {
 
     void ClientApi::sendCommand(const std::string &aCommand)
     {
-        _writeBuffer = concatStr(_writeBuffer, (aCommand + "\n").c_str());
+        _writeBuffer += aCommand + "\n";
     }
 
     int ClientApi::getConnectStatus() const
@@ -106,25 +95,47 @@ namespace Zappy::GUI {
             throw ClientException("Server disconnected");
         }
         myStr[myReadSize] = '\0';
-        _readBuffer = concatStr(_readBuffer, myStr);
+        _readBuffer += myStr;
         std::cout << "@read: " << _readBuffer;
+        ParseServerResponses();
     }
 
     void ClientApi::writeToServer()
     {
-        dprintf(_serverFd, "%s", _writeBuffer);
+        dprintf(_serverFd, "%s", _writeBuffer.c_str());
         std::cout << "@write: " << _writeBuffer;
-        free(_writeBuffer);
-        _writeBuffer = strdup("");
+        _writeBuffer = "";
     }
 
-    char *ClientApi::concatStr(char *aStr1, const char *aStr2)
+    void ClientApi::ParseServerResponses()
     {
-        char *myResult = static_cast<char *>(malloc(strlen(aStr1) + strlen(aStr2) + 1));
+        std::unordered_map<std::string, std::function<void(ClientApi &, std::string)>> myResponses = {
+            { "WELCOME", &ClientApi::ReceiveWelcome },
+            { "msz", &ClientApi::ReceiveMsz },
+        };
 
-        strcpy(myResult, aStr1);
-        strcat(myResult, aStr2);
-        free(aStr1);
-        return myResult;
+        while (_readBuffer.find("\n") != std::string::npos) {
+            std::string myResponse = _readBuffer.substr(0, _readBuffer.find("\n"));
+            std::string myCommand = myResponse.substr(0, myResponse.find(" "));
+            std::string myArgs = myResponse.substr(myResponse.find(" ") + 1);
+
+            if (myResponses.find(myCommand) != myResponses.end()) {
+                myResponses[myCommand](*this, myArgs);
+            }
+            _readBuffer = _readBuffer.substr(_readBuffer.find("\n") + 1);
+        }
+    }
+
+    void ClientApi::ReceiveWelcome(__attribute__((unused)) std::string aResponse)
+    {
+        _writeBuffer += _teamName + "\n";
+    }
+
+    void ClientApi::ReceiveMsz(std::string aResponse)
+    {
+        std::string myX = aResponse.substr(0, aResponse.find(" "));
+        std::string myY = aResponse.substr(aResponse.find(" ") + 1);
+
+        _serverData._mapSize = std::make_pair(std::stoi(myX), std::stoi(myY));
     }
 } // namespace Zappy::GUI
