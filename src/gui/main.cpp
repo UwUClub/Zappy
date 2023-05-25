@@ -6,7 +6,7 @@
 #include "ClientApi.hpp"
 #include "ParserData.hpp"
 
-int main(int argc, char **argv)
+int main(__attribute__((unused)) int argc, __attribute__((unused)) char **argv)
 {
     try {
         Zappy::GUI::ParserData parserData("127.0.0.1", 0, "");
