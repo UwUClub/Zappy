@@ -2,12 +2,42 @@
 // Created by beafowl on 22/05/23.
 //
 
+#include <cstdlib>
 #include <iostream>
+#include <stdexcept>
+#include <vulkan/vulkan.h>
 
-int main(int argc, char **argv)
+class HelloTriangleApplication
 {
-    (void) argc;
-    (void) argv;
-    std::cout << "Hello, world!" << std::endl;
-    return 0;
+    public:
+        void run()
+        {
+            initVulkan();
+            mainLoop();
+            cleanup();
+        }
+
+    private:
+        void initVulkan()
+        {}
+
+        void mainLoop()
+        {}
+
+        void cleanup()
+        {}
+};
+
+int main()
+{
+    HelloTriangleApplication app;
+
+    try {
+        app.run();
+    } catch (const std::exception &e) {
+        std::cerr << e.what() << std::endl;
+        return EXIT_FAILURE;
+    }
+
+    return EXIT_SUCCESS;
 }
