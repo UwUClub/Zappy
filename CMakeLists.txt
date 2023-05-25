@@ -97,7 +97,7 @@ if (NO_CONNECTION LESS_EQUAL 0)
       myproject_options
       myproject_warnings
     )
-    target_link_libraries(zappy_gui PRIVATE vulkan)
+    target_link_libraries(zappy_gui PRIVATE vulkan glfw glm)
 endif()
 
 # Experience shows that explicit package naming can help make it easier to sort
