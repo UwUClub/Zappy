@@ -47,7 +47,6 @@ namespace Zappy::GUI {
     {
         fd_set readFds;
         fd_set writeFds;
-        // struct timeval tv;
 
         FD_ZERO(&readFds);
         FD_ZERO(&writeFds);
@@ -63,6 +62,11 @@ namespace Zappy::GUI {
             writeToServer();
         }
         return 0;
+    }
+
+    void ClientApi::sendCommand(const std::string &aCommand)
+    {
+        _writeBuffer = concatStr(_writeBuffer, (aCommand + "\n").c_str());
     }
 
     int ClientApi::getConnectStatus() const

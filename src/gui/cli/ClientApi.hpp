@@ -33,6 +33,11 @@ namespace Zappy::GUI {
             * @return Update status
             */
             int update();
+            /**
+            * @brief Append a command to the write buffer
+            * @param aCommand Command
+            */
+            void sendCommand(const std::string &aCommand);
 
             class ClientException : public std::exception
             {
