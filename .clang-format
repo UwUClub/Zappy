@@ -87,6 +87,7 @@ IndentWidth: 4
 PenaltyBreakAssignment: 0
 SpaceBeforeCpp11BracedList: true
 SpaceBeforeRangeBasedForLoopColon: true
+AlwaysBreakTemplateDeclarations: Yes
 
 # To totally disable format
 DisableFormat: 'false'
