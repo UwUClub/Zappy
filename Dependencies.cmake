@@ -26,12 +26,12 @@ function(myproject_setup_dependencies)
     find_package(Vulkan REQUIRED)
   endif()
 
-  if (NOT TARGET glh)
-    cpmaddpackage(NAME glh
+  if (NOT TARGET glm)
+    cpmaddpackage(NAME glm
             GITHUB_REPOSITORY g-truc/glm
             GIT_TAG 0.9.9.8
     )
-    find_package(glh REQUIRED)
+    find_package(glm REQUIRED)
   endif()
 
   if (NOT VULKAN_FOUND EQUAL 0)
