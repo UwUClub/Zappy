@@ -1,9 +1,11 @@
 execute_process(
-    COMMAND ping patatoserv.ddns.net -c 1 -q
-    RESULT_VARIABLE NO_CONNECTION
+        COMMAND vulkaninfo
+        RESULT_VARIABLE VULKAN_FOUND
+        OUTPUT_QUIET
+        ERROR_QUIET
 )
 
-if (NO_CONNECTION EQUAL 0)
+if (VULKAN_FOUND EQUAL 0)
     add_subdirectory(gui)
 endif()
 
