@@ -9,12 +9,12 @@
 int main(__attribute__((unused)) int argc, __attribute__((unused)) char **argv)
 {
     try {
-        Zappy::GUI::ParserData parserData("127.0.0.1", 0, "");
-        parserData.parseData(argc, argv);
-        Zappy::GUI::ClientApi clientApi(parserData.getAddress(), parserData.getPort(), "");
-        clientApi.joinGame();
+        Zappy::GUI::ParserData myParserData("127.0.0.1", 0, "");
+        myParserData.parseData(argc, argv);
+        Zappy::GUI::ClientApi myClientApi(myParserData.getAddress(), myParserData.getPort(), "");
+        myClientApi.joinGame();
         while (true) {
-            if (clientApi.update() >= 1) {
+            if (myClientApi.update() >= 1) {
                 break;
             }
         }

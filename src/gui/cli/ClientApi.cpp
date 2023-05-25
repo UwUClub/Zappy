@@ -8,21 +8,20 @@
 #include <string.h>
 #include <sys/select.h>
 #include <sys/socket.h>
-#include <sys/types.h>
 #include <unistd.h>
 
 namespace Zappy::GUI {
-    ClientApi::ClientApi(std::string aAddress, unsigned int aPort, std::string aTeamName)
+    ClientApi::ClientApi(const std::string& aAddress, unsigned int aPort, const std::string& aTeamName)
         : _address(const_cast<char *>(aAddress.c_str())), _port(aPort), _teamName(aTeamName), _connectStatus(-1),
           _readBuffer(strdup("")), _writeBuffer(strdup("")), _serverFd(-1)
     {}
 
     ClientApi::~ClientApi()
     {
-        if (_readBuffer) {
+        if (_readBuffer != nullptr) {
             free(_readBuffer);
         }
-        if (_writeBuffer) {
+        if (_writeBuffer != nullptr) {
             free(_writeBuffer);
         }
         if (_serverFd != -1) {
@@ -45,21 +44,20 @@ namespace Zappy::GUI {
 
     int ClientApi::update()
     {
-        fd_set readFds;
-        fd_set writeFds;
-        // struct timeval tv;
+        fd_set myReadFds;
+        fd_set myWriteFds;
 
-        FD_ZERO(&readFds);
-        FD_ZERO(&writeFds);
-        FD_SET(_serverFd, &readFds);
-        if (_writeBuffer && strlen(_writeBuffer) > 0) {
-            FD_SET(_serverFd, &writeFds);
+        FD_ZERO(&myReadFds);
+        FD_ZERO(&myWriteFds);
+        FD_SET(_serverFd, &myReadFds);
+        if ((_writeBuffer != nullptr) && strlen(_writeBuffer) > 0) {
+            FD_SET(_serverFd, &myWriteFds);
         }
-        select(FD_SETSIZE, &readFds, &writeFds, NULL, NULL);
-        if (FD_ISSET(_serverFd, &readFds)) {
+        select(FD_SETSIZE, &myReadFds, &myWriteFds, nullptr, nullptr);
+        if (FD_ISSET(_serverFd, &myReadFds)) {
             readFromServer();
         }
-        if (FD_ISSET(_serverFd, &writeFds)) {
+        if (FD_ISSET(_serverFd, &myWriteFds)) {
             writeToServer();
         }
         return 0;
@@ -89,7 +87,7 @@ namespace Zappy::GUI {
     void ClientApi::readFromServer()
     {
         char myStr[4096];
-        int myReadSize = static_cast<int>(read(_serverFd, myStr, 4096));
+        int const myReadSize = static_cast<int>(read(_serverFd, myStr, 4096));
 
         if (myReadSize == -1) {
             throw ClientException(strerror(errno));

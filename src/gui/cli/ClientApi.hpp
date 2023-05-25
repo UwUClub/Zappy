@@ -7,24 +7,69 @@ namespace Zappy::GUI {
     class ClientApi
     {
         public:
-            ClientApi(std::string aAddress, unsigned int aPort, std::string aTeamName);
+            /**
+             * @brief ClientApi constructor
+             * @param aAddress
+             * @param aPort
+             * @param aTeamName
+             */
+            ClientApi(const std::string& aAddress, unsigned int aPort, const std::string& aTeamName);
+
+            /**
+             * @brief ClientApi destructor
+             */
             ~ClientApi();
 
+            /**
+             * @brief joinGame
+             */
             void joinGame();
+
+            /**
+             * @brief disconnect
+             */
             void disconnect();
 
-            int getConnectStatus() const;
-            int getServerFd() const;
+            /**
+             * @brief geting the connect status
+             * @return connectStatus
+             */
+            [[nodiscard]] int getConnectStatus() const;
+
+            /**
+             * @brief geting the server fd
+             * @return serverFd
+             */
+            [[nodiscard]] int getServerFd() const;
+
+            /**
+             * @brief geting the server data
+             * @return serverData
+             */
             int update();
 
+            /**
+             * @brief ClientException class
+             */
             class ClientException : public std::exception
             {
                 public:
+                    /**
+                     * @brief ClientException constructor
+                     * @param aMessage
+                     */
                     explicit ClientException(const std::string &aMessage) : _message(aMessage)
                     {}
 
+                    /**
+                     * @brief ClientException destructor
+                     */
                     ~ClientException() override = default;
 
+                    /**
+                     * @brief Return the message of the exception
+                     * @return message
+                     */
                     [[nodiscard]] const char *what() const noexcept override
                     {
                         return _message.c_str();
@@ -35,11 +80,33 @@ namespace Zappy::GUI {
             };
 
         private:
-            struct sockaddr_in getSockaddr(in_addr_t aAddress, unsigned int aPort);
-            void readFromServer();
-            void writeToServer();
-            char *concatStr(char *aStr1, const char *aStr2);
+            /**
+             * @brief get socket address
+             * @param aAddress
+             * @param aPort
+             * @return sockaddr_in
+             */
+            static struct sockaddr_in getSockaddr(in_addr_t aAddress, unsigned int aPort);
 
+            /**
+             * @brief reading information from server
+             */
+            void readFromServer();
+
+            /**
+             * @brief writing information to server
+             */
+            void writeToServer();
+
+            /**
+             * @brief concat two strings
+             * @param aStr1
+             * @param aStr2
+             * @return char *
+             */
+            static char *concatStr(char *aStr1, const char *aStr2);
+
+            // Attributes
             char *_address;
             unsigned int _port;
             std::string _teamName;
