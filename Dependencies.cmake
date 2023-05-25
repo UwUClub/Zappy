@@ -8,6 +8,13 @@ function(myproject_setup_dependencies)
   # For each dependency, see if it's
   # already been provided to us by a parent project
 
+  execute_process(
+        COMMAND vulkaninfo
+        RESULT_VARIABLE VULKAN_FOUND
+        OUTPUT_QUIET
+        ERROR_QUIET
+  )
+
   if(NOT TARGET Catch2::Catch2WithMain)
     cpmaddpackage("gh:catchorg/Catch2@3.3.2")
   endif()
@@ -25,6 +32,13 @@ function(myproject_setup_dependencies)
             GIT_TAG 0.9.9.8
     )
     find_package(glh REQUIRED)
+  endif()
+
+  if (NOT VULKAN_FOUND EQUAL 0)
+    execute_process(
+            COMMAND sh install_vulkan.sh
+    )
+    find_package(Vulkan REQUIRED)
   endif()
 
   if (NOT TARGET glfw)

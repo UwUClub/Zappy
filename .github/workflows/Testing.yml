@@ -26,16 +26,10 @@ jobs:
           cmake -S . -B ./build
         timeout-minutes: 10
 
-      - name: Run compilation of gui
+      - name: Run compilation
         run: |
           cd build
-          make zappy_gui
-        timeout-minutes: 5
-
-      - name: Run compilation of server
-        run: |
-          cd build
-          make zappy_server
+          make -j
         timeout-minutes: 5
 
       - name: Perform CodeQL Analysis
