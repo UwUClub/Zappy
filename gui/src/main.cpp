@@ -9,8 +9,9 @@ int main(int argc, char **argv)
 {
     std::cout << "Hello, world!" << std::endl;
     try {
-        Zappy::GUI::ParserData myData = Zappy::GUI::ClientApi::argumentParser(argc, argv);
-        Zappy::GUI::ClientApi clientApi("127.0.0.1", myData.port, myData.teamName);
+        Zappy::GUI::ParserData parserData("127.0.0.1", 0, "");
+        parserData.parseData(argc, argv);
+        Zappy::GUI::ClientApi clientApi(parserData.getAddress(), parserData.getPort(), parserData.getTeamName());
         clientApi.joinGame();
         while (true) {
             if (clientApi.update() >= 1) { break; }
