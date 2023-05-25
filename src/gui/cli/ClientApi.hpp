@@ -48,9 +48,9 @@ namespace Zappy::GUI {
              */
             int update();
             /**
-            * @brief Append a command to the write buffer
-            * @param aCommand Command
-            */
+             * @brief Append a command to the write buffer
+             * @param aCommand Command
+             */
             void sendCommand(const std::string &aCommand);
 
             /**
