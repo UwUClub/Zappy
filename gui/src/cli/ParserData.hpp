@@ -10,7 +10,7 @@ namespace Zappy::GUI {
 
             std::string getAddress() const;
             int getPort() const;
-            std::string getTeamName() const;
+            std::string getMachineName() const;
 
             class ParserException : public std::exception
             {
@@ -27,6 +27,6 @@ namespace Zappy::GUI {
         private :
             std::string _address;
             int _port;
-            std::string _teamName;
+            std::string _machineName;
     };
 }
