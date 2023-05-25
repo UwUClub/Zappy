@@ -9,9 +9,9 @@ class ParserData
 
     void parseData(int argc, char **argv);
 
-            std::string getAddress() const;
-            int getPort() const;
-            std::string getMachineName() const;
+    std::string getAddress() const;
+    int getPort() const;
+    std::string getMachineName() const;
 
     class ParserException : public std::exception
     {
@@ -22,12 +22,13 @@ class ParserData
 
         [[nodiscard]] const char *what() const noexcept override { return _message.c_str(); }
 
-            private:
-                std::string _message;
-            };
-        private :
-            std::string _address;
-            int _port;
-            std::string _machineName;
+      private:
+        std::string _message;
     };
-}
+
+  private:
+    std::string _address;
+    int _port;
+    std::string _machineName;
+};
+}// namespace Zappy::GUI
