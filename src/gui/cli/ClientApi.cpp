@@ -34,7 +34,7 @@ namespace Zappy::GUI {
     {
         _serverFd = socket(PF_INET, SOCK_STREAM, 0);
         struct sockaddr_in myAddr = getSockaddr(inet_addr(_address), _port);
-        _connectStatus = connect(_serverFd, (const struct sockaddr *) &myAddr, sizeof(struct sockaddr_in));
+        _connectStatus = connect(_serverFd, reinterpret_cast<const struct sockaddr *>(&myAddr), sizeof(struct sockaddr_in));
         if (_connectStatus == -1) {
             throw ClientException(strerror(errno));
         }
@@ -79,7 +79,7 @@ namespace Zappy::GUI {
         struct sockaddr_in myAddr;
 
         myAddr.sin_family = AF_INET;
-        myAddr.sin_port = htons(aPort);
+        myAddr.sin_port = htons(static_cast<short unsigned int>(aPort));
         myAddr.sin_addr.s_addr = aAddress;
         memset(&(myAddr.sin_zero), '\0', 8);
         return myAddr;
@@ -88,8 +88,8 @@ namespace Zappy::GUI {
     void ClientApi::readFromServer()
     {
         char myStr[4096];
+        int myReadSize = static_cast<int>(read(_serverFd, myStr, 4096));
 
-        int myReadSize = read(_serverFd, myStr, 4096);
         if (myReadSize == -1) {
             throw ClientException(strerror(errno));
         }
@@ -111,7 +111,7 @@ namespace Zappy::GUI {
 
     char *ClientApi::concatStr(char *aStr1, const char *aStr2)
     {
-        char *myResult = (char *) malloc(strlen(aStr1) + strlen(aStr2) + 1);
+        char *myResult = static_cast<char *>(malloc(strlen(aStr1) + strlen(aStr2) + 1));
 
         strcpy(myResult, aStr1);
         strcat(myResult, aStr2);

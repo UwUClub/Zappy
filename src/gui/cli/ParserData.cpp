@@ -1,7 +1,7 @@
 #include "ParserData.hpp"
 
 namespace Zappy::GUI {
-    ParserData::ParserData(std::string aAddress, int aPort, std::string aMachineName)
+    ParserData::ParserData(std::string aAddress, unsigned int aPort, std::string aMachineName)
     {
         _address = aAddress;
         _port = aPort;
@@ -24,7 +24,7 @@ namespace Zappy::GUI {
             throw ParserException("Invalid arguments given");
         }
         if (myFirstOpt.compare("-p") == 0) {
-            _port = std::stoi(argv[2]);
+            _port = static_cast<unsigned int>(std::stoi(argv[2]));
         } else if (myFirstOpt.compare("-h") == 0) {
             _machineName = argv[2];
         }
@@ -37,7 +37,7 @@ namespace Zappy::GUI {
                 if (mySecondOpt.compare("-h") == 0) {
                     _machineName = argv[4];
                 } else if (mySecondOpt.compare("-p") == 0) {
-                    _port = std::stoi(argv[4]);
+                    _port = static_cast<unsigned int>(std::stoi(argv[4]));
                 }
             }
         }
@@ -54,7 +54,7 @@ namespace Zappy::GUI {
         return _address;
     }
 
-    int ParserData::getPort() const
+    unsigned int ParserData::getPort() const
     {
         return _port;
     }

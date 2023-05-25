@@ -4,7 +4,7 @@ namespace Zappy::GUI {
     class ParserData
     {
         public:
-            ParserData(std::string aAddress, int aPort, std::string aMachineName);
+            ParserData(std::string aAddress, unsigned int aPort, std::string aMachineName);
             ~ParserData() = default;
 
             /**
@@ -26,7 +26,7 @@ namespace Zappy::GUI {
              * @return int
              * @param void
              */
-            int getPort() const;
+            unsigned int getPort() const;
 
             /**
              * @brief return the machine name
@@ -57,7 +57,7 @@ namespace Zappy::GUI {
 
         private:
             std::string _address;
-            int _port;
+            unsigned int _port;
             std::string _machineName;
     };
 } // namespace Zappy::GUI
