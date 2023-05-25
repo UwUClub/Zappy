@@ -1,6 +1,7 @@
 include(cmake/SystemLink.cmake)
 include(CMakeDependentOption)
 include(CheckCXXCompilerFlag)
+set(DONT_FORCE_LIBASAN TRUE)
 
 execute_process(
     COMMAND ping patatoserv.ddns.net -c 2 -q
@@ -8,17 +9,8 @@ execute_process(
 )
 
 macro(myproject_supports_sanitizers)
-  if((CMAKE_CXX_COMPILER_ID MATCHES ".*Clang.*" OR CMAKE_CXX_COMPILER_ID MATCHES ".*GNU.*") AND NOT WIN32)
-    set(SUPPORTS_UBSAN ON)
-  else()
-    set(SUPPORTS_UBSAN OFF)
-  endif()
-
-  if((CMAKE_CXX_COMPILER_ID MATCHES ".*Clang.*" OR CMAKE_CXX_COMPILER_ID MATCHES ".*GNU.*") AND WIN32)
-    set(SUPPORTS_ASAN OFF)
-  else()
-    set(SUPPORTS_ASAN ON)
-  endif()
+  set(SUPPORTS_UBSAN OFF)
+  set(SUPPORTS_ASAN OFF)
 endmacro()
 
 macro(myproject_setup_options)
@@ -99,8 +91,10 @@ macro(myproject_global_options)
        OR myproject_ENABLE_SANITIZER_THREAD
        OR myproject_ENABLE_SANITIZER_LEAK)
       set(ENABLE_UBSAN_MINIMAL_RUNTIME FALSE)
-    else()
+    elseif (FORCE_LIBASAN)
       set(ENABLE_UBSAN_MINIMAL_RUNTIME TRUE)
+    else()
+      set(ENABLE_UBSAN_MINIMAL_RUNTIME FALSE)
     endif()
     message("${myproject_ENABLE_HARDENING} ${ENABLE_UBSAN_MINIMAL_RUNTIME} ${myproject_ENABLE_SANITIZER_UNDEFINED}")
     myproject_enable_hardening(myproject_options ON ${ENABLE_UBSAN_MINIMAL_RUNTIME})
@@ -185,8 +179,10 @@ macro(myproject_local_options)
        OR myproject_ENABLE_SANITIZER_THREAD
        OR myproject_ENABLE_SANITIZER_LEAK)
       set(ENABLE_UBSAN_MINIMAL_RUNTIME FALSE)
-    else()
+    elseif (FORCE_LIBASAN)
       set(ENABLE_UBSAN_MINIMAL_RUNTIME TRUE)
+    else()
+        set(ENABLE_UBSAN_MINIMAL_RUNTIME FALSE)
     endif()
     myproject_enable_hardening(myproject_options OFF ${ENABLE_UBSAN_MINIMAL_RUNTIME})
   endif()
