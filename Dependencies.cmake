@@ -12,4 +12,28 @@ function(myproject_setup_dependencies)
     cpmaddpackage("gh:catchorg/Catch2@3.3.2")
   endif()
 
+  if (NOT TARGET vulkan)
+    execute_process(
+            COMMAND ./install_vulkan.sh
+    )
+    find_package(Vulkan REQUIRED)
+  endif()
+
+  if (NOT TARGET glh)
+    cpmaddpackage(NAME glh
+            GITHUB_REPOSITORY g-truc/glm
+            GIT_TAG 0.9.9.8
+    )
+  endif()
+
+  if (NOT TARGET glfw)
+    cpmaddpackage(NAME glfw
+            GITHUB_REPOSITORY glfw/glfw
+            GIT_TAG 3.3.8
+            OPTIONS "GLFW_BUILD_DOCS OFF"
+            "GLFW_BUILD_TESTS OFF"
+            "GLFW_BUILD_EXAMPLES OFF"
+    )
+  endif()
+
 endfunction()
