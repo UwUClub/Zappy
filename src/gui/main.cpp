@@ -6,38 +6,17 @@
 #include <iostream>
 #include <stdexcept>
 #include <vulkan/vulkan.h>
-
-class HelloTriangleApplication
-{
-    public:
-        void run()
-        {
-            initVulkan();
-            mainLoop();
-            cleanup();
-        }
-
-    private:
-        void initVulkan()
-        {}
-
-        void mainLoop()
-        {}
-
-        void cleanup()
-        {}
-};
+#include "App.hpp"
 
 int main()
 {
-    HelloTriangleApplication app;
-
+    Zappy::GUI::App app;
     try {
         app.run();
     } catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
         return EXIT_FAILURE;
     }
-
+    std::cout << "Hello, World!" << std::endl;
     return EXIT_SUCCESS;
 }
