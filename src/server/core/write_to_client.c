@@ -20,7 +20,7 @@ void send_to_client(client_t **clients, const int id, const char *msg)
 
 void send_to_everyone(client_t **clients, const char *msg)
 {
-    for (int i = 0; i < MAX_CONNECTIONS; i++) {
+    for (int i = 0; clients[i]; i++) {
         if (clients[i]->fd != -1) {
             clients[i]->output = concat_str(clients[i]->output, msg);
         }

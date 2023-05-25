@@ -14,9 +14,11 @@ int get_remaining_slots(data_t *data, char *team_name)
 {
     int curr_team_size = 0;
 
-    for (int i = 0; data->clients[i]; i++)
+    for (unsigned int i = 0; data->clients[i]; i++) {
         if (data->clients[i]->team_name &&
-            !strcmp(data->clients[i]->team_name,team_name))
+            !strcmp(data->clients[i]->team_name, team_name)) {
             curr_team_size++;
+        }
+    }
     return data->cli_per_team - curr_team_size;
 }

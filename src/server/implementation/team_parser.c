@@ -6,6 +6,7 @@
 */
 
 #include <string.h>
+#include <stdio.h>
 #include "server_implementation.h"
 #include "utils.h"
 
@@ -27,6 +28,7 @@ static int append_to_team(data_t *data, char *team_name)
     send_to_client(data->clients, data->curr_cli_index, world_dimensions);
     free(str_remaining_slots);
     free(world_dimensions);
+    return 0;
 }
 
 int parse_team_name(data_t *data)

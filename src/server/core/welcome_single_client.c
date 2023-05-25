@@ -18,7 +18,7 @@ client_t **clients)
     if (client_fd < 0) {
         fprintf(stderr, "Accept failed [%s]\n", strerror(errno));
     }
-    for (int id = 0; id < MAX_CONNECTIONS; id++) {
+    for (int id = 0; clients[id]; id++) {
         if (clients[id]->fd < 0) {
             clients[id]->fd = client_fd;
             send_to_client(clients, id, "WELCOME\n");

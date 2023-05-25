@@ -18,7 +18,7 @@
     #include <netinet/in.h>
     #include <arpa/inet.h>
 
-    #define MAX_CONNECTIONS 1000
+    #define MAX_TEAMS 4
 
     typedef enum orientation_e {
         UNKNOWN = 0,
@@ -90,9 +90,10 @@
     void close_single_client(client_t *client);
     /**
     * @brief Initialize all the clients
+    * @param max_connections The maximum number of connections
     * @return The client list
     */
-    client_t **init_clients(void);
+    client_t **init_clients(const unsigned int max_connections);
     /**
     * @brief Close all the clients
     * @param clients Client list of the server

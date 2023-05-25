@@ -8,6 +8,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 #include "utils.h"
 
 static int my_intlen(int nbr)
@@ -42,8 +43,8 @@ char *inttos(int nbr)
     }
     if (nbr < 0)
         length++;
-    str = malloc(sizeof(char) * (length + 1));
-    memset(str, '0', length);
+    str = malloc(sizeof(char) * ((unsigned int) (length + 1)));
+    memset(str, '0', (size_t) length);
     if (nbr < 0) {
         str[length - 1] = '-';
         nbr *= -1;

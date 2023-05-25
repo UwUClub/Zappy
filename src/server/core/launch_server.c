@@ -31,7 +31,7 @@ data_t *init_data()
     data_t *data = malloc(sizeof(data_t));
 
     data->curr_cli_index = -1;
-    data->clients = init_clients();
+    data->clients = init_clients(MAX_TEAMS * 1);
     data->map = init_map(10, 10);
     data->team_names = malloc(sizeof(char *) * 3);
     data->team_names[0] = strdup("red");
@@ -69,7 +69,7 @@ int launch_server(unsigned int port, data_t *data)
     if (bind(server_fd, (const struct sockaddr *) &my_addr,
     sizeof(struct sockaddr_in)) < 0)
         return 84;
-    if (listen(server_fd, MAX_CONNECTIONS) < 0)
+    if (listen(server_fd, MAX_TEAMS * data->cli_per_team) < 0)
         return 84;
     printf("Port : %i\n", port);
     listen_to_inputs(&my_addr, server_fd, data);

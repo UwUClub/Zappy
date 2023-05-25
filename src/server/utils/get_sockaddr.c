@@ -13,7 +13,8 @@
 #include <string.h>
 #include <unistd.h>
 
-struct sockaddr_in get_sockaddr(in_addr_t address, unsigned int port)
+struct sockaddr_in get_sockaddr(in_addr_t address,
+    short unsigned int port)
 {
     struct sockaddr_in addr;
 

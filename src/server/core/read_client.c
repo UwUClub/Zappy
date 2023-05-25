@@ -40,13 +40,13 @@ static void handle_quit(data_t *data)
 void read_selected_client(data_t *data)
 {
     char buffer[1024];
-    int size = 0;
+    ssize_t size = 0;
     client_t *cli = data->clients[data->curr_cli_index];
 
     size = read(cli->fd, buffer, 1024);
     if (size > 0) {
         buffer[size] = '\0';
-        bufferize_cmd(&cli, buffer, size);
+        bufferize_cmd(&cli, buffer, (unsigned int) size);
         if (buffer[size - 1] != '\n')
             return;
         parse_input(data);
