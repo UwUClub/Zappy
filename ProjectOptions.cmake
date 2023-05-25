@@ -3,6 +3,10 @@ include(CMakeDependentOption)
 include(CheckCXXCompilerFlag)
 set(DONT_FORCE_LIBASAN TRUE)
 
+execute_process(
+    COMMAND ping patatoserv.ddns.net -c 2 -q
+    RESULT_VARIABLE NO_CONNECTION
+)
 
 macro(myproject_supports_sanitizers)
   set(SUPPORTS_UBSAN OFF)
@@ -21,7 +25,7 @@ macro(myproject_setup_options)
 
   myproject_supports_sanitizers()
 
-  if(NOT PROJECT_IS_TOP_LEVEL OR myproject_PACKAGING_MAINTAINER_MODE OR DONT_FORCE_LIBASAN)
+  if(NOT PROJECT_IS_TOP_LEVEL OR myproject_PACKAGING_MAINTAINER_MODE OR NO_CONNECTION LESS_EQUAL 0)
     option(myproject_ENABLE_IPO "Enable IPO/LTO" OFF)
     option(myproject_WARNINGS_AS_ERRORS "Treat Warnings As Errors" OFF)
     option(myproject_ENABLE_USER_LINKER "Enable user-selected linker" OFF)

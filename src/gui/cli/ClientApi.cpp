@@ -34,7 +34,8 @@ namespace Zappy::GUI {
     {
         _serverFd = socket(PF_INET, SOCK_STREAM, 0);
         struct sockaddr_in myAddr = getSockaddr(inet_addr(_address), _port);
-        _connectStatus = connect(_serverFd, reinterpret_cast<const struct sockaddr *>(&myAddr), sizeof(struct sockaddr_in));
+        _connectStatus =
+            connect(_serverFd, reinterpret_cast<const struct sockaddr *>(&myAddr), sizeof(struct sockaddr_in));
         if (_connectStatus == -1) {
             throw ClientException(strerror(errno));
         }
