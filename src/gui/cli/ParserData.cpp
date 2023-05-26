@@ -26,7 +26,7 @@ namespace Zappy::GUI {
         if (myFirstOpt.compare("-p") == 0) {
             _port = static_cast<unsigned int>(std::stoi(argv[2]));
         } else if (myFirstOpt.compare("-h") == 0) {
-            _machineName = argv[2];
+            _clientName = argv[2];
         }
         if (argc > 3) {
             if (argv[3] != NULL && argv[4] != NULL) {
@@ -35,7 +35,7 @@ namespace Zappy::GUI {
                     throw ParserException("Invalid arguments given");
                 }
                 if (mySecondOpt.compare("-h") == 0) {
-                    _machineName = argv[4];
+                    _clientName = argv[4];
                 } else if (mySecondOpt.compare("-p") == 0) {
                     _port = static_cast<unsigned int>(std::stoi(argv[4]));
                 }
@@ -44,8 +44,8 @@ namespace Zappy::GUI {
         if (_port == 0) {
             throw ParserException("Invalid port given");
         }
-        if (_machineName.empty()) {
-            _machineName = "localhost";
+        if (_clientName.empty()) {
+            _clientName = "localhost";
         }
     }
 
