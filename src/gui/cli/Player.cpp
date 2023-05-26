@@ -11,8 +11,7 @@ namespace Zappy::GUI {
     }
 
     Player::~Player()
-    {
-    }
+    {}
 
     void Player::setPosition(unsigned int aX, unsigned int aY)
     {
@@ -53,4 +52,4 @@ namespace Zappy::GUI {
     {
         return _inventory;
     }
-};
+}; // namespace Zappy::GUI

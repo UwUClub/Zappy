@@ -1,7 +1,7 @@
 #pragma once
 
-#include <iostream>
 #include <array>
+#include <iostream>
 #include "ServerData.hpp"
 
 #define INVENTORY_SIZE 7
@@ -79,7 +79,6 @@ namespace Zappy::GUI {
             const std::array<int, INVENTORY_SIZE> &getInventory() const;
 
         private:
-
             // Attributes
             std::pair<unsigned int, unsigned int> _position;
             Orientation _orientation;
