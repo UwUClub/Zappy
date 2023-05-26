@@ -1,11 +1,11 @@
 #include "ParserData.hpp"
 
 namespace Zappy::GUI {
-    ParserData::ParserData(const std::string &aAddress, unsigned int aPort, const std::string &aMachineName)
+    ParserData::ParserData(const std::string &aAddress, unsigned int aPort, const std::string &aClientName)
     {
         _address = aAddress;
         _port = aPort;
-        _machineName = aMachineName;
+        _clientName = aClientName;
     }
 
     void ParserData::parseData(int argc, char **argv)
@@ -37,8 +37,8 @@ namespace Zappy::GUI {
         return _port;
     }
 
-    const std::string &ParserData::getMachineName() const
+    const std::string &ParserData::getClientName() const
     {
-        return _machineName;
+        return _clientName;
     }
 } // namespace Zappy::GUI
