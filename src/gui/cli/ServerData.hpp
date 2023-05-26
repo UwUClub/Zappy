@@ -1,22 +1,16 @@
+#pragma once
+
 #include <iostream>
 #include <vector>
+#include "Player.hpp"
 
-enum class Orientation
-{
-    NORTH,
-    EAST,
-    SOUTH,
-    WEST
-};
-
-struct ServerData
-{
+namespace Zappy::GUI {
+    struct ServerData
+    {
         std::pair<unsigned int, unsigned int> _mapSize;
         std::vector<std::vector<std::string>> _mapTiles;
         std::vector<std::string> _teamNames;
-        std::pair<unsigned int, unsigned int> _playerPosition;
-        Orientation _playerOrientation;
-        int _playerLevel;
-        int _playerInventory[7];
+        std::vector<Player> _players;
         int _timeUnit;
-};
+    };
+}
