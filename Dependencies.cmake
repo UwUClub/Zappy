@@ -20,6 +20,7 @@ function(myproject_setup_dependencies)
     execute_process(
             COMMAND sh ${CMAKE_CURRENT_SOURCE_DIR}/install_vulkan.sh
     )
+
   endif()
 
   if (NOT TARGET glm)
