@@ -1,7 +1,8 @@
 #include "GetOpt.hpp"
 
 namespace Zappy::GUI {
-    GetOpt::GetOpt(int argc, char **argv) {
+    GetOpt::GetOpt(int argc, char **argv)
+    {
         int opt;
 
         while ((opt = getopt(argc, argv, "p:h:")) != -1) {
@@ -18,9 +19,11 @@ namespace Zappy::GUI {
         }
     }
 
-    GetOpt::~GetOpt() {}
+    GetOpt::~GetOpt()
+    {}
 
-    std::map<std::string, std::string> GetOpt::getOptions() const {
+    std::map<std::string, std::string> GetOpt::getOptions() const
+    {
         return Options;
     }
-}
+} // namespace Zappy::GUI
