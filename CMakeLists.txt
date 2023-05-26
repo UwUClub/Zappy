@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.21)
+cmake_minimum_required(VERSION 3.7)
 
 # This template attempts to be "fetch_content"-able
 # so that it works well with tools like CPM or other
@@ -26,14 +26,22 @@ project(
 execute_process(
     COMMAND ping patatoserv.ddns.net -c 1 -q
     RESULT_VARIABLE NO_CONNECTION
+    OUTPUT_QUIET
 )
+
+find_package(glfw3 QUIET)
+find_package(glm QUIET)
+find_package(Vulkan QUIET)
 
 include(cmake/PreventInSourceBuilds.cmake)
 include(ProjectOptions.cmake)
 
-if (NO_CONNECTION LESS_EQUAL 0)
+if (NO_CONNECTION EQUAL 0)
     include(Dependencies.cmake)
     myproject_setup_dependencies()
+    set(glfw3_FOUND 1)
+    set(glm_FOUND 1)
+    set(Vulkan_FOUND 1)
 endif()
 
 myproject_setup_options()
@@ -58,7 +66,6 @@ target_compile_features(myproject_options INTERFACE cxx_std_${CMAKE_CXX_STANDARD
 add_library(myproject::myproject_options ALIAS myproject_options)
 add_library(myproject::myproject_warnings ALIAS myproject_warnings)
 
-# Adding the src:
 add_subdirectory(src)
 
 # Don't even look at tests if we're not top level
@@ -97,7 +104,15 @@ if (NO_CONNECTION EQUAL 0)
       myproject_options
       myproject_warnings
     )
-    target_link_libraries(zappy_gui PRIVATE vulkan glfw glm)
+elseif(glfw3_FOUND EQUAL 1 AND glm_FOUND EQUAL 1 AND Vulkan_FOUND)
+    myproject_package_project(
+      TARGETS
+      zappy_gui
+      myproject_options
+      myproject_warnings
+    )
+else()
+    message(AUTHOR_WARNING "Not linking zappy_gui because of missing dependencies")
 endif()
 
 # Experience shows that explicit package naming can help make it easier to sort

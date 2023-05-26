@@ -8,22 +8,19 @@ function(myproject_setup_dependencies)
   # For each dependency, see if it's
   # already been provided to us by a parent project
 
-  execute_process(
-        COMMAND vulkaninfo
-        RESULT_VARIABLE VULKAN_FOUND
-        OUTPUT_QUIET
-        ERROR_QUIET
-  )
+  find_package(Vulkan QUIET)
 
   if(NOT TARGET Catch2::Catch2WithMain)
     cpmaddpackage("gh:catchorg/Catch2@3.3.2")
   endif()
 
-  if (NOT vulkan_FOUND AND NOT TARGET Vulkan)
+  message(STATUS "Vulkan_FOUND: ${Vulkan_FOUND}")
+
+  if (NOT Vulkan_FOUND)
     execute_process(
-            COMMAND ./install_vulkan.sh
+            COMMAND sh ${CMAKE_CURRENT_SOURCE_DIR}/install_vulkan.sh
     )
-    find_package(Vulkan REQUIRED)
+
   endif()
 
   if (NOT TARGET glm)
@@ -31,14 +28,6 @@ function(myproject_setup_dependencies)
             GITHUB_REPOSITORY g-truc/glm
             GIT_TAG 0.9.9.8
     )
-    find_package(glm REQUIRED)
-  endif()
-
-  if (NOT VULKAN_FOUND EQUAL 0)
-    execute_process(
-            COMMAND sh install_vulkan.sh
-    )
-    find_package(Vulkan REQUIRED)
   endif()
 
   if (NOT TARGET glfw)
@@ -53,7 +42,6 @@ function(myproject_setup_dependencies)
         "GLFW_INSTALL Off"
         "GLFW_USE_HYBRID_HPG On"
     )
-    find_package(glfw REQUIRED)
   endif()
 
 endfunction()
