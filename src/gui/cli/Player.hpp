@@ -51,7 +51,7 @@ namespace Zappy::GUI {
             /**
              * @brief Set the inventory of the player
              * @param aItem
-            * @param aSlot
+             * @param aSlot
              */
             void setInventory(int aItem, long unsigned int aSlot);
 
