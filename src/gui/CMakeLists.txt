@@ -18,8 +18,6 @@ add_executable(zappy_gui
         cli/Player.hpp
         )
 
-add_subdirectory(cli)
-
 target_link_libraries(zappy_gui
     PRIVATE myproject::myproject_options
         myproject::myproject_warnings

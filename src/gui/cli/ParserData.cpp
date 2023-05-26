@@ -9,14 +9,14 @@ namespace Zappy::GUI {
         _clientName = aClientName;
     }
 
-    void ParserData::parseData(int argc, char **argv)
+    void ParserData::parseData(int aArgc, char **aArgv)
     {
         std::string myFirstOpt;
         std::string mySecondOpt;
-        int opt = 0;
+        int myOpt = 0;
 
-        while ((opt = getopt(argc, argv, "p:h:")) != -1) {
-            switch (opt) {
+        while ((myOpt = getopt(aArgc, aArgv, "p:h:")) != -1) {
+            switch (myOpt) {
                 case 'p':
                     _port = static_cast<unsigned int>(std::stoi(optarg));
                     break;
