@@ -109,7 +109,7 @@ namespace Zappy::GUI {
 
     void ClientApi::ParseServerResponses()
     {
-        static const std::unordered_map<std::string, std::function<void(ClientApi &, std::string)>> myResponses = {
+        std::unordered_map<std::string, std::function<void(ClientApi &, std::string)>> myResponses = {
             {"WELCOME", &ClientApi::ReceiveWelcome},
             {"msz", &ClientApi::ReceiveMsz},
         };
