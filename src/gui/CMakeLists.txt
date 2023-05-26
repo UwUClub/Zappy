@@ -10,6 +10,8 @@ add_executable(zappy_gui
         cli/ParserData.hpp
         cli/ParserData.cpp
         cli/ServerData.hpp
+        cli/Player.cpp
+        cli/Player.hpp
         )
 
 target_include_directories(zappy_gui PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}")

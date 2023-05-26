@@ -5,6 +5,9 @@
 #include "Player.hpp"
 
 namespace Zappy::GUI {
+
+    class Player;
+
     struct ServerData
     {
             std::pair<unsigned int, unsigned int> _mapSize;

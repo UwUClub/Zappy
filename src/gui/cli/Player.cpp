@@ -28,9 +28,11 @@ namespace Zappy::GUI {
         _level = aLevel;
     }
 
-    void Player::setInventory(std::vector<int, INVENTORY_SIZE> aInventory)
+    void Player::setInventory(int aItem, long unsigned int aSlot)
     {
-        _inventory = aInventory;
+        if (aSlot > 6)
+            return;
+        _inventory[aSlot] = aItem;
     }
 
     const std::pair<unsigned int, unsigned int> &Player::getPosition() const
@@ -48,8 +50,10 @@ namespace Zappy::GUI {
         return _level;
     }
 
-    const std::vector<int, INVENTORY_SIZE> &Player::getInventory() const
+    int Player::getInventory(long unsigned int aSlot) const
     {
-        return _inventory;
+        if (aSlot > 6)
+            return -1;
+        return _inventory[aSlot];
     }
 }; // namespace Zappy::GUI
