@@ -22,6 +22,8 @@ jobs:
 
       - name: Run dependencies
         run: |
+          sh install_vulkan.sh
+          sudo dnf install -y glfw-devel glm-devel @base-x
           cmake -S . -B ./build
         timeout-minutes: 10
 
