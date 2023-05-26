@@ -32,10 +32,11 @@ static void listen_to_inputs(struct sockaddr_in *addr, int server_fd,
     }
 }
 
-int launch_server(unsigned int port, data_t *data)
+int launch_server(data_t *data)
 {
     int server_fd = socket(PF_INET, SOCK_STREAM, 0);
-    struct sockaddr_in my_addr = get_sockaddr(inet_addr("127.0.0.1"), port);
+    struct sockaddr_in my_addr = get_sockaddr(inet_addr("127.0.0.1"),
+        data->port);
 
     if (server_fd < 0)
         return 84;
@@ -45,7 +46,7 @@ int launch_server(unsigned int port, data_t *data)
         return 84;
     if (listen(server_fd, MAX_TEAMS * data->cli_per_team) < 0)
         return 84;
-    printf("Port : %i\n", port);
+    printf("Port : %i\n", data->port);
     listen_to_inputs(&my_addr, server_fd, data);
     close(server_fd);
     return 0;

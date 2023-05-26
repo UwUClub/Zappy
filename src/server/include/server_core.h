@@ -110,11 +110,10 @@
     void free_data(data_t *data);
     /**
     * @brief Launch the server
-    * @param unsigned int port
     * @param data_t *data
     * @return Status of the server
     */
-    int launch_server(unsigned int port, data_t *data);
+    int launch_server(data_t *data);
     /**
     * @brief Initialize a client
     * @param client The client to initialize

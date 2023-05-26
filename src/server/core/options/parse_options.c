@@ -34,12 +34,12 @@ static int parse_data_options(data_t *data, int ac, char **av)
     int option = 0;
 
     while (option != -1) {
-        option = getopt(ac, av, "h:p:x:y:n:c:f");
+        option = getopt(ac, av, "hp:x:y:n:c:f");
         for (int i = 0; options[i].flag != -1; i++) {
-            if (options[i].flag == optopt)
+            if (options[i].flag == option)
                 options[i].func(data, optarg);
         }
-        if (optopt == 'h')
+        if (option == 'h')
             return 1;
     }
     return 0;
@@ -55,11 +55,11 @@ data_t *init_data(int ac, char **av)
     data->map_height = 10;
     data->cli_per_team = 2;
     data->freq = 7;
+    data->port = 4242;
     if (parse_data_options(data, ac, av))
         return NULL;
-    if (!data->clients) {
+    if (!data->clients)
         data->clients = init_clients(MAX_TEAMS * data->cli_per_team);
-    }
     if (!data->team_names) {
         data->team_names = malloc(sizeof(char *) * 3);
         data->team_names[0] = strdup("red");
