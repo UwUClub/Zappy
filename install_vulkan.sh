@@ -13,7 +13,7 @@ case $OS in
     ;;
   '"Fedora Linux"')
     echo "Installing Vulkan for Fedora..."
-    sudo dnf update -y && dnf install -y vulkan-tools vulkan-headers vulkan-loader-devel vulkan-validation-layers-devel
+    sudo dnf update -y && dnf install -y vulkan-tools vulkan-headers vulkan-loader-devel vulkan-validation-layers-devel mesa-vulkan-devel
     ;;
   '"Arch Linux"')
     echo "Installing Vulkan for Arch Linux..."

@@ -64,6 +64,18 @@ add_library(myproject::myproject_options ALIAS myproject_options)
 add_library(myproject::myproject_warnings ALIAS myproject_warnings)
 
 # Adding the src:
+add_executable(zappy_server)
+target_link_libraries(zappy_server
+  PRIVATE myproject::myproject_options
+        myproject::myproject_warnings
+)
+
+add_executable(zappy_gui)
+target_link_libraries(zappy_gui
+  PRIVATE myproject::myproject_options
+        myproject::myproject_warnings
+)
+
 add_subdirectory(src)
 
 # Don't even look at tests if we're not top level
@@ -102,12 +114,22 @@ if (NO_CONNECTION EQUAL 0)
       myproject_options
       myproject_warnings
     )
+    target_link_libraries(zappy_gui
+      PRIVATE glfw
+              glm
+              Vulkan::Vulkan
+    )
 elseif(glfw3_FOUND EQUAL 1 AND glm_FOUND EQUAL 1 AND Vulkan_FOUND)
     myproject_package_project(
       TARGETS
       zappy_gui
       myproject_options
       myproject_warnings
+    )
+    target_link_libraries(zappy_gui
+      PRIVATE glfw
+              glm
+              Vulkan::Vulkan
     )
 else()
     message(AUTHOR_WARNING "Not linking zappy_gui because of missing dependencies")

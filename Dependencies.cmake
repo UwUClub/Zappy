@@ -8,12 +8,7 @@ function(myproject_setup_dependencies)
   # For each dependency, see if it's
   # already been provided to us by a parent project
 
-  execute_process(
-        COMMAND vulkaninfo
-        RESULT_VARIABLE VULKAN_FOUND
-        OUTPUT_QUIET
-        ERROR_QUIET
-  )
+find_package(Vulkan REQUIRED)
 
   if(NOT TARGET Catch2::Catch2WithMain)
     cpmaddpackage("gh:catchorg/Catch2@3.3.2")
@@ -23,7 +18,7 @@ function(myproject_setup_dependencies)
     execute_process(
             COMMAND ./install_vulkan.sh
     )
-    find_package(Vulkan REQUIRED)
+    set(vulkan_FOUND TRUE)
   endif()
 
   if (NOT TARGET glm)
@@ -32,6 +27,7 @@ function(myproject_setup_dependencies)
             GIT_TAG 0.9.9.8
     )
     find_package(glm REQUIRED)
+    set(glm_FOUND 1)
   endif()
 
   if (NOT TARGET glfw)
@@ -47,6 +43,8 @@ function(myproject_setup_dependencies)
         "GLFW_USE_HYBRID_HPG On"
     )
     find_package(glfw REQUIRED)
+    # set glfw3_FOUND to 1
+    set(glfw3_FOUND 1)
   endif()
 
 endfunction()
