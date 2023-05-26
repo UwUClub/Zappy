@@ -2,13 +2,21 @@
 // Created by beafowl on 22/05/23.
 //
 
+#include <cstdlib>
 #include <iostream>
+#include <stdexcept>
+#include <vulkan/vulkan.h>
+#include "App.hpp"
 
-int main(__attribute__((unused)) int argc, __attribute__((unused)) char **argv)
+int main()
 {
-    (void) argc;
-    (void) argv;
-
-    std::cout << "Hello, world!" << std::endl;
-    return 0;
+    Zappy::GUI::App app;
+    try {
+        app.run();
+    } catch (const std::exception &e) {
+        std::cerr << e.what() << std::endl;
+        return EXIT_FAILURE;
+    }
+    std::cout << "Hello, World!" << std::endl;
+    return EXIT_SUCCESS;
 }
