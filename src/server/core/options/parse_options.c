@@ -7,15 +7,14 @@
 
 #include <unistd.h>
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 #include "server_core.h"
+#include "utils.h"
 
 static void print_help(__attribute__((unused)) data_t *data,
     __attribute__((unused)) char *value) {
     printf("help\n");
-}
-
-static void set_port(data_t *data, char *value) {
-    data->port = atoi(value);
 }
 
 static const option_t options[] = {
@@ -23,11 +22,24 @@ static const option_t options[] = {
     { 'p', &set_port },
     { 'x', &set_map_width },
     { 'y', &set_map_height },
-    { 'n', &set_team_names },
     { 'c', &set_cli_per_team },
     { 'f', &set_freq },
     { -1, NULL }
 };
+
+static void parse_team_names(data_t *data, int ac, char **av)
+{
+    char *teams = NULL;
+
+    teams = strdup("");
+    optind--;
+    for (; optind < ac && *av[optind] != '-'; optind++) {
+        teams = concat_str(teams, av[optind]);
+        teams = concat_str(teams, " ");
+    }
+    data->team_names = str_to_word_array(teams, " ");
+    free(teams);
+}
 
 static int parse_data_options(data_t *data, int ac, char **av)
 {
@@ -35,6 +47,8 @@ static int parse_data_options(data_t *data, int ac, char **av)
 
     while (option != -1) {
         option = getopt(ac, av, "hp:x:y:n:c:f");
+        if (option == 'n')
+            parse_team_names(data, ac, av);
         for (int i = 0; options[i].flag != -1; i++) {
             if (options[i].flag == option)
                 options[i].func(data, optarg);
@@ -45,17 +59,24 @@ static int parse_data_options(data_t *data, int ac, char **av)
     return 0;
 }
 
-data_t *init_data(int ac, char **av)
+static void set_data_default_values(data_t *data)
 {
-    data_t *data = NULL;
-    
-    data = malloc(sizeof(data_t));
     data->curr_cli_index = -1;
     data->map_width = 10;
     data->map_height = 10;
     data->cli_per_team = 2;
     data->freq = 7;
     data->port = 4242;
+    data->clients = NULL;
+    data->team_names = NULL;
+}
+
+data_t *init_data(int ac, char **av)
+{
+    data_t *data = NULL;
+
+    data = malloc(sizeof(data_t));
+    set_data_default_values(data);
     if (parse_data_options(data, ac, av))
         return NULL;
     if (!data->clients)

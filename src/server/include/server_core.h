@@ -67,7 +67,14 @@
     * @return The data structure
     */
     data_t *init_data(int ac, char **av);
-    
+
+    /**
+    * @brief Set the data structure with the arguments passed to the server
+    * @param data The data structure to set
+    * @param value The value to set
+    */    
+    void set_port(data_t *data, char *value);
+
     /**
     * @brief Set the data structure with the arguments passed to the server
     * @param data The data structure to set

@@ -8,6 +8,10 @@
 #include "server_core.h"
 #include "utils.h"
 
+void set_port(data_t *data, char *value) {
+    data->port = atoi(value);
+}
+
 void set_map_width(data_t *data, char *value) {
     data->map_width = atoi(value);
 }
@@ -17,7 +21,7 @@ void set_map_height(data_t *data, char *value) {
 }
 
 void set_team_names(data_t *data, char *value) {
-    data->team_names = str_to_word_array(optarg, " ");
+    data->team_names = str_to_word_array(value, " ");
 }
 
 void set_cli_per_team(data_t *data, char *value) {
