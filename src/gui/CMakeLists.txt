@@ -18,7 +18,7 @@ add_executable(zappy_gui
         cli/Player.hpp
         )
 
-target_include_directories(zappy_gui PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}")
+add_subdirectory(cli)
 
 target_link_libraries(zappy_gui
     PRIVATE myproject::myproject_options
@@ -27,6 +27,8 @@ target_link_libraries(zappy_gui
         glfw
         glm
 )
+
+target_include_directories(zappy_gui PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/cli")
 
 set_target_properties(zappy_gui
     PROPERTIES

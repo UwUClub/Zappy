@@ -66,7 +66,6 @@ target_compile_features(myproject_options INTERFACE cxx_std_${CMAKE_CXX_STANDARD
 add_library(myproject::myproject_options ALIAS myproject_options)
 add_library(myproject::myproject_warnings ALIAS myproject_warnings)
 
-# Adding the src:
 add_subdirectory(src)
 
 # Don't even look at tests if we're not top level

@@ -18,7 +18,7 @@ function(myproject_setup_dependencies)
 
   if (NOT Vulkan_FOUND)
     execute_process(
-            COMMAND sh ../${CMAKE_CURRENT_SOURCE_DIR}/install_vulkan.sh
+            COMMAND sh ${CMAKE_CURRENT_SOURCE_DIR}/install_vulkan.sh
     )
   endif()
 
@@ -27,7 +27,6 @@ function(myproject_setup_dependencies)
             GITHUB_REPOSITORY g-truc/glm
             GIT_TAG 0.9.9.8
     )
-    find_package(glm REQUIRED)
   endif()
 
   if (NOT TARGET glfw)
@@ -42,7 +41,6 @@ function(myproject_setup_dependencies)
         "GLFW_INSTALL Off"
         "GLFW_USE_HYBRID_HPG On"
     )
-    find_package(glfw REQUIRED)
   endif()
 
 endfunction()

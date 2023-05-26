@@ -14,8 +14,7 @@
 
 namespace Zappy::GUI {
     ClientApi::ClientApi(const std::string &aAddress, unsigned int aPort, const std::string &aTeamName)
-        : _address(aAddress), _port(aPort), _teamName(aTeamName), _connectStatus(-1), _readBuffer(""), _writeBuffer(""),
-          _serverFd(-1)
+        : _address(aAddress), _port(aPort), _teamName(aTeamName), _connectStatus(-1), _serverFd(-1)
     {}
 
     ClientApi::~ClientApi()
@@ -75,12 +74,13 @@ namespace Zappy::GUI {
 
     struct sockaddr_in ClientApi::getSockaddr(in_addr_t aAddress, unsigned int aPort)
     {
+        const constexpr int bufferSize = 8;
         struct sockaddr_in myAddr = {};
 
         myAddr.sin_family = AF_INET;
         myAddr.sin_port = htons(static_cast<short unsigned int>(aPort));
         myAddr.sin_addr.s_addr = aAddress;
-        memset(&(myAddr.sin_zero), '\0', 8);
+        memset(&(myAddr.sin_zero), '\0', bufferSize);
         return myAddr;
     }
 

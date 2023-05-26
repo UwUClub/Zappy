@@ -31,12 +31,8 @@ add_executable(zappy_server
         include/utils.h
         )
 
-target_include_directories(zappy_server PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}")
 
-target_link_libraries(zappy_server
-  PRIVATE myproject::myproject_options
-        myproject::myproject_warnings
-)
+target_include_directories(zappy_server PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
 
 set_target_properties(zappy_server
     PROPERTIES
