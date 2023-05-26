@@ -1,4 +1,5 @@
 #include "ParserData.hpp"
+#include <getopt.h>
 
 namespace Zappy::GUI {
     ParserData::ParserData(const std::string &aAddress, unsigned int aPort, const std::string &aClientName)
@@ -12,40 +13,19 @@ namespace Zappy::GUI {
     {
         std::string myFirstOpt;
         std::string mySecondOpt;
+        int opt = 0;
 
-        if (argc < 3) {
-            throw ParserException("Not enough arguments");
-        }
-        if (argv[1] == NULL || argv[2] == NULL) {
-            throw ParserException("Invalid arguments given");
-        }
-        myFirstOpt = argv[1];
-        if (myFirstOpt.compare("-p") != 0 && myFirstOpt.compare("-h") != 0) {
-            throw ParserException("Invalid arguments given");
-        }
-        if (myFirstOpt.compare("-p") == 0) {
-            _port = static_cast<unsigned int>(std::stoi(argv[2]));
-        } else if (myFirstOpt.compare("-h") == 0) {
-            _clientName = argv[2];
-        }
-        if (argc > 3) {
-            if (argv[3] != NULL && argv[4] != NULL) {
-                mySecondOpt = argv[3];
-                if (mySecondOpt.compare("-h") != 0 && mySecondOpt.compare("-p") != 0) {
-                    throw ParserException("Invalid arguments given");
-                }
-                if (mySecondOpt.compare("-h") == 0) {
-                    _clientName = argv[4];
-                } else if (mySecondOpt.compare("-p") == 0) {
-                    _port = static_cast<unsigned int>(std::stoi(argv[4]));
-                }
+        while ((opt = getopt(argc, argv, "p:h:")) != -1) {
+            switch (opt) {
+                case 'p':
+                    _port = static_cast<unsigned int>(std::stoi(optarg));
+                    break;
+                case 'h':
+                    _clientName = optarg;
+                    break;
+                default:
+                    throw ParserException("Invalid argument");
             }
-        }
-        if (_port == 0) {
-            throw ParserException("Invalid port given");
-        }
-        if (_clientName.empty()) {
-            _clientName = "localhost";
         }
     }
 
