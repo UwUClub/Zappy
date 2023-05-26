@@ -50,9 +50,10 @@ namespace Zappy::GUI {
 
             /**
              * @brief Set the inventory of the player
-             * @param aInventory
+             * @param aItem
+             * @param aSlot
              */
-            void setInventory(std::array<int, INVENTORY_SIZE> aInventory);
+            void setInventory(int aItem, long unsigned int aSlot);
 
             /**
              * @brief Get the position of the player
@@ -74,9 +75,10 @@ namespace Zappy::GUI {
 
             /**
              * @brief Get the inventory of the player
-             * @return inventory
+             * @param aSlot
+             * @return item, -1 if invalid
              */
-            const std::array<int, INVENTORY_SIZE> &getInventory() const;
+            int getInventory(long unsigned int aSlot) const;
 
         private:
             // Attributes
