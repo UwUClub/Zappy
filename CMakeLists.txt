@@ -36,9 +36,12 @@ find_package(Vulkan QUIET)
 include(cmake/PreventInSourceBuilds.cmake)
 include(ProjectOptions.cmake)
 
-if (NO_CONNECTION LESS_EQUAL 0)
+if (NO_CONNECTION EQUAL 0)
     include(Dependencies.cmake)
     myproject_setup_dependencies()
+    set(glfw3_FOUND 1)
+    set(glm_FOUND 1)
+    set(Vulkan_FOUND 1)
 endif()
 
 myproject_setup_options()

@@ -7,6 +7,8 @@ execute_process(
     RESULT_VARIABLE NO_CONNECTION
 )
 
+find_program(liblsan NAMES lsan)
+
 macro(myproject_supports_sanitizers)
   set(SUPPORTS_UBSAN OFF)
   set(SUPPORTS_ASAN OFF)
@@ -24,7 +26,7 @@ macro(myproject_setup_options)
 
   myproject_supports_sanitizers()
 
-  if(NOT PROJECT_IS_TOP_LEVEL OR myproject_PACKAGING_MAINTAINER_MODE OR NOT NO_CONNECTION EQUAL 0)
+  if(NOT PROJECT_IS_TOP_LEVEL OR myproject_PACKAGING_MAINTAINER_MODE OR NOT NO_CONNECTION EQUAL 0 OR NOT liblsan)
     option(myproject_ENABLE_IPO "Enable IPO/LTO" OFF)
     option(myproject_WARNINGS_AS_ERRORS "Treat Warnings As Errors" OFF)
     option(myproject_ENABLE_USER_LINKER "Enable user-selected linker" OFF)
