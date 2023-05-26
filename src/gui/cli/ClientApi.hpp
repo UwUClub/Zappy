@@ -119,7 +119,7 @@ namespace Zappy::GUI {
             void ReceiveMsz(std::string aResponse);
 
             // Attributes
-            char *_address;
+            std::string _address;
             unsigned int _port;
             std::string _teamName;
             int _connectStatus;

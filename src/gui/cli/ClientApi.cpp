@@ -14,7 +14,7 @@
 
 namespace Zappy::GUI {
     ClientApi::ClientApi(const std::string &aAddress, unsigned int aPort, const std::string &aTeamName)
-        : _address(const_cast<char *>(aAddress.c_str())), _port(aPort), _teamName(aTeamName), _connectStatus(-1),
+        : _address(aAddress), _port(aPort), _teamName(aTeamName), _connectStatus(-1),
           _readBuffer(""), _writeBuffer(""), _serverFd(-1)
     {}
 
@@ -28,7 +28,7 @@ namespace Zappy::GUI {
     void ClientApi::joinGame()
     {
         _serverFd = socket(PF_INET, SOCK_STREAM, 0);
-        struct sockaddr_in myAddr = getSockaddr(inet_addr(_address), _port);
+        struct sockaddr_in myAddr = getSockaddr(inet_addr(_address.c_str()), _port);
         _connectStatus =
             connect(_serverFd, reinterpret_cast<const struct sockaddr *>(&myAddr), sizeof(struct sockaddr_in));
         if (_connectStatus == -1) {
@@ -109,7 +109,7 @@ namespace Zappy::GUI {
 
     void ClientApi::ParseServerResponses()
     {
-        std::unordered_map<std::string, std::function<void(ClientApi &, std::string)>> myResponses = {
+        static const std::unordered_map<std::string, std::function<void(ClientApi &, std::string)>> myResponses = {
             {"WELCOME", &ClientApi::ReceiveWelcome},
             {"msz", &ClientApi::ReceiveMsz},
         };
