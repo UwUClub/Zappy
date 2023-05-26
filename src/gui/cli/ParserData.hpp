@@ -1,5 +1,6 @@
+#pragma once
+
 #include <iostream>
-#include "GetOpt.hpp"
 
 namespace Zappy::GUI {
     class ParserData

@@ -1,4 +1,5 @@
 #include "ParserData.hpp"
+#include <getopt.h>
 
 namespace Zappy::GUI {
     ParserData::ParserData(const std::string &aAddress, unsigned int aPort, const std::string &aClientName)
@@ -12,18 +13,19 @@ namespace Zappy::GUI {
     {
         std::string myFirstOpt;
         std::string mySecondOpt;
+        int opt = 0;
 
-        GetOpt myGetOpt(argc, argv);
-        std::map<std::string, std::string> myOptions = myGetOpt.getOptions();
-        if (myOptions.find("port") != myOptions.end()) {
-            _port = (std::stoi(myOptions["port"]));
-        } else {
-            throw ParserException("Port is missing");
-        }
-        if (myOptions.find("machine") != myOptions.end()) {
-            _clientName = myOptions["machine"];
-        } else {
-            _clientName = "localhost";
+        while ((opt = getopt(argc, argv, "p:h:")) != -1) {
+            switch (opt) {
+                case 'p':
+                    _port = static_cast<unsigned int>(std::stoi(optarg));
+                    break;
+                case 'h':
+                    _clientName = optarg;
+                    break;
+                default:
+                    throw ParserException("Invalid argument");
+            }
         }
     }
 
