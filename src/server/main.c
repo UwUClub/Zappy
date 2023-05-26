@@ -14,7 +14,7 @@ int main(int ac, char **av)
     data_t *data = NULL;
 
     data = init_data(ac, av);
-    if  (data) {
+    if (data) {
         launch_server(data);
         free_data(data);
     }

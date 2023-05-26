@@ -12,11 +12,6 @@
 #include "server_core.h"
 #include "utils.h"
 
-static void print_help(__attribute__((unused)) data_t *data,
-    __attribute__((unused)) char *value) {
-    printf("help\n");
-}
-
 static const option_t options[] = {
     { 'h', &print_help },
     { 'p', &set_port },
@@ -41,19 +36,23 @@ static void parse_team_names(data_t *data, int ac, char **av)
     free(teams);
 }
 
+static int parse_single_option(int option, data_t *data, int ac,
+    char **av)
+{
+    for (int i = 0; options[i].flag != -1; i++) {
+        if (options[i].flag == option)
+            options[i].func(data, optarg);
+    }
+    return option == 'h';
+}
+
 static int parse_data_options(data_t *data, int ac, char **av)
 {
     int option = 0;
 
     while (option != -1) {
         option = getopt(ac, av, "hp:x:y:n:c:f");
-        if (option == 'n')
-            parse_team_names(data, ac, av);
-        for (int i = 0; options[i].flag != -1; i++) {
-            if (options[i].flag == option)
-                options[i].func(data, optarg);
-        }
-        if (option == 'h')
+        if (parse_single_option(option, data, ac, av))
             return 1;
     }
     return 0;
