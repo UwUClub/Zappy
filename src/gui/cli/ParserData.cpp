@@ -21,9 +21,9 @@ namespace Zappy::GUI {
             throw ParserException("Port is missing");
         }
         if (myOptions.find("machine") != myOptions.end()) {
-            _machineName = myOptions["machine"];
+            _clientName = myOptions["machine"];
         } else {
-            _machineName = "localhost";
+            _clientName = "localhost";
         }
     }
 
