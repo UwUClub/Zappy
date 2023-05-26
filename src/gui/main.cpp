@@ -4,15 +4,14 @@
 
 #include <cstdlib>
 #include <iostream>
-#include "ClientApi.hpp"
-#include "ParserData.hpp"
 #include <stdexcept>
 #include <vulkan/vulkan.h>
 #include "App.hpp"
+#include "ClientApi.hpp"
+#include "ParserData.hpp"
 
 int main()
 {
-
     // try {
     //     Zappy::GUI::ParserData parserData("127.0.0.1", 0, "");
     //     parserData.parseData(argc, argv);
