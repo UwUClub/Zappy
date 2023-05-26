@@ -3,7 +3,7 @@ include_directories(cli)
 if (NO_CONNECTION EQUAL 0)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ldl -lpthread -lX11 -lXrandr -lXi")
 else()
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lglfw -ldl -lpthread -lX11 -lXrandr -lXi")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lglfw -lglm -ldl -lpthread -lX11 -lXrandr -lXi")
 endif()
 
 add_executable(zappy_gui
