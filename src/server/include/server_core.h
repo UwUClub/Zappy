@@ -40,20 +40,21 @@
         char *output;
     } client_t;
 
-    typedef struct map_s {
-        int width;
-        int height;
-        int **tiles;
-    } map_t;
-
     typedef struct data_s {
         int curr_cli_index;
         client_t **clients;
-        map_t *map;
+        int map_width;
+        int map_height;
         char **team_names;
         int cli_per_team;
         int freq;
+        int port;
     } data_t;
+
+    typedef struct option_s {
+        char flag;
+        void (*func)(data_t *data, char *value);
+    } option_t;
 
     typedef struct instruction_s {
         char *name;
@@ -65,7 +66,43 @@
     * the server
     * @return The data structure
     */
-    data_t *init_data();
+    data_t *init_data(int ac, char **av);
+    
+    /**
+    * @brief Set the data structure with the arguments passed to the server
+    * @param data The data structure to set
+    * @param value The value to set
+    */
+    void set_map_width(data_t *data, char *value);
+
+    /**
+    * @brief Set the data structure with the arguments passed to the server
+    * @param data The data structure to set
+    * @param value The value to set
+    */
+    void set_map_height(data_t *data, char *value);
+
+    /**
+    * @brief Set the data structure with the arguments passed to the server
+    * @param data The data structure to set
+    * @param value The value to set
+    */
+    void set_team_names(data_t *data, char *value);
+
+    /**
+    * @brief Set the data structure with the arguments passed to the server
+    * @param data The data structure to set
+    * @param value The value to set
+    */
+    void set_cli_per_team(data_t *data, char *value);
+
+    /**
+    * @brief Set the data structure with the arguments passed to the server
+    * @param data The data structure to set
+    * @param value The value to set
+    */
+    void set_freq(data_t *data, char *value);
+
     /** 
     * @brief Free the data structure once the server is closed
     * @param data The data structure to free

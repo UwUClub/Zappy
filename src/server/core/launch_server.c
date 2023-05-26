@@ -5,6 +5,7 @@
 ** launch_server
 */
 
+#include <unistd.h>
 #include <stdio.h>
 #include <sys/stat.h>
 #include <stdlib.h>
@@ -16,36 +17,9 @@
 #include "server_implementation.h"
 #include "utils.h"
 
-static map_t *init_map(const unsigned int width, const unsigned int height)
-{
-    map_t *map = malloc(sizeof(map_t));
-
-    map->width = (int) width;
-    map->height = (int) height;
-    map->tiles = NULL;
-    return map;
-}
-
-data_t *init_data()
-{
-    data_t *data = malloc(sizeof(data_t));
-
-    data->curr_cli_index = -1;
-    data->clients = init_clients(MAX_TEAMS * 1);
-    data->map = init_map(10, 10);
-    data->team_names = malloc(sizeof(char *) * 3);
-    data->team_names[0] = strdup("red");
-    data->team_names[1] = strdup("blue");
-    data->team_names[2] = NULL;
-    data->cli_per_team = 1;
-    data->freq = 7;
-    return data;
-}
-
 void free_data(data_t *data)
 {
     close_clients(data->clients);
-    free(data->map);
     free_word_array(data->team_names);
     free(data);
 }
