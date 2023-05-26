@@ -1,10 +1,11 @@
 #include <iostream>
+#include "GetOpt.hpp"
 
 namespace Zappy::GUI {
     class ParserData
     {
         public:
-            ParserData(std::string aAddress, unsigned int aPort, std::string aMachineName);
+            ParserData(const std::string &aAddress, unsigned int aPort, const std::string &aMachineName);
             ~ParserData() = default;
 
             /**
@@ -18,7 +19,7 @@ namespace Zappy::GUI {
              * @brief get the address
              * @return std::string
              */
-            [[nodiscard]] std::string getAddress() const;
+            [[nodiscard]] const std::string &getAddress() const;
 
             /**
              * @brief get the port
@@ -30,7 +31,7 @@ namespace Zappy::GUI {
              * @brief return the machine name
              * @return std::string
              */
-            [[nodiscard]] std::string getMachineName() const;
+            [[nodiscard]] const std::string &getMachineName() const;
 
             /**
              * @brief exception class for parser
