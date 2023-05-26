@@ -34,13 +34,6 @@ function(myproject_setup_dependencies)
     find_package(glm REQUIRED)
   endif()
 
-  if (NOT VULKAN_FOUND EQUAL 0)
-    execute_process(
-            COMMAND sh install_vulkan.sh
-    )
-    find_package(Vulkan REQUIRED)
-  endif()
-
   if (NOT TARGET glfw)
     CPMAddPackage(
       NAME glfw
