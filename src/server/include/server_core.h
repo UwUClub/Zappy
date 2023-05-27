@@ -40,44 +40,94 @@
         char *output;
     } client_t;
 
-    typedef struct map_s {
-        int width;
-        int height;
-        int **tiles;
-    } map_t;
-
     typedef struct data_s {
         int curr_cli_index;
         client_t **clients;
-        map_t *map;
+        int map_width;
+        int map_height;
         char **team_names;
         int cli_per_team;
         int freq;
+        int port;
     } data_t;
+
+    typedef struct option_s {
+        char flag;
+        void (*func)(data_t *data, char *value);
+    } option_t;
 
     typedef struct instruction_s {
         char *name;
         int (*func)(data_t *data, char **args);
     } instruction_t;
 
-    /** 
+    /**
     * @brief Init the data structure that includes all the data needed for
     * the server
     * @return The data structure
     */
-    data_t *init_data();
-    /** 
+    data_t *init_data(int ac, char **av);
+
+    /**
+    * @brief Print the help message
+    * @param data To follow the option pattern
+    * @param value To follow the option pattern
+    */
+    void print_help(data_t *data, char *value);
+
+    /**
+    * @brief Set the data structure with the arguments passed to the server
+    * @param data The data structure to set
+    * @param value The value to set
+    */
+    void set_port(data_t *data, char *value);
+
+    /**
+    * @brief Set the data structure with the arguments passed to the server
+    * @param data The data structure to set
+    * @param value The value to set
+    */
+    void set_map_width(data_t *data, char *value);
+
+    /**
+    * @brief Set the data structure with the arguments passed to the server
+    * @param data The data structure to set
+    * @param value The value to set
+    */
+    void set_map_height(data_t *data, char *value);
+
+    /**
+    * @brief Set the data structure with the arguments passed to the server
+    * @param data The data structure to set
+    * @param value The value to set
+    */
+    void set_team_names(data_t *data, char *value);
+
+    /**
+    * @brief Set the data structure with the arguments passed to the server
+    * @param data The data structure to set
+    * @param value The value to set
+    */
+    void set_cli_per_team(data_t *data, char *value);
+
+    /**
+    * @brief Set the data structure with the arguments passed to the server
+    * @param data The data structure to set
+    * @param value The value to set
+    */
+    void set_freq(data_t *data, char *value);
+
+    /**
     * @brief Free the data structure once the server is closed
     * @param data The data structure to free
     */
     void free_data(data_t *data);
     /**
     * @brief Launch the server
-    * @param unsigned int port
     * @param data_t *data
     * @return Status of the server
     */
-    int launch_server(unsigned int port, data_t *data);
+    int launch_server(data_t *data);
     /**
     * @brief Initialize a client
     * @param client The client to initialize
@@ -121,7 +171,7 @@
     */
     void send_to_everyone(client_t **clients, const char *msg);
     /**
-    * @brief Welcome a client who joined the server by sending him a 
+    * @brief Welcome a client who joined the server by sending him a
     * WELCOME message and initializing his data
     * @param addr the client address
     * @param server_fd the server file descriptor

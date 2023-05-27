@@ -21,7 +21,7 @@ static int append_to_team(data_t *data, char *team_name)
         return 84;
     }
     data->clients[data->curr_cli_index]->team_name = strdup(team_name);
-    str_remaining_slots = strdup(inttos(remaining_slots - 1));
+    str_remaining_slots = inttos(remaining_slots - 1);
     str_remaining_slots = concat_str(str_remaining_slots, "\n");
     world_dimensions = get_world_dimensions(data);
     send_to_client(data->clients, data->curr_cli_index, str_remaining_slots);

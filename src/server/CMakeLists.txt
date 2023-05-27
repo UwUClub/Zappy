@@ -7,6 +7,10 @@ include_directories(include)
 
 add_executable(zappy_server
         main.c
+        core/options/parse_options.c
+        core/options/option_setters.c
+        core/options/map_setters.c
+        core/options/print_help.c
         core/handle_clients.c
         core/launch_server.c
         core/read_client.c

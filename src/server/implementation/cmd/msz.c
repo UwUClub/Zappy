@@ -12,8 +12,8 @@
 char *get_world_dimensions(data_t *data)
 {
     char *result = strdup("");
-    char *width_str = inttos(data->map->width);
-    char *height_str = inttos(data->map->height);
+    char *width_str = inttos(data->map_width);
+    char *height_str = inttos(data->map_height);
 
     result = concat_str(result, width_str);
     result = concat_str(result, " ");
