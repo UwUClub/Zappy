@@ -31,8 +31,17 @@ static int append_to_team(data_t *data, char *team_name)
     return 0;
 }
 
+static int append_to_gui(data_t *data)
+{
+    data->clients[data->curr_cli_index]->team_name = strdup("GRAPHIC");
+    return msz(data, NULL);
+}
+
 int parse_team_name(data_t *data)
 {
+    if (!strcmp("GRAPHIC", data->clients[data->curr_cli_index]->input)) {
+        return append_to_gui(data);
+    }
     for (int i = 0; data->team_names[i]; i++) {
         if (!strcmp(data->team_names[i],
             data->clients[data->curr_cli_index]->input)) {
