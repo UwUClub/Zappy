@@ -2,9 +2,9 @@
 
 #include <netinet/in.h>
 #include <string>
+#include <utility>
 #include "ServerData.hpp"
 #include <unordered_map>
-#include <utility>
 
 namespace Zappy::GUI {
     class ClientApi
@@ -114,17 +114,17 @@ namespace Zappy::GUI {
             /**
              * @brief parse welcome response
              */
-            void ReceiveWelcome(const std::string& aResponse);
+            void ReceiveWelcome(const std::string &aResponse);
 
             /**
              * @brief parse msz response
              */
-            void ReceiveMsz(const std::string& aResponse);
+            void ReceiveMsz(const std::string &aResponse);
 
             /**
              * @brief parse bct response
              */
-            void ReceiveBct(const std::string& aResponse);
+            void ReceiveBct(const std::string &aResponse);
 
             // Attributes
             std::string _address;

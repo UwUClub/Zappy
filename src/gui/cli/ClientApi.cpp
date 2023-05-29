@@ -10,12 +10,13 @@
 #include <sys/select.h>
 #include <sys/socket.h>
 #include <unistd.h>
-#include <unordered_map>
 #include <utility>
+#include <unordered_map>
 
 namespace Zappy::GUI {
     ClientApi::ClientApi(std::string aAddress, unsigned int aPort, std::string aTeamName)
-        : _address(std::move(aAddress)), _port(aPort), _teamName(std::move(aTeamName)), _connectStatus(-1), _serverFd(-1)
+        : _address(std::move(aAddress)), _port(aPort), _teamName(std::move(aTeamName)), _connectStatus(-1),
+          _serverFd(-1)
     {}
 
     ClientApi::~ClientApi()
@@ -129,12 +130,12 @@ namespace Zappy::GUI {
         }
     }
 
-    void ClientApi::ReceiveWelcome(__attribute__((unused)) const std::string& aResponse)
+    void ClientApi::ReceiveWelcome(__attribute__((unused)) const std::string &aResponse)
     {
         _writeBuffer += _teamName + "\n";
     }
 
-    void ClientApi::ReceiveMsz(const std::string& aResponse)
+    void ClientApi::ReceiveMsz(const std::string &aResponse)
     {
         std::string const myX = aResponse.substr(0, aResponse.find(' '));
         std::string const myY = aResponse.substr(aResponse.find(' ') + 1);
@@ -142,7 +143,7 @@ namespace Zappy::GUI {
         _serverData._mapSize = std::make_pair(std::stoi(myX), std::stoi(myY));
     }
 
-    void ClientApi::ReceiveBct(const std::string& aResponse)
+    void ClientApi::ReceiveBct(const std::string &aResponse)
     {
         std::vector<int> myResources;
         std::string myArg = aResponse;

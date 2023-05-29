@@ -8,8 +8,7 @@ namespace Zappy::GUI {
         _inventory = {0, 0, 0, 0, 0, 0, 0};
     }
 
-    Player::~Player()
-    = default;
+    Player::~Player() = default;
 
     void Player::setPosition(unsigned int aX, unsigned int aY)
     {
