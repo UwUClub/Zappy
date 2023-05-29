@@ -8,19 +8,19 @@
 #include <stdio.h>
 #include "server_implementation.h"
 
-int left(data_t *aData, __attribute__ ((unused)) char **aArgs)
+int left(data_t *data, __attribute__ ((unused)) char **args)
 {
     char *myMsg = strdup("ok");
 
-    if (aData->clients[aData->curr_cli_index]->orientation == NORTH)
-        aData->clients[aData->curr_cli_index]->orientation = WEST;
-    else if (aData->clients[aData->curr_cli_index]->orientation == SOUTH)
-        aData->clients[aData->curr_cli_index]->orientation = EAST;
-    else if (aData->clients[aData->curr_cli_index]->orientation == EAST)
-        aData->clients[aData->curr_cli_index]->orientation = NORTH;
-    else if (aData->clients[aData->curr_cli_index]->orientation == WEST)
-        aData->clients[aData->curr_cli_index]->orientation = SOUTH;
-    send_to_client(aData->clients, aData->curr_cli_index, myMsg);
+    if (data->clients[data->curr_cli_index]->orientation == NORTH)
+        data->clients[data->curr_cli_index]->orientation = WEST;
+    if (data->clients[data->curr_cli_index]->orientation == SOUTH)
+        data->clients[data->curr_cli_index]->orientation = EAST;
+    if (data->clients[data->curr_cli_index]->orientation == EAST)
+        data->clients[data->curr_cli_index]->orientation = NORTH;
+    if (data->clients[data->curr_cli_index]->orientation == WEST)
+        data->clients[data->curr_cli_index]->orientation = SOUTH;
+    send_to_client(data->clients, data->curr_cli_index, myMsg);
     free(myMsg);
     return 0;
 }
