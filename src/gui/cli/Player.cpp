@@ -5,13 +5,11 @@ namespace Zappy::GUI {
     Player::Player()
     {
         _position = std::make_pair(0, 0);
-        _orientation = Orientation::NORTH;
-        _level = 1;
         _inventory = {0, 0, 0, 0, 0, 0, 0};
     }
 
     Player::~Player()
-    {}
+    = default;
 
     void Player::setPosition(unsigned int aX, unsigned int aY)
     {
@@ -30,8 +28,9 @@ namespace Zappy::GUI {
 
     void Player::setInventory(int aItem, long unsigned int aSlot)
     {
-        if (aSlot > 6)
+        if (aSlot > 6) {
             return;
+        }
         _inventory[aSlot] = aItem;
     }
 
@@ -52,8 +51,9 @@ namespace Zappy::GUI {
 
     int Player::getInventory(long unsigned int aSlot) const
     {
-        if (aSlot > 6)
+        if (aSlot > 6) {
             return -1;
+        }
         return _inventory[aSlot];
     }
 }; // namespace Zappy::GUI

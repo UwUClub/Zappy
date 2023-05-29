@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <utility>
 
 namespace Zappy::GUI {
     class ParserData
@@ -44,7 +45,7 @@ namespace Zappy::GUI {
                      * @brief ParserException constructor
                      * @param aMessage
                      */
-                    explicit ParserException(const std::string &aMessage) : _message(aMessage)
+                    explicit ParserException(std::string aMessage) : _message(std::move(aMessage))
                     {}
 
                     /**

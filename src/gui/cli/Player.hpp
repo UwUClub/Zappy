@@ -83,8 +83,8 @@ namespace Zappy::GUI {
         private:
             // Attributes
             std::pair<unsigned int, unsigned int> _position;
-            Orientation _orientation;
-            int _level;
+            Orientation _orientation{Orientation::NORTH};
+            int _level{1};
             std::array<int, INVENTORY_SIZE> _inventory;
     };
 } // namespace Zappy::GUI

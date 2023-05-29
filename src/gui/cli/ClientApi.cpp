@@ -11,10 +11,11 @@
 #include <sys/socket.h>
 #include <unistd.h>
 #include <unordered_map>
+#include <utility>
 
 namespace Zappy::GUI {
-    ClientApi::ClientApi(const std::string &aAddress, unsigned int aPort, const std::string &aTeamName)
-        : _address(aAddress), _port(aPort), _teamName(aTeamName), _connectStatus(-1), _serverFd(-1)
+    ClientApi::ClientApi(std::string aAddress, unsigned int aPort, std::string aTeamName)
+        : _address(std::move(aAddress)), _port(aPort), _teamName(std::move(aTeamName)), _connectStatus(-1), _serverFd(-1)
     {}
 
     ClientApi::~ClientApi()
@@ -113,30 +114,45 @@ namespace Zappy::GUI {
         static std::unordered_map<std::string, std::function<void(ClientApi &, std::string)>> myResponses = {
             {"WELCOME", &ClientApi::ReceiveWelcome},
             {"msz", &ClientApi::ReceiveMsz},
+            {"bct", &ClientApi::ReceiveBct},
         };
 
-        while (_readBuffer.find("\n") != std::string::npos) {
-            std::string myResponse = _readBuffer.substr(0, _readBuffer.find("\n"));
-            std::string myCommand = myResponse.substr(0, myResponse.find(" "));
-            std::string myArgs = myResponse.substr(myResponse.find(" ") + 1);
+        while (_readBuffer.find('\n') != std::string::npos) {
+            std::string const myResponse = _readBuffer.substr(0, _readBuffer.find('\n'));
+            std::string const myCommand = myResponse.substr(0, myResponse.find(' '));
+            std::string const myArgs = myResponse.substr(myResponse.find(' ') + 1);
 
             if (myResponses.find(myCommand) != myResponses.end()) {
                 myResponses[myCommand](*this, myArgs);
             }
-            _readBuffer = _readBuffer.substr(_readBuffer.find("\n") + 1);
+            _readBuffer = _readBuffer.substr(_readBuffer.find('\n') + 1);
         }
     }
 
-    void ClientApi::ReceiveWelcome(__attribute__((unused)) std::string aResponse)
+    void ClientApi::ReceiveWelcome(__attribute__((unused)) const std::string& aResponse)
     {
         _writeBuffer += _teamName + "\n";
     }
 
-    void ClientApi::ReceiveMsz(std::string aResponse)
+    void ClientApi::ReceiveMsz(const std::string& aResponse)
     {
-        std::string myX = aResponse.substr(0, aResponse.find(" "));
-        std::string myY = aResponse.substr(aResponse.find(" ") + 1);
+        std::string const myX = aResponse.substr(0, aResponse.find(' '));
+        std::string const myY = aResponse.substr(aResponse.find(' ') + 1);
 
         _serverData._mapSize = std::make_pair(std::stoi(myX), std::stoi(myY));
+    }
+
+    void ClientApi::ReceiveBct(const std::string& aResponse)
+    {
+        std::vector<int> myResources;
+        std::string myArg = aResponse;
+
+        while (myArg.find(' ') != std::string::npos) {
+            std::string const myResource = myArg.substr(0, myArg.find(' '));
+
+            myResources.push_back(std::stoi(myResource));
+            myArg = myArg.substr(myArg.find(' ') + 1);
+        }
+        myResources.push_back(std::stoi(myArg));
     }
 } // namespace Zappy::GUI

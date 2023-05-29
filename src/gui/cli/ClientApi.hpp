@@ -4,6 +4,7 @@
 #include <string>
 #include "ServerData.hpp"
 #include <unordered_map>
+#include <utility>
 
 namespace Zappy::GUI {
     class ClientApi
@@ -15,7 +16,7 @@ namespace Zappy::GUI {
              * @param aPort
              * @param aTeamName
              */
-            ClientApi(const std::string &aAddress, unsigned int aPort, const std::string &aTeamName);
+            ClientApi(std::string aAddress, unsigned int aPort, std::string aTeamName);
 
             /**
              * @brief ClientApi destructor
@@ -65,7 +66,7 @@ namespace Zappy::GUI {
                      * @brief ClientException constructor
                      * @param aMessage
                      */
-                    explicit ClientException(const std::string &aMessage) : _message(aMessage)
+                    explicit ClientException(std::string aMessage) : _message(std::move(aMessage))
                     {}
 
                     /**
@@ -113,12 +114,17 @@ namespace Zappy::GUI {
             /**
              * @brief parse welcome response
              */
-            void ReceiveWelcome(std::string aResponse);
+            void ReceiveWelcome(const std::string& aResponse);
 
             /**
              * @brief parse msz response
              */
-            void ReceiveMsz(std::string aResponse);
+            void ReceiveMsz(const std::string& aResponse);
+
+            /**
+             * @brief parse bct response
+             */
+            void ReceiveBct(const std::string& aResponse);
 
             // Attributes
             std::string _address;
