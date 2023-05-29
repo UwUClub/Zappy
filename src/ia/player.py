@@ -53,3 +53,29 @@ class Player:
             my_msz = myMsz[1:]
         self._mapWidth = int(myMsz[0])
         self._mapHeight = int(myMsz[1])
+
+    ## @brief Send forward command
+    ## @return None
+    def forward(self):
+        self.send("Forward")
+        myForward = self.receive()
+        if myForward != "ok\n":
+            print("Error: Forward")
+
+    ## @brief Send left command
+    ## @return None
+    def left(self):
+        self.send("Left")
+        myLeft = self.receive()
+        if myLeft != "ok\n":
+            print ("Error: Left rotation")
+    
+    ## @brief Send right command
+    ## @return None
+    def right(self):
+        self.send("Right")
+        myRight = self.receive()
+        if myRight != "ok\n":
+            print ("Error: Right rotation")
+        
+
