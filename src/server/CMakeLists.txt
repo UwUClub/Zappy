@@ -25,6 +25,8 @@ add_executable(zappy_server
         implementation/gui/msz.c
         implementation/gui/bct.c
         implementation/ia/forward.c
+        implementation/ia/right.c
+        implementation/ia/left.c
         utils/concat_str.c
         utils/free_word_array.c
         utils/get_sockaddr.c

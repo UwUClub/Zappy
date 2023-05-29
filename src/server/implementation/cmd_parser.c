@@ -14,6 +14,8 @@
 
 static const cmd_t player_commands[] = {
     {"Forward", &forward},
+    {"Right", &right},
+    {"Left", &left},
     {NULL, NULL}
 };
 

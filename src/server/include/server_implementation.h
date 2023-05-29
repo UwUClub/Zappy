@@ -62,5 +62,19 @@
     * @return Status of the parsing / command
     */
     int forward(data_t *data, char **args);
+    /**
+     * @brief Sends a response to the right command sent by the client
+     * @param data The current server data, clients and current client index
+     * @param args The arguments of the command
+     * @return Status of the parsing / command
+     */
+    int right(data_t *data, char **args);
+    /**
+     * @brief Sends a response to the left command sent by the client
+     * @param data The current server data, clients and current client index
+     * @param args The arguments of the command
+     * @return Status of the parsing / command
+     */
+    int left(data_t *data, char **args);
 
 #endif /* ZAPPY_SERVER_IMPLEMENTATION_H */
