@@ -26,9 +26,13 @@ char *get_world_dimensions(data_t *data)
 
 int msz(data_t *data, __attribute__((unused)) char **args)
 {
-    char *msg = strdup("msz ");
-    char *world_dimensions = get_world_dimensions(data);
+    char *msg = NULL;
+    char *world_dimensions = NULL;
 
+    if (args)
+        return 1;
+    world_dimensions = get_world_dimensions(data);
+    msg = strdup("msz ");
     msg = concat_str(msg, world_dimensions);
     free(world_dimensions);
     send_to_client(data->clients, data->curr_cli_index, msg);

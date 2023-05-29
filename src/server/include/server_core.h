@@ -28,13 +28,23 @@
         WEST
     } orientation_t;
 
+    typedef struct item_packet_s {
+        int food;
+        int linemate;
+        int deraumere;
+        int sibur;
+        int mendiane;
+        int phiras;
+        int thystame;
+    } item_packet_t;
+
     typedef struct client_s {
         int fd;
         int pos_x;
         int pos_y;
         orientation_t orientation;
         int level;
-        int inventory[7];
+        item_packet_t *inventory;
         char *team_name;
         char *input;
         char *output;
@@ -45,6 +55,7 @@
         client_t **clients;
         int map_width;
         int map_height;
+        item_packet_t ***map_tiles;
         char **team_names;
         int cli_per_team;
         int freq;
@@ -66,7 +77,22 @@
     * the server
     * @return The data structure
     */
-    data_t *init_data(int ac, char **av);
+    data_t *init_server_data(int ac, char **av);
+
+    /**
+    * @brief Free the data structure once the server is closed
+    * @param data The data structure to free
+    */
+    void free_server_data(data_t *data);
+
+    /**
+    * @brief Parse the arguments passed to the server
+    * @param data The data structure to set
+    * @param ac The number of arguments
+    * @param av The arguments
+    * @return Status of the parsing
+    */
+    int parse_data_options(data_t *data, int ac, char **av);
 
     /**
     * @brief Print the help message

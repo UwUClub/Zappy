@@ -13,6 +13,7 @@ add_executable(zappy_server
         core/options/print_help.c
         core/handle_clients.c
         core/launch_server.c
+        core/server_data.c
         core/read_client.c
         core/single_client_lifecycle.c
         core/welcome_single_client.c
@@ -21,6 +22,7 @@ add_executable(zappy_server
         implementation/team_parser.c
         implementation/get_remaining_slots.c
         implementation/cmd/msz.c
+        implementation/cmd/bct.c
         implementation/cmd/forward.c
         utils/concat_str.c
         utils/free_word_array.c
