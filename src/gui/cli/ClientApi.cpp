@@ -10,12 +10,13 @@
 #include <sys/select.h>
 #include <sys/socket.h>
 #include <unistd.h>
-#include <unordered_map>
 #include <utility>
+#include <unordered_map>
 
 namespace Zappy::GUI {
     ClientApi::ClientApi(std::string aAddress, unsigned int aPort, std::string aTeamName)
-        : _address(std::move(aAddress)), _port(aPort), _teamName(std::move(aTeamName)), _connectStatus(-1), _serverFd(-1)
+        : _address(std::move(aAddress)), _port(aPort), _teamName(std::move(aTeamName)), _connectStatus(-1),
+          _serverFd(-1)
     {}
 
     ClientApi::~ClientApi()
@@ -115,8 +116,7 @@ namespace Zappy::GUI {
             {"WELCOME", &ClientApi::ReceiveWelcome},
             {"msz", &ClientApi::ReceiveMsz},
             {"bct", &ClientApi::ReceiveBct},
-            {"mct", &ClientApi::ReceiveMct}
-        };
+            {"mct", &ClientApi::ReceiveMct}};
 
         while (_readBuffer.find('\n') != std::string::npos) {
             std::string const myResponse = _readBuffer.substr(0, _readBuffer.find('\n'));
@@ -130,12 +130,12 @@ namespace Zappy::GUI {
         }
     }
 
-    void ClientApi::ReceiveWelcome(__attribute__((unused)) const std::string& aResponse)
+    void ClientApi::ReceiveWelcome(__attribute__((unused)) const std::string &aResponse)
     {
         _writeBuffer += _teamName + "\n";
     }
 
-    void ClientApi::ReceiveMsz(const std::string& aResponse)
+    void ClientApi::ReceiveMsz(const std::string &aResponse)
     {
         std::string const myX = aResponse.substr(0, aResponse.find(' '));
         std::string const myY = aResponse.substr(aResponse.find(' ') + 1);
@@ -143,7 +143,7 @@ namespace Zappy::GUI {
         _serverData._mapSize = std::make_pair(std::stoi(myX), std::stoi(myY));
     }
 
-    void ClientApi::ReceiveBct(const std::string& aResponse)
+    void ClientApi::ReceiveBct(const std::string &aResponse)
     {
         std::vector<int> myResources;
         std::string myArg = aResponse;
@@ -156,15 +156,17 @@ namespace Zappy::GUI {
         }
         myResources.push_back(std::stoi(myArg));
 
-        if (std::find(_serverData._mapTiles.begin(), _serverData._mapTiles.end(), myResources) == _serverData._mapTiles.end()) {
+        if (std::find(_serverData._mapTiles.begin(), _serverData._mapTiles.end(), myResources)
+            == _serverData._mapTiles.end()) {
             _serverData._mapTiles.push_back(myResources);
         } else {
-            _serverData._mapTiles.erase(std::find(_serverData._mapTiles.begin(), _serverData._mapTiles.end(), myResources));
+            _serverData._mapTiles.erase(
+                std::find(_serverData._mapTiles.begin(), _serverData._mapTiles.end(), myResources));
             _serverData._mapTiles.push_back(myResources);
         }
     }
 
-    void ClientApi::ReceiveMct(const std::string& aResponse)
+    void ClientApi::ReceiveMct(const std::string &aResponse)
     {
         std::pair<int, int> const myMapSize = _serverData._mapSize;
         std::vector<int> const myResources;
