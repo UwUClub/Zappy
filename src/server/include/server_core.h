@@ -32,23 +32,13 @@
         END
     } orientation_t;
 
-    typedef struct item_packet_s {
-        int food;
-        int linemate;
-        int deraumere;
-        int sibur;
-        int mendiane;
-        int phiras;
-        int thystame;
-    } item_packet_t;
-
     typedef struct client_s {
         int fd;
         int pos_x;
         int pos_y;
         orientation_t orientation;
         int level;
-        item_packet_t *inventory;
+        int inventory[TILE_SIZE];
         char *team_name;
         char *input;
         char *output;
