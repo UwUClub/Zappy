@@ -39,9 +39,13 @@ static void parse_team_names(data_t *data, int ac, char **av)
 static int parse_single_option(int option, data_t *data, int ac,
     char **av)
 {
+    int status = 0;
+
     for (int i = 0; options[i].flag != -1; i++) {
         if (options[i].flag == option)
-            options[i].func(data, optarg);
+            status = options[i].func(data, optarg);
+        if (status == 84)
+            return 1;
     }
     return option == 'h';
 }

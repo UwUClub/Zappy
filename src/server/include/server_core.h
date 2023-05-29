@@ -19,6 +19,8 @@
     #include <arpa/inet.h>
 
     #define MAX_TEAMS 4
+    #define MIN_MAP_SIZE 10
+    #define MAX_MAP_SIZE 30
 
     typedef enum orientation_e {
         UNKNOWN = 0,
@@ -64,7 +66,7 @@
 
     typedef struct option_s {
         char flag;
-        void (*func)(data_t *data, char *value);
+        int (*func)(data_t *data, char *value);
     } option_t;
 
     typedef struct instruction_s {
@@ -98,50 +100,57 @@
     * @brief Print the help message
     * @param data To follow the option pattern
     * @param value To follow the option pattern
+    * @return Status of the printing
     */
-    void print_help(data_t *data, char *value);
+    int print_help(data_t *data, char *value);
 
     /**
     * @brief Set the data structure with the arguments passed to the server
     * @param data The data structure to set
     * @param value The value to set
+    * @return Status of the parsing
     */
-    void set_port(data_t *data, char *value);
+    int set_port(data_t *data, char *value);
 
     /**
     * @brief Set the data structure with the arguments passed to the server
     * @param data The data structure to set
     * @param value The value to set
+    * @return Status of the parsing
     */
-    void set_map_width(data_t *data, char *value);
+    int set_map_width(data_t *data, char *value);
 
     /**
     * @brief Set the data structure with the arguments passed to the server
     * @param data The data structure to set
     * @param value The value to set
+    * @return Status of the parsing
     */
-    void set_map_height(data_t *data, char *value);
+    int set_map_height(data_t *data, char *value);
 
     /**
     * @brief Set the data structure with the arguments passed to the server
     * @param data The data structure to set
     * @param value The value to set
+    * @return Status of the parsing
     */
-    void set_team_names(data_t *data, char *value);
+    int set_team_names(data_t *data, char *value);
 
     /**
     * @brief Set the data structure with the arguments passed to the server
     * @param data The data structure to set
     * @param value The value to set
+    * @return Status of the parsing
     */
-    void set_cli_per_team(data_t *data, char *value);
+    int set_cli_per_team(data_t *data, char *value);
 
     /**
     * @brief Set the data structure with the arguments passed to the server
     * @param data The data structure to set
     * @param value The value to set
+    * @return Status of the parsing
     */
-    void set_freq(data_t *data, char *value);
+    int set_freq(data_t *data, char *value);
 
     /**
     * @brief Free the data structure once the server is closed
