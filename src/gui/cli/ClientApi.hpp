@@ -126,6 +126,12 @@ namespace Zappy::GUI {
              */
             void ReceiveBct(const std::string& aResponse);
 
+            /**
+             * @brief parse mct response
+             */
+            void ReceiveMct(const std::string& aResponse);
+
+
             // Attributes
             std::string _address;
             unsigned int _port;

@@ -115,6 +115,7 @@ namespace Zappy::GUI {
             {"WELCOME", &ClientApi::ReceiveWelcome},
             {"msz", &ClientApi::ReceiveMsz},
             {"bct", &ClientApi::ReceiveBct},
+            {"mct", &ClientApi::ReceiveMct}
         };
 
         while (_readBuffer.find('\n') != std::string::npos) {
@@ -154,5 +155,24 @@ namespace Zappy::GUI {
             myArg = myArg.substr(myArg.find(' ') + 1);
         }
         myResources.push_back(std::stoi(myArg));
+
+        if (std::find(_serverData._mapTiles.begin(), _serverData._mapTiles.end(), myResources) == _serverData._mapTiles.end()) {
+            _serverData._mapTiles.push_back(myResources);
+        } else {
+            _serverData._mapTiles.erase(std::find(_serverData._mapTiles.begin(), _serverData._mapTiles.end(), myResources));
+            _serverData._mapTiles.push_back(myResources);
+        }
+    }
+
+    void ClientApi::ReceiveMct(const std::string& aResponse)
+    {
+        std::pair<int, int> const myMapSize = _serverData._mapSize;
+        std::vector<int> const myResources;
+
+        for (int myY = 0; myY < myMapSize.second; myY++) {
+            for (int myX = 0; myX < myMapSize.first; myX++) {
+                ReceiveBct(aResponse);
+            }
+        }
     }
 } // namespace Zappy::GUI
