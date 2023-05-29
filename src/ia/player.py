@@ -9,9 +9,6 @@ class Player:
         self._name = ""
         self._mapWidth = 0
         self._mapHeight = 0
-        self._posX = 0
-        self._posY = 0
-        self._orientation = 0
 
     ## @brief Connect to the server
     ## @param info The connection information
@@ -62,16 +59,7 @@ class Player:
     def forward(self):
         self.send("Forward")
         myForward = self.receive()
-        if myForward == "ok":
-            if (self._orientation == 0):
-                self._posY -= 1
-            elif (self._orientation == 90):
-                self._posX += 1
-            elif (self._orientation == 180):
-                self._posY += 1
-            elif (self._orientation == 270):
-                self._posX -= 1
-        else:
+        if myForward != "ok\n":
             print("Error: Forward")
 
     ## @brief Send left command
@@ -79,23 +67,15 @@ class Player:
     def left(self):
         self.send("Left")
         myLeft = self.receive()
-        if myLeft == "ok":
-            self._orientation += 90
-        else:
+        if myLeft != "ok\n":
             print ("Error: Left rotation")
-        if (self._orientation == 360):
-            self._orientation = 0
     
     ## @brief Send right command
     ## @return None
     def right(self):
         self.send("Right")
         myRight = self.receive()
-        if myRight == "ok":
-            self._orientation -= 90
-        else:
+        if myRight != "ok\n":
             print ("Error: Right rotation")
-        if (self._orientation == -90):
-            self._orientation = 270
         
 
