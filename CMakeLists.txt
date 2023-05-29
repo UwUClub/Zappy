@@ -29,19 +29,13 @@ execute_process(
     OUTPUT_QUIET
 )
 
-find_package(glfw3 QUIET)
-find_package(glm QUIET)
-find_package(Vulkan QUIET)
-
 include(cmake/PreventInSourceBuilds.cmake)
 include(ProjectOptions.cmake)
 
 if (NO_CONNECTION EQUAL 0)
     include(Dependencies.cmake)
     myproject_setup_dependencies()
-    set(glfw3_FOUND 1)
-    set(glm_FOUND 1)
-    set(Vulkan_FOUND 1)
+    find_package(OGRE QUIET)
 endif()
 
 myproject_setup_options()
@@ -97,14 +91,9 @@ myproject_package_project(
   myproject_warnings
 )
 
-if (NO_CONNECTION EQUAL 0)
-    myproject_package_project(
-      TARGETS
-      zappy_gui
-      myproject_options
-      myproject_warnings
-    )
-elseif(glfw3_FOUND EQUAL 1 AND glm_FOUND EQUAL 1 AND Vulkan_FOUND)
+if (NO_CONNECTION EQUAL 0 AND OGRE_FOUND)
+    include_directories (${OGRE_INCLUDE_DIRS})
+
     myproject_package_project(
       TARGETS
       zappy_gui
