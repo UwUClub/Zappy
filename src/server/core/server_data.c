@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2023
 ** zappy_server
 ** File description:
-** init_server_data
+** server_data
 */
 
 #include <unistd.h>
@@ -25,22 +25,23 @@ static void set_data_default_values(data_t *data)
     data->port = 4242;
 }
 
+static void init_single_tile(data_t *data, int x, int y)
+{
+    for (int i = 0; i < TILE_SIZE; i++) {
+        data->map_tiles[x][y][i] = 0;
+    }
+}
+
 static void init_map_tiles(data_t *data)
 {
-    data->map_tiles = malloc(sizeof(item_packet_t **) * data->map_height);
+    data->map_tiles = malloc(sizeof(int *[7]) * data->map_height);
     for (int x = 0; x < data->map_height; x++) {
-        data->map_tiles[x] = malloc(sizeof(item_packet_t *) * data->map_width);
+        data->map_tiles[x] = malloc(sizeof(int [7]) * data->map_width);
         for (int y = 0; y < data->map_width; y++) {
-            data->map_tiles[x][y] = malloc(sizeof(item_packet_t));
-            data->map_tiles[x][y]->food = 0;
-            data->map_tiles[x][y]->linemate = 0;
-            data->map_tiles[x][y]->deraumere = 0;
-            data->map_tiles[x][y]->sibur = 0;
-            data->map_tiles[x][y]->mendiane = 0;
-            data->map_tiles[x][y]->phiras = 0;
-            data->map_tiles[x][y]->thystame = 0;
+            init_single_tile(data, x, y);
         }
     }
+    spawn_resources(data);
 }
 
 data_t *init_server_data(int ac, char **av)
@@ -70,8 +71,6 @@ void free_server_data(data_t *data)
     close_clients(data->clients);
     free_word_array(data->team_names);
     for (int x = 0; x < data->map_height; x++) {
-        for (int y = 0; y < data->map_width; y++)
-            free(data->map_tiles[x][y]);
         free(data->map_tiles[x]);
     }
     free(data->map_tiles);

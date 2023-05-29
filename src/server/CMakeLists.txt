@@ -18,12 +18,13 @@ add_executable(zappy_server
         core/single_client_lifecycle.c
         core/welcome_single_client.c
         core/write_to_client.c
+        core/spawn_resources.c
         implementation/cmd_parser.c
         implementation/team_parser.c
         implementation/get_remaining_slots.c
-        implementation/cmd/msz.c
-        implementation/cmd/bct.c
-        implementation/cmd/forward.c
+        implementation/gui/msz.c
+        implementation/gui/bct.c
+        implementation/ia/forward.c
         utils/concat_str.c
         utils/free_word_array.c
         utils/get_sockaddr.c
@@ -35,6 +36,7 @@ add_executable(zappy_server
         include/server_implementation.h
         include/server_core.h
         include/utils.h
+        include/resources.h
         )
 
 

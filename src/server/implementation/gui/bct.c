@@ -21,17 +21,13 @@ static void concat_str_item(char **result, const int item_quantity)
 
 static char *get_tile_at(data_t *data, const int x, const int y)
 {
-    item_packet_t *tile = data->map_tiles[y][x];
+    int *tile = data->map_tiles[y][x];
     char *result = NULL;
 
     result = strdup("");
-    concat_str_item(&result, tile->food);
-    concat_str_item(&result, tile->linemate);
-    concat_str_item(&result, tile->deraumere);
-    concat_str_item(&result, tile->sibur);
-    concat_str_item(&result, tile->mendiane);
-    concat_str_item(&result, tile->phiras);
-    concat_str_item(&result, tile->thystame);
+    for (int i = 0; i < TILE_SIZE; i++) {
+        concat_str_item(&result, tile[i]);
+    }
     result = concat_str(result, "\n");
     return result;
 }

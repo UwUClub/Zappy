@@ -21,13 +21,15 @@
     #define MAX_TEAMS 4
     #define MIN_MAP_SIZE 10
     #define MAX_MAP_SIZE 30
+    #define TILE_SIZE 7
 
     typedef enum orientation_e {
         UNKNOWN = 0,
         NORTH,
         EAST,
         SOUTH,
-        WEST
+        WEST,
+        END
     } orientation_t;
 
     typedef struct item_packet_s {
@@ -57,7 +59,7 @@
         client_t **clients;
         int map_width;
         int map_height;
-        item_packet_t ***map_tiles;
+        int (**map_tiles)[TILE_SIZE];
         char **team_names;
         int cli_per_team;
         int freq;
@@ -224,5 +226,10 @@
     * @param clients Client to write to
     */
     void write_to_selected_client(client_t **client);
+    /**
+    * @brief Spawn resources on the map
+    * @param data The server data
+    */
+    void spawn_resources(data_t *data);
 
 #endif /* ZAPPY_SERVER_CORE_H */
