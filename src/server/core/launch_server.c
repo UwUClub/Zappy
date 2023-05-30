@@ -28,7 +28,9 @@ static void listen_to_inputs(struct sockaddr_in *addr, int server_fd,
     data_t *data)
 {
     while (1) {
-        select_clients(addr, server_fd, data);
+        if (select_clients(addr, server_fd, data)) {
+            return;
+        }
     }
 }
 

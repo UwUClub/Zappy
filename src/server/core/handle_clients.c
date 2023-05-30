@@ -10,6 +10,13 @@
 #include <string.h>
 #include "server_implementation.h"
 
+static int keepRunning = 1;
+
+void intHandler(int dummy)
+{
+    keepRunning = 0;
+}
+
 client_t **init_clients(const unsigned int max_connections)
 {
     client_t **clients = NULL;
@@ -41,7 +48,7 @@ static void get_fd_set(client_t **clients, fd_set *read_fd_set,
     }
 }
 
-void select_clients(struct sockaddr_in *addr, int server_fd, data_t *data)
+int select_clients(struct sockaddr_in *addr, int server_fd, data_t *data)
 {
     fd_set read_fd_set;
     fd_set write_fd_set;
@@ -49,6 +56,8 @@ void select_clients(struct sockaddr_in *addr, int server_fd, data_t *data)
     get_fd_set(data->clients, &read_fd_set, &write_fd_set);
     FD_SET(server_fd, &read_fd_set);
     select(FD_SETSIZE, &read_fd_set, &write_fd_set, NULL, NULL);
+    if (!keepRunning)
+        return 1;
     if (FD_ISSET(server_fd, &read_fd_set))
         welcome_selected_client((struct sockaddr *) addr, server_fd,
             data->clients);
@@ -63,6 +72,7 @@ void select_clients(struct sockaddr_in *addr, int server_fd, data_t *data)
             read_selected_client(data);
         }
     }
+    return 0;
 }
 
 void close_clients(client_t **clients)

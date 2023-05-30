@@ -155,8 +155,9 @@
     * @param server_fd The server file descriptor
     * @param data The structure that includes server data,
     * clients and current client index
+    * @return 1 if the server is closing, 0 otherwise
     */
-    void select_clients(struct sockaddr_in *addr, int server_fd, data_t *data);
+    int select_clients(struct sockaddr_in *addr, int server_fd, data_t *data);
     /**
     * @brief Append a message to the client write buffer
     * @param clients Client list of the server
@@ -189,5 +190,11 @@
     * @param clients Client to write to
     */
     void write_to_selected_client(client_t **client);
+
+    /**
+    * @brief Handle SIGINT signal
+    * @param dummy To follow the signal pattern
+    */
+    void intHandler(int dummy);
 
 #endif /* ZAPPY_SERVER_CORE_H */
