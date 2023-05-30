@@ -8,8 +8,11 @@
 #include <stdio.h>
 #include "server_implementation.h"
 
-int forward(data_t *data, __attribute__ ((unused)) char **args)
+int forward(data_t *data, char **args)
 {
+    if (args != NULL) {
+        return 1;
+    }
     if (data->clients[data->curr_cli_index]->orientation == NORTH)
         data->clients[data->curr_cli_index]->pos_y -= 1;
     if (data->clients[data->curr_cli_index]->orientation == SOUTH)
