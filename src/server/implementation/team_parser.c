@@ -33,8 +33,22 @@ static int append_to_team(data_t *data, char *team_name)
 
 static int append_to_gui(data_t *data)
 {
+    char *x_str = NULL;
+    char *y_str = NULL;
+
     data->clients[data->curr_cli_index]->team_name = strdup("GRAPHIC");
-    return msz(data, NULL);
+    msz(data, NULL);
+
+    for (int x = 0; x < data->map_width; x++) {
+        for (int y = 0; y < data->map_height; y++) {
+            x_str = inttos(x);
+            y_str = inttos(y);
+            bct(data, (char *[]){x_str, y_str, NULL});
+            free(x_str);
+            free(y_str);
+        }
+    }
+    return 0;
 }
 
 int parse_team_name(data_t *data)

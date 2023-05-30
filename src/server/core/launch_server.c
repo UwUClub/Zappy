@@ -17,13 +17,6 @@
 #include "server_implementation.h"
 #include "utils.h"
 
-void free_data(data_t *data)
-{
-    close_clients(data->clients);
-    free_word_array(data->team_names);
-    free(data);
-}
-
 static void listen_to_inputs(struct sockaddr_in *addr, int server_fd,
     data_t *data)
 {
