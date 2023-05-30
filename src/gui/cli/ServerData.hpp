@@ -8,7 +8,8 @@ namespace Zappy::GUI {
 
     class Player;
 
-    class Tile {
+    class Tile
+    {
         public:
             Tile() = default;
             ~Tile() = default;
