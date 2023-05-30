@@ -48,6 +48,7 @@ static int append_to_gui(data_t *data)
             free(y_str);
         }
     }
+    tna(data, NULL);
     return 0;
 }
 
