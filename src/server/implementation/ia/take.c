@@ -24,7 +24,7 @@ static int check_is_on_tile(data_t *data, int resource)
 
 int take(data_t *data, char **args)
 {
-    char *resource[7] = {"food", "linemate", "deraumere", "sibur", "mendiane",
+    const char *resource[7] = {"food", "linemate", "deraumere", "sibur", "mendiane",
     "phiras", "thystame"};
     
     if (args == NULL || word_array_len(args) > 1) {
