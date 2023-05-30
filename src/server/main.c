@@ -14,7 +14,7 @@ int main(int ac, char **av)
 {
     data_t *data = NULL;
 
-    signal(SIGINT, intHandler);
+    signal(SIGINT, int_handler);
     data = init_data(ac, av);
     if (data) {
         launch_server(data);

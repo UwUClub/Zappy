@@ -195,6 +195,6 @@
     * @brief Handle SIGINT signal
     * @param dummy To follow the signal pattern
     */
-    void intHandler(int dummy);
+    void int_handler(int dummy);
 
 #endif /* ZAPPY_SERVER_CORE_H */
