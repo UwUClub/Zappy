@@ -224,9 +224,9 @@
     void spawn_resources(data_t *data);
 
     /**
-    * @brief Handle SIGINT signal
+    * @brief Handle SIGINT signal by stopping the server
     * @param dummy To follow the signal pattern
     */
-    void int_handler(int dummy);
+    void detect_ctrl_c(int dummy);
 
 #endif /* ZAPPY_SERVER_CORE_H */

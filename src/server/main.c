@@ -17,7 +17,7 @@ int main(int ac, char **av)
     time_t t = 0;
     data_t *data = NULL;
 
-    signal(SIGINT, int_handler);
+    signal(SIGINT, detect_ctrl_c);
     srand((unsigned) time(&t));
     data = init_server_data(ac, av);
     if (!data)

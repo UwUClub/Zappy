@@ -10,11 +10,11 @@
 #include <string.h>
 #include "server_implementation.h"
 
-static int keepRunning = 1;
+static int keep_running = 1;
 
-void int_handler(int dummy)
+void detect_ctrl_c(int dummy)
 {
-    keepRunning = 0;
+    keep_running = 0;
 }
 
 static void get_fd_set(client_t **clients, fd_set *read_fd_set,
@@ -56,7 +56,7 @@ int select_clients(struct sockaddr_in *addr, int server_fd, data_t *data)
     get_fd_set(data->clients, &read_fd_set, &write_fd_set);
     FD_SET(server_fd, &read_fd_set);
     select(FD_SETSIZE, &read_fd_set, &write_fd_set, NULL, NULL);
-    if (!keepRunning) {
+    if (!keep_running) {
         return 1;
     }
     if (FD_ISSET(server_fd, &read_fd_set)) {
