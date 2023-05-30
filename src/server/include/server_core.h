@@ -17,15 +17,15 @@
     #include <sys/types.h>
     #include <netinet/in.h>
     #include <arpa/inet.h>
-
-    #define MAX_TEAMS 4
+    #include "ranges.h"
 
     typedef enum orientation_e {
         UNKNOWN = 0,
         NORTH,
         EAST,
         SOUTH,
-        WEST
+        WEST,
+        END
     } orientation_t;
 
     typedef struct client_s {
@@ -34,7 +34,7 @@
         int pos_y;
         orientation_t orientation;
         int level;
-        int inventory[7];
+        int inventory[TILE_SIZE];
         char *team_name;
         char *input;
         char *output;
@@ -45,6 +45,7 @@
         client_t **clients;
         int map_width;
         int map_height;
+        int (**map_tiles)[TILE_SIZE];
         char **team_names;
         int cli_per_team;
         int freq;
@@ -53,7 +54,7 @@
 
     typedef struct option_s {
         char flag;
-        void (*func)(data_t *data, char *value);
+        int (*func)(data_t *data, char *value);
     } option_t;
 
     typedef struct instruction_s {
@@ -66,56 +67,78 @@
     * the server
     * @return The data structure
     */
-    data_t *init_data(int ac, char **av);
+    data_t *init_server_data(int ac, char **av);
+
+    /**
+    * @brief Free the data structure once the server is closed
+    * @param data The data structure to free
+    */
+    void free_server_data(data_t *data);
+
+    /**
+    * @brief Parse the arguments passed to the server
+    * @param data The data structure to set
+    * @param ac The number of arguments
+    * @param av The arguments
+    * @return Status of the parsing
+    */
+    int parse_data_options(data_t *data, int ac, char **av);
 
     /**
     * @brief Print the help message
     * @param data To follow the option pattern
     * @param value To follow the option pattern
+    * @return Status of the printing
     */
-    void print_help(data_t *data, char *value);
+    int print_help(data_t *data, char *value);
 
     /**
     * @brief Set the data structure with the arguments passed to the server
     * @param data The data structure to set
     * @param value The value to set
+    * @return Status of the parsing
     */
-    void set_port(data_t *data, char *value);
+    int set_port(data_t *data, char *value);
 
     /**
     * @brief Set the data structure with the arguments passed to the server
     * @param data The data structure to set
     * @param value The value to set
+    * @return Status of the parsing
     */
-    void set_map_width(data_t *data, char *value);
+    int set_map_width(data_t *data, char *value);
 
     /**
     * @brief Set the data structure with the arguments passed to the server
     * @param data The data structure to set
     * @param value The value to set
+    * @return Status of the parsing
     */
-    void set_map_height(data_t *data, char *value);
+    int set_map_height(data_t *data, char *value);
 
     /**
     * @brief Set the data structure with the arguments passed to the server
     * @param data The data structure to set
     * @param value The value to set
+    * @return Status of the parsing
     */
-    void set_team_names(data_t *data, char *value);
+    int set_team_names(data_t *data, char *value);
 
     /**
     * @brief Set the data structure with the arguments passed to the server
     * @param data The data structure to set
     * @param value The value to set
+    * @return Status of the parsing
     */
-    void set_cli_per_team(data_t *data, char *value);
+    int set_cli_per_team(data_t *data, char *value);
 
     /**
     * @brief Set the data structure with the arguments passed to the server
     * @param data The data structure to set
     * @param value The value to set
+    * @return Status of the parsing
     */
-    void set_freq(data_t *data, char *value);
+    int set_freq(data_t *data, char *value);
 
     /**
     * @brief Free the data structure once the server is closed
@@ -189,5 +212,10 @@
     * @param clients Client to write to
     */
     void write_to_selected_client(client_t **client);
+    /**
+    * @brief Spawn resources on the map
+    * @param data The server data
+    */
+    void spawn_resources(data_t *data);
 
 #endif /* ZAPPY_SERVER_CORE_H */

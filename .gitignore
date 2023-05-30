@@ -46,6 +46,7 @@ zappy_gui
 CMakeFiles
 __pycache__
 venv
+coding-style.sh
 
 # User spesific settings
 CMakeUserPresets.json
