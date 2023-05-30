@@ -8,8 +8,10 @@
 #include <stdio.h>
 #include "server_implementation.h"
 
-int left(data_t *data, __attribute__ ((unused)) char **args)
+int left(data_t *data, char **args)
 {
+    if (args != NULL)
+        return 1;
     if (data->clients[data->curr_cli_index]->orientation == NORTH)
         data->clients[data->curr_cli_index]->orientation = WEST;
     if (data->clients[data->curr_cli_index]->orientation == SOUTH)
