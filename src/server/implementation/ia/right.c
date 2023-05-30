@@ -10,8 +10,6 @@
 
 int right(data_t *data, __attribute__ ((unused)) char **args)
 {
-    char *msg = strdup("ok");
-
     if (data->clients[data->curr_cli_index]->orientation == NORTH)
         data->clients[data->curr_cli_index]->orientation = EAST;
     if (data->clients[data->curr_cli_index]->orientation == SOUTH)
@@ -20,8 +18,6 @@ int right(data_t *data, __attribute__ ((unused)) char **args)
         data->clients[data->curr_cli_index]->orientation = SOUTH;
     if (data->clients[data->curr_cli_index]->orientation == WEST)
         data->clients[data->curr_cli_index]->orientation = NORTH;
-    send_to_client(data->clients, data->curr_cli_index, msg);
-    free(msg);
+    send_to_client(data->clients, data->curr_cli_index, "ok\n");
     return 0;
 }
-

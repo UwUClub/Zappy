@@ -49,6 +49,13 @@
     */
     char *get_world_dimensions(data_t *data);
     /**
+    * @brief Sends a response to the bct command sent by the client
+    * @param data The current server data, clients and current client index
+    * @param args The arguments of the command
+    * @return Status of the parsing / command
+    */
+    int bct(data_t *data, char **args);
+    /**
     * @brief Sends a response to the forward command sent by the client
     * @param data The current server data, clients and current client index
     * @param args The arguments of the command
