@@ -56,6 +56,13 @@
     */
     int bct(data_t *data, char **args);
     /**
+    * @brief Get frequency
+    * @param data The current server data, clients and current client index
+    * @param args The arguments of the command
+    * @return Frequency
+    */
+    int sgt(data_t *data, char **args);
+    /**
     * @brief Sends a response to the forward command sent by the client
     * @param data The current server data, clients and current client index
     * @param args The arguments of the command

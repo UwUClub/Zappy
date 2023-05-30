@@ -40,7 +40,7 @@ static int append_to_gui(data_t *data)
 
     data->clients[data->curr_cli_index]->team_name = strdup("GRAPHIC");
     msz(data, NULL);
-
+    sgt(data, NULL);
     for (int x = 0; x < data->map_width; x++) {
         for (int y = 0; y < data->map_height; y++) {
             x_str = inttos(x);
