@@ -4,9 +4,9 @@
 #include <functional>
 #include <iostream>
 #include <netinet/in.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 #include <sys/select.h>
 #include <sys/socket.h>
 #include <unistd.h>
@@ -145,15 +145,21 @@ namespace Zappy::GUI {
 
     void ClientApi::ReceiveBct(const std::string &aResponse)
     {
+        std::cout << "Called" << std::endl;
+        Tile myTilesMap = {};
         std::vector<int> myResources;
         std::string myArg = aResponse;
 
-        while (myArg.find(' ') != std::string::npos) {
-            std::string const myResource = myArg.substr(0, myArg.find(' '));
+        for (size_t pos = myArg.find(' '); pos != std::string::npos; pos = myArg.find(' ')) {
+            std::string const myResource = myArg.substr(0, pos);
 
             myResources.push_back(std::stoi(myResource));
-            myArg = myArg.substr(myArg.find(' ') + 1);
+            myArg = myArg.substr(pos + 1);
         }
-        myResources.push_back(std::stoi(myArg));
+        if (!myArg.empty()) {
+            myResources.push_back(std::stoi(myArg));
+        }
+        myTilesMap.fillTile(myResources);
+        _serverData._mapTiles.push_back(myTilesMap);
     }
 } // namespace Zappy::GUI
