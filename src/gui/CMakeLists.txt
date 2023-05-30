@@ -11,7 +11,7 @@ add_executable(zappy_gui
         cli/Player.hpp
         )
 
-find_package(OGRE REQUIRED COMPONENTS Bites CONFIG)
+find_package(OGRE QUIET)
 
 target_link_libraries(zappy_gui
     PRIVATE myproject::myproject_options
@@ -21,6 +21,7 @@ target_link_libraries(zappy_gui
 )
 
 target_include_directories(zappy_gui PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/cli")
+target_include_directories(zappy_gui PRIVATE "${OGRE_INCLUDE_DIRS}")
 
 set_target_properties(zappy_gui
     PROPERTIES

@@ -92,8 +92,6 @@ myproject_package_project(
 )
 
 if (NO_CONNECTION EQUAL 0 AND OGRE_FOUND)
-    include_directories (${OGRE_INCLUDE_DIRS})
-
     myproject_package_project(
       TARGETS
       zappy_gui

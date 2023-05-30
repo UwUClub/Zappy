@@ -1,29 +1,31 @@
 #!/bin/bash
 
-# Get OS information
-OS=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
+# Step 1: Check if cmake is installed
+if ! command -v cmake &> /dev/null
+then
+    echo "CMake could not be found. Please install it first."
+    exit
+fi
 
-echo "Operating System: $OS"
+# Step 2: Check if git is installed
+if ! command -v git &> /dev/null
+then
+    echo "git could not be found. Please install it first."
+    exit
+fi
 
-# Install Vulkan
-case $OS in
-  '"Ubuntu"')
-    echo "Installing Vulkan for Ubuntu..."
-    sudo apt update -y && apt install -y ogre
-    ;;
-  '"Fedora Linux"')
-    echo "Installing Vulkan for Fedora..."
-    sudo dnf update -y && dnf install -y ogre
-    ;;
-  '"Arch Linux"')
-    echo "Installing Vulkan for Arch Linux..."
-    sudo pacman -Syu --noconfirm ogre
-    ;;
-  '"Garuda Linux"')
-    echo "Installing Vulkan for Garuda Linux..."
-    sudo pacman -Syu --noconfirm ogre
-    ;;
-  *)
-    echo "Sorry, this script doesn't support your OS."
-    ;;
-esac
+# Step 3: Download Ogre3D source code
+git clone https://github.com/OGRECave/ogre.git
+cd ogre
+
+# Step 4: Create build directory and navigate into it
+mkdir build
+cd build
+
+# Step 5: Run CMake to generate build files
+cmake ..
+
+# Step 6: Build and install Ogre3D
+make
+sudo make install
+rm -rf ogre
