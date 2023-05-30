@@ -55,7 +55,7 @@ int parse_data_options(data_t *data, int ac, char **av)
     int option = 0;
 
     while (option != -1) {
-        option = getopt(ac, av, "hp:x:y:n:c:f");
+        option = getopt(ac, av, "hp:x:y:n:c:f:");
         if (option == 'n')
             parse_team_names(data, ac, av);
         if (parse_single_option(option, data, ac, av))

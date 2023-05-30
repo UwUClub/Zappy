@@ -25,9 +25,11 @@ add_executable(zappy_server
         implementation/gui/msz.c
         implementation/gui/bct.c
         implementation/gui/tna.c
+        implementation/gui/sgt.c
         implementation/ia/forward.c
         implementation/ia/right.c
         implementation/ia/left.c
+        implementation/ia/take.c
         utils/concat_str.c
         utils/free_word_array.c
         utils/get_sockaddr.c
@@ -40,6 +42,7 @@ add_executable(zappy_server
         include/server_core.h
         include/utils.h
         include/resources.h
+        include/ranges.h
         )
 
 

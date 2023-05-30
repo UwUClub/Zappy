@@ -77,5 +77,15 @@ class Player:
         myRight = self.receive()
         if myRight != "ok\n":
             print ("Error: Right rotation")
+
+    ## @brief Send take command
+    ## @return None
+    def take(self, aRessource):
+        self.send("Take " + aRessource)
+        myTake = self.receive()
+        if myTake == "ko\n":
+            print ("Object not found")
+        elif myTake == "ok\n":
+            print ("Object", aRessource, "taken")
         
 

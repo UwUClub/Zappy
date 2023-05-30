@@ -17,11 +17,7 @@
     #include <sys/types.h>
     #include <netinet/in.h>
     #include <arpa/inet.h>
-
-    #define MAX_TEAMS 4
-    #define MIN_MAP_SIZE 10
-    #define MAX_MAP_SIZE 30
-    #define TILE_SIZE 7
+    #include "ranges.h"
 
     typedef enum orientation_e {
         UNKNOWN = 0,
