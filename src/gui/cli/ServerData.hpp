@@ -15,7 +15,6 @@ namespace Zappy::GUI {
             ~Tile() = default;
 
             void fillTile(std::vector<int> &tileData);
-            Tile getTileData();
 
             int _x;
             int _y;

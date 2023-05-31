@@ -19,8 +19,4 @@ namespace Zappy::GUI {
         _thystame = tileData[8];
     }
 
-    Tile Tile::getTileData()
-    {
-        return *this;
-    }
 } // namespace Zappy::GUI
