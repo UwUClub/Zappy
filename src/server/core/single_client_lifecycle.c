@@ -13,7 +13,7 @@ void init_single_client(client_t **client)
     (*client)->fd = -1;
     (*client)->pos_x = -1;
     (*client)->pos_y = -1;
-    (*client)->orientation = UNKNOWN;
+    (*client)->orientation = NORTH;
     (*client)->level = 0;
     for (int i = 0; i < TILE_SIZE; i++)
         (*client)->inventory[i] = 0;
