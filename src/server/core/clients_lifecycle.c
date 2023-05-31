@@ -34,20 +34,6 @@ void close_single_client(client_t *client)
         free(client->output);
 }
 
-client_t **init_clients(const unsigned int max_connections)
-{
-    client_t **clients = NULL;
-    unsigned int i = 0;
-
-    clients = malloc(sizeof(client_t *) * (max_connections + 1));
-    for (i = 0; i < max_connections; i++) {
-        clients[i] = malloc(sizeof(client_t));
-        init_single_client(&clients[i]);
-    }
-    clients[i] = NULL;
-    return clients;
-}
-
 void close_clients(client_t **clients)
 {
     for (int i = 0; clients[i]; i++) {
