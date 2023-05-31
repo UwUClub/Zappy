@@ -13,7 +13,7 @@ void init_single_client(client_t **client)
     (*client)->fd = -1;
     (*client)->pos_x = -1;
     (*client)->pos_y = -1;
-    (*client)->orientation = UNKNOWN;
+    (*client)->orientation = NORTH;
     (*client)->level = 0;
     for (int i = 0; i < TILE_SIZE; i++)
         (*client)->inventory[i] = 0;
@@ -32,20 +32,6 @@ void close_single_client(client_t *client)
         free(client->input);
     if (client->output != NULL)
         free(client->output);
-}
-
-client_t **init_clients(const unsigned int max_connections)
-{
-    client_t **clients = NULL;
-    unsigned int i = 0;
-
-    clients = malloc(sizeof(client_t *) * (max_connections + 1));
-    for (i = 0; i < max_connections; i++) {
-        clients[i] = malloc(sizeof(client_t));
-        init_single_client(&clients[i]);
-    }
-    clients[i] = NULL;
-    return clients;
 }
 
 void close_clients(client_t **clients)
