@@ -88,4 +88,12 @@ class Player:
         elif myTake == "ok\n":
             print ("Object", aRessource, "taken")
         
-
+    ## @brief Send set command
+    ## @return None
+    def set(self, aRessource):
+        self.send("Set " + aRessource)
+        mySet = self.receive()
+        if mySet == "ko\n":
+            print ("Error: Set", aRessource)
+        elif mySet == "ok\n":
+            print ("Object", aRessource, "set")
