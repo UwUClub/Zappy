@@ -1,6 +1,5 @@
 var hierarchy =
 [
-    [ "Zappy::GUI::App", "classZappy_1_1GUI_1_1App.html", null ],
     [ "client_s", "structclient__s.html", null ],
     [ "Zappy::GUI::ClientApi", "classZappy_1_1GUI_1_1ClientApi.html", null ],
     [ "cmd_s", "structcmd__s.html", null ],

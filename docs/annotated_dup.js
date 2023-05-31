@@ -11,7 +11,6 @@ var annotated_dup =
     ] ],
     [ "Zappy", null, [
       [ "GUI", null, [
-        [ "App", "classZappy_1_1GUI_1_1App.html", "classZappy_1_1GUI_1_1App" ],
         [ "ClientApi", "classZappy_1_1GUI_1_1ClientApi.html", "classZappy_1_1GUI_1_1ClientApi" ],
         [ "ParserData", "classZappy_1_1GUI_1_1ParserData.html", "classZappy_1_1GUI_1_1ParserData" ],
         [ "Player", "classZappy_1_1GUI_1_1Player.html", "classZappy_1_1GUI_1_1Player" ],

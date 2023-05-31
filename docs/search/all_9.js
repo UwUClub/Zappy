@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['msz_26',['msz',['../classplayer_1_1Player.html#a74a28098b83c846cef3f0821b1ac8fc3',1,'player::Player']]]
+  ['option_5fs_26',['option_s',['../structoption__s.html',1,'']]]
 ];

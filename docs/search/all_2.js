@@ -1,10 +1,5 @@
 var searchData=
 [
-  ['client_5fs_2',['client_s',['../structclient__s.html',1,'']]],
-  ['clientapi_3',['ClientApi',['../classZappy_1_1GUI_1_1ClientApi.html#a15a19d723611f6c61f5f247112460b32',1,'Zappy::GUI::ClientApi::ClientApi()'],['../classZappy_1_1GUI_1_1ClientApi.html',1,'Zappy::GUI::ClientApi']]],
-  ['clientexception_4',['ClientException',['../classZappy_1_1GUI_1_1ClientApi_1_1ClientException.html#a7245848ba9d5cf696887b8085abf66f9',1,'Zappy::GUI::ClientApi::ClientException::ClientException()'],['../classZappy_1_1GUI_1_1ClientApi_1_1ClientException.html',1,'Zappy::GUI::ClientApi::ClientException']]],
-  ['cmd_5fs_5',['cmd_s',['../structcmd__s.html',1,'']]],
-  ['config_6',['Config',['../classparser_1_1Config.html',1,'parser']]],
-  ['connect_7',['connect',['../classconnection_1_1Connection.html#a1aa10a076223deb0bfefce9411c165da',1,'connection.Connection.connect()'],['../classplayer_1_1Player.html#a3c6d0f1fff3ac302f7386647e8131660',1,'player.Player.connect()']]],
-  ['connection_8',['Connection',['../classconnection_1_1Connection.html',1,'connection']]]
+  ['data_5fs_8',['data_s',['../structdata__s.html',1,'']]],
+  ['disconnect_9',['disconnect',['../classZappy_1_1GUI_1_1ClientApi.html#a6b8975daedac42858b91691f066ced58',1,'Zappy::GUI::ClientApi::disconnect()'],['../classconnection_1_1Connection.html#aafe1e2f2d06f2a5614b0626576609422',1,'connection.Connection.disconnect()'],['../classplayer_1_1Player.html#aa05db30d8f22d8b878f027d4865a6ebd',1,'player.Player.disconnect()']]]
 ];

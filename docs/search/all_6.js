@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['instruction_5fs_22',['instruction_s',['../structinstruction__s.html',1,'']]],
-  ['inventory_23',['inventory',['../classplayer_1_1Player.html#ade8deb9c70d265fafa94e2b4ba6cc86f',1,'player::Player']]]
+  ['joingame_23',['joinGame',['../classZappy_1_1GUI_1_1ClientApi.html#a0a57ee6141abd42008ad46b8850df9cd',1,'Zappy::GUI::ClientApi']]]
 ];
