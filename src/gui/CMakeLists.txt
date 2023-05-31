@@ -2,6 +2,9 @@ include_directories(cli)
 
 add_executable(zappy_gui
         main.cpp
+        EventHandler.cpp
+        CameraHandler.cpp
+        FrameHandler.cpp
         cli/ClientApi.hpp
         cli/ClientApi.cpp
         cli/ParserData.hpp
