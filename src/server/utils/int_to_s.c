@@ -18,17 +18,17 @@ static int my_intlen(int nbr)
     return (my_intlen(nbr / 10) + 1);
 }
 
-static char *rec_inttos(int nbr, int index, char *str)
+static char *rec_int_to_s(int nbr, int index, char *str)
 {
     if (nbr == 0) {
         return "0";
     }
-    rec_inttos(nbr / 10, index + 1, str);
+    rec_int_to_s(nbr / 10, index + 1, str);
     str[index] = ((char) nbr) % 10 + '0';
     return str;
 }
 
-char *inttos(int nbr)
+char *int_to_s(int nbr)
 {
     char *str = NULL;
     int length = 0;
@@ -46,7 +46,7 @@ char *inttos(int nbr)
         nbr *= -1;
     }
     str[length] = '\0';
-    str = rec_inttos(nbr, 0, str);
+    str = rec_int_to_s(nbr, 0, str);
     str = revstr(str);
     return str;
 }

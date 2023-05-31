@@ -7,24 +7,22 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#include <stdio.h>
 #include "server_implementation.h"
 #include "utils.h"
 
 static const cmd_t player_commands[] = {
-    {"Forward", &forward},
-    {"Right", &right},
-    {"Left", &left},
+    {"Forward", &move_forward},
+    {"Right", &move_right},
+    {"Left", &move_left},
     {"Take", &take},
     {"Set", &set},
     {NULL, NULL}
 };
 
 static const cmd_t gui_commands[] = {
-    {"msz", &msz},
-    {"bct", &bct},
-    {"sgt", &sgt},
+    {"msz", &do_msz},
+    {"bct", &do_bct},
+    {"sgt", &do_sgt},
     {NULL, NULL}
 };
 

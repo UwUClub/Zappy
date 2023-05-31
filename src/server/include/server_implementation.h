@@ -44,7 +44,7 @@
     * @param args The arguments of the command
     * @return Status of the parsing / command
     */
-    int msz(data_t *data, char **args);
+    int do_msz(data_t *data, char **args);
 
     /**
     * @brief Get a string containing the world dimensions of the server
@@ -59,7 +59,7 @@
     * @param args The arguments of the command
     * @return Status of the parsing / command
     */
-    int bct(data_t *data, char **args);
+    int do_bct(data_t *data, char **args);
 
     /**
     * @brief Get frequency
@@ -67,7 +67,7 @@
     * @param args The arguments of the command
     * @return Frequency
     */
-    int sgt(data_t *data, char **args);
+    int do_sgt(data_t *data, char **args);
 
     /**
     * @brief Sends a response to the forward command sent by the client
@@ -75,7 +75,7 @@
     * @param args The arguments of the command
     * @return Status of the parsing / command
     */
-    int forward(data_t *data, char **args);
+    int move_forward(data_t *data, char **args);
 
     /**
      * @brief Sends a response to the right command sent by the client
@@ -83,7 +83,7 @@
      * @param args The arguments of the command
      * @return Status of the parsing / command
      */
-    int right(data_t *data, char **args);
+    int move_right(data_t *data, char **args);
 
     /**
      * @brief Sends a response to the left command sent by the client
@@ -91,7 +91,7 @@
      * @param args The arguments of the command
      * @return Status of the parsing / command
      */
-    int left(data_t *data, char **args);
+    int move_left(data_t *data, char **args);
 
     /**
      * @brief Sends a response to the take command sent by the client
