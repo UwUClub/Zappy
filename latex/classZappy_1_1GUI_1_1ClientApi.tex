@@ -1,0 +1,129 @@
+\hypertarget{classZappy_1_1GUI_1_1ClientApi}{}\doxysection{Zappy\+::GUI\+::Client\+Api Class Reference}
+\label{classZappy_1_1GUI_1_1ClientApi}\index{Zappy::GUI::ClientApi@{Zappy::GUI::ClientApi}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi_1_1ClientException}{Client\+Exception}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi_1_1ClientException}{Client\+Exception}} class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi_a15a19d723611f6c61f5f247112460b32}{Client\+Api}} (std\+::string a\+Address, unsigned int a\+Port, std\+::string a\+Team\+Name)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi}{Client\+Api}} constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1ClientApi_aeb643a6aca56fccf94f80a91aabc76b2}\label{classZappy_1_1GUI_1_1ClientApi_aeb643a6aca56fccf94f80a91aabc76b2}} 
+\mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi_aeb643a6aca56fccf94f80a91aabc76b2}{$\sim$\+Client\+Api}} ()
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi}{Client\+Api}} destructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1ClientApi_a0a57ee6141abd42008ad46b8850df9cd}\label{classZappy_1_1GUI_1_1ClientApi_a0a57ee6141abd42008ad46b8850df9cd}} 
+void \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi_a0a57ee6141abd42008ad46b8850df9cd}{join\+Game}} ()
+\begin{DoxyCompactList}\small\item\em join\+Game \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1ClientApi_a6b8975daedac42858b91691f066ced58}\label{classZappy_1_1GUI_1_1ClientApi_a6b8975daedac42858b91691f066ced58}} 
+void \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi_a6b8975daedac42858b91691f066ced58}{disconnect}} ()
+\begin{DoxyCompactList}\small\item\em disconnect \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi_aab0b80f8b4d0876b27e1fd604ebcd228}{get\+Connect\+Status}} () const
+\begin{DoxyCompactList}\small\item\em geting the connect status \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi_a5389a484a4049855a78732fe5bed98be}{get\+Server\+Fd}} () const
+\begin{DoxyCompactList}\small\item\em geting the server fd \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi_aa7b6f662add7f445aade3d28bba31aed}{update}} ()
+\begin{DoxyCompactList}\small\item\em geting the server data \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi_ab06cd586fb8286744d71e363a8dbdbcf}{send\+Command}} (const std\+::string \&a\+Command)
+\begin{DoxyCompactList}\small\item\em Append a command to the write buffer. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{structZappy_1_1GUI_1_1ServerData}{Server\+Data}} \& \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi_a1476368818de1ac789f87931e8e9e1a7}{get\+Server\+Data}} () const
+\begin{DoxyCompactList}\small\item\em geting the server data \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1ClientApi_a15a19d723611f6c61f5f247112460b32}\label{classZappy_1_1GUI_1_1ClientApi_a15a19d723611f6c61f5f247112460b32}} 
+\index{Zappy::GUI::ClientApi@{Zappy::GUI::ClientApi}!ClientApi@{ClientApi}}
+\index{ClientApi@{ClientApi}!Zappy::GUI::ClientApi@{Zappy::GUI::ClientApi}}
+\doxysubsubsection{\texorpdfstring{ClientApi()}{ClientApi()}}
+{\footnotesize\ttfamily Zappy\+::\+GUI\+::\+Client\+Api\+::\+Client\+Api (\begin{DoxyParamCaption}\item[{std\+::string}]{a\+Address,  }\item[{unsigned int}]{a\+Port,  }\item[{std\+::string}]{a\+Team\+Name }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi}{Client\+Api}} constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Address} & \\
+\hline
+{\em a\+Port} & \\
+\hline
+{\em a\+Team\+Name} & \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1ClientApi_aab0b80f8b4d0876b27e1fd604ebcd228}\label{classZappy_1_1GUI_1_1ClientApi_aab0b80f8b4d0876b27e1fd604ebcd228}} 
+\index{Zappy::GUI::ClientApi@{Zappy::GUI::ClientApi}!getConnectStatus@{getConnectStatus}}
+\index{getConnectStatus@{getConnectStatus}!Zappy::GUI::ClientApi@{Zappy::GUI::ClientApi}}
+\doxysubsubsection{\texorpdfstring{getConnectStatus()}{getConnectStatus()}}
+{\footnotesize\ttfamily int Zappy\+::\+GUI\+::\+Client\+Api\+::get\+Connect\+Status (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+geting the connect status 
+
+\begin{DoxyReturn}{Returns}
+connect\+Status 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1ClientApi_a1476368818de1ac789f87931e8e9e1a7}\label{classZappy_1_1GUI_1_1ClientApi_a1476368818de1ac789f87931e8e9e1a7}} 
+\index{Zappy::GUI::ClientApi@{Zappy::GUI::ClientApi}!getServerData@{getServerData}}
+\index{getServerData@{getServerData}!Zappy::GUI::ClientApi@{Zappy::GUI::ClientApi}}
+\doxysubsubsection{\texorpdfstring{getServerData()}{getServerData()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{structZappy_1_1GUI_1_1ServerData}{Server\+Data}} \& Zappy\+::\+GUI\+::\+Client\+Api\+::get\+Server\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+geting the server data 
+
+\begin{DoxyReturn}{Returns}
+server\+Data 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1ClientApi_a5389a484a4049855a78732fe5bed98be}\label{classZappy_1_1GUI_1_1ClientApi_a5389a484a4049855a78732fe5bed98be}} 
+\index{Zappy::GUI::ClientApi@{Zappy::GUI::ClientApi}!getServerFd@{getServerFd}}
+\index{getServerFd@{getServerFd}!Zappy::GUI::ClientApi@{Zappy::GUI::ClientApi}}
+\doxysubsubsection{\texorpdfstring{getServerFd()}{getServerFd()}}
+{\footnotesize\ttfamily int Zappy\+::\+GUI\+::\+Client\+Api\+::get\+Server\+Fd (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+geting the server fd 
+
+\begin{DoxyReturn}{Returns}
+server\+Fd 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1ClientApi_ab06cd586fb8286744d71e363a8dbdbcf}\label{classZappy_1_1GUI_1_1ClientApi_ab06cd586fb8286744d71e363a8dbdbcf}} 
+\index{Zappy::GUI::ClientApi@{Zappy::GUI::ClientApi}!sendCommand@{sendCommand}}
+\index{sendCommand@{sendCommand}!Zappy::GUI::ClientApi@{Zappy::GUI::ClientApi}}
+\doxysubsubsection{\texorpdfstring{sendCommand()}{sendCommand()}}
+{\footnotesize\ttfamily void Zappy\+::\+GUI\+::\+Client\+Api\+::send\+Command (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{a\+Command }\end{DoxyParamCaption})}
+
+
+
+Append a command to the write buffer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Command} & Command \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1ClientApi_aa7b6f662add7f445aade3d28bba31aed}\label{classZappy_1_1GUI_1_1ClientApi_aa7b6f662add7f445aade3d28bba31aed}} 
+\index{Zappy::GUI::ClientApi@{Zappy::GUI::ClientApi}!update@{update}}
+\index{update@{update}!Zappy::GUI::ClientApi@{Zappy::GUI::ClientApi}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily int Zappy\+::\+GUI\+::\+Client\+Api\+::update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+geting the server data 
+
+\begin{DoxyReturn}{Returns}
+server\+Data 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/gui/cli/Client\+Api.\+hpp\item 
+src/gui/cli/Client\+Api.\+cpp\end{DoxyCompactItemize}
