@@ -19,10 +19,10 @@ int set(data_t *data, char **args)
     }
     for (int i = 0; i < 7; i++) {
         if (strcmp(args[0], resource[i]) == 0
-            && data->clients[data->curr_cli_index]->inventory[i] > 0) {
-            data->clients[data->curr_cli_index]->inventory[i] -= 1;
-            data->map_tiles[data->clients[data->curr_cli_index]->pos_y]
-            [data->clients[data->curr_cli_index]->pos_x][i] += 1;
+            && data->clients[data->curr_cli_index]->player->inventory[i] > 0) {
+            data->clients[data->curr_cli_index]->player->inventory[i] -= 1;
+            data->map_tiles[data->clients[data->curr_cli_index]->player->pos_y]
+            [data->clients[data->curr_cli_index]->player->pos_x][i] += 1;
             send_to_client(data->clients, data->curr_cli_index, "ok\n");
             return 0;
         }

@@ -28,14 +28,19 @@
         END
     } orientation_t;
 
-    typedef struct client_s {
-        int fd;
+    typedef struct player_s {
         int pos_x;
         int pos_y;
         orientation_t orientation;
         int level;
         int inventory[TILE_SIZE];
         char *team_name;
+    } player_t;
+
+    typedef struct client_s {
+        int fd;
+        int is_registered;
+        player_t *player;
         char *input;
         char *output;
     } client_t;
@@ -50,6 +55,7 @@
         int cli_per_team;
         int freq;
         int port;
+        time_t last_select;
     } data_t;
 
     typedef struct option_s {
@@ -156,6 +162,15 @@
     * @param client The client to initialize
     */
     void init_single_client(client_t **client);
+    /**
+    * @brief Initialize a player in a client
+    * @param client The client to initialize
+    * @param team_name The team name of the player
+    * @param map_width The width of the map
+    * @param map_height The height of the map
+    */
+    void init_player(client_t **client, const char *team_name, const int map_width,
+    const int map_height);
     /**
     * @brief Close a client
     * @param client The client to close

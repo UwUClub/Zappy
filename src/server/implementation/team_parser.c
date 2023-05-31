@@ -20,12 +20,11 @@ static int append_to_team(data_t *data, char *team_name)
         send_to_client(data->clients, data->curr_cli_index, "ko\n");
         return 84;
     }
-    data->clients[data->curr_cli_index]->team_name = strdup(team_name);
+    init_player(&(data->clients[data->curr_cli_index]), team_name,
+    data->map_width, data->map_height);
     str_remaining_slots = inttos(remaining_slots - 1);
     str_remaining_slots = concat_str(str_remaining_slots, "\n");
     world_dimensions = get_world_dimensions(data);
-    data->clients[data->curr_cli_index]->pos_x = rand() % data->map_width;
-    data->clients[data->curr_cli_index]->pos_y = rand() % data->map_height;
     send_to_client(data->clients, data->curr_cli_index, str_remaining_slots);
     send_to_client(data->clients, data->curr_cli_index, world_dimensions);
     free(str_remaining_slots);
@@ -38,7 +37,6 @@ static int append_to_gui(data_t *data)
     char *x_str = NULL;
     char *y_str = NULL;
 
-    data->clients[data->curr_cli_index]->team_name = strdup("GRAPHIC");
     msz(data, NULL);
     sgt(data, NULL);
     for (int x = 0; x < data->map_width; x++) {
@@ -57,11 +55,13 @@ static int append_to_gui(data_t *data)
 int parse_team_name(data_t *data)
 {
     if (!strcmp("GRAPHIC", data->clients[data->curr_cli_index]->input)) {
+        data->clients[data->curr_cli_index]->is_registered = 1;
         return append_to_gui(data);
     }
     for (int i = 0; data->team_names[i]; i++) {
         if (!strcmp(data->team_names[i],
             data->clients[data->curr_cli_index]->input)) {
+            data->clients[data->curr_cli_index]->is_registered = 1;
             return append_to_team(data, data->team_names[i]);
         }
     }

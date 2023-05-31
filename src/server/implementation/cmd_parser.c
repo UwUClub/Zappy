@@ -32,9 +32,7 @@ static const cmd_t gui_commands[] = {
 
 static void throw_unknown_cmd(data_t *data)
 {
-    char *team_name = data->clients[data->curr_cli_index]->team_name;
-
-    if (!strcmp("GRAPHIC", team_name))
+    if (!data->clients[data->curr_cli_index]->player)
         send_to_client(data->clients, data->curr_cli_index, "suc\n");
     else
         send_to_client(data->clients, data->curr_cli_index, "ko\n");
@@ -43,14 +41,14 @@ static void throw_unknown_cmd(data_t *data)
 static int exec_cmd(data_t *data, int (*func)(data_t *data, char **args),
     char **args)
 {
-    char *team_name = data->clients[data->curr_cli_index]->team_name;
+    int is_player = data->clients[data->curr_cli_index]->player != NULL;
     int status = 0;
 
     status = func(data, args);
-    if (status == 1 && !strcmp("GRAPHIC", team_name)) {
+    if (status == 1 && !is_player) {
         send_to_client(data->clients, data->curr_cli_index, "sbp\n");
     }
-    if (status == 1 && strcmp("GRAPHIC", team_name)) {
+    if (status == 1 && is_player) {
         send_to_client(data->clients, data->curr_cli_index, "ko\n");
     }
     return status;
@@ -78,10 +76,10 @@ static int parse_cmd(data_t *data)
     cmd_name = strtok(strdup(client->input), " ");
     if (strlen(client->input) > strlen(cmd_name))
         args = str_to_word_array(client->input + strlen(cmd_name) + 1, " ");
-    if (!strcmp("GRAPHIC", client->team_name))
-        status = find_cmd(data, gui_commands, cmd_name, args);
-    else
+    if (client->is_registered && client->player)
         status = find_cmd(data, player_commands, cmd_name, args);
+    else
+        status = find_cmd(data, gui_commands, cmd_name, args);
     free(cmd_name);
     free_word_array(args);
     return status;
@@ -91,7 +89,7 @@ int parse_input(data_t *data)
 {
     client_t *client = data->clients[data->curr_cli_index];
 
-    if (!client->team_name) {
+    if (!client->is_registered) {
         return parse_team_name(data);
     }
     return parse_cmd(data);

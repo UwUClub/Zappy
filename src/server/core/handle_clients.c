@@ -8,6 +8,7 @@
 #include <errno.h>
 #include <signal.h>
 #include <string.h>
+#include <time.h>
 #include "server_implementation.h"
 
 static int keep_running = 1;
@@ -55,7 +56,9 @@ int select_clients(struct sockaddr_in *addr, int server_fd, data_t *data)
 
     get_fd_set(data->clients, &read_fd_set, &write_fd_set);
     FD_SET(server_fd, &read_fd_set);
+    time(&data->last_select);
     select(FD_SETSIZE, &read_fd_set, &write_fd_set, NULL, NULL);
+    // printf("waited: %f\n", time(NULL) - data->last_select);
     if (!keep_running) {
         return 1;
     }
