@@ -26,7 +26,7 @@ int main()
     // } catch (const std::exception &e) {
     //     std::cerr << e.what() << std::endl;
     // }
-    // return 0;
     OgreBites::ApplicationContext ctx("Zappy");
     ctx.initApp();
+    return 0;
 }

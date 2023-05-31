@@ -14,7 +14,11 @@
 
 namespace Zappy::GUI {
     ClientApi::ClientApi(const std::string &aAddress, unsigned int aPort, const std::string &aTeamName)
-        : _address(aAddress), _port(aPort), _teamName(aTeamName), _connectStatus(-1), _serverFd(-1)
+        : _address(aAddress),
+          _port(aPort),
+          _teamName(aTeamName),
+          _connectStatus(-1),
+          _serverFd(-1)
     {}
 
     ClientApi::~ClientApi()

@@ -3,15 +3,14 @@
 namespace Zappy::GUI {
 
     Player::Player()
+        : _position(std::make_pair(0, 0)),
+          _orientation(Orientation::NORTH),
+          _level(1)
     {
-        _position = std::make_pair(0, 0);
-        _orientation = Orientation::NORTH;
-        _level = 1;
         _inventory = {0, 0, 0, 0, 0, 0, 0};
     }
 
-    Player::~Player()
-    {}
+    Player::~Player() = default;
 
     void Player::setPosition(unsigned int aX, unsigned int aY)
     {

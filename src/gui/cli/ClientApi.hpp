@@ -65,7 +65,8 @@ namespace Zappy::GUI {
                      * @brief ClientException constructor
                      * @param aMessage
                      */
-                    explicit ClientException(const std::string &aMessage) : _message(aMessage)
+                    explicit ClientException(const std::string &aMessage)
+                        : _message(aMessage)
                     {}
 
                     /**
