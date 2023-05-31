@@ -24,6 +24,7 @@ static const cmd_t player_commands[] = {
 static const cmd_t gui_commands[] = {
     {"msz", &msz},
     {"bct", &bct},
+    {"tna", &tna},
     {"sgt", &sgt},
     {NULL, NULL}
 };
