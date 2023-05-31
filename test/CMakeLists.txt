@@ -5,7 +5,8 @@ project(CmakeConfigPackageTests LANGUAGES CXX)
 include(${Catch2_SOURCE_DIR}/extras/Catch.cmake)
 
 add_executable(test_zappy
-        test.cpp
+        testCommandGuiCli.cpp
+        #testMsz.cpp
         ../src/gui/cli/ClientApi.cpp
         ../src/gui/cli/ClientApi.hpp
         ../src/gui/cli/ServerData.cpp

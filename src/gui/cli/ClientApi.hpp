@@ -119,16 +119,26 @@ namespace Zappy::GUI {
 
             /**
              * @brief parse welcome response
+             * @param aResponse
              */
             void ReceiveWelcome(const std::string &aResponse);
 
             /**
+             * @brief parse ko response
+             * @param aResponse
+             * @return string "ko"
+             */
+            std::string ReceiveKo(const std::string &aResponse);
+
+            /**
              * @brief parse msz response
+             * @param aResponse
              */
             void ReceiveMsz(const std::string &aResponse);
 
             /**
              * @brief parse bct response
+             * @param aResponse
              */
             void ReceiveBct(const std::string &aResponse);
 

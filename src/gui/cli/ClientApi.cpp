@@ -127,6 +127,7 @@ namespace Zappy::GUI {
             {"WELCOME", &ClientApi::ReceiveWelcome},
             {"msz", &ClientApi::ReceiveMsz},
             {"bct", &ClientApi::ReceiveBct},
+            {"ko", &ClientApi::ReceiveKo}
         };
 
         while (_readBuffer.find('\n') != std::string::npos) {
@@ -144,6 +145,12 @@ namespace Zappy::GUI {
     void ClientApi::ReceiveWelcome(__attribute__((unused)) const std::string &aResponse)
     {
         _writeBuffer += _teamName + "\n";
+    }
+
+    std::string ClientApi::ReceiveKo(const std::string &aResponse)
+    {
+        _writeBuffer += aResponse + "\n";
+        return aResponse;
     }
 
     void ClientApi::ReceiveMsz(const std::string &aResponse)
