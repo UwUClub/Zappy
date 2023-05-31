@@ -22,8 +22,11 @@ jobs:
 
       - name: Run dependencies
         run: |
+<<<<<<< HEAD
           sh install_vulkan.sh
           sudo dnf install -y glfw-devel glm-devel @base-x
+=======
+>>>>>>> origin/ZAP-104-merge-dev-to-main
           cmake -S . -B ./build
         timeout-minutes: 10
 
