@@ -59,7 +59,8 @@ namespace Zappy::GUI {
         return 0;
     }
 
-    void ClientApi::disconnect() {
+    void ClientApi::disconnect()
+    {
         close(_serverFd);
         _serverFd = -1;
         std::cout << "Disconnected from server" << std::endl;
