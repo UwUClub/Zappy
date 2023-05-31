@@ -6,7 +6,8 @@
 
 namespace Zappy::GUI {
 
-    void Tile::fillTile(std::vector<int> &tileData) {
+    void Tile::fillTile(std::vector<int> &tileData)
+    {
         _x = tileData[0];
         _y = tileData[1];
         _food = tileData[2];
@@ -18,7 +19,8 @@ namespace Zappy::GUI {
         _thystame = tileData[8];
     }
 
-    Tile Tile::getTileData() {
+    Tile Tile::getTileData()
+    {
         return *this;
     }
 } // namespace Zappy::GUI
