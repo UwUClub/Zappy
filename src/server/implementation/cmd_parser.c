@@ -25,6 +25,7 @@ static const cmd_t player_commands[] = {
 static const cmd_t gui_commands[] = {
     {"msz", &msz},
     {"bct", &bct},
+    {"tna", &tna},
     {"sgt", &sgt},
     {NULL, NULL}
 };
@@ -48,6 +49,9 @@ static int exec_cmd(data_t *data, int (*func)(data_t *data, char **args),
     status = func(data, args);
     if (status == 1 && !strcmp("GRAPHIC", team_name)) {
         send_to_client(data->clients, data->curr_cli_index, "sbp\n");
+    }
+    if (status == 1 && strcmp("GRAPHIC", team_name)) {
+        send_to_client(data->clients, data->curr_cli_index, "ko\n");
     }
     return status;
 }
