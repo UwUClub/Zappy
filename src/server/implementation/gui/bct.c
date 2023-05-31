@@ -13,7 +13,7 @@ static void concat_str_item(char **result, const int item_quantity)
 {
     char *str_item_quantity = NULL;
 
-    str_item_quantity = inttos(item_quantity);
+    str_item_quantity = int_to_s(item_quantity);
     *result = concat_str(*result, " ");
     *result = concat_str(*result, str_item_quantity);
     free(str_item_quantity);
@@ -44,7 +44,7 @@ static int parse_args(data_t *data, char **args, int *x, int *y)
     return 0;
 }
 
-int bct(data_t *data, char **args)
+int do_bct(data_t *data, char **args)
 {
     char *msg = NULL;
     char *result = NULL;

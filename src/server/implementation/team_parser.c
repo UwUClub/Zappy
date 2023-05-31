@@ -21,7 +21,7 @@ static int append_to_team(data_t *data, char *team_name)
         return 84;
     }
     data->clients[data->curr_cli_index]->team_name = strdup(team_name);
-    str_remaining_slots = inttos(remaining_slots - 1);
+    str_remaining_slots = int_to_s(remaining_slots - 1);
     str_remaining_slots = concat_str(str_remaining_slots, "\n");
     world_dimensions = get_world_dimensions(data);
     data->clients[data->curr_cli_index]->pos_x = rand() % data->map_width;
@@ -43,8 +43,8 @@ static int append_to_gui(data_t *data)
     do_sgt(data, NULL);
     for (int x = 0; x < data->map_width; x++) {
         for (int y = 0; y < data->map_height; y++) {
-            x_str = inttos(x);
-            y_str = inttos(y);
+            x_str = int_to_s(x);
+            y_str = int_to_s(y);
             do_bct(data, (char *[]){x_str, y_str, NULL});
             free(x_str);
             free(y_str);

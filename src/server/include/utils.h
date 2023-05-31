@@ -49,7 +49,7 @@
     * @param nbr The int to convert
     * @return The converted string
     */
-    char *inttos(int nbr);
+    char *int_to_s(int nbr);
     /**
     * @brief Reverse a string
     * @param str The string to reverse
