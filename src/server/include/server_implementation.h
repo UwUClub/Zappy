@@ -90,5 +90,12 @@
      * @return Status of the parsing / command
      */
     int take(data_t *data, char **args);
+    /**
+     * @brief Sends a response to the set command sent by the client
+     * @param data The current server data, clients and current client index
+     * @param args The arguments of the command
+     * @return Status of the parsing / command
+     */
+    int set(data_t *data, char **args);
 
 #endif /* ZAPPY_SERVER_IMPLEMENTATION_H */
