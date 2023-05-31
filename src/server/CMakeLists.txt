@@ -5,27 +5,49 @@ include_directories(implementation)
 include_directories(utils)
 include_directories(include)
 
-target_sources(zappy_server PRIVATE
-        "${CMAKE_CURRENT_SOURCE_DIR}/main.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/core/handle_clients.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/core/launch_server.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/core/read_client.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/core/single_client_lifecycle.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/core/welcome_single_client.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/core/write_to_client.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/implementation/cmd_parser.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/implementation/team_parser.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/implementation/get_remaining_slots.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/implementation/cmd/msz.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/implementation/cmd/forward.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/utils/concat_str.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/utils/free_word_array.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/utils/get_sockaddr.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/utils/inttos.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/utils/is_int.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/utils/revstr.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/utils/str_to_word_array.c"
-        "${CMAKE_CURRENT_SOURCE_DIR}/utils/word_array_len.c"
+add_executable(zappy_server
+        main.c
+        core/options/parse_options.c
+        core/options/option_setters.c
+        core/options/map_setters.c
+        core/options/print_help.c
+        core/handle_clients.c
+        core/launch_server.c
+        core/server_data.c
+        core/read_client.c
+        core/single_client_lifecycle.c
+        core/welcome_single_client.c
+        core/write_to_client.c
+        core/spawn_resources.c
+        implementation/cmd_parser.c
+        implementation/team_parser.c
+        implementation/get_remaining_slots.c
+        implementation/gui/msz.c
+        implementation/gui/bct.c
+        implementation/gui/sgt.c
+        implementation/ia/forward.c
+        implementation/ia/right.c
+        implementation/ia/left.c
+        implementation/ia/take.c
+        utils/concat_str.c
+        utils/free_word_array.c
+        utils/get_sockaddr.c
+        utils/inttos.c
+        utils/is_int.c
+        utils/revstr.c
+        utils/str_to_word_array.c
+        utils/word_array_len.c
+        include/server_implementation.h
+        include/server_core.h
+        include/utils.h
+        include/resources.h
+        include/ranges.h
         )
 
+
 target_include_directories(zappy_server PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
+
+set_target_properties(zappy_server
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "../../"
+)

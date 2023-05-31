@@ -28,10 +28,6 @@ static char *rec_inttos(int nbr, int index, char *str)
     return str;
 }
 
-/* @brief Converts an integer to a string.
- * @param nbr The integer to convert.
- * @return An allocated string representation of the integer nbr.
- */
 char *inttos(int nbr)
 {
     char *str = NULL;
@@ -39,7 +35,7 @@ char *inttos(int nbr)
 
     length = my_intlen(nbr);
     if (nbr == 0) {
-        return "0";
+        return strdup("0");
     }
     if (nbr < 0)
         length++;

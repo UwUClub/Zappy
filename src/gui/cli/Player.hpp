@@ -4,7 +4,11 @@
 #include <iostream>
 #include "ServerData.hpp"
 
+<<<<<<< HEAD
 #define INVENTORY_SIZE 7
+=======
+const constexpr int INVENTORY_SIZE = 7;
+>>>>>>> d3a6f46123dd541254af603f5449300efad2f125
 
 namespace Zappy::GUI {
 

@@ -11,10 +11,10 @@ namespace Zappy::GUI {
 
             /**
              * @brief update the address, port and machine name
-             * @param argv
-             * @param argc
+             * @param aArgv
+             * @param aArgc
              */
-            void parseData(int argc, char **argv);
+            void parseData(int aArgc, char **aArgv);
 
             /**
              * @brief get the address

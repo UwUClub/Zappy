@@ -6,24 +6,21 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #include "server_core.h"
 #include "utils.h"
 
-static void print_help(void)
-{
-    printf("USAGE: ./zappy_server ...\n\n");
-}
-
 int main(int ac, char **av)
 {
+    time_t t = 0;
     data_t *data = NULL;
 
-    if (ac >= 2 && (!strcmp(av[1], "-help") || !strcmp(av[1], "-h"))) {
-        print_help();
-        return 0;
-    }
-    data = init_data();
-    launch_server(4242, data);
-    free_data(data);
+    srand((unsigned) time(&t));
+    data = init_server_data(ac, av);
+    if (!data)
+        return 84;
+    launch_server(data);
+    free_server_data(data);
     return 0;
 }

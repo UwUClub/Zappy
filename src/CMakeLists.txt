@@ -1,12 +1,10 @@
-find_package(Vulkan QUIET)
-find_package(glfw3 QUIET)
-find_package(glm QUIET)
-
-if (Vulkan_FOUND AND glfw3_FOUND EQUAL 1 AND glm_FOUND EQUAL 1)
+if (NO_CONNECTION EQUAL 0 AND OGRE_FOUND)
     message(STATUS "GUI: ON")
     add_subdirectory(gui)
 else()
     message(STATUS "GUI: OFF")
+    message(STATUS "NO_CONNECTION: ${NO_CONNECTION}")
+    message(STATUS "OGRE_FOUND: ${OGRE_FOUND}")
     execute_process(
             COMMAND touch zappy_gui
     )

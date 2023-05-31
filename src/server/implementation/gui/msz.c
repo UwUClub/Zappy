@@ -12,8 +12,8 @@
 char *get_world_dimensions(data_t *data)
 {
     char *result = strdup("");
-    char *width_str = inttos(data->map->width);
-    char *height_str = inttos(data->map->height);
+    char *width_str = inttos(data->map_width);
+    char *height_str = inttos(data->map_height);
 
     result = concat_str(result, width_str);
     result = concat_str(result, " ");
@@ -26,9 +26,13 @@ char *get_world_dimensions(data_t *data)
 
 int msz(data_t *data, __attribute__((unused)) char **args)
 {
-    char *msg = strdup("msz ");
-    char *world_dimensions = get_world_dimensions(data);
+    char *msg = NULL;
+    char *world_dimensions = NULL;
 
+    if (args)
+        return 1;
+    world_dimensions = get_world_dimensions(data);
+    msg = strdup("msz ");
     msg = concat_str(msg, world_dimensions);
     free(world_dimensions);
     send_to_client(data->clients, data->curr_cli_index, msg);

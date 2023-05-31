@@ -36,9 +36,10 @@ find_package(Vulkan QUIET)
 include(cmake/PreventInSourceBuilds.cmake)
 include(ProjectOptions.cmake)
 
-if (NO_CONNECTION LESS_EQUAL 0)
+if (NO_CONNECTION EQUAL 0)
     include(Dependencies.cmake)
     myproject_setup_dependencies()
+    find_package(OGRE QUIET)
 endif()
 
 myproject_setup_options()
@@ -62,19 +63,6 @@ target_compile_features(myproject_options INTERFACE cxx_std_${CMAKE_CXX_STANDARD
 
 add_library(myproject::myproject_options ALIAS myproject_options)
 add_library(myproject::myproject_warnings ALIAS myproject_warnings)
-
-# Adding the src:
-add_executable(zappy_server)
-target_link_libraries(zappy_server
-  PRIVATE myproject::myproject_options
-        myproject::myproject_warnings
-)
-
-add_executable(zappy_gui)
-target_link_libraries(zappy_gui
-  PRIVATE myproject::myproject_options
-        myproject::myproject_warnings
-)
 
 add_subdirectory(src)
 
@@ -107,29 +95,12 @@ myproject_package_project(
   myproject_warnings
 )
 
-if (NO_CONNECTION EQUAL 0)
+if (NO_CONNECTION EQUAL 0 AND OGRE_FOUND)
     myproject_package_project(
       TARGETS
       zappy_gui
       myproject_options
       myproject_warnings
-    )
-    target_link_libraries(zappy_gui
-      PRIVATE glfw
-              glm
-              Vulkan::Vulkan
-    )
-elseif(glfw3_FOUND EQUAL 1 AND glm_FOUND EQUAL 1 AND Vulkan_FOUND)
-    myproject_package_project(
-      TARGETS
-      zappy_gui
-      myproject_options
-      myproject_warnings
-    )
-    target_link_libraries(zappy_gui
-      PRIVATE glfw
-              glm
-              Vulkan::Vulkan
     )
 else()
     message(AUTHOR_WARNING "Not linking zappy_gui because of missing dependencies")
