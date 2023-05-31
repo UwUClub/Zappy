@@ -24,6 +24,7 @@ add_executable(zappy_server
         implementation/get_remaining_slots.c
         implementation/gui/msz.c
         implementation/gui/bct.c
+        implementation/gui/tna.c
         implementation/gui/sgt.c
         implementation/ia/forward.c
         implementation/ia/right.c
