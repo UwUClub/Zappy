@@ -13,6 +13,8 @@ function(myproject_setup_dependencies)
     cpmaddpackage("gh:catchorg/Catch2@3.3.2")
   endif()
 
+  message(STATUS "Ogre found: ${OGRE_FOUND}")
+
   if (NOT OGRE_FOUND)
     message(STATUS "OGRE not found, downloading and building it")
     execute_process(

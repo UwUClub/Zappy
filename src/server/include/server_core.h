@@ -145,7 +145,7 @@
     * @param data The data structure to free
     */
     void free_data(data_t *data);
-
+    
     /**
     * @brief Launch the server
     * @param data_t *data
@@ -164,13 +164,6 @@
     * @param client The client to close
     */
     void close_single_client(client_t *client);
-
-    /**
-    * @brief Initialize all the clients
-    * @param max_connections The maximum number of connections
-    * @return The client list
-    */
-    client_t **init_clients(const unsigned int max_connections);
 
     /**
     * @brief Close all the clients
@@ -211,7 +204,7 @@
     * @param clients Client list of the server
     */
     void welcome_selected_client(struct sockaddr *addr, int server_fd,
-    client_t **clients);
+    client_t ***clients);
 
     /**
     * @brief Read the client input and append it to his read buffer

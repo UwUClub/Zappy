@@ -61,7 +61,7 @@ int select_clients(struct sockaddr_in *addr, int server_fd, data_t *data)
     }
     if (FD_ISSET(server_fd, &read_fd_set)) {
         welcome_selected_client((struct sockaddr *) addr, server_fd,
-        data->clients);
+        &(data->clients));
     }
     for (int i = 0; data->clients[i]; i++) {
         run_client_flow(data, i, read_fd_set, write_fd_set);

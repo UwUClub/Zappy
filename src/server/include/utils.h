@@ -50,12 +50,14 @@
     * @return The converted string
     */
     char *int_to_s(int nbr);
+
     /**
     * @brief Reverse a string
     * @param str The string to reverse
     * @return The reversed string
     */
     char *revstr(char *str);
+    
     /**
     * @brief Check if a string can be converted to an int
     * @param p The string to check

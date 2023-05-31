@@ -50,6 +50,7 @@ static int append_to_gui(data_t *data)
             free(y_str);
         }
     }
+    do_tna(data, NULL);
     return 0;
 }
 
