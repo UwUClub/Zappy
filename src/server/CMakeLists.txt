@@ -15,7 +15,7 @@ add_executable(zappy_server
         core/launch_server.c
         core/server_data.c
         core/read_client.c
-        core/single_client_lifecycle.c
+        core/clients_lifecycle.c
         core/welcome_single_client.c
         core/write_to_client.c
         core/spawn_resources.c
