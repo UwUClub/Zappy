@@ -1,8 +1,8 @@
 #include <iostream>
-#include <catch2/catch_test_macros.hpp>
 #include "../src/gui/cli/ClientApi.hpp"
 #include "../src/gui/cli/ParserData.hpp"
 #include "../src/gui/cli/ServerData.hpp"
+#include <catch2/catch_test_macros.hpp>
 
 TEST_CASE("testingBct", "[testingBct]")
 {
