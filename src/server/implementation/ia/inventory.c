@@ -5,7 +5,6 @@
 ** inventory
 */
 
-#define _GNU_SOURCE
 #include "server_implementation.h"
 #include <stdio.h>
 

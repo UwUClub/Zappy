@@ -26,7 +26,7 @@ int take(data_t *data, char **args)
 {
     const char *resource[7] = {"food", "linemate", "deraumere", "sibur",
         "mendiane", "phiras", "thystame"};
-    
+
     if (args == NULL || word_array_len(args) > 1) {
         return 1;
     }

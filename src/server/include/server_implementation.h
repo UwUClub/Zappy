@@ -7,6 +7,7 @@
 
 #ifndef ZAPPY_SERVER_IMPLEMENTATION_H
     #define ZAPPY_SERVER_IMPLEMENTATION_H
+    #define _GNU_SOURCE
 
     #include "server_core.h"
 
