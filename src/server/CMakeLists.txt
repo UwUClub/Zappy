@@ -31,6 +31,7 @@ add_executable(zappy_server
         implementation/ia/left.c
         implementation/ia/take.c
         implementation/ia/set.c
+        implementation/ia/inventory.c
         utils/concat_str.c
         utils/free_word_array.c
         utils/get_sockaddr.c

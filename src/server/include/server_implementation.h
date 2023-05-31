@@ -7,6 +7,7 @@
 
 #ifndef ZAPPY_SERVER_IMPLEMENTATION_H
     #define ZAPPY_SERVER_IMPLEMENTATION_H
+    #define _GNU_SOURCE
 
     #include "server_core.h"
 
@@ -103,5 +104,12 @@
      * @return Status of the parsing / command
      */
     int set(data_t *data, char **args);
+    /**
+     * @brief Sends a response to the inventory command sent by the client
+     * @param data The current server data, clients and current client index
+     * @param args The arguments of the command
+     * @return Status of the parsing / command
+     */
+    int inventory(data_t *data, char **args);
 
 #endif /* ZAPPY_SERVER_IMPLEMENTATION_H */
