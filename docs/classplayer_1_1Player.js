@@ -4,6 +4,7 @@ var classplayer_1_1Player =
     [ "connect", "classplayer_1_1Player.html#a3c6d0f1fff3ac302f7386647e8131660", null ],
     [ "disconnect", "classplayer_1_1Player.html#aa05db30d8f22d8b878f027d4865a6ebd", null ],
     [ "forward", "classplayer_1_1Player.html#a15b773bb2e19602fe37acd377834e0b2", null ],
+    [ "inventory", "classplayer_1_1Player.html#ade8deb9c70d265fafa94e2b4ba6cc86f", null ],
     [ "left", "classplayer_1_1Player.html#ae1de0df4dc714f2984abfbc1f5b1c8e7", null ],
     [ "msz", "classplayer_1_1Player.html#a74a28098b83c846cef3f0821b1ac8fc3", null ],
     [ "preliminaries", "classplayer_1_1Player.html#a3b78c6ff0ed1dfc43bc5b801b5f8d84c", null ],

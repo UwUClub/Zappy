@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['joingame_82',['joinGame',['../classZappy_1_1GUI_1_1ClientApi.html#a0a57ee6141abd42008ad46b8850df9cd',1,'Zappy::GUI::ClientApi']]]
+  ['inventory_83',['inventory',['../classplayer_1_1Player.html#ade8deb9c70d265fafa94e2b4ba6cc86f',1,'player::Player']]]
 ];

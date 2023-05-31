@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['receive_89',['receive',['../classconnection_1_1Connection.html#ab1af0014f264dc33e9298bc87b272c20',1,'connection.Connection.receive()'],['../classplayer_1_1Player.html#a87da183f478b9e127e753a01af5ca3c5',1,'player.Player.receive(self)']]],
-  ['right_90',['right',['../classplayer_1_1Player.html#ad6fbf53afd43ae13157acbe6fb859c73',1,'player::Player']]]
+  ['parsedata_87',['parseData',['../classZappy_1_1GUI_1_1ParserData.html#a7c98a79d8d81f6742de174034bbef330',1,'Zappy::GUI::ParserData']]],
+  ['parserexception_88',['ParserException',['../classZappy_1_1GUI_1_1ParserData_1_1ParserException.html#a78d85cb941749db65b4391b06c6fb4da',1,'Zappy::GUI::ParserData::ParserException']]],
+  ['player_89',['Player',['../classZappy_1_1GUI_1_1Player.html#a3372288c0932ee1329eb3d2abcfa8c90',1,'Zappy::GUI::Player']]],
+  ['preliminaries_90',['preliminaries',['../classplayer_1_1Player.html#a3b78c6ff0ed1dfc43bc5b801b5f8d84c',1,'player::Player']]]
 ];
