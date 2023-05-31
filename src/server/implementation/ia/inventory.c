@@ -9,7 +9,7 @@
 #include <stdio.h>
 
 
-int inventory(data_t *data, char **args)
+int get_inventory(data_t *data, char **args)
 {
     char *inventory = NULL;
     int value = 0;

@@ -35,7 +35,7 @@ add_executable(zappy_server
         utils/concat_str.c
         utils/free_word_array.c
         utils/get_sockaddr.c
-        utils/inttos.c
+        utils/int_to_s.c
         utils/is_int.c
         utils/revstr.c
         utils/str_to_word_array.c

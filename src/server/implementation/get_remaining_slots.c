@@ -5,10 +5,8 @@
 ** get_remaining_slots
 */
 
-#include <stdio.h>
 #include <string.h>
 #include "server_implementation.h"
-#include "utils.h"
 
 int get_remaining_slots(data_t *data, char *team_name)
 {
