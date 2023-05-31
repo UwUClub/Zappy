@@ -57,6 +57,12 @@ namespace Zappy::GUI {
             void sendCommand(const std::string &aCommand);
 
             /**
+             * @brief geting the server data
+             * @return serverData
+             */
+            [[nodiscard]] const ServerData &getServerData() const;
+
+            /**
              * @brief ClientException class
              */
             class ClientException : public std::exception

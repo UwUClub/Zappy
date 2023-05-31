@@ -59,6 +59,12 @@ namespace Zappy::GUI {
         return 0;
     }
 
+    void ClientApi::disconnect() {
+        close(_serverFd);
+        _serverFd = -1;
+        std::cout << "Disconnected from server" << std::endl;
+    }
+
     void ClientApi::sendCommand(const std::string &aCommand)
     {
         _writeBuffer += aCommand + "\n";
@@ -72,6 +78,11 @@ namespace Zappy::GUI {
     int ClientApi::getServerFd() const
     {
         return _serverFd;
+    }
+
+    const ServerData &ClientApi::getServerData() const
+    {
+        return _serverData;
     }
 
     struct sockaddr_in ClientApi::getSockaddr(in_addr_t aAddress, unsigned int aPort)
@@ -145,7 +156,6 @@ namespace Zappy::GUI {
 
     void ClientApi::ReceiveBct(const std::string &aResponse)
     {
-        std::cout << "Called" << std::endl;
         Tile myTilesMap = {};
         std::vector<int> myResources;
         std::string myArg = aResponse;
@@ -162,4 +172,5 @@ namespace Zappy::GUI {
         myTilesMap.fillTile(myResources);
         _serverData._mapTiles.push_back(myTilesMap);
     }
+
 } // namespace Zappy::GUI
