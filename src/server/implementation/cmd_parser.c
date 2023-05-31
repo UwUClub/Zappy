@@ -19,6 +19,7 @@ static const cmd_t player_commands[] = {
     {"Take", &take},
     {"Set", &set},
     {"Inventory", &inventory},
+    {"Look", &look},
     {NULL, NULL}
 };
 
