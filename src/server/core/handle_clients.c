@@ -46,7 +46,6 @@ static void run_client_flow(data_t *data, const int cli_index,
     }
     if (data->clients[cli_index]->fd > 0 &&
         FD_ISSET(data->clients[cli_index]->fd, &read_fd_set)) {
-        data->curr_cli_index = cli_index;
         read_selected_client(data);
     }
 }
@@ -85,14 +84,18 @@ int select_clients(struct sockaddr_in *addr, int server_fd, data_t *data)
     FD_SET(server_fd, &read_fd_set);
     time(&data->last_select);
     select(FD_SETSIZE, &read_fd_set, &write_fd_set, NULL, timeout);
-    handle_pending_cmd(data);
     free(timeout);
     if (!keep_running)
         return 1;
     if (FD_ISSET(server_fd, &read_fd_set))
         welcome_selected_client((struct sockaddr *) addr, server_fd,
         &(data->clients));
-    for (int i = 0; data->clients[i]; i++)
+    for (int i = 0; data->clients[i]; i++) {
+        data->curr_cli_index = i;
+        if (data->clients[i]->fd >= 0 && data->clients[i]->player &&
+        data->clients[i]->player->pending_cmd_queue[0])
+            handle_pending_cmd(data);
         run_client_flow(data, i, read_fd_set, write_fd_set);
+    }
     return 0;
 }
