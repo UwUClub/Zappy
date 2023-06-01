@@ -6,7 +6,7 @@
 */
 
 #include <unistd.h>
-#include "server_core.h"
+#include "core.h"
 #include "resources.h"
 
 static void spawn_resource_type(data_t *data, int resource_id, float density)

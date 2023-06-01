@@ -6,7 +6,7 @@
 */
 
 #include <stdio.h>
-#include "server_implementation.h"
+#include "implementation.h"
 #include "utils.h"
 
 static void concat_str_item(char **result, const int item_quantity)

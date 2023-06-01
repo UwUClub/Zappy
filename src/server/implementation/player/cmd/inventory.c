@@ -5,9 +5,8 @@
 ** inventory
 */
 
-#include "server_implementation.h"
-#include <stdio.h>
-
+#include "implementation.h"
+#include "player_cmd.h"
 
 int get_inventory(data_t *data, char **args)
 {

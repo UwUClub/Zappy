@@ -6,7 +6,7 @@
 */
 
 #include <stdio.h>
-#include "server_implementation.h"
+#include "implementation.h"
 #include "utils.h"
 
 char *get_world_dimensions(data_t *data)

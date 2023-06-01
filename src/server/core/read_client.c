@@ -7,8 +7,8 @@
 
 #include <errno.h>
 #include <stdio.h>
-#include "server_core.h"
-#include "server_implementation.h"
+#include "core.h"
+#include "implementation.h"
 #include "utils.h"
 
 static void bufferize_cmd(client_t **client, char *cmd,

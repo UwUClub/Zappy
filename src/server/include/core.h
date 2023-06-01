@@ -19,6 +19,8 @@
     #include <arpa/inet.h>
     #include "ranges.h"
 
+    typedef struct data_s data_t;
+
     typedef enum orientation_e {
         UNKNOWN = 0,
         NORTH,
@@ -28,6 +30,12 @@
         END
     } orientation_t;
 
+    typedef struct pending_cmd_s {
+        int (*func)(data_t *data, char **args);
+        char **args;
+        time_t remaining;
+    } pending_cmd_t;
+
     typedef struct player_s {
         int pos_x;
         int pos_y;
@@ -35,6 +43,7 @@
         int level;
         int inventory[TILE_SIZE];
         char *team_name;
+        pending_cmd_t *pending_cmd_queue[MAX_PENDING_CMD];
     } player_t;
 
     typedef struct client_s {
@@ -155,7 +164,7 @@
     * @param data The data structure to free
     */
     void free_data(data_t *data);
-    
+
     /**
     * @brief Launch the server
     * @param data_t *data

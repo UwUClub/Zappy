@@ -57,7 +57,7 @@
     * @return The reversed string
     */
     char *revstr(char *str);
-    
+
     /**
     * @brief Check if a string can be converted to an int
     * @param p The string to check

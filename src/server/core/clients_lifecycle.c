@@ -6,7 +6,7 @@
 */
 
 #include <unistd.h>
-#include "server_core.h"
+#include "core.h"
 
 void init_single_client(client_t **client)
 {
@@ -28,17 +28,29 @@ void init_player(client_t **client, const char *team_name, map_t *map)
         (*client)->player->inventory[i] = 0;
     }
     (*client)->player->team_name = strdup(team_name);
+    for (int i = 0; i < MAX_PENDING_CMD; i++) {
+        (*client)->player->pending_cmd_queue[i] = NULL;
+    }
+}
+
+static void close_single_player(client_t *client)
+{
+    if (client->player == NULL)
+        return;
+    if (client->player->team_name != NULL)
+        free(client->player->team_name);
+    for (int i = 0; i < MAX_PENDING_CMD; i++) {
+        if (client->player->pending_cmd_queue[i] != NULL)
+            free(client->player->pending_cmd_queue[i]);
+    }
+    free(client->player);
 }
 
 void close_single_client(client_t *client)
 {
     if (client->fd != -1)
         close(client->fd);
-    if (client->player != NULL) {
-        if (client->player->team_name != NULL)
-            free(client->player->team_name);
-        free(client->player);
-    }
+    close_single_player(client);
     if (client->input != NULL)
         free(client->input);
     if (client->output != NULL)

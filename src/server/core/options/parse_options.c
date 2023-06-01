@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "server_core.h"
+#include "core.h"
 #include "utils.h"
 
 static const option_t options[] = {

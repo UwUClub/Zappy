@@ -1,26 +1,25 @@
 /*
 ** EPITECH PROJECT, 2023
-** zappy_server
+** Zappy
 ** File description:
-** forward
+** right
 */
 
 #include <stdio.h>
-#include "server_implementation.h"
+#include "implementation.h"
 
-int move_forward(data_t *data, char **args)
+int move_right(data_t *data, char **args)
 {
-    if (args != NULL) {
+    if (args != NULL)
         return 1;
-    }
     if (data->clients[data->curr_cli_index]->player->orientation == NORTH)
-        data->clients[data->curr_cli_index]->player->pos_y -= 1;
+        data->clients[data->curr_cli_index]->player->orientation = EAST;
     if (data->clients[data->curr_cli_index]->player->orientation == SOUTH)
-        data->clients[data->curr_cli_index]->player->pos_y += 1;
+        data->clients[data->curr_cli_index]->player->orientation = WEST;
     if (data->clients[data->curr_cli_index]->player->orientation == EAST)
-        data->clients[data->curr_cli_index]->player->pos_x += 1;
+        data->clients[data->curr_cli_index]->player->orientation = SOUTH;
     if (data->clients[data->curr_cli_index]->player->orientation == WEST)
-        data->clients[data->curr_cli_index]->player->pos_x -= 1;
+        data->clients[data->curr_cli_index]->player->orientation = NORTH;
     send_to_client(data->clients, data->curr_cli_index, "ok\n");
     return 0;
 }

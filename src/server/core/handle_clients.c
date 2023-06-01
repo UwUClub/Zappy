@@ -9,7 +9,7 @@
 #include <signal.h>
 #include <string.h>
 #include <time.h>
-#include "server_implementation.h"
+#include "implementation.h"
 
 static int keep_running = 1;
 

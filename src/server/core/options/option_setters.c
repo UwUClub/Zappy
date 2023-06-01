@@ -6,7 +6,7 @@
 */
 
 #include <stdio.h>
-#include "server_core.h"
+#include "core.h"
 #include "utils.h"
 
 int set_port(data_t *data, char *value)

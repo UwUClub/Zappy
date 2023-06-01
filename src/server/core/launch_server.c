@@ -13,8 +13,8 @@
 #include <sys/types.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-#include "server_core.h"
-#include "server_implementation.h"
+#include "core.h"
+#include "implementation.h"
 #include "utils.h"
 
 static void listen_to_inputs(struct sockaddr_in *addr, int server_fd,

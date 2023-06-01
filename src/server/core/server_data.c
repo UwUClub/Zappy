@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "server_core.h"
+#include "core.h"
 #include "utils.h"
 
 static void set_data_default_values(data_t *data)

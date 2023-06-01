@@ -6,7 +6,7 @@
 */
 
 #include <stdio.h>
-#include "server_core.h"
+#include "core.h"
 #include "utils.h"
 
 static int is_value_valid(data_t *data, char *value, char option)

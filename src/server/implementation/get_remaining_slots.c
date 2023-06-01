@@ -6,7 +6,7 @@
 */
 
 #include <string.h>
-#include "server_implementation.h"
+#include "implementation.h"
 
 int get_remaining_slots(data_t *data, char *team_name)
 {

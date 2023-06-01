@@ -5,77 +5,38 @@
 ** Header for server app
 */
 
-#ifndef ZAPPY_SERVER_IMPLEMENTATION_H
-    #define ZAPPY_SERVER_IMPLEMENTATION_H
+#ifndef ZAPPY_PLAYER_CMD_H
+    #define ZAPPY_PLAYER_CMD_H
     #define _GNU_SOURCE
 
-    #include "server_core.h"
-
-    typedef struct cmd_s {
-        char *name;
-        int (*func)(data_t *data, char **args);
-    } cmd_t;
+    #include "core.h"
 
     /**
-    * @brief Parse the input from the client
-    * @param data * The current server data, clients and current client index
+    * @brief Schedule a player command to be executed after a delay
+    * @param data The current server data, clients and current client index
+    * @param name The name of the command
+    * @param args The arguments of the command (NULL if none)
     * @return Status of the parsing / command
     */
-    int parse_input(data_t *data);
+    int schedule_player_cmd(data_t *data, char *name, char **args);
 
     /**
-    * @brief Get remaining opened slots in a team
+    * @brief Append the scheduler to the player's pending command queue
     * @param data The current server data, clients and current client index
-    * @param team_name The team name to check
-    * @return Number of remaining slots
+    * @param func The function to execute
+    * @param args The arguments of the command (NULL if none)
+    * @param delay The delay before executing the command
     */
-    int get_remaining_slots(data_t *data, char *team_name);
+    void append_scheduler_to_queue(data_t *data, int (*func)(data_t *data,
+    char **args), char **args, time_t delay);
 
     /**
-    * @brief Check if the team name provided by the client is valid and if
-    * there is still slots available. If so, the client is added to the team.
-    * @param data The current server data, clients and current client index
-    * @return Status of the parsing / command
-    */
-    int parse_team_name(data_t *data);
-
-    /**
-    * @brief Sends a response to the msz command sent by the client
+    * @brief Schedule forward command
     * @param data The current server data, clients and current client index
     * @param args The arguments of the command
     * @return Status of the parsing / command
     */
-    int do_msz(data_t *data, char **args);
-
-    /**
-    * @brief Get a string containing the world dimensions of the server
-    * @param data The current server data, clients and current client index
-    * @return String containing the world dimensions
-    */
-    char *get_world_dimensions(data_t *data);
-
-    /**
-    * @brief Sends a response to the bct command sent by the client
-    * @param data The current server data, clients and current client index
-    * @param args The arguments of the command
-    * @return Status of the parsing / command
-    */
-    int do_bct(data_t *data, char **args);
-
-    /**
-    * @brief Sends a response to the tna command sent by the client
-    * @param data The current server data, clients and current client index
-    * @return Status of the parsing / command
-    */
-    int do_tna(data_t *data, char **args);
-
-    /**
-    * @brief Get frequency
-    * @param data The current server data, clients and current client index
-    * @param args The arguments of the command
-    * @return Frequency
-    */
-    int do_sgt(data_t *data, char **args);
+    int schedule_forward(data_t *data, char **args);
 
     /**
     * @brief Sends a response to the forward command sent by the client
@@ -125,4 +86,4 @@
      */
     int get_inventory(data_t *data, char **args);
 
-#endif /* ZAPPY_SERVER_IMPLEMENTATION_H */
+#endif /* ZAPPY_PLAYER_CMD_H */

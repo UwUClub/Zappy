@@ -6,7 +6,7 @@
 */
 
 #include <stdio.h>
-#include "server_implementation.h"
+#include "implementation.h"
 #include "utils.h"
 
 static int check_is_on_tile(data_t *data, int resource)
