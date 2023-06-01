@@ -1,22 +1,23 @@
 #include "ClientApi.hpp"
 #include <arpa/inet.h>
-#include <cerrno>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <errno.h>
 #include <functional>
 #include <iostream>
 #include <netinet/in.h>
 #include <sys/select.h>
 #include <sys/socket.h>
 #include <unistd.h>
+#include <utility>
 #include <unordered_map>
 
 namespace Zappy::GUI {
-    ClientApi::ClientApi(const std::string &aAddress, unsigned int aPort, const std::string &aTeamName)
-        : _address(aAddress),
+    ClientApi::ClientApi(std::string aAddress, unsigned int aPort, std::string aTeamName)
+        : _address(std::move(aAddress)),
           _port(aPort),
-          _teamName(aTeamName),
+          _teamName(std::move(aTeamName)),
           _connectStatus(-1),
           _serverFd(-1)
     {}
@@ -61,6 +62,13 @@ namespace Zappy::GUI {
         return 0;
     }
 
+    void ClientApi::disconnect()
+    {
+        close(_serverFd);
+        _serverFd = -1;
+        std::cout << "Disconnected from server" << std::endl;
+    }
+
     void ClientApi::sendCommand(const std::string &aCommand)
     {
         _writeBuffer += aCommand + "\n";
@@ -74,6 +82,11 @@ namespace Zappy::GUI {
     int ClientApi::getServerFd() const
     {
         return _serverFd;
+    }
+
+    const ServerData &ClientApi::getServerData() const
+    {
+        return _serverData;
     }
 
     struct sockaddr_in ClientApi::getSockaddr(in_addr_t aAddress, unsigned int aPort)
@@ -117,30 +130,57 @@ namespace Zappy::GUI {
         static std::unordered_map<std::string, std::function<void(ClientApi &, std::string)>> myResponses = {
             {"WELCOME", &ClientApi::ReceiveWelcome},
             {"msz", &ClientApi::ReceiveMsz},
-        };
+            {"bct", &ClientApi::ReceiveBct},
+            {"ko", &ClientApi::ReceiveKo}};
 
-        while (_readBuffer.find("\n") != std::string::npos) {
-            std::string myResponse = _readBuffer.substr(0, _readBuffer.find("\n"));
-            std::string myCommand = myResponse.substr(0, myResponse.find(" "));
-            std::string myArgs = myResponse.substr(myResponse.find(" ") + 1);
+        while (_readBuffer.find('\n') != std::string::npos) {
+            std::string const myResponse = _readBuffer.substr(0, _readBuffer.find('\n'));
+            std::string const myCommand = myResponse.substr(0, myResponse.find(' '));
+            std::string const myArgs = myResponse.substr(myResponse.find(' ') + 1);
 
             if (myResponses.find(myCommand) != myResponses.end()) {
                 myResponses[myCommand](*this, myArgs);
             }
-            _readBuffer = _readBuffer.substr(_readBuffer.find("\n") + 1);
+            _readBuffer = _readBuffer.substr(_readBuffer.find('\n') + 1);
         }
     }
 
-    void ClientApi::ReceiveWelcome(__attribute__((unused)) std::string aResponse)
+    void ClientApi::ReceiveWelcome(__attribute__((unused)) const std::string &aResponse)
     {
         _writeBuffer += _teamName + "\n";
     }
 
-    void ClientApi::ReceiveMsz(std::string aResponse)
+    std::string ClientApi::ReceiveKo(const std::string &aResponse)
     {
-        std::string myX = aResponse.substr(0, aResponse.find(" "));
-        std::string myY = aResponse.substr(aResponse.find(" ") + 1);
+        _writeBuffer += aResponse + "\n";
+        return aResponse;
+    }
+
+    void ClientApi::ReceiveMsz(const std::string &aResponse)
+    {
+        std::string const myX = aResponse.substr(0, aResponse.find(' '));
+        std::string const myY = aResponse.substr(aResponse.find(' ') + 1);
 
         _serverData._mapSize = std::make_pair(std::stoi(myX), std::stoi(myY));
     }
+
+    void ClientApi::ReceiveBct(const std::string &aResponse)
+    {
+        Tile myTilesMap = {};
+        std::vector<int> myResources;
+        std::string myArg = aResponse;
+
+        for (size_t pos = myArg.find(' '); pos != std::string::npos; pos = myArg.find(' ')) {
+            std::string const myResource = myArg.substr(0, pos);
+
+            myResources.push_back(std::stoi(myResource));
+            myArg = myArg.substr(pos + 1);
+        }
+        if (!myArg.empty()) {
+            myResources.push_back(std::stoi(myArg));
+        }
+        myTilesMap.fillTile(myResources);
+        _serverData._mapTiles.push_back(myTilesMap);
+    }
+
 } // namespace Zappy::GUI

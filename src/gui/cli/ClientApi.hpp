@@ -2,6 +2,7 @@
 
 #include <netinet/in.h>
 #include <string>
+#include <utility>
 #include "ServerData.hpp"
 #include <unordered_map>
 
@@ -15,7 +16,7 @@ namespace Zappy::GUI {
              * @param aPort
              * @param aTeamName
              */
-            ClientApi(const std::string &aAddress, unsigned int aPort, const std::string &aTeamName);
+            ClientApi(std::string aAddress, unsigned int aPort, std::string aTeamName);
 
             /**
              * @brief ClientApi destructor
@@ -56,6 +57,12 @@ namespace Zappy::GUI {
             void sendCommand(const std::string &aCommand);
 
             /**
+             * @brief geting the server data
+             * @return serverData
+             */
+            [[nodiscard]] const ServerData &getServerData() const;
+
+            /**
              * @brief ClientException class
              */
             class ClientException : public std::exception
@@ -65,8 +72,8 @@ namespace Zappy::GUI {
                      * @brief ClientException constructor
                      * @param aMessage
                      */
-                    explicit ClientException(const std::string &aMessage)
-                        : _message(aMessage)
+                    explicit ClientException(std::string aMessage)
+                        : _message(std::move(aMessage))
                     {}
 
                     /**
@@ -113,13 +120,28 @@ namespace Zappy::GUI {
 
             /**
              * @brief parse welcome response
+             * @param aResponse
              */
-            void ReceiveWelcome(std::string aResponse);
+            void ReceiveWelcome(const std::string &aResponse);
+
+            /**
+             * @brief parse ko response
+             * @param aResponse
+             * @return string "ko"
+             */
+            std::string ReceiveKo(const std::string &aResponse);
 
             /**
              * @brief parse msz response
+             * @param aResponse
              */
-            void ReceiveMsz(std::string aResponse);
+            void ReceiveMsz(const std::string &aResponse);
+
+            /**
+             * @brief parse bct response
+             * @param aResponse
+             */
+            void ReceiveBct(const std::string &aResponse);
 
             // Attributes
             std::string _address;

@@ -1,9 +1,4 @@
-//
-// Created by beafowl on 22/05/23.
-//
-
 #include <OGRE/Bites/OgreApplicationContext.h>
-#include <OGRE/Ogre.h>
 #include <OGRE/OgreSceneManager.h>
 #include <Ogre.h>
 #include <OgreCamera.h>
@@ -13,13 +8,14 @@
 #include <cstdlib>
 #include <iostream>
 #include <stdexcept>
+#include <utility>
 #include "CameraHandler.hpp"
 #include "ClientApi.hpp"
 #include "EventHandler.hpp"
 #include "FrameHandler.hpp"
 #include "ParserData.hpp"
 
-int main()
+int main(int argc, char **argv)
 {
     // try {
     //     Zappy::GUI::ParserData parserData("127.0.0.1", 0, "");

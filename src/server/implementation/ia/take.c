@@ -24,11 +24,9 @@ static int check_is_on_tile(data_t *data, int resource)
 
 int take(data_t *data, char **args)
 {
-    const char *resource[7] = {"food", "linemate", "deraumere", "sibur", "mendiane",
-    "phiras", "thystame"};
-    
-    if (args == NULL || word_array_len(args) > 1) {
-        printf("take: bad arguments\n");
+    const char *resource[7] = {"food", "linemate", "deraumere", "sibur",
+        "mendiane", "phiras", "thystame"};
+    if (args == NULL || word_array_len(args) != 1) {
         return 1;
     }
     for (int i = 0; i < 7; i++) {
@@ -36,10 +34,8 @@ int take(data_t *data, char **args)
             && check_is_on_tile(data, i) == 0) {
             data->clients[data->curr_cli_index]->inventory[i] += 1;
             send_to_client(data->clients, data->curr_cli_index, "ok\n");
-            printf("ok\n");
             return 0;
         }
     }
-    printf("No ressources availble\n");
     return 1;
 }

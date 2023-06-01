@@ -30,7 +30,6 @@ int set_cli_per_team(data_t *data, char *value)
         return 84;
     }
     data->cli_per_team = atoi(value);
-    data->clients = init_clients(MAX_TEAMS * data->cli_per_team);
     return 0;
 }
 

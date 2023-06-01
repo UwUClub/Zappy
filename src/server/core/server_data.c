@@ -52,8 +52,8 @@ data_t *init_server_data(int ac, char **av)
     set_data_default_values(data);
     if (parse_data_options(data, ac, av))
         return NULL;
-    if (!data->clients)
-        data->clients = init_clients(MAX_TEAMS * data->cli_per_team + 1);
+    data->clients = malloc(sizeof(client_t *));
+    data->clients[0] = NULL;
     if (!data->team_names) {
         data->team_names = malloc(sizeof(char *) * 5);
         data->team_names[0] = strdup("Team1");

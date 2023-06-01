@@ -15,7 +15,7 @@ add_executable(zappy_server
         core/launch_server.c
         core/server_data.c
         core/read_client.c
-        core/single_client_lifecycle.c
+        core/clients_lifecycle.c
         core/welcome_single_client.c
         core/write_to_client.c
         core/spawn_resources.c
@@ -24,15 +24,18 @@ add_executable(zappy_server
         implementation/get_remaining_slots.c
         implementation/gui/msz.c
         implementation/gui/bct.c
+        implementation/gui/tna.c
         implementation/gui/sgt.c
         implementation/ia/forward.c
         implementation/ia/right.c
         implementation/ia/left.c
         implementation/ia/take.c
+        implementation/ia/set.c
+        implementation/ia/inventory.c
         utils/concat_str.c
         utils/free_word_array.c
         utils/get_sockaddr.c
-        utils/inttos.c
+        utils/int_to_s.c
         utils/is_int.c
         utils/revstr.c
         utils/str_to_word_array.c

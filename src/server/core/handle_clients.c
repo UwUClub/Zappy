@@ -10,18 +10,11 @@
 #include <string.h>
 #include "server_implementation.h"
 
-client_t **init_clients(const unsigned int max_connections)
-{
-    client_t **clients = NULL;
-    unsigned int i = 0;
+static int keep_running = 1;
 
-    clients = malloc(sizeof(client_t *) * (max_connections + 1));
-    for (i = 0; i < max_connections; i++) {
-        clients[i] = malloc(sizeof(client_t));
-        init_single_client(&clients[i]);
-    }
-    clients[i] = NULL;
-    return clients;
+void detect_ctrl_c(int dummy)
+{
+    keep_running = 0;
 }
 
 static void get_fd_set(client_t **clients, fd_set *read_fd_set,
@@ -41,7 +34,21 @@ static void get_fd_set(client_t **clients, fd_set *read_fd_set,
     }
 }
 
-void select_clients(struct sockaddr_in *addr, int server_fd, data_t *data)
+static void run_client_flow(data_t *data, const int cli_index,
+    fd_set read_fd_set, fd_set write_fd_set)
+{
+    if (data->clients[cli_index]->fd > 0 &&
+        FD_ISSET(data->clients[cli_index]->fd, &write_fd_set)) {
+        write_to_selected_client(&(data->clients)[cli_index]);
+    }
+    if (data->clients[cli_index]->fd > 0 &&
+        FD_ISSET(data->clients[cli_index]->fd, &read_fd_set)) {
+        data->curr_cli_index = cli_index;
+        read_selected_client(data);
+    }
+}
+
+int select_clients(struct sockaddr_in *addr, int server_fd, data_t *data)
 {
     fd_set read_fd_set;
     fd_set write_fd_set;
@@ -49,27 +56,15 @@ void select_clients(struct sockaddr_in *addr, int server_fd, data_t *data)
     get_fd_set(data->clients, &read_fd_set, &write_fd_set);
     FD_SET(server_fd, &read_fd_set);
     select(FD_SETSIZE, &read_fd_set, &write_fd_set, NULL, NULL);
-    if (FD_ISSET(server_fd, &read_fd_set))
+    if (!keep_running) {
+        return 1;
+    }
+    if (FD_ISSET(server_fd, &read_fd_set)) {
         welcome_selected_client((struct sockaddr *) addr, server_fd,
-            data->clients);
+        &(data->clients));
+    }
     for (int i = 0; data->clients[i]; i++) {
-        if (data->clients[i]->fd > 0 &&
-            FD_ISSET(data->clients[i]->fd, &write_fd_set)) {
-            write_to_selected_client(&(data->clients)[i]);
-        }
-        if (data->clients[i]->fd > 0 &&
-            FD_ISSET(data->clients[i]->fd, &read_fd_set)) {
-            data->curr_cli_index = i;
-            read_selected_client(data);
-        }
+        run_client_flow(data, i, read_fd_set, write_fd_set);
     }
-}
-
-void close_clients(client_t **clients)
-{
-    for (int i = 0; clients[i]; i++) {
-        close_single_client(clients[i]);
-        free(clients[i]);
-    }
-    free(clients);
+    return 0;
 }
