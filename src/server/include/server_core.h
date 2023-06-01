@@ -45,12 +45,16 @@
         char *output;
     } client_t;
 
+    typedef struct map_s {
+        int width;
+        int height;
+        int (**tiles)[TILE_SIZE];
+    } map_t;
+
     typedef struct data_s {
         int curr_cli_index;
         client_t **clients;
-        int map_width;
-        int map_height;
-        int (**map_tiles)[TILE_SIZE];
+        map_t *map;
         char **team_names;
         int cli_per_team;
         int freq;
@@ -172,8 +176,7 @@
     * @param map_width The width of the map
     * @param map_height The height of the map
     */
-    void init_player(client_t **client, const char *team_name, const int map_width,
-    const int map_height);
+    void init_player(client_t **client, const char *team_name, map_t *map);
     /**
     * @brief Close a client
     * @param client The client to close

@@ -26,7 +26,7 @@ int set_map_width(data_t *data, char *value)
 {
     if (!is_value_valid(data, value, 'x'))
         return 84;
-    data->map_width = atoi(value);
+    data->map->width = atoi(value);
     return 0;
 }
 
@@ -34,6 +34,6 @@ int set_map_height(data_t *data, char *value)
 {
     if (!is_value_valid(data, value, 'y'))
         return 84;
-    data->map_height = atoi(value);
+    data->map->height = atoi(value);
     return 0;
 }

@@ -17,12 +17,11 @@ void init_single_client(client_t **client)
     (*client)->output = strdup("");
 }
 
-void init_player(client_t **client, const char *team_name,
-    const int map_width, const int map_height)
+void init_player(client_t **client, const char *team_name, map_t *map)
 {
     (*client)->player = malloc(sizeof(player_t));
-    (*client)->player->pos_x = rand() % map_width;
-    (*client)->player->pos_y = rand() % map_height;
+    (*client)->player->pos_x = rand() % map->width;
+    (*client)->player->pos_y = rand() % map->height;
     (*client)->player->orientation = NORTH;
     (*client)->player->level = 0;
     for (int i = 0; i < TILE_SIZE; i++) {
