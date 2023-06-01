@@ -128,7 +128,8 @@ namespace Zappy::GUI {
             {"WELCOME", &ClientApi::ReceiveWelcome},
             {"msz", &ClientApi::ReceiveMsz},
             {"bct", &ClientApi::ReceiveBct},
-            {"ko", &ClientApi::ReceiveKo}};
+            {"ko", &ClientApi::ReceiveKo},
+            {"tna", &ClientApi::ReceiveTna}};
 
         while (_readBuffer.find('\n') != std::string::npos) {
             std::string const myResponse = _readBuffer.substr(0, _readBuffer.find('\n'));
@@ -178,6 +179,11 @@ namespace Zappy::GUI {
         }
         myTilesMap.fillTile(myResources);
         _serverData._mapTiles.push_back(myTilesMap);
+    }
+
+    void ClientApi::ReceiveTna(const std::string &aResponse)
+    {
+        _serverData._teamNames.push_back(aResponse);
     }
 
 } // namespace Zappy::GUI

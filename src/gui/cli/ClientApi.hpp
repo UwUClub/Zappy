@@ -142,6 +142,12 @@ namespace Zappy::GUI {
              */
             void ReceiveBct(const std::string &aResponse);
 
+            /**
+             * @brief parse tna response
+             * @param aResponse
+             */
+            void ReceiveTna(const std::string &aResponse);
+
             // Attributes
             std::string _address;
             unsigned int _port;
