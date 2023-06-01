@@ -128,7 +128,7 @@ namespace Zappy::GUI {
              * @param aResponse
              * @return string "ko"
              */
-            std::string ReceiveKo(const std::string &aResponse);
+            void ReceiveKo(const std::string &aResponse);
 
             /**
              * @brief parse msz response
@@ -147,6 +147,12 @@ namespace Zappy::GUI {
              * @param aResponse
              */
             void ReceiveTna(const std::string &aResponse);
+
+            /**
+             * @brief parse ppo response
+             * @param aResponse
+             */
+            void ReceivePpo(const std::string &aResponse);
 
             // Attributes
             std::string _address;

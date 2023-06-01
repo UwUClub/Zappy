@@ -3,10 +3,13 @@
 #include "../src/gui/cli/ParserData.hpp"
 #include <catch2/catch_test_macros.hpp>
 
+constexpr auto SERVER_IP = "127.0.0.1";
+constexpr auto SERVER_PORT = 4242;
+
 TEST_CASE("testingBct", "[testingBct]")
 {
     Zappy::GUI::Tile const tile = {};
-    Zappy::GUI::ParserData const parserData("127.0.0.1", 4242, "");
+    Zappy::GUI::ParserData const parserData(SERVER_IP, SERVER_PORT, "");
     Zappy::GUI::ClientApi myClientApi(parserData.getAddress(), parserData.getPort(), "GRAPHIC");
     myClientApi.joinGame();
     while (true) {
@@ -23,7 +26,7 @@ TEST_CASE("testingBct", "[testingBct]")
 
 TEST_CASE("testingMsz", "[testingMsz]")
 {
-    Zappy::GUI::ParserData const parserData("127.0.0.1", 4242, "");
+    Zappy::GUI::ParserData const parserData(SERVER_IP, SERVER_PORT, "");
     Zappy::GUI::ClientApi myClientApi(parserData.getAddress(), parserData.getPort(), "GRAPHIC");
     myClientApi.joinGame();
     while (true) {
@@ -41,7 +44,24 @@ TEST_CASE("testingMsz", "[testingMsz]")
 
 TEST_CASE("testingTna", "[testingTna]")
 {
-    Zappy::GUI::ParserData const parserData("127.0.0.1", 4242, "");
+    Zappy::GUI::ParserData const parserData(SERVER_IP, SERVER_PORT, "");
+    Zappy::GUI::ClientApi myClientApi(parserData.getAddress(), parserData.getPort(), "GRAPHIC");
+    myClientApi.joinGame();
+    while (true) {
+        if (myClientApi.update() >= 1) {
+            break;
+        }
+        if (!myClientApi.getServerData()._teamNames.empty()) {
+            break;
+        }
+    }
+    myClientApi.disconnect();
+    REQUIRE(!myClientApi.getServerData()._teamNames.empty());
+}
+
+TEST_CASE("testingPpo", "[testingPpo]")
+{
+    Zappy::GUI::ParserData const parserData(SERVER_IP, SERVER_PORT, "");
     Zappy::GUI::ClientApi myClientApi(parserData.getAddress(), parserData.getPort(), "GRAPHIC");
     myClientApi.joinGame();
     while (true) {

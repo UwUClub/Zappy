@@ -129,7 +129,9 @@ namespace Zappy::GUI {
             {"msz", &ClientApi::ReceiveMsz},
             {"bct", &ClientApi::ReceiveBct},
             {"ko", &ClientApi::ReceiveKo},
-            {"tna", &ClientApi::ReceiveTna}};
+            {"tna", &ClientApi::ReceiveTna},
+            {"ppo", &ClientApi::ReceivePpo}
+        };
 
         while (_readBuffer.find('\n') != std::string::npos) {
             std::string const myResponse = _readBuffer.substr(0, _readBuffer.find('\n'));
@@ -148,10 +150,9 @@ namespace Zappy::GUI {
         _writeBuffer += _teamName + "\n";
     }
 
-    std::string ClientApi::ReceiveKo(const std::string &aResponse)
+    void ClientApi::ReceiveKo(const std::string &aResponse)
     {
         _writeBuffer += aResponse + "\n";
-        return aResponse;
     }
 
     void ClientApi::ReceiveMsz(const std::string &aResponse)
@@ -184,6 +185,17 @@ namespace Zappy::GUI {
     void ClientApi::ReceiveTna(const std::string &aResponse)
     {
         _serverData._teamNames.push_back(aResponse);
+    }
+
+    void ClientApi::ReceivePpo(const std::string &aResponse)
+    {
+        std::string const &myArg = aResponse;
+        std::string const myPlayerId = myArg.substr(0, myArg.find(' '));
+        std::string const myX = myArg.substr(myArg.find(' ') + 1, myArg.find(' '));
+        std::string const myY = myArg.substr(myArg.find(' ') + 1);
+
+        _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId)))
+            .setPosition(static_cast<unsigned int>(std::stoi(myX)), static_cast<unsigned int>(std::stoi(myY)));
     }
 
 } // namespace Zappy::GUI
