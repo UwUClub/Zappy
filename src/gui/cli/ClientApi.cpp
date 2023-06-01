@@ -11,6 +11,7 @@
 #include <sys/socket.h>
 #include <unistd.h>
 #include <utility>
+#include "ServerData.hpp"
 #include <unordered_map>
 
 namespace Zappy::GUI {
@@ -152,11 +153,16 @@ namespace Zappy::GUI {
 
     std::string ClientApi::ReceiveKo(const std::string &aResponse)
     {
-        std::string myX = aResponse.substr(0, aResponse.find(' '));
-        std::string myY = aResponse.substr(aResponse.find(" ") + 1);
+        _writeBuffer += aResponse + "\n";
+        return aResponse;
+    }
+
+    void ClientApi::ReceiveMsz(const std::string &aResponse)
+    {
+        std::string const myX = aResponse.substr(0, aResponse.find(' '));
+        std::string const myY = aResponse.substr(aResponse.find(' ') + 1);
 
         _serverData._mapSize = std::make_pair(std::stoi(myX), std::stoi(myY));
-        return aResponse;
     }
 
     void ClientApi::ReceiveBct(const std::string &aResponse)
