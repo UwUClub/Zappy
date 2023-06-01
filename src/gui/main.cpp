@@ -18,7 +18,7 @@
 int main(int argc, char **argv)
 {
     // try {
-    //     Zappy::GUI::ParserData parserData("127.0.0.1", 0, "");
+    // Zappy::GUI::ParserData parserData("127.0.0.1", 0, "");
     //     parserData.parseData(argc, argv);
     //     Zappy::GUI::ClientApi myClientApi(parserData.getAddress(), parserData.getPort(), "team_name");
     //     myClientApi.joinGame();

@@ -1,19 +1,9 @@
-include_directories(cli)
-
 add_executable(zappy_gui
         main.cpp
-        EventHandler.cpp
-        CameraHandler.cpp
-        FrameHandler.cpp
-        cli/ClientApi.hpp
-        cli/ClientApi.cpp
-        cli/ParserData.hpp
-        cli/ParserData.cpp
-        cli/ServerData.cpp
-        cli/ServerData.hpp
-        cli/Player.cpp
-        cli/Player.hpp
         )
+
+add_subdirectory(cli)
+add_subdirectory(handlers)
 
 find_package(OGRE QUIET)
 

@@ -152,14 +152,8 @@ namespace Zappy::GUI {
 
     std::string ClientApi::ReceiveKo(const std::string &aResponse)
     {
-        _writeBuffer += aResponse + "\n";
-        return aResponse;
-    }
-
-    void ClientApi::ReceiveMsz(const std::string &aResponse)
-    {
-        std::string const myX = aResponse.substr(0, aResponse.find(' '));
-        std::string const myY = aResponse.substr(aResponse.find(' ') + 1);
+        std::string myX = aResponse.substr(0, aResponse.find(' '));
+        std::string myY = aResponse.substr(aResponse.find(" ") + 1);
 
         _serverData._mapSize = std::make_pair(std::stoi(myX), std::stoi(myY));
     }
