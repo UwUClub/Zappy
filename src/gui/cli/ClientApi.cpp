@@ -183,4 +183,15 @@ namespace Zappy::GUI {
         _serverData._teamNames.push_back(aResponse);
     }
 
+    void ClientApi::ReceivePpo(const std::string &aResponse)
+    {
+        std::string const &myArg = aResponse;
+        std::string const myPlayerId = myArg.substr(0, myArg.find(' '));
+        std::string const myX = myArg.substr(myArg.find(' ') + 1, myArg.find(' '));
+        std::string const myY = myArg.substr(myArg.find(' ') + 1);
+
+        _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId)))
+            .setPosition(static_cast<unsigned int>(std::stoi(myX)), static_cast<unsigned int>(std::stoi(myY)));
+    }
+
 } // namespace Zappy::GUI
