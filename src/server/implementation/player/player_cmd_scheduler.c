@@ -10,7 +10,7 @@
 #include "player_cmd.h"
 
 static const cmd_t schedulers[] = {
-    {"Forward", &schedule_forward},
+    {"Forward", &schedule_forward, FORWARD_DELAY},
     // {"Right", &schedule_right},
     // {"Left", &schedule_left},
     // {"Take", &schedule_take},
@@ -47,6 +47,18 @@ static int send_ko(data_t *data, char **args)
     return 0;
 }
 
+static int check_cmd_status(data_t *data, int (*func)(data_t *data,
+    char **args), char **args, time_t delay)
+{
+    int status = 0;
+
+    status = func(data, args);
+    if (status == 1) {
+        append_scheduler_to_queue(data, &send_ko, NULL, delay);
+    }
+    return status;
+}
+
 int schedule_player_cmd(data_t *data, char *name, char **args)
 {
     if (is_pending_queue_full(data)) {
@@ -54,7 +66,8 @@ int schedule_player_cmd(data_t *data, char *name, char **args)
     }
     for (int i = 0; schedulers[i].name != NULL; i++) {
         if (!strcmp(name, schedulers[i].name)) {
-            return schedulers[i].func(data, args);
+            return check_cmd_status(data, schedulers[i].func, args,
+            schedulers[i].delay);
         }
     }
     append_scheduler_to_queue(data, &send_ko, NULL, 0);

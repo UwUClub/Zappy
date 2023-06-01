@@ -13,7 +13,6 @@
     #include <string.h>
     #include <unistd.h>
     #include <sys/socket.h>
-    #include <sys/select.h>
     #include <sys/types.h>
     #include <netinet/in.h>
     #include <arpa/inet.h>
@@ -207,6 +206,12 @@
     * @return 1 if the server is closing, 0 otherwise
     */
     int select_clients(struct sockaddr_in *addr, int server_fd, data_t *data);
+
+    /**
+    * @brief Calculate remaning time or execute pending commands
+    * @param data The server data
+    */
+    void handle_pending_cmd(data_t *data);
 
     /**
     * @brief Append a message to the client write buffer

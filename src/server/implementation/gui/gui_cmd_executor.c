@@ -9,10 +9,10 @@
 #include "gui_cmd.h"
 
 static const cmd_t commands[] = {
-    {"msz", &do_msz},
-    {"bct", &do_bct},
-    {"tna", &do_tna},
-    {"sgt", &do_sgt},
+    {"msz", &do_msz, 0},
+    {"bct", &do_bct, 0},
+    {"tna", &do_tna, 0},
+    {"sgt", &do_sgt, 0},
     {NULL, NULL}
 };
 

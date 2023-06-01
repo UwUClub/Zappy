@@ -13,6 +13,7 @@
     typedef struct cmd_s {
         char *name;
         int (*func)(data_t *data, char **args);
+        time_t delay;
     } cmd_t;
 
     /**
