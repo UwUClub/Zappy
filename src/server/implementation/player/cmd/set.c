@@ -5,18 +5,15 @@
 ** set
 */
 
-#include <stdio.h>
 #include "implementation.h"
 #include "utils.h"
+#include "player_cmd.h"
 
-int set(data_t *data, char **args)
+int set(data_t *data, __attribute__((unused)) char **args)
 {
     const char *resource[7] = {"food", "linemate", "deraumere", "sibur",
         "mendiane", "phiras", "thystame"};
 
-    if (args == NULL || word_array_len(args) > 1) {
-        return 1;
-    }
     for (int i = 0; i < 7; i++) {
         if (strcmp(args[0], resource[i]) == 0
             && data->clients[data->curr_cli_index]->player->inventory[i] > 0) {
@@ -28,4 +25,14 @@ int set(data_t *data, char **args)
         }
     }
     return 1;
+}
+
+int schedule_set(data_t *data, char **args)
+{
+    if (args == NULL || word_array_len(args) > 1) {
+        return 1;
+    }
+    // TODO: check if the arg is valid
+    append_scheduler_to_queue(data, &set, NULL, SET_DELAY);
+    return 0;
 }

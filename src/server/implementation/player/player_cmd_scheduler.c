@@ -11,10 +11,11 @@
 
 static const cmd_t schedulers[] = {
     {"Forward", &schedule_forward, FORWARD_DELAY},
-    // {"Right", &schedule_right},
-    // {"Left", &schedule_left},
-    // {"Take", &schedule_take},
-    // {"Set", &schedule_set},
+    {"Right", &schedule_right, RIGHT_DELAY},
+    {"Left", &schedule_left, LEFT_DELAY},
+    {"Take", &schedule_take, TAKE_DELAY},
+    {"Set", &schedule_set, SET_DELAY},
+    {"Inventory", &schedule_inventory, INVENTORY_DELAY},
     {NULL, NULL}
 };
 
