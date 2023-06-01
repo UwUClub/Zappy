@@ -41,6 +41,12 @@ static int is_pending_queue_full(data_t *data)
     return player->pending_cmd_queue[MAX_PENDING_CMD - 1] != NULL;
 }
 
+static int send_ko(data_t *data, char **args)
+{
+    send_to_client(data->clients, data->curr_cli_index, "ko\n");
+    return 0;
+}
+
 int schedule_player_cmd(data_t *data, char *name, char **args)
 {
     if (is_pending_queue_full(data)) {
@@ -48,9 +54,9 @@ int schedule_player_cmd(data_t *data, char *name, char **args)
     }
     for (int i = 0; schedulers[i].name != NULL; i++) {
         if (!strcmp(name, schedulers[i].name)) {
-            schedulers[i].func(data, args);
-            break;
+            return schedulers[i].func(data, args);
         }
     }
-    // TODO: append ko here
+    append_scheduler_to_queue(data, &send_ko, NULL, 0);
+    return 84;
 }
