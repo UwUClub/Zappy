@@ -11,6 +11,17 @@
 #include "server_core.h"
 #include "utils.h"
 
+void send_to_all_gui(client_t **clients, const char *msg)
+{
+    for (int i = 0; clients[i] != NULL; i++) {
+        if (clients[i]->fd != -1
+            && clients[i]->team_name != NULL &&
+            strcmp(clients[i]->team_name, "GRAPHIC") == 0) {
+                send_to_client(clients, i, msg);
+        }
+    }
+}
+
 void send_to_client(client_t **clients, const int id, const char *msg)
 {
     if (clients[id] && clients[id]->fd != -1) {
