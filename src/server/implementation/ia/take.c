@@ -40,8 +40,8 @@ static int pgt(data_t *data, int resource)
     char *resource_str = NULL;
     char *cli_index = NULL;
 
-    resource_str = inttos(resource);
-    cli_index = inttos(data->curr_cli_index);
+    resource_str = int_to_s(resource);
+    cli_index = int_to_s(data->curr_cli_index);
     msg = strdup("pgt ");
     msg = concat_str(msg, cli_index);
     msg = concat_str(msg, " ");
