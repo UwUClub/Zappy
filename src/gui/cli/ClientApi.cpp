@@ -125,13 +125,8 @@ namespace Zappy::GUI {
     void ClientApi::ParseServerResponses()
     {
         static std::unordered_map<std::string, std::function<void(ClientApi &, std::string)>> myResponses = {
-            {"WELCOME", &ClientApi::ReceiveWelcome},
-            {"msz", &ClientApi::ReceiveMsz},
-            {"bct", &ClientApi::ReceiveBct},
-            {"ko", &ClientApi::ReceiveKo},
-            {"tna", &ClientApi::ReceiveTna},
-            {"ppo", &ClientApi::ReceivePpo}
-        };
+            {"WELCOME", &ClientApi::ReceiveWelcome}, {"msz", &ClientApi::ReceiveMsz}, {"bct", &ClientApi::ReceiveBct},
+            {"ko", &ClientApi::ReceiveKo},           {"tna", &ClientApi::ReceiveTna}, {"ppo", &ClientApi::ReceivePpo}};
 
         while (_readBuffer.find('\n') != std::string::npos) {
             std::string const myResponse = _readBuffer.substr(0, _readBuffer.find('\n'));
