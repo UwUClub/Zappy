@@ -9,6 +9,24 @@
 #include "server_implementation.h"
 #include "utils.h"
 
+static int pdr(data_t *data, int ressource)
+{
+    char * msg = NULL;
+    char * ressource_str = NULL;
+    char * cli_index = NULL;
+
+    ressource_str = int_to_s(ressource);
+    cli_index = int_to_s(data->curr_cli_index);
+    msg = strdup("pdr ");
+    msg = concat_str(msg, cli_index);
+    msg = concat_str(msg, " ");
+    msg = concat_str(msg, ressource_str);
+    msg = concat_str(msg, "\n");
+    send_to_all_gui(data->clients, msg);
+    free(cli_index);
+    return 0;
+}
+
 int set(data_t *data, char **args)
 {
     const char *resource[7] = {"food", "linemate", "deraumere", "sibur",
@@ -23,6 +41,7 @@ int set(data_t *data, char **args)
             data->clients[data->curr_cli_index]->inventory[i] -= 1;
             data->map_tiles[data->clients[data->curr_cli_index]->pos_y]
             [data->clients[data->curr_cli_index]->pos_x][i] += 1;
+            pdr(data, i);
             send_to_client(data->clients, data->curr_cli_index, "ok\n");
             return 0;
         }
