@@ -14,6 +14,7 @@
     #include <unistd.h>
     #include <sys/socket.h>
     #include <sys/types.h>
+    #include <sys/time.h>
     #include <netinet/in.h>
     #include <arpa/inet.h>
     #include "ranges.h"
@@ -196,6 +197,13 @@
     * @param clients Client list of the server
     */
     void close_clients(client_t **clients);
+
+    /**
+    * @brief Get the next select() timeout
+    * @param data The server data
+    * @return The next select() timeout
+    */
+    struct timeval *get_next_timeout(data_t *data);
 
     /**
     * @brief Handle read / write flow a client

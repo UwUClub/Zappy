@@ -40,37 +40,25 @@ static void get_fd_set(client_t **clients, fd_set *read_fd_set,
 static void run_client_flow(data_t *data, const int cli_index,
     fd_set read_fd_set, fd_set write_fd_set)
 {
-    if (data->clients[cli_index]->fd > 0 &&
-        FD_ISSET(data->clients[cli_index]->fd, &write_fd_set)) {
+    if (FD_ISSET(data->clients[cli_index]->fd, &write_fd_set)) {
         write_to_selected_client(&(data->clients)[cli_index]);
     }
-    if (data->clients[cli_index]->fd > 0 &&
-        FD_ISSET(data->clients[cli_index]->fd, &read_fd_set)) {
+    if (FD_ISSET(data->clients[cli_index]->fd, &read_fd_set)) {
         read_selected_client(data);
     }
 }
 
-struct timeval *get_timeout(data_t *data)
+static void handle_clients(data_t *data, fd_set read_fd_set,
+    fd_set write_fd_set)
 {
-    struct timeval *timeout = NULL;
-    long smallest_remaining = -1;
-
     for (int i = 0; data->clients[i]; i++) {
-        if (data->clients[i]->fd >= 0 && data->clients[i]->player &&
-            data->clients[i]->player->pending_cmd_queue[0] &&
-            (smallest_remaining == -1 ||
-            data->clients[i]->player->pending_cmd_queue[0]->remaining <
-                smallest_remaining)) {
-                smallest_remaining =
-                    data->clients[i]->player->pending_cmd_queue[0]->remaining;
-        }
+        data->curr_cli_index = i;
+        if (data->clients[i]->fd > 0 && data->clients[i]->player &&
+        data->clients[i]->player->pending_cmd_queue[0])
+            handle_pending_cmd(data);
+        if (data->clients[i]->fd > 0)
+            run_client_flow(data, i, read_fd_set, write_fd_set);
     }
-    if (smallest_remaining == -1)
-        return NULL;
-    timeout = malloc(sizeof(struct timeval));
-    timeout->tv_sec = smallest_remaining;
-    timeout->tv_usec = 0;
-    return timeout;
 }
 
 int select_clients(struct sockaddr_in *addr, int server_fd, data_t *data)
@@ -79,7 +67,7 @@ int select_clients(struct sockaddr_in *addr, int server_fd, data_t *data)
     fd_set write_fd_set;
     struct timeval *timeout = NULL;
 
-    timeout = get_timeout(data);
+    timeout = get_next_timeout(data);
     get_fd_set(data->clients, &read_fd_set, &write_fd_set);
     FD_SET(server_fd, &read_fd_set);
     time(&data->last_select);
@@ -87,15 +75,10 @@ int select_clients(struct sockaddr_in *addr, int server_fd, data_t *data)
     free(timeout);
     if (!keep_running)
         return 1;
-    if (FD_ISSET(server_fd, &read_fd_set))
+    if (FD_ISSET(server_fd, &read_fd_set)) {
         welcome_selected_client((struct sockaddr *) addr, server_fd,
         &(data->clients));
-    for (int i = 0; data->clients[i]; i++) {
-        data->curr_cli_index = i;
-        if (data->clients[i]->fd >= 0 && data->clients[i]->player &&
-        data->clients[i]->player->pending_cmd_queue[0])
-            handle_pending_cmd(data);
-        run_client_flow(data, i, read_fd_set, write_fd_set);
     }
+    handle_clients(data, read_fd_set, write_fd_set);
     return 0;
 }
