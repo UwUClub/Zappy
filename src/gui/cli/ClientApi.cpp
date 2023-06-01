@@ -156,11 +156,12 @@ namespace Zappy::GUI {
         std::string myY = aResponse.substr(aResponse.find(" ") + 1);
 
         _serverData._mapSize = std::make_pair(std::stoi(myX), std::stoi(myY));
+        return aResponse;
     }
 
     void ClientApi::ReceiveBct(const std::string &aResponse)
     {
-        Tile myTilesMap = {};
+        TileContent myTilesMap = {};
         std::vector<int> myResources;
         std::string myArg = aResponse;
 

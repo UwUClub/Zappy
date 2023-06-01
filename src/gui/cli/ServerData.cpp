@@ -6,7 +6,7 @@
 
 namespace Zappy::GUI {
 
-    void Tile::fillTile(std::vector<int> &tileData)
+    void TileContent::fillTile(std::vector<int> &tileData)
     {
         _x = tileData[0];
         _y = tileData[1];

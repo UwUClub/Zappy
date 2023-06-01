@@ -6,7 +6,7 @@
 
 TEST_CASE("testingBct", "[testingBct]")
 {
-    Zappy::GUI::Tile const tile = {};
+    Zappy::GUI::TileContent const tile = {};
     Zappy::GUI::ParserData const parserData("127.0.0.1", 4242, "");
     Zappy::GUI::ClientApi myClientApi(parserData.getAddress(), parserData.getPort(), "GRAPHIC");
     myClientApi.joinGame();

@@ -2,17 +2,17 @@
 
 #include <iostream>
 #include <vector>
-#include "Player.hpp"
+#include "PlayerData.hpp"
 
 namespace Zappy::GUI {
 
-    class Player;
+    class PlayerData;
 
-    class Tile
+    class TileContent
     {
         public:
-            Tile() = default;
-            ~Tile() = default;
+            TileContent() = default;
+            ~TileContent() = default;
 
             void fillTile(std::vector<int> &tileData);
 
@@ -30,9 +30,9 @@ namespace Zappy::GUI {
     struct ServerData
     {
             std::pair<unsigned int, unsigned int> _mapSize;
-            std::vector<Tile> _mapTiles;
+            std::vector<TileContent> _mapTiles;
             std::vector<std::string> _teamNames;
-            std::vector<Player> _players;
+            std::vector<PlayerData> _players;
             int _timeUnit;
     };
 } // namespace Zappy::GUI

@@ -1,3 +1,6 @@
+//
+// Created by beafowl on 22/05/23.
+//
 #include <OGRE/Bites/OgreApplicationContext.h>
 #include <OGRE/OgreSceneManager.h>
 #include <Ogre.h>
@@ -9,13 +12,14 @@
 #include <iostream>
 #include <stdexcept>
 #include <utility>
+#include <vulkan/vulkan.h>
 #include "CameraHandler.hpp"
 #include "ClientApi.hpp"
 #include "EventHandler.hpp"
 #include "FrameHandler.hpp"
 #include "ParserData.hpp"
 
-int main(int argc, char **argv)
+int main(int argc, const char **argv)
 {
     // try {
     // Zappy::GUI::ParserData parserData("127.0.0.1", 0, "");

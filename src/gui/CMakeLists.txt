@@ -1,5 +1,6 @@
 add_executable(zappy_gui
         main.cpp
+        App.cpp
         )
 
 add_subdirectory(cli)

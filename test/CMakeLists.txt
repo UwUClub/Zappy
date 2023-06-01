@@ -10,8 +10,8 @@ add_executable(test_zappy
         ../src/gui/cli/ClientApi.hpp
         ../src/gui/cli/ServerData.cpp
         ../src/gui/cli/ServerData.hpp
-        ../src/gui/cli/Player.cpp
-        ../src/gui/cli/Player.hpp
+        ../src/gui/cli/PlayerData.cpp
+        ../src/gui/cli/PlayerData.hpp
         ../src/gui/cli/ParserData.cpp
         ../src/gui/cli/ParserData.hpp
         )

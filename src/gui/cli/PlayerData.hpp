@@ -16,18 +16,18 @@ namespace Zappy::GUI {
         WEST
     };
 
-    class Player
+    class PlayerData
     {
         public:
             /**
              * @brief Player constructor
              */
-            Player();
+            PlayerData();
 
             /**
              * @brief Player destructor
              */
-            ~Player();
+            ~PlayerData();
 
             /**
              * @brief Set the position of the player
