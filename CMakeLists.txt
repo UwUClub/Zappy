@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.21)
+cmake_minimum_required(VERSION 3.7)
 
 # This template attempts to be "fetch_content"-able
 # so that it works well with tools like CPM or other
@@ -24,16 +24,18 @@ project(
 )
 
 execute_process(
-    COMMAND ping patatoserv.ddns.net -c 2
+    COMMAND ping patatoserv.ddns.net -c 1 -q
     RESULT_VARIABLE NO_CONNECTION
+    OUTPUT_QUIET
 )
 
 include(cmake/PreventInSourceBuilds.cmake)
 include(ProjectOptions.cmake)
 
-if (NO_CONNECTION LESS_EQUAL 0)
+if (NO_CONNECTION EQUAL 0)
     include(Dependencies.cmake)
     myproject_setup_dependencies()
+    find_package(OGRE QUIET)
 endif()
 
 myproject_setup_options()
@@ -45,7 +47,7 @@ myproject_local_options()
 # don't know if this should be set globally from here or not...
 set(CMAKE_CXX_VISIBILITY_PRESET hidden)
 
-set(GIT_SHA "Unknown" CACHE STRING "SHA this build was generated from")
+set(GIT_SHA "Unknown"  STRING "SHA this build was generated from")
 
 string(SUBSTRING "${GIT_SHA}"
             0
@@ -58,7 +60,6 @@ target_compile_features(myproject_options INTERFACE cxx_std_${CMAKE_CXX_STANDARD
 add_library(myproject::myproject_options ALIAS myproject_options)
 add_library(myproject::myproject_warnings ALIAS myproject_warnings)
 
-# Adding the src:
 add_subdirectory(src)
 
 # Don't even look at tests if we're not top level
@@ -67,7 +68,7 @@ if(NOT PROJECT_IS_TOP_LEVEL)
 endif()
 
 # Adding the tests:
-if (NO_CONNECTION LESS_EQUAL 0)
+if (NO_CONNECTION EQUAL 0)
     include(CTest)
 
     if(BUILD_TESTING)
@@ -90,12 +91,16 @@ myproject_package_project(
   myproject_warnings
 )
 
-myproject_package_project(
-  TARGETS
-  zappy_gui
-  myproject_options
-  myproject_warnings
-)
+if (NO_CONNECTION EQUAL 0 AND OGRE_FOUND)
+    myproject_package_project(
+      TARGETS
+      zappy_gui
+      myproject_options
+      myproject_warnings
+    )
+else()
+    message(AUTHOR_WARNING "Not linking zappy_gui because of missing dependencies")
+endif()
 
 # Experience shows that explicit package naming can help make it easier to sort
 # out potential ABI related issues before they start, while helping you

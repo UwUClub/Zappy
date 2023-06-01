@@ -1,16 +1,26 @@
-#add flags to compil
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lglfw -lvulkan -ldl -lpthread -lX11 -lXxf86vm -lXrandr -lXi")
-
 add_executable(zappy_gui
         main.cpp
+        cli/ClientApi.hpp
+        cli/ClientApi.cpp
+        cli/ParserData.hpp
+        cli/ParserData.cpp
+        cli/ServerData.cpp
+        cli/ServerData.hpp
+        cli/Player.cpp
+        cli/Player.hpp
         )
 
-target_include_directories(zappy_gui PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}")
+find_package(OGRE QUIET)
 
 target_link_libraries(zappy_gui
-  PRIVATE myproject::myproject_options
+    PRIVATE myproject::myproject_options
         myproject::myproject_warnings
+        OgreBites
+        OgreRTShaderSystem
 )
+
+target_include_directories(zappy_gui PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/cli")
+target_include_directories(zappy_gui PRIVATE "${OGRE_INCLUDE_DIRS}")
 
 set_target_properties(zappy_gui
     PROPERTIES

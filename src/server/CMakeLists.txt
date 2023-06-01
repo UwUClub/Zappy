@@ -1,13 +1,54 @@
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wpedantic")
+
+include_directories(core)
+include_directories(implementation)
+include_directories(utils)
+include_directories(include)
+
 add_executable(zappy_server
         main.c
+        core/options/parse_options.c
+        core/options/option_setters.c
+        core/options/map_setters.c
+        core/options/print_help.c
+        core/handle_clients.c
+        core/launch_server.c
+        core/server_data.c
+        core/read_client.c
+        core/clients_lifecycle.c
+        core/welcome_single_client.c
+        core/write_to_client.c
+        core/spawn_resources.c
+        implementation/cmd_parser.c
+        implementation/team_parser.c
+        implementation/get_remaining_slots.c
+        implementation/gui/msz.c
+        implementation/gui/bct.c
+        implementation/gui/tna.c
+        implementation/gui/sgt.c
+        implementation/ia/forward.c
+        implementation/ia/right.c
+        implementation/ia/left.c
+        implementation/ia/take.c
+        implementation/ia/set.c
+        implementation/ia/inventory.c
+        utils/concat_str.c
+        utils/free_word_array.c
+        utils/get_sockaddr.c
+        utils/int_to_s.c
+        utils/is_int.c
+        utils/revstr.c
+        utils/str_to_word_array.c
+        utils/word_array_len.c
+        include/server_implementation.h
+        include/server_core.h
+        include/utils.h
+        include/resources.h
+        include/ranges.h
         )
 
-target_include_directories(zappy_server PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}")
 
-target_link_libraries(zappy_server
-  PRIVATE myproject::myproject_options
-        myproject::myproject_warnings
-)
+target_include_directories(zappy_server PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/include")
 
 set_target_properties(zappy_server
     PROPERTIES

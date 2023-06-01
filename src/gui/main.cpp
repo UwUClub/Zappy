@@ -2,42 +2,30 @@
 // Created by beafowl on 22/05/23.
 //
 
+#include <OGRE/Bites/OgreApplicationContext.h>
+#include <OGRE/OgreSceneManager.h>
 #include <cstdlib>
 #include <iostream>
 #include <stdexcept>
+#include <utility>
 #include <vulkan/vulkan.h>
+#include "ClientApi.hpp"
+#include "ParserData.hpp"
 
-class HelloTriangleApplication
+int main(int argc, char **argv)
 {
-    public:
-        void run()
-        {
-            initVulkan();
-            mainLoop();
-            cleanup();
-        }
-
-    private:
-        void initVulkan()
-        {}
-
-        void mainLoop()
-        {}
-
-        void cleanup()
-        {}
-};
-
-int main()
-{
-    HelloTriangleApplication app;
-
     try {
-        app.run();
+        Zappy::GUI::ParserData parserData("127.0.0.1", 0, "");
+        parserData.parseData(argc, argv);
+        Zappy::GUI::ClientApi myClientApi(parserData.getAddress(), parserData.getPort(), "GRAPHIC");
+        myClientApi.joinGame();
+        while (true) {
+            if (myClientApi.update() >= 1) {
+                break;
+            }
+        }
     } catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
-        return EXIT_FAILURE;
     }
-
-    return EXIT_SUCCESS;
+    return 0;
 }
