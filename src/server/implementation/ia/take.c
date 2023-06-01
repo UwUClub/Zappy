@@ -22,6 +22,38 @@ static int check_is_on_tile(data_t *data, int resource)
     return 1;
 }
 
+static int send_to_all_gui(char *msg, client_t **clients)
+{
+    for (int i = 0; clients[i] != NULL; i++) {
+        if (clients[i]->fd != -1
+            && clients[i]->team_name != NULL &&
+            strcmp(clients[i]->team_name, "GRAPHIC") == 0) {
+                send_to_client(clients, i, msg);
+        }
+    }
+    return 0;
+}
+
+static int pgt(data_t *data, int resource)
+{
+    char *msg = NULL;
+    char *resource_str = NULL;
+    char *cli_index = NULL;
+
+    resource_str = inttos(resource);
+    cli_index = inttos(data->curr_cli_index);
+    msg = strdup("pgt ");
+    msg = concat_str(msg, cli_index);
+    msg = concat_str(msg, " ");
+    msg = concat_str(msg, resource_str);
+    msg = concat_str(msg, "\n");
+    send_to_all_gui(msg, data->clients);
+    free(cli_index);
+    free(msg);
+    free(resource_str);
+    return 0;
+}
+
 int take(data_t *data, char **args)
 {
     const char *resource[7] = {"food", "linemate", "deraumere", "sibur",
@@ -34,6 +66,7 @@ int take(data_t *data, char **args)
             && check_is_on_tile(data, i) == 0) {
             data->clients[data->curr_cli_index]->inventory[i] += 1;
             send_to_client(data->clients, data->curr_cli_index, "ok\n");
+            pgt(data, i);
             return 0;
         }
     }
