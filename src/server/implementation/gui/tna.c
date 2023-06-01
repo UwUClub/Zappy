@@ -9,7 +9,7 @@
 #include "server_implementation.h"
 #include "utils.h"
 
-int tna(data_t *data, char **args)
+int do_tna(data_t *data, char **args)
 {
     char *result = NULL;
 

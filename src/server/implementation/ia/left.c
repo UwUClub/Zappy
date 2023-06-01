@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include "server_implementation.h"
 
-int left(data_t *data, char **args)
+int move_left(data_t *data, char **args)
 {
     if (args != NULL)
         return 1;
