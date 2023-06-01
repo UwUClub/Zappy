@@ -22,18 +22,6 @@ static int check_is_on_tile(data_t *data, int resource)
     return 1;
 }
 
-static int send_to_all_gui(char *msg, client_t **clients)
-{
-    for (int i = 0; clients[i] != NULL; i++) {
-        if (clients[i]->fd != -1
-            && clients[i]->team_name != NULL &&
-            strcmp(clients[i]->team_name, "GRAPHIC") == 0) {
-                send_to_client(clients, i, msg);
-        }
-    }
-    return 0;
-}
-
 static int pgt(data_t *data, int resource)
 {
     char *msg = NULL;
@@ -47,7 +35,7 @@ static int pgt(data_t *data, int resource)
     msg = concat_str(msg, " ");
     msg = concat_str(msg, resource_str);
     msg = concat_str(msg, "\n");
-    send_to_all_gui(msg, data->clients);
+    send_to_all_gui(data->clients, msg);
     free(cli_index);
     free(msg);
     free(resource_str);
