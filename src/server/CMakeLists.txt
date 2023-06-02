@@ -22,6 +22,7 @@ add_executable(zappy_server
         implementation/cmd_parser.c
         implementation/team_parser.c
         implementation/get_remaining_slots.c
+        implementation/check_player_on_tile.c
         implementation/gui/msz.c
         implementation/gui/bct.c
         implementation/gui/tna.c

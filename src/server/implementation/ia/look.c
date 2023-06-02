@@ -12,11 +12,18 @@ static char *add_tile_content(char **look, int x, int y, data_t *data)
 {
     const char *resource[7] = {"food\0", "linemate\0", "deraumere\0",
     "sibur\0", "mendiane\0", "phiras\0", "thystame\0"};
+    client_t **clients = check_player_on_tile(data, x, y);
 
+    if (clients != NULL) {
+        for (int i = 0; clients[i] != NULL; i++) {
+            strcat((*look), "player \0");
+        }
+    }
+    free(clients);
     for (int i = 0; i < TILE_SIZE; i++) {
         for (int j = 0; j < data->map_tiles[y][x][i]; j++) {
-            strcat((*look), resource[i]);
             strcat((*look), " \0");
+            strcat((*look), resource[i]);
         }
     }
     strcat((*look), ",\0");
@@ -39,17 +46,16 @@ void look_front_tiles(int x, int y, data_t *data, char **look)
     int player_y = data->clients[data->curr_cli_index]->pos_y;
 
     strcat((*look), "[\0");
-    add_tile_content(&(*look), player_x, player_y, data);
+    add_tile_content(look, player_x, player_y, data);
     for (int i = 1; i <= data->clients[data->curr_cli_index]->level; i++) {
         x_tile = player_x + (x * i) + (i * y);
         y_tile = player_y + (y * i) + (i * x);
-        for (int j = 0;
-            j < i * 2 + 1; j++) {
+        for (int j = 0; j < i * 2 + 1; j++) {
             x_tile = x_tile + y * (-1);
             y_tile = y_tile + x;
             x_tile = calc_outbound(x_tile, data->map_width);
             y_tile = calc_outbound(y_tile, data->map_height);
-            add_tile_content(&(*look), x_tile, y_tile, data);
+            add_tile_content(look, x_tile, y_tile, data);
         }
     }
     strcat((*look), "]\n\0");
@@ -74,4 +80,3 @@ int look(data_t *data, char **args)
     free(look);
     return 0;
 }
-
