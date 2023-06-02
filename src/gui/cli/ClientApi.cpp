@@ -126,8 +126,7 @@ namespace Zappy::GUI {
         static std::unordered_map<std::string, std::function<void(ClientApi &, std::string)>> myResponses = {
             {"WELCOME", &ClientApi::ReceiveWelcome}, {"msz", &ClientApi::ReceiveMsz}, {"bct", &ClientApi::ReceiveBct},
             {"ko", &ClientApi::ReceiveError},        {"tna", &ClientApi::ReceiveTna}, {"sbp", &ClientApi::ReceiveError},
-            {"ppo", &ClientApi::ReceivePpo},         {"plv", &ClientApi::ReceivePlv}, {"pin", &ClientApi::ReceivePin}
-        };
+            {"ppo", &ClientApi::ReceivePpo},         {"plv", &ClientApi::ReceivePlv}, {"pin", &ClientApi::ReceivePin}};
 
         while (_readBuffer.find('\n') != std::string::npos) {
             std::string const myResponse = _readBuffer.substr(0, _readBuffer.find('\n'));
@@ -178,7 +177,8 @@ namespace Zappy::GUI {
             myResources.push_back(std::stoi(myArg));
         }
         myItemPacket.fillItemPacket(myResources);
-        _serverData._mapTiles.push_back(Tile(static_cast<unsigned int>(myX), static_cast<unsigned int>(myY), myItemPacket));
+        _serverData._mapTiles.push_back(
+            Tile(static_cast<unsigned int>(myX), static_cast<unsigned int>(myY), myItemPacket));
     }
 
     void ClientApi::ReceiveTna(const std::string &aResponse)
