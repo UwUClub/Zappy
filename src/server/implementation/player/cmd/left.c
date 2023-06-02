@@ -23,6 +23,6 @@ int schedule_left(data_t *data, char **args)
     if (args != NULL) {
         return 1;
     }
-    append_scheduler_to_queue(data, &move_left, NULL, LEFT_DELAY);
+    append_scheduler_to_queue(data, &move_left, args, LEFT_DELAY);
     return 0;
 }

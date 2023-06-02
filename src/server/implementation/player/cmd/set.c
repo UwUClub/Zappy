@@ -9,7 +9,7 @@
 #include "utils.h"
 #include "player_cmd.h"
 
-int set(data_t *data, __attribute__((unused)) char **args)
+int set(data_t *data, char **args)
 {
     const char *resource[7] = {"food", "linemate", "deraumere", "sibur",
         "mendiane", "phiras", "thystame"};
@@ -33,6 +33,6 @@ int schedule_set(data_t *data, char **args)
         return 1;
     }
     // TODO: check if the arg is valid
-    append_scheduler_to_queue(data, &set, NULL, SET_DELAY);
+    append_scheduler_to_queue(data, &set, args, SET_DELAY);
     return 0;
 }

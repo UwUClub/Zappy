@@ -13,6 +13,7 @@ static void shift_pending_cmd(data_t *data)
 {
     player_t *player = data->clients[data->curr_cli_index]->player;
 
+    free_word_array(player->pending_cmd_queue[0]->args);
     free(player->pending_cmd_queue[0]);
     for (int j = 0; j < MAX_PENDING_CMD - 1; j++) {
         player->pending_cmd_queue[j] =

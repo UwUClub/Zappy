@@ -42,7 +42,6 @@ static int parse_cmd(data_t *data)
     if (client->is_registered && !client->player)
         status = execute_gui_cmd(data, cmd_name, args);
     free(cmd_name);
-    free_word_array(args);
     return status;
 }
 

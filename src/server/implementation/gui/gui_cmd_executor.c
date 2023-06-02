@@ -7,6 +7,7 @@
 
 #include "implementation.h"
 #include "gui_cmd.h"
+#include "utils.h"
 
 static const cmd_t commands[] = {
     {"msz", &do_msz, 0},
@@ -25,6 +26,7 @@ static int check_cmd_status(data_t *data, int (*func)(data_t *data,
     if (status == 1) {
         send_to_client(data->clients, data->curr_cli_index, "sbp\n");
     }
+    free_word_array(args);
     return status;
 }
 

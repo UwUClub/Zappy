@@ -27,6 +27,6 @@ int schedule_forward(data_t *data, char **args)
     if (args != NULL) {
         return 1;
     }
-    append_scheduler_to_queue(data, &move_forward, NULL, FORWARD_DELAY);
+    append_scheduler_to_queue(data, &move_forward, args, FORWARD_DELAY);
     return 0;
 }

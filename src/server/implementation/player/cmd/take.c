@@ -76,6 +76,6 @@ int schedule_take(data_t *data, char **args)
         return 1;
     }
     // TODO: check if the arg is valid
-    append_scheduler_to_queue(data, &take, NULL, TAKE_DELAY);
+    append_scheduler_to_queue(data, &take, args, TAKE_DELAY);
     return 0;
 }
