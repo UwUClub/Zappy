@@ -8,7 +8,9 @@
 #include <errno.h>
 #include <signal.h>
 #include <string.h>
-#include "server_implementation.h"
+#include <sys/time.h>
+#include <sys/select.h>
+#include "implementation.h"
 
 static int keep_running = 1;
 
@@ -37,34 +39,42 @@ static void get_fd_set(client_t **clients, fd_set *read_fd_set,
 static void run_client_flow(data_t *data, const int cli_index,
     fd_set read_fd_set, fd_set write_fd_set)
 {
-    if (data->clients[cli_index]->fd > 0 &&
-        FD_ISSET(data->clients[cli_index]->fd, &write_fd_set)) {
+    if (FD_ISSET(data->clients[cli_index]->fd, &write_fd_set)) {
         write_to_selected_client(&(data->clients)[cli_index]);
     }
-    if (data->clients[cli_index]->fd > 0 &&
-        FD_ISSET(data->clients[cli_index]->fd, &read_fd_set)) {
-        data->curr_cli_index = cli_index;
+    if (FD_ISSET(data->clients[cli_index]->fd, &read_fd_set)) {
         read_selected_client(data);
     }
 }
 
-int select_clients(struct sockaddr_in *addr, int server_fd, data_t *data)
+static void handle_clients(data_t *data, fd_set read_fd_set,
+    fd_set write_fd_set)
+{
+    for (int i = 0; data->clients[i]; i++) {
+        data->curr_cli_index = i;
+        if (data->clients[i]->fd > 0 && data->clients[i]->player &&
+        data->clients[i]->player->pending_cmd_queue[0])
+            handle_pending_cmd(data);
+        if (data->clients[i]->fd > 0)
+            run_client_flow(data, i, read_fd_set, write_fd_set);
+    }
+}
+
+int select_clients(struct sockaddr_in *addr, int server_fd, data_t *data,
+    struct timeval *timeout)
 {
     fd_set read_fd_set;
     fd_set write_fd_set;
 
     get_fd_set(data->clients, &read_fd_set, &write_fd_set);
     FD_SET(server_fd, &read_fd_set);
-    select(FD_SETSIZE, &read_fd_set, &write_fd_set, NULL, NULL);
-    if (!keep_running) {
+    select(FD_SETSIZE, &read_fd_set, &write_fd_set, NULL, timeout);
+    if (!keep_running)
         return 1;
-    }
     if (FD_ISSET(server_fd, &read_fd_set)) {
         welcome_selected_client((struct sockaddr *) addr, server_fd,
         &(data->clients));
     }
-    for (int i = 0; data->clients[i]; i++) {
-        run_client_flow(data, i, read_fd_set, write_fd_set);
-    }
+    handle_clients(data, read_fd_set, write_fd_set);
     return 0;
 }

@@ -7,8 +7,8 @@
 
 #include <errno.h>
 #include <stdio.h>
-#include "server_core.h"
-#include "server_implementation.h"
+#include "core.h"
+#include "implementation.h"
 #include "utils.h"
 
 static void bufferize_cmd(client_t **client, char *cmd,
@@ -19,7 +19,7 @@ const unsigned int size)
     clean_cmd = strdup(cmd);
     if (clean_cmd[size - 1] == '\n')
         clean_cmd[size - 1] = '\0';
-    if (clean_cmd[size - 2] == '\r')
+    if (size > 1 && clean_cmd[size - 2] == '\r')
         clean_cmd[size - 2] = '\0';
     if ((*client)->input == NULL) {
         (*client)->input = strdup(clean_cmd);
@@ -44,7 +44,7 @@ void read_selected_client(data_t *data)
     client_t *cli = data->clients[data->curr_cli_index];
 
     size = read(cli->fd, buffer, 1024);
-    if (size > 0) {
+    if (size > 0 && buffer[0] != '\n') {
         buffer[size] = '\0';
         bufferize_cmd(&cli, buffer, (unsigned int) size);
         if (buffer[size - 1] != '\n')

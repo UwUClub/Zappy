@@ -6,7 +6,7 @@
 */
 
 #include <stdio.h>
-#include "server_core.h"
+#include "core.h"
 
 int print_help(__attribute__((unused)) data_t *data,
     __attribute__((unused)) char *value)
