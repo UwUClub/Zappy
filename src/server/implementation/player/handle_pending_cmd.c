@@ -7,6 +7,7 @@
 
 #include <time.h>
 #include "implementation.h"
+#include "utils.h"
 
 static void shift_pending_cmd(data_t *data)
 {
@@ -24,7 +25,7 @@ static void treat_pending_cmd(data_t *data)
 {
     player_t *player = data->clients[data->curr_cli_index]->player;
 
-    if (player->pending_cmd_queue[0]->remaining <= 0) {
+    if (player->pending_cmd_queue[0]->remaining_ms <= 0) {
         player->pending_cmd_queue[0]->func(data,
             player->pending_cmd_queue[0]->args);
         shift_pending_cmd(data);
@@ -33,10 +34,13 @@ static void treat_pending_cmd(data_t *data)
 
 void handle_pending_cmd(data_t *data)
 {
-    time_t elapsed_time = 0;
+    unsigned long long elapsed_time_ms = 0;
     player_t *player = data->clients[data->curr_cli_index]->player;
 
-    elapsed_time = time(NULL) - data->last_select;
-    player->pending_cmd_queue[0]->remaining -= elapsed_time;
+    elapsed_time_ms = get_ms_since_epoch() - data->last_select_ms;
+    if (elapsed_time_ms >= player->pending_cmd_queue[0]->remaining_ms)
+        player->pending_cmd_queue[0]->remaining_ms = 0;
+    else
+        player->pending_cmd_queue[0]->remaining_ms -= elapsed_time_ms;
     treat_pending_cmd(data);
 }

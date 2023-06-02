@@ -10,7 +10,6 @@
 #include <string.h>
 #include <sys/time.h>
 #include <sys/select.h>
-#include <time.h>
 #include "implementation.h"
 
 static int keep_running = 1;
@@ -61,18 +60,15 @@ static void handle_clients(data_t *data, fd_set read_fd_set,
     }
 }
 
-int select_clients(struct sockaddr_in *addr, int server_fd, data_t *data)
+int select_clients(struct sockaddr_in *addr, int server_fd, data_t *data,
+    struct timeval *timeout)
 {
     fd_set read_fd_set;
     fd_set write_fd_set;
-    struct timeval *timeout = NULL;
 
-    timeout = get_next_timeout(data);
     get_fd_set(data->clients, &read_fd_set, &write_fd_set);
     FD_SET(server_fd, &read_fd_set);
-    time(&data->last_select);
     select(FD_SETSIZE, &read_fd_set, &write_fd_set, NULL, timeout);
-    free(timeout);
     if (!keep_running)
         return 1;
     if (FD_ISSET(server_fd, &read_fd_set)) {

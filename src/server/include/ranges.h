@@ -19,4 +19,6 @@
 
     #define MAX_PENDING_CMD 10
 
+    #define MS_FACTOR 1000
+
 #endif /* ZAPPY_RANGES_H */

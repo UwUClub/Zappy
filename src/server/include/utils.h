@@ -65,4 +65,10 @@
     */
     int is_int(char const *p);
 
+    /**
+    * @brief Get the current time in milliseconds since epoch
+    * @return The current time in milliseconds since epoch
+    */
+    unsigned long long get_ms_since_epoch(void);
+
 #endif /* ZAPPY_UTILS_H */

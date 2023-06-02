@@ -33,7 +33,7 @@
     typedef struct pending_cmd_s {
         int (*func)(data_t *data, char **args);
         char **args;
-        time_t remaining;
+        unsigned long long remaining_ms;
     } pending_cmd_t;
 
     typedef struct player_s {
@@ -68,7 +68,7 @@
         int cli_per_team;
         int freq;
         int port;
-        time_t last_select;
+        unsigned long long last_select_ms;
     } data_t;
 
     typedef struct option_s {
@@ -213,7 +213,8 @@
     * clients and current client index
     * @return 1 if the server is closing, 0 otherwise
     */
-    int select_clients(struct sockaddr_in *addr, int server_fd, data_t *data);
+    int select_clients(struct sockaddr_in *addr, int server_fd, data_t *data,
+        struct timeval *timeout);
 
     /**
     * @brief Calculate remaning time or execute pending commands

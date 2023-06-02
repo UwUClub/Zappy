@@ -29,7 +29,8 @@ void append_scheduler_to_queue(data_t *data, int (*func)(data_t *data,
             player->pending_cmd_queue[i] = malloc(sizeof(pending_cmd_t));
             player->pending_cmd_queue[i]->func = func;
             player->pending_cmd_queue[i]->args = args;
-            player->pending_cmd_queue[i]->remaining = delay / data->freq;
+            player->pending_cmd_queue[i]->remaining_ms =
+                (delay * MS_FACTOR) / data->freq;
             break;
         }
     }
