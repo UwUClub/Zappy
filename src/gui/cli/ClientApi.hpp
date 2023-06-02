@@ -153,6 +153,12 @@ namespace Zappy::GUI {
              */
             void ReceivePpo(const std::string &aResponse);
 
+            /**
+             * @brief parse plv response
+             * @param aResponse
+             */
+            void ReceivePlv(const std::string &aResponse);
+
             // Attributes
             std::string _address;
             unsigned int _port;
