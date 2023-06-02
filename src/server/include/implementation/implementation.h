@@ -53,4 +53,20 @@
     */
     char *get_world_dimensions(data_t *data);
 
+    /**
+    * @brief Calculate remaning time or execute pending commands
+    * @param data The server data
+    * @param elapsed_time_ms The elapsed time since the last call
+    */
+    void handle_pending_cmd(data_t *data,
+        unsigned long long elapsed_time_ms);
+
+    /**
+    * @brief Make player consume food and kill him if he has no food anymore
+    * @param data The current server data, clients and current client index
+    * @param elapsed_time_ms The elapsed time since the last call
+    */
+    void handle_player_digestion(data_t *data,
+        unsigned long long elapsed_time_ms);
+
 #endif /* ZAPPY_IMPLEMENTATION_H */

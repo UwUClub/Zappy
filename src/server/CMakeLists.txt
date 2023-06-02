@@ -32,6 +32,7 @@ add_executable(zappy_server
         implementation/player/append_player_client.c
         implementation/player/player_cmd_scheduler.c
         implementation/player/handle_pending_cmd.c
+        implementation/player/handle_player_digestion.c
         implementation/player/cmd/forward.c
         implementation/player/cmd/right.c
         implementation/player/cmd/left.c

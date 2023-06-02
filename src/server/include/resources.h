@@ -18,6 +18,8 @@
 
     #define FOOD_START 9
 
+    #define DIGESTION_TIME 126
+
     #define FOOD_DENSITY 0.5
     #define LINEMATE_DENSITY 0.3
     #define DERAUMERE_DENSITY 0.15
