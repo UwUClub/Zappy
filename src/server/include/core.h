@@ -8,6 +8,8 @@
 #ifndef ZAPPY_SERVER_CORE_H
     #define ZAPPY_SERVER_CORE_H
 
+    #define LEVEL_START 1
+
     #include <stdio.h>
     #include <stdlib.h>
     #include <string.h>

@@ -24,7 +24,7 @@ void init_player(client_t **client, const char *team_name, map_t *map)
     (*client)->player->pos_x = rand() % map->width;
     (*client)->player->pos_y = rand() % map->height;
     (*client)->player->orientation = NORTH;
-    (*client)->player->level = 0;
+    (*client)->player->level = LEVEL_START;
     (*client)->player->inventory[0] = FOOD_START;
     for (int i = 1; i < TILE_SIZE; i++) {
         (*client)->player->inventory[i] = 0;
