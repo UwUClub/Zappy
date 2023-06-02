@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "server_core.h"
+#include "core.h"
 #include "utils.h"
 
 void send_to_all_gui(client_t **clients, const char *msg)

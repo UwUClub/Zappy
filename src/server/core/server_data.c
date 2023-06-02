@@ -9,16 +9,17 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "server_core.h"
+#include "core.h"
 #include "utils.h"
 
 static void set_data_default_values(data_t *data)
 {
     data->curr_cli_index = -1;
     data->clients = NULL;
-    data->map_width = 10;
-    data->map_height = 10;
-    data->map_tiles = NULL;
+    data->map = malloc(sizeof(map_t));
+    data->map->width = 10;
+    data->map->height = 10;
+    data->map->tiles = NULL;
     data->team_names = NULL;
     data->cli_per_team = 2;
     data->freq = 100;
@@ -28,16 +29,16 @@ static void set_data_default_values(data_t *data)
 static void init_single_tile(data_t *data, int x, int y)
 {
     for (int i = 0; i < TILE_SIZE; i++) {
-        data->map_tiles[x][y][i] = 0;
+        data->map->tiles[x][y][i] = 0;
     }
 }
 
 static void init_map_tiles(data_t *data)
 {
-    data->map_tiles = malloc(sizeof(int *[7]) * data->map_height);
-    for (int x = 0; x < data->map_height; x++) {
-        data->map_tiles[x] = malloc(sizeof(int [7]) * data->map_width);
-        for (int y = 0; y < data->map_width; y++) {
+    data->map->tiles = malloc(sizeof(int *[7]) * data->map->height);
+    for (int x = 0; x < data->map->height; x++) {
+        data->map->tiles[x] = malloc(sizeof(int [7]) * data->map->width);
+        for (int y = 0; y < data->map->width; y++) {
             init_single_tile(data, x, y);
         }
     }
@@ -70,9 +71,12 @@ void free_server_data(data_t *data)
 {
     close_clients(data->clients);
     free_word_array(data->team_names);
-    for (int x = 0; x < data->map_height; x++) {
-        free(data->map_tiles[x]);
+    if (data->map) {
+        for (int x = 0; x < data->map->height; x++) {
+            free(data->map->tiles[x]);
+        }
+        free(data->map->tiles);
+        free(data->map);
     }
-    free(data->map_tiles);
     free(data);
 }

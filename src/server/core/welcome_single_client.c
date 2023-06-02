@@ -8,7 +8,7 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "server_core.h"
+#include "core.h"
 
 static void append_client(client_t ***clients, int client_fd)
 {

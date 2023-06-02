@@ -127,6 +127,7 @@ namespace Zappy::GUI {
         static std::unordered_map<std::string, std::function<void(ClientApi &, std::string)>> myResponses = {
             {"WELCOME", &ClientApi::ReceiveWelcome}, {"msz", &ClientApi::ReceiveMsz}, {"bct", &ClientApi::ReceiveBct},
             {"ko", &ClientApi::ReceiveError},        {"tna", &ClientApi::ReceiveTna}, {"sbp", &ClientApi::ReceiveError},
+            {"ppo", &ClientApi::ReceivePpo},         {"plv", &ClientApi::ReceivePlv},
         };
 
         while (_readBuffer.find('\n') != std::string::npos) {
@@ -192,6 +193,15 @@ namespace Zappy::GUI {
 
         _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId)))
             .setPosition(static_cast<unsigned int>(std::stoi(myX)), static_cast<unsigned int>(std::stoi(myY)));
+    }
+
+    void ClientApi::ReceivePlv(const std::string &aResponse)
+    {
+        std::string const &myArg = aResponse;
+        std::string const myPlayerId = myArg.substr(0, myArg.find(' '));
+        std::string const myLevel = myArg.substr(myArg.find(' ') + 1);
+
+        _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId))).setLevel(std::stoi(myLevel));
     }
 
 } // namespace Zappy::GUI

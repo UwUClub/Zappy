@@ -68,10 +68,42 @@ TEST_CASE("testingPpo", "[testingPpo]")
         if (myClientApi.update() >= 1) {
             break;
         }
-        if (!myClientApi.getServerData()._teamNames.empty()) {
+        if (myClientApi.getServerData()._players.empty()) {
+            break;
+        }
+        if (myClientApi.getServerData()._players.at(0).getPosition().first != 0) {
             break;
         }
     }
+    if (myClientApi.getServerData()._players.empty()) {
+        std::cout << "no player found" << std::endl;
+        return;
+    }
     myClientApi.disconnect();
-    REQUIRE(!myClientApi.getServerData()._teamNames.empty());
+    REQUIRE(myClientApi.getServerData()._players.at(0).getPosition().first);
+    REQUIRE(myClientApi.getServerData()._players.at(0).getPosition().second);
+}
+
+TEST_CASE("testingPlv", "[testingPlv]")
+{
+    Zappy::GUI::ParserData const parserData(SERVER_IP, SERVER_PORT, "");
+    Zappy::GUI::ClientApi myClientApi(parserData.getAddress(), parserData.getPort(), "GRAPHIC");
+    myClientApi.joinGame();
+    while (true) {
+        if (myClientApi.update() >= 1) {
+            break;
+        }
+        if (myClientApi.getServerData()._players.empty()) {
+            break;
+        }
+        if (myClientApi.getServerData()._players.at(0).getLevel() != 0) {
+            break;
+        }
+    }
+    if (myClientApi.getServerData()._players.empty()) {
+        std::cout << "no player found" << std::endl;
+        return;
+    }
+    myClientApi.disconnect();
+    REQUIRE(myClientApi.getServerData()._players.at(0).getLevel() != 0);
 }

@@ -8,16 +8,20 @@
 #ifndef ZAPPY_SERVER_CORE_H
     #define ZAPPY_SERVER_CORE_H
 
+    #define LEVEL_START 1
+
     #include <stdio.h>
     #include <stdlib.h>
     #include <string.h>
     #include <unistd.h>
     #include <sys/socket.h>
-    #include <sys/select.h>
     #include <sys/types.h>
+    #include <sys/time.h>
     #include <netinet/in.h>
     #include <arpa/inet.h>
     #include "ranges.h"
+
+    typedef struct data_s data_t;
 
     typedef enum orientation_e {
         UNKNOWN = 0,
@@ -28,28 +32,45 @@
         END
     } orientation_t;
 
-    typedef struct client_s {
-        int fd;
+    typedef struct pending_cmd_s {
+        int (*func)(data_t *data, char **args);
+        char **args;
+        unsigned long long remaining_ms;
+    } pending_cmd_t;
+
+    typedef struct player_s {
         int pos_x;
         int pos_y;
         orientation_t orientation;
         int level;
         int inventory[TILE_SIZE];
         char *team_name;
+        pending_cmd_t *pending_cmd_queue[MAX_PENDING_CMD];
+    } player_t;
+
+    typedef struct client_s {
+        int fd;
+        int is_registered;
+        player_t *player;
         char *input;
         char *output;
     } client_t;
 
+    typedef struct map_s {
+        int width;
+        int height;
+        int (**tiles)[TILE_SIZE];
+    } map_t;
+
     typedef struct data_s {
         int curr_cli_index;
         client_t **clients;
-        int map_width;
-        int map_height;
-        int (**map_tiles)[TILE_SIZE];
+        map_t *map;
         char **team_names;
         int cli_per_team;
         int freq;
         int port;
+        unsigned long long last_select_ms;
     } data_t;
 
     typedef struct option_s {
@@ -145,7 +166,7 @@
     * @param data The data structure to free
     */
     void free_data(data_t *data);
-    
+
     /**
     * @brief Launch the server
     * @param data_t *data
@@ -160,6 +181,14 @@
     void init_single_client(client_t **client);
 
     /**
+    * @brief Initialize a player in a client
+    * @param client The client to initialize
+    * @param team_name The team name of the player
+    * @param map_width The width of the map
+    * @param map_height The height of the map
+    */
+    void init_player(client_t **client, const char *team_name, map_t *map);
+    /**
     * @brief Close a client
     * @param client The client to close
     */
@@ -172,6 +201,13 @@
     void close_clients(client_t **clients);
 
     /**
+    * @brief Get the next select() timeout
+    * @param data The server data
+    * @return The next select() timeout
+    */
+    struct timeval *get_next_timeout(data_t *data);
+
+    /**
     * @brief Handle read / write flow a client
     * @param addr The server address
     * @param server_fd The server file descriptor
@@ -179,7 +215,14 @@
     * clients and current client index
     * @return 1 if the server is closing, 0 otherwise
     */
-    int select_clients(struct sockaddr_in *addr, int server_fd, data_t *data);
+    int select_clients(struct sockaddr_in *addr, int server_fd, data_t *data,
+        struct timeval *timeout);
+
+    /**
+    * @brief Calculate remaning time or execute pending commands
+    * @param data The server data
+    */
+    void handle_pending_cmd(data_t *data);
 
     /**
     * @brief Append a message to the client write buffer
@@ -236,5 +279,14 @@
     * @param dummy To follow the signal pattern
     */
     void detect_ctrl_c(int dummy);
+
+    /**
+     * @brief Return all the player on a tile
+     * @param data The server data
+     * @param x The x position of the tile
+     * @param y The y position of the tile
+     * @return The list of player on the tile
+     */
+    client_t **check_player_on_tile(data_t *data, const int x, const int y);
 
 #endif /* ZAPPY_SERVER_CORE_H */
