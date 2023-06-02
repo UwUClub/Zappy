@@ -43,6 +43,12 @@ namespace Zappy::GUI {
             void setOrientation(Orientation aOrientation);
 
             /**
+             * @brief Set the orientation of the player
+             * @param aOrientation
+             */
+            void setOrientation(unsigned long int aOrientation);
+
+            /**
              * @brief Set the level of the player
              * @param aLevel
              */
@@ -54,6 +60,12 @@ namespace Zappy::GUI {
              * @param aSlot
              */
             void setInventory(int aItem, long unsigned int aSlot);
+
+            /**
+             * @brief Set the team name of the player
+             * @param aTeamName
+             */
+            void setTeamName(std::string aTeamName);
 
             /**
              * @brief Get the position of the player
@@ -80,11 +92,18 @@ namespace Zappy::GUI {
              */
             [[nodiscard]] int getInventory(long unsigned int aSlot) const;
 
+            /**
+             * @brief Get the team name of the player
+             * @return std::string
+             */
+            [[nodiscard]] std::string getTeamName() const;
+
         private:
             // Attributes
             std::pair<unsigned int, unsigned int> _position;
             Orientation _orientation {Orientation::NORTH};
             int _level {1};
             std::array<int, INVENTORY_SIZE> _inventory;
+            std::string _teamName;
     };
 } // namespace Zappy::GUI

@@ -1,5 +1,7 @@
 #include "Player.hpp"
 
+#include <utility>
+
 namespace Zappy::GUI {
 
     Player::Player()
@@ -20,6 +22,19 @@ namespace Zappy::GUI {
         _orientation = aOrientation;
     }
 
+    void Player::setOrientation(unsigned long int aOrientation)
+    {
+        if (aOrientation == 1) {
+            _orientation = Orientation::NORTH;
+        } else if (aOrientation == 2) {
+            _orientation = Orientation::EAST;
+        } else if (aOrientation == 3) {
+            _orientation = Orientation::SOUTH;
+        } else if (aOrientation == 4) {
+            _orientation = Orientation::WEST;
+        }
+    }
+
     void Player::setLevel(int aLevel)
     {
         _level = aLevel;
@@ -31,6 +46,11 @@ namespace Zappy::GUI {
             return;
         }
         _inventory[aSlot] = aItem;
+    }
+
+    void Player::setTeamName(std::string aTeamName)
+    {
+        _teamName = std::move(aTeamName);
     }
 
     const std::pair<unsigned int, unsigned int> &Player::getPosition() const
@@ -54,5 +74,10 @@ namespace Zappy::GUI {
             return -1;
         }
         return _inventory[aSlot];
+    }
+
+    std::string Player::getTeamName() const
+    {
+        return _teamName;
     }
 }; // namespace Zappy::GUI
