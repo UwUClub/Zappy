@@ -72,4 +72,12 @@
     */
     unsigned long long get_ms_since_epoch(void);
 
+    /**
+     * @brief Calculate the coordinates of a player after a forward command
+     * @param value The current coordinate (x or y)
+     * @param max The maximum value of the coordinate (width or height)
+     * @return The new coordinate
+     */
+    int calc_outbound(int value, int max);
+
 #endif /* ZAPPY_UTILS_H */
