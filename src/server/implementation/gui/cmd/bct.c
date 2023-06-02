@@ -6,14 +6,14 @@
 */
 
 #include <stdio.h>
-#include "server_implementation.h"
+#include "implementation.h"
 #include "utils.h"
 
 static void concat_str_item(char **result, const int item_quantity)
 {
     char *str_item_quantity = NULL;
 
-    str_item_quantity = inttos(item_quantity);
+    str_item_quantity = int_to_s(item_quantity);
     *result = concat_str(*result, " ");
     *result = concat_str(*result, str_item_quantity);
     free(str_item_quantity);
@@ -21,7 +21,7 @@ static void concat_str_item(char **result, const int item_quantity)
 
 static char *get_tile_at(data_t *data, const int x, const int y)
 {
-    int *tile = data->map_tiles[y][x];
+    int *tile = data->map->tiles[y][x];
     char *result = NULL;
 
     result = strdup("");
@@ -39,12 +39,12 @@ static int parse_args(data_t *data, char **args, int *x, int *y)
         return 84;
     *x = atoi(args[0]);
     *y = atoi(args[1]);
-    if (*x < 0 || *x >= data->map_width || *y < 0 || *y >= data->map_height)
+    if (*x < 0 || *x >= data->map->width || *y < 0 || *y >= data->map->height)
         return 84;
     return 0;
 }
 
-int bct(data_t *data, char **args)
+int do_bct(data_t *data, char **args)
 {
     char *msg = NULL;
     char *result = NULL;

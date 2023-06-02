@@ -59,26 +59,26 @@ namespace Zappy::GUI {
              * @brief Get the position of the player
              * @return std::pair<unsigned int, unsigned int>
              */
-            const std::pair<unsigned int, unsigned int> &getPosition() const;
+            [[nodiscard]] const std::pair<unsigned int, unsigned int> &getPosition() const;
 
             /**
              * @brief Get the orientation of the player
              * @return Orientation
              */
-            const Orientation &getOrientation() const;
+            [[nodiscard]] const Orientation &getOrientation() const;
 
             /**
              * @brief Get the level of the player
              * @return int
              */
-            int getLevel() const;
+            [[nodiscard]] int getLevel() const;
 
             /**
              * @brief Get the inventory of the player
              * @param aSlot
              * @return item, -1 if invalid
              */
-            int getInventory(long unsigned int aSlot) const;
+            [[nodiscard]] int getInventory(long unsigned int aSlot) const;
 
         private:
             // Attributes

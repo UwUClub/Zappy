@@ -9,7 +9,7 @@
 #include <signal.h>
 #include <stdlib.h>
 #include <time.h>
-#include "server_core.h"
+#include "core.h"
 #include "utils.h"
 
 int main(int ac, char **av)

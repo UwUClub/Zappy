@@ -16,6 +16,8 @@
     #define PHIRAS 5
     #define THYSTAME 6
 
+    #define FOOD_START 9
+
     #define FOOD_DENSITY 0.5
     #define LINEMATE_DENSITY 0.3
     #define DERAUMERE_DENSITY 0.15

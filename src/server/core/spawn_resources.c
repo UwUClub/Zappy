@@ -6,19 +6,19 @@
 */
 
 #include <unistd.h>
-#include "server_core.h"
+#include "core.h"
 #include "resources.h"
 
 static void spawn_resource_type(data_t *data, int resource_id, float density)
 {
-    int total = data->map_width * data->map_height * density;
+    int total = data->map->width * data->map->height * density;
     int x = 0;
     int y = 0;
 
     for (int i = 0; i < total; i++) {
-        x = rand() % data->map_width;
-        y = rand() % data->map_height;
-        data->map_tiles[x][y][resource_id] += 1;
+        x = rand() % data->map->width;
+        y = rand() % data->map->height;
+        data->map->tiles[x][y][resource_id] += 1;
     }
 }
 
