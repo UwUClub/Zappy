@@ -226,6 +226,6 @@
      * @param y The y position of the tile
      * @return The list of player on the tile
      */
-    client_t **check_player_on_tile(data_t *data, int x, int y);
+    client_t **check_player_on_tile(data_t *data, const int x, const int y);
 
 #endif /* ZAPPY_SERVER_CORE_H */

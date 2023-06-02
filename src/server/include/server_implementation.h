@@ -111,6 +111,7 @@
      * @return Status of the parsing / command
      */
     int inventory(data_t *data, char **args);
+
     /**
      * @brief Sends a response to the look command sent by the client
      * @param data The current server data, clients and current client index

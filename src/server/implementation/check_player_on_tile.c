@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include "server_implementation.h"
 
-client_t **check_player_on_tile(data_t *data, int x, int y)
+client_t **check_player_on_tile(data_t *data, const int x, const int y)
 {
     client_t **clients = NULL;
     int index = 0;

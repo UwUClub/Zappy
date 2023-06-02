@@ -12,8 +12,9 @@ static char *add_tile_content(char **look, int x, int y, data_t *data)
 {
     const char *resource[7] = {"food\0", "linemate\0", "deraumere\0",
     "sibur\0", "mendiane\0", "phiras\0", "thystame\0"};
-    client_t **clients = check_player_on_tile(data, x, y);
+    client_t **clients = NULL;
 
+    clients = check_player_on_tile(data, x, y);
     if (clients != NULL) {
         for (int i = 0; clients[i] != NULL; i++) {
             strcat((*look), " \0");
