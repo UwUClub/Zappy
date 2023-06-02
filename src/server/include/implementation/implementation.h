@@ -69,4 +69,11 @@
     void handle_player_digestion(data_t *data,
         unsigned long long elapsed_time_ms);
 
+    /**
+    * @brief Kill current player defined in data by sending him a death message
+    * The server closes the client socket once the message is sent
+    * @param data The current server data, clients and current client index
+    */
+    void kill_player(data_t *data);
+
 #endif /* ZAPPY_IMPLEMENTATION_H */

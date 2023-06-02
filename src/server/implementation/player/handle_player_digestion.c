@@ -25,7 +25,7 @@ void handle_player_digestion(data_t *data, unsigned long long elapsed_time_ms)
         if (player->inventory[FOOD] > 0)
             eat_food(data);
         else
-            printf("Player %d dies\n", data->curr_cli_index);
+            kill_player(data);
     } else {
         player->remaining_digestion_ms -= elapsed_time_ms;
     }
