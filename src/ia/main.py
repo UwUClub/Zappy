@@ -15,6 +15,5 @@ def main():
     player.forward()
     player.right()
     player.left()
-    player.take("food")
-    player.take("sibur")
+    player.connectNbr()
     player.disconnect()
