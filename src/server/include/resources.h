@@ -16,7 +16,7 @@
     #define PHIRAS 5
     #define THYSTAME 6
 
-    #define FOOD_START 9
+    #define FOOD_START 10
 
     #define DIGESTION_TIME 126
 

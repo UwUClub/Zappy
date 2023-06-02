@@ -14,7 +14,7 @@ static void update_smallest_remaining_ms(player_t *player,
     if (player->remaining_digestion_ms < *smallest_remaining_ms) {
         *smallest_remaining_ms = player->remaining_digestion_ms;
     }
-    if (player->pending_cmd_queue[0] && (smallest_remaining_ms == -1 ||
+    if (player->pending_cmd_queue[0] && (*smallest_remaining_ms == -1 ||
     player->pending_cmd_queue[0]->remaining_ms < *smallest_remaining_ms)) {
         *smallest_remaining_ms = player->pending_cmd_queue[0]->remaining_ms;
     }
