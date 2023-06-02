@@ -17,11 +17,14 @@
 #include "CameraHandler.hpp"
 #include "EventHandler.hpp"
 #include "FrameHandler.hpp"
+#include "ServerData.hpp"
 
 namespace Zappy::GUI {
     App::App(const std::string &aWindowName)
         : OgreBites::ApplicationContext(aWindowName),
-          _cameraHandler(nullptr)
+          _cameraHandler(nullptr),
+          _frameHandler(nullptr)
+
     //   _client(std::move(client)),
     {
         this->initApp();
@@ -29,14 +32,13 @@ namespace Zappy::GUI {
         auto *myRoot = this->getRoot();
         auto *myScnMgr = myRoot->createSceneManager();
         Ogre::RTShader::ShaderGenerator *myShadergen = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
-
-        // _client->joinGame();
+        _frameHandler = new FrameHandler(*myScnMgr);
 
         myShadergen->addSceneManager(myScnMgr);
         this->setupLight(*myScnMgr);
         auto nodeCenterPos = this->setupMap(*myScnMgr);
         this->setupCamera(*myScnMgr, nodeCenterPos);
-        myRoot->addFrameListener(&_frameHandler);
+        myRoot->addFrameListener(_frameHandler);
         this->addInputListener(&_eventHandler);
     }
 
@@ -44,6 +46,7 @@ namespace Zappy::GUI {
     {
         this->closeApp();
         delete _cameraHandler;
+        delete _frameHandler;
     }
 
     void App::setupLight(Ogre::SceneManager &aSceneManager)
@@ -56,16 +59,14 @@ namespace Zappy::GUI {
         // lightNode->attachObject(light);
     }
 
-    // todo: handle dynamic setup camera
     void App::setupCamera(Ogre::SceneManager &aSceneManager, Ogre::Vector3 &aCenterPos)
     {
         const constexpr int myRadius = 15;
         const constexpr int myClipDistance = 5;
-        Ogre::Vector3 myCamPos(0, 0, myRadius);
+        Ogre::Vector3 myCamPos(aCenterPos.x, aCenterPos.y + myRadius + myClipDistance, aCenterPos.z + myRadius);
 
         Ogre::SceneNode *myCamNode = aSceneManager.getRootSceneNode()->createChildSceneNode();
         myCamNode->setPosition(myCamPos);
-        myCamNode->lookAt(Ogre::Vector3(0, 0, -1), Ogre::Node::TS_PARENT);
 
         Ogre::Camera *myCam = aSceneManager.createCamera("MainCamera");
         myCam->setNearClipDistance(myClipDistance);
@@ -85,10 +86,21 @@ namespace Zappy::GUI {
 
     Ogre::Vector3f App::setupMap(Ogre::SceneManager &aSceneManager)
     {
-        Ogre::Entity *tile = aSceneManager.createEntity("Sinbad.mesh");
-        Ogre::SceneNode *node = aSceneManager.getRootSceneNode()->createChildSceneNode();
+        const constexpr int myMapSize = 10;
+        const constexpr int myTileSize = 1;
 
-        node->attachObject(tile);
-        return node->getPosition();
+        Ogre::Vector3f myCenterPos(0, 0, 0);
+        for (int i = 0; i < myMapSize; i++) {
+            for (int j = 0; j < myMapSize; j++) {
+                std::string name = std::to_string(i) + " " + std::to_string(j);
+                Ogre::Entity *myEntity = aSceneManager.createEntity(name, "Sinbad.mesh");
+                Ogre::SceneNode *myNode = aSceneManager.getRootSceneNode()->createChildSceneNode(name);
+                myNode->attachObject(myEntity);
+                myNode->setPosition(i * myTileSize, 0, j * myTileSize);
+            }
+        }
+        myCenterPos.x = myMapSize / 2;
+        myCenterPos.z = myMapSize / 2;
+        return myCenterPos;
     }
 } // namespace Zappy::GUI

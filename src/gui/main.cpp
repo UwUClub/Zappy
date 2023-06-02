@@ -21,9 +21,7 @@ int main(int argc, const char **argv)
     //     std::cerr << e.what() << std::endl;
     // }
     Zappy::GUI::App ctx("Zappy");
-    std::cout << "Hello, World!" << std::endl;
     // camNode->lookAt(node->_getDerivedPosition(), Ogre::Node::TS_WORLD);
     ctx.getRoot()->startRendering();
-    std::cout << "Hello, World 2!" << std::endl;
     return 0;
 }

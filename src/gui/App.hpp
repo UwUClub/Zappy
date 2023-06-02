@@ -14,6 +14,8 @@
 #include "ClientApi.hpp"
 #include "EventHandler.hpp"
 #include "FrameHandler.hpp"
+#include "ServerData.hpp"
+#include <unordered_map>
 
 namespace Zappy::GUI {
     class App final : public OgreBites::ApplicationContext
@@ -36,7 +38,7 @@ namespace Zappy::GUI {
             // std::unique_ptr<Zappy::GUI::ClientApi> _client;
             EventHandler _eventHandler;
             CameraHandler *_cameraHandler;
-            FrameHandler _frameHandler;
+            FrameHandler *_frameHandler;
     };
 } // namespace Zappy::GUI
 
