@@ -7,6 +7,7 @@
 
 #include <unistd.h>
 #include "core.h"
+#include "resources.h"
 
 void init_single_client(client_t **client)
 {
@@ -24,7 +25,8 @@ void init_player(client_t **client, const char *team_name, map_t *map)
     (*client)->player->pos_y = rand() % map->height;
     (*client)->player->orientation = NORTH;
     (*client)->player->level = 0;
-    for (int i = 0; i < TILE_SIZE; i++) {
+    (*client)->player->inventory[0] = FOOD_START;
+    for (int i = 1; i < TILE_SIZE; i++) {
         (*client)->player->inventory[i] = 0;
     }
     (*client)->player->team_name = strdup(team_name);
