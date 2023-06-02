@@ -233,6 +233,13 @@
     void send_to_client(client_t **clients, const int id, const char *msg);
 
     /**
+     * @brief Append a message to all GUI clients in the server
+     * @param clients Client list of the server
+     * @param msg Message to append
+    */
+    void send_to_all_gui(client_t **clients, const char *msg);
+
+    /**
     * @brief Append a message to all clients in the server
     * @param clients Client list of the server
     * @param msg Message to append
