@@ -7,6 +7,7 @@
 
 #include "implementation.h"
 #include "player_cmd.h"
+#include "utils.h"
 #include <stdio.h>
 
 static char *add_tile_content(char **look, int x, int y, data_t *data)
@@ -31,15 +32,6 @@ static char *add_tile_content(char **look, int x, int y, data_t *data)
     }
 }
 
-static int calc_outbound(int value, int max)
-{
-    if (value < 0)
-        return max + value;
-    if (value >= max)
-        return value - max;
-    return value;
-}
-
 void look_front_tiles(int x, int y, data_t *data, char **look)
 {
     int x_tile = 0;
@@ -54,12 +46,12 @@ void look_front_tiles(int x, int y, data_t *data, char **look)
         x_tile = player_x + (x * i) + (i * y);
         y_tile = player_y + (y * i) + (i * x);
         for (int j = 0; j < i * 2 + 1; j++) {
-            x_tile = x_tile + y * (-1);
-            y_tile = y_tile + x;
             x_tile = calc_outbound(x_tile, data->map->width);
             y_tile = calc_outbound(y_tile, data->map->height);
             strcat((*look), ",\0");
             add_tile_content(look, x_tile, y_tile, data);
+            x_tile = x_tile + y * (-1);
+            y_tile = y_tile + x;
         }
     }
 }
