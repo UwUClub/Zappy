@@ -6,7 +6,7 @@ add_executable(zappy_gui
         cli/ClientApi.cpp
         cli/ParserData.hpp
         cli/ParserData.cpp
-        cli/ServerData.cpp
+        cli/ItemPacket.hpp
         cli/ServerData.hpp
         cli/Player.cpp
         cli/Player.hpp

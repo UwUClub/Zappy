@@ -2,7 +2,8 @@
 
 #include <array>
 #include <iostream>
-#include "ServerData.hpp"
+#include <vector>
+#include "ItemPacket.hpp"
 
 const constexpr int INVENTORY_SIZE = 7;
 
@@ -50,10 +51,9 @@ namespace Zappy::GUI {
 
             /**
              * @brief Set the inventory of the player
-             * @param aItem
-             * @param aSlot
+             * @param aInventory
              */
-            void setInventory(int aItem, long unsigned int aSlot);
+            void setInventory(ItemPacket &aInventory);
 
             /**
              * @brief Get the position of the player
@@ -80,11 +80,17 @@ namespace Zappy::GUI {
              */
             [[nodiscard]] int getInventory(long unsigned int aSlot) const;
 
+            /**
+             * @brief Get the inventory of the player
+             * @return Tile
+             */
+            ItemPacket getAllInventory();
+
         private:
             // Attributes
             std::pair<unsigned int, unsigned int> _position;
             Orientation _orientation {Orientation::NORTH};
             int _level {1};
-            std::array<int, INVENTORY_SIZE> _inventory;
+            ItemPacket _inventory;
     };
 } // namespace Zappy::GUI

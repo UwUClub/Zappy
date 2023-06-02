@@ -159,6 +159,12 @@ namespace Zappy::GUI {
              */
             void ReceivePlv(const std::string &aResponse);
 
+            /**
+             * @brief parse pin response
+             * @param aResponse
+             */
+            void ReceivePin(const std::string &aResponse);
+
             // Attributes
             std::string _address;
             unsigned int _port;

@@ -4,8 +4,8 @@ namespace Zappy::GUI {
 
     Player::Player()
     {
+        std::cout << "put02" << std::endl;
         _position = std::make_pair(0, 0);
-        _inventory = {0, 0, 0, 0, 0, 0, 0};
     }
 
     Player::~Player() = default;
@@ -25,12 +25,10 @@ namespace Zappy::GUI {
         _level = aLevel;
     }
 
-    void Player::setInventory(int aItem, long unsigned int aSlot)
+    void Player::setInventory(ItemPacket &aInventory)
     {
-        if (aSlot > 6) {
-            return;
-        }
-        _inventory[aSlot] = aItem;
+        std::cout << "put1" << std::endl;
+        _inventory = aInventory;
     }
 
     const std::pair<unsigned int, unsigned int> &Player::getPosition() const
@@ -50,9 +48,28 @@ namespace Zappy::GUI {
 
     int Player::getInventory(long unsigned int aSlot) const
     {
-        if (aSlot > 6) {
-            return -1;
+        switch (aSlot) {
+            case 0:
+                return _inventory._food;
+            case 1:
+                return _inventory._linemate;
+            case 2:
+                return _inventory._deraumere;
+            case 3:
+                return _inventory._sibur;
+            case 4:
+                return _inventory._mendiane;
+            case 5:
+                return _inventory._phiras;
+            case 6:
+                return _inventory._thystame;
+            default:
+                return -1;
         }
-        return _inventory[aSlot];
+    }
+
+    ItemPacket Player::getAllInventory()
+    {
+        return _inventory;
     }
 }; // namespace Zappy::GUI
