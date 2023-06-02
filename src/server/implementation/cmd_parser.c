@@ -9,7 +9,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdio.h>
-#include "server_implementation.h"
+#include "implementation.h"
 #include "utils.h"
 
 static const cmd_t player_commands[] = {

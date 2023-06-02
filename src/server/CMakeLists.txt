@@ -23,6 +23,7 @@ add_executable(zappy_server
         core/get_next_timeout.c
         implementation/input_parser.c
         implementation/get_remaining_slots.c
+        implementation/check_player_on_tile.c
         implementation/gui/append_gui_client.c
         implementation/gui/gui_cmd_executor.c
         implementation/gui/cmd/msz.c
