@@ -22,6 +22,7 @@ add_executable(zappy_server
         core/spawn_resources.c
         core/get_next_timeout.c
         implementation/input_parser.c
+        implementation/event/seg.c
         implementation/get_remaining_slots.c
         implementation/gui/append_gui_client.c
         implementation/gui/gui_cmd_executor.c
