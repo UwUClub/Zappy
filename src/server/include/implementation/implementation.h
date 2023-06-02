@@ -7,6 +7,7 @@
 
 #ifndef ZAPPY_IMPLEMENTATION_H
     #define ZAPPY_IMPLEMENTATION_H
+    #define _GNU_SOURCE
 
     #include "core.h"
 
