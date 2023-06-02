@@ -16,7 +16,8 @@ static char *add_tile_content(char **look, int x, int y, data_t *data)
 
     if (clients != NULL) {
         for (int i = 0; clients[i] != NULL; i++) {
-            strcat((*look), "player \0");
+            strcat((*look), " \0");
+            strcat((*look), "player\0");
         }
     }
     free(clients);
