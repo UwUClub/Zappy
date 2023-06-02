@@ -109,3 +109,15 @@ class Player:
         else:
             print ("Inventory:", myInventory)
             return (myInventory)
+
+    ## @brief Send Connect_nbr command
+    ## @return the number of free slots in the team
+    def connectNbr(self):
+        self.send("Connect_nbr")
+        myConnectNbr = self.receive()
+        if myConnectNbr == "ko\n":
+            print ("Error: Connect_nbr")
+            return (None)
+        else:
+            print ("Free slots:", myConnectNbr)
+            return (int(myConnectNbr))
