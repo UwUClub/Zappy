@@ -66,7 +66,8 @@
     int is_int(char const *p);
 
     /**
-    * @brief Get the current time in milliseconds since epoch
+    * @brief Get the current time in milliseconds since the Epoch.
+    * Epoch corresponds to 00:00:00 UTC, January 1, 1970.
     * @return The current time in milliseconds since epoch
     */
     unsigned long long get_ms_since_epoch(void);
