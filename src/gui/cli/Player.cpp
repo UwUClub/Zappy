@@ -1,5 +1,4 @@
 #include "Player.hpp"
-
 #include <utility>
 
 namespace Zappy::GUI {
