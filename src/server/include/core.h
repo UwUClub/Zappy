@@ -273,4 +273,13 @@
     */
     void detect_ctrl_c(int dummy);
 
+    /**
+     * @brief Return all the player on a tile
+     * @param data The server data
+     * @param x The x position of the tile
+     * @param y The y position of the tile
+     * @return The list of player on the tile
+     */
+    client_t **check_player_on_tile(data_t *data, const int x, const int y);
+
 #endif /* ZAPPY_SERVER_CORE_H */
