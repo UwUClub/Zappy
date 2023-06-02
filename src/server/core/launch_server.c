@@ -15,6 +15,7 @@
 #include <arpa/inet.h>
 #include <time.h>
 #include "core.h"
+#include "gui_cmd.h"
 #include "implementation.h"
 #include "utils.h"
 
@@ -50,6 +51,7 @@ int launch_server(data_t *data)
         return 84;
     printf("Port : %i\n", data->port);
     listen_to_inputs(&my_addr, server_fd, data);
+    end_of_game(data);
     close(server_fd);
     return 0;
 }

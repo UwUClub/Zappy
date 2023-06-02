@@ -50,4 +50,11 @@
     */
     int do_sgt(data_t *data, char **args);
 
+    /**
+     * @brief Send to gui the end of game
+     * @param data The current server data, clients and current client index
+     * @return Status of the parsing / command
+     */
+    int end_of_game(data_t *data);
+
 #endif /* ZAPPY_GUI_CMD_H */
