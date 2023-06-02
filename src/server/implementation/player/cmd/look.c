@@ -49,7 +49,7 @@ void look_front_tiles(int x, int y, data_t *data, char **look)
 
     strcat((*look), "[\0");
     add_tile_content(look, player_x, player_y, data);
-    for (int i = 1; i <= 
+    for (int i = 1; i <=
         data->clients[data->curr_cli_index]->player->level; i++) {
         x_tile = player_x + (x * i) + (i * y);
         y_tile = player_y + (y * i) + (i * x);
