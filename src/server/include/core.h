@@ -8,6 +8,8 @@
 #ifndef ZAPPY_SERVER_CORE_H
     #define ZAPPY_SERVER_CORE_H
 
+    #define _GNU_SOURCE
+
     #define LEVEL_START 1
 
     #include <stdio.h>
@@ -46,6 +48,7 @@
         int inventory[TILE_SIZE];
         char *team_name;
         pending_cmd_t *pending_cmd_queue[MAX_PENDING_CMD];
+        unsigned long long remaining_digestion_ms;
     } player_t;
 
     typedef struct client_s {
@@ -217,12 +220,6 @@
     */
     int select_clients(struct sockaddr_in *addr, int server_fd, data_t *data,
         struct timeval *timeout);
-
-    /**
-    * @brief Calculate remaning time or execute pending commands
-    * @param data The server data
-    */
-    void handle_pending_cmd(data_t *data);
 
     /**
     * @brief Append a message to the client write buffer

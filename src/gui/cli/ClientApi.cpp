@@ -125,9 +125,11 @@ namespace Zappy::GUI {
     void ClientApi::ParseServerResponses()
     {
         static std::unordered_map<std::string, std::function<void(ClientApi &, std::string)>> myResponses = {
-            {"WELCOME", &ClientApi::ReceiveWelcome}, {"msz", &ClientApi::ReceiveMsz}, {"bct", &ClientApi::ReceiveBct},
-            {"ko", &ClientApi::ReceiveError},        {"tna", &ClientApi::ReceiveTna}, {"sbp", &ClientApi::ReceiveError},
-            {"ppo", &ClientApi::ReceivePpo},         {"plv", &ClientApi::ReceivePlv}, {"pnw", &ClientApi::ReceivePnw}
+            {"WELCOME", &ClientApi::ReceiveWelcome}, {"msz", &ClientApi::ReceiveMsz},
+            {"bct", &ClientApi::ReceiveBct},         {"ko", &ClientApi::ReceiveError},
+            {"tna", &ClientApi::ReceiveTna},         {"sbp", &ClientApi::ReceiveError},
+            {"ppo", &ClientApi::ReceivePpo},         {"plv", &ClientApi::ReceivePlv},
+            {"suc", &ClientApi::ReceiveError},       {"pnw", &ClientApi::ReceivePnw}
         };
 
         while (_readBuffer.find('\n') != std::string::npos) {
@@ -220,7 +222,7 @@ namespace Zappy::GUI {
         std::string const myTeamName = myArg.substr(myArg.find(' ') + 1);
 
         myPlayer.setPosition(static_cast<unsigned int>(std::stoi(myX)), static_cast<unsigned int>(std::stoi(myY)));
-        myPlayer.setOrientation(static_cast<unsigned int>(std::stoi(myOrientation)));
+        myPlayer.setOrientation((std::stoi(myOrientation)));
         myPlayer.setLevel(std::stoi(myLevel));
         myPlayer.setTeamName(myTeamName);
         std::cout << "Player " << myPlayerId << " joined the game" << std::endl;

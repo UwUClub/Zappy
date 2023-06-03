@@ -22,17 +22,12 @@ namespace Zappy::GUI {
         _orientation = aOrientation;
     }
 
-    void Player::setOrientation(unsigned long int aOrientation)
+    void Player::setOrientation(int aOrientation)
     {
-        if (aOrientation == 1) {
-            _orientation = Orientation::NORTH;
-        } else if (aOrientation == 2) {
-            _orientation = Orientation::EAST;
-        } else if (aOrientation == 3) {
-            _orientation = Orientation::SOUTH;
-        } else if (aOrientation == 4) {
-            _orientation = Orientation::WEST;
+        if (aOrientation > 4 || aOrientation < 1) {
+            return;
         }
+        _orientation = static_cast<Orientation>(aOrientation - 1);
     }
 
     void Player::setLevel(int aLevel)

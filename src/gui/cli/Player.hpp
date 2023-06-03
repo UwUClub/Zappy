@@ -46,7 +46,7 @@ namespace Zappy::GUI {
              * @brief Set the orientation of the player
              * @param aOrientation
              */
-            void setOrientation(unsigned long int aOrientation);
+            void setOrientation(int aOrientation);
 
             /**
              * @brief Set the level of the player
