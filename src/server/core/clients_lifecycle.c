@@ -33,6 +33,7 @@ void init_player(client_t **client, const char *team_name, map_t *map)
     for (int i = 0; i < MAX_PENDING_CMD; i++) {
         (*client)->player->pending_cmd_queue[i] = NULL;
     }
+    (*client)->player->remaining_digestion_ms = 0;
 }
 
 static void close_single_player(client_t *client)
