@@ -128,7 +128,8 @@ namespace Zappy::GUI {
             {"WELCOME", &ClientApi::ReceiveWelcome}, {"msz", &ClientApi::ReceiveMsz}, {"bct", &ClientApi::ReceiveBct},
             {"ko", &ClientApi::ReceiveError},        {"tna", &ClientApi::ReceiveTna}, {"sbp", &ClientApi::ReceiveError},
             {"ppo", &ClientApi::ReceivePpo},         {"plv", &ClientApi::ReceivePlv}, {"suc", &ClientApi::ReceiveError},
-            {"sgt", &ClientApi::ReceiveSgt}};
+            {"sgt", &ClientApi::ReceiveSgt},         {"sst", &ClientApi::ReceiveSgt}
+        };
 
         while (_readBuffer.find('\n') != std::string::npos) {
             std::string const myResponse = _readBuffer.substr(0, _readBuffer.find('\n'));
