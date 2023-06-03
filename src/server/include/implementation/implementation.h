@@ -7,7 +7,6 @@
 
 #ifndef ZAPPY_IMPLEMENTATION_H
     #define ZAPPY_IMPLEMENTATION_H
-    #define _GNU_SOURCE
 
     #include "core.h"
 
@@ -61,5 +60,27 @@
      * @return 1 if the player is a player, 0 otherwise
      */
     int is_player(data_t *data, const int i);
+
+    * @brief Calculate remaning time or execute pending commands
+    * @param data The server data
+    * @param elapsed_time_ms The elapsed time since the last call
+    */
+    void handle_pending_cmd(data_t *data,
+        unsigned long long elapsed_time_ms);
+
+    /**
+    * @brief Make player consume food and kill him if he has no food anymore
+    * @param data The current server data, clients and current client index
+    * @param elapsed_time_ms The elapsed time since the last call
+    */
+    void handle_player_digestion(data_t *data,
+        unsigned long long elapsed_time_ms);
+
+    /**
+    * @brief Kill current player defined in data by sending him a death message
+    * The server closes the client socket once the message is sent
+    * @param data The current server data, clients and current client index
+    */
+    void kill_player(data_t *data);
 
 #endif /* ZAPPY_IMPLEMENTATION_H */

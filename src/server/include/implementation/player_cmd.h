@@ -8,8 +8,6 @@
 #ifndef ZAPPY_PLAYER_CMD_H
     #define ZAPPY_PLAYER_CMD_H
 
-    #define _GNU_SOURCE
-
     #define FORWARD_DELAY 7
     #define RIGHT_DELAY 7
     #define LEFT_DELAY 7

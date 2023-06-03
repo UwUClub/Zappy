@@ -11,6 +11,7 @@
 #include <sys/time.h>
 #include <sys/select.h>
 #include "implementation.h"
+#include "utils.h"
 
 static int keep_running = 1;
 
@@ -36,13 +37,21 @@ static void get_fd_set(client_t **clients, fd_set *read_fd_set,
     }
 }
 
-static void run_client_flow(data_t *data, const int cli_index,
+static void run_client_flow(data_t *data, unsigned long long elapsed_time_ms,
     fd_set read_fd_set, fd_set write_fd_set)
 {
-    if (FD_ISSET(data->clients[cli_index]->fd, &write_fd_set)) {
-        write_to_selected_client(&(data->clients)[cli_index]);
+    client_t *cli = data->clients[data->curr_cli_index];
+
+    if (cli->player && cli->is_registered) {
+        if (cli->player->pending_cmd_queue[0]) {
+            handle_pending_cmd(data, elapsed_time_ms);
+        }
+        handle_player_digestion(data, elapsed_time_ms);
     }
-    if (FD_ISSET(data->clients[cli_index]->fd, &read_fd_set)) {
+    if (FD_ISSET(cli->fd, &write_fd_set)) {
+        write_to_selected_client(&(data->clients)[data->curr_cli_index]);
+    }
+    if (FD_ISSET(cli->fd, &read_fd_set)) {
         read_selected_client(data);
     }
 }
@@ -50,13 +59,14 @@ static void run_client_flow(data_t *data, const int cli_index,
 static void handle_clients(data_t *data, fd_set read_fd_set,
     fd_set write_fd_set)
 {
+    unsigned long long elapsed_time_ms = 0;
+
+    elapsed_time_ms = get_ms_since_epoch() - data->last_select_ms;
     for (int i = 0; data->clients[i]; i++) {
-        data->curr_cli_index = i;
-        if (data->clients[i]->fd > 0 && data->clients[i]->player &&
-        data->clients[i]->player->pending_cmd_queue[0])
-            handle_pending_cmd(data);
-        if (data->clients[i]->fd > 0)
-            run_client_flow(data, i, read_fd_set, write_fd_set);
+        if (data->clients[i]->fd > 0) {
+            data->curr_cli_index = i;
+            run_client_flow(data, elapsed_time_ms, read_fd_set, write_fd_set);
+        }
     }
 }
 
