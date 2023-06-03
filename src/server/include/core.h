@@ -281,6 +281,20 @@
     void detect_ctrl_c(int dummy);
 
     /**
+     * @brief Send to gui the end of game if there is a winner
+     * @param data The current server data, clients and current client index
+     * @return Status of the parsing / command
+     */
+    int detect_win(data_t *data);
+
+    /**
+     * @brief Detect if a client has closed the connection
+     * @param data The server data
+     * @return 1 if the server is closing, 0 otherwise
+     */
+    int detect_server_close(data_t *data);
+
+    /**
      * @brief Return all the player on a tile
      * @param data The server data
      * @param x The x position of the tile
