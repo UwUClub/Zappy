@@ -53,8 +53,9 @@
     /**
      * @brief Send to gui the end of game
      * @param data The current server data, clients and current client index
+     * @param is_ctrl_c If the end of game is due to a ctrl c
      * @return Status of the parsing / command
      */
-    int end_of_game(data_t *data);
+    int detect_win(data_t *data, int is_ctrl_c);
 
 #endif /* ZAPPY_GUI_CMD_H */
