@@ -125,11 +125,10 @@ namespace Zappy::GUI {
     void ClientApi::ParseServerResponses()
     {
         static std::unordered_map<std::string, std::function<void(ClientApi &, std::string)>> myResponses = {
-            {"WELCOME", &ClientApi::ReceiveWelcome}, {"msz", &ClientApi::ReceiveMsz},
-            {"bct", &ClientApi::ReceiveBct},         {"ko", &ClientApi::ReceiveError},
-            {"tna", &ClientApi::ReceiveTna},         {"sbp", &ClientApi::ReceiveError},
-            {"ppo", &ClientApi::ReceivePpo},         {"plv", &ClientApi::ReceivePlv},
-            {"suc", &ClientApi::ReceiveError}};
+            {"WELCOME", &ClientApi::ReceiveWelcome}, {"msz", &ClientApi::ReceiveMsz}, {"bct", &ClientApi::ReceiveBct},
+            {"ko", &ClientApi::ReceiveError},        {"tna", &ClientApi::ReceiveTna}, {"sbp", &ClientApi::ReceiveError},
+            {"ppo", &ClientApi::ReceivePpo},         {"plv", &ClientApi::ReceivePlv}, {"suc", &ClientApi::ReceiveError},
+            {"sgt", &ClientApi::ReceiveSgt}};
 
         while (_readBuffer.find('\n') != std::string::npos) {
             std::string const myResponse = _readBuffer.substr(0, _readBuffer.find('\n'));
@@ -203,6 +202,14 @@ namespace Zappy::GUI {
         std::string const myLevel = myArg.substr(myArg.find(' ') + 1);
 
         _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId))).setLevel(std::stoi(myLevel));
+    }
+
+    void ClientApi::ReceiveSgt(const std::string &aResponse)
+    {
+        std::string const &myArg = aResponse;
+        std::string const myTime = myArg.substr(0, myArg.find(' '));
+
+        _serverData._timeUnit = std::stoi(myTime);
     }
 
 } // namespace Zappy::GUI
