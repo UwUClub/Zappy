@@ -15,6 +15,8 @@ add_executable(zappy_server
         core/handle_clients.c
         core/launch_server.c
         core/server_data.c
+        core/detect_win.c
+        core/detect_server_close.c
         core/read_client.c
         core/clients_lifecycle.c
         core/welcome_single_client.c
@@ -22,6 +24,7 @@ add_executable(zappy_server
         core/spawn_resources.c
         core/get_next_timeout.c
         implementation/input_parser.c
+        implementation/is_player.c
         implementation/event/seg.c
         implementation/get_remaining_slots.c
         implementation/check_player_on_tile.c

@@ -31,6 +31,7 @@ static void listen_to_inputs(struct sockaddr_in *addr, int server_fd,
             free(timeout);
             return;
         }
+        detect_win(data);
         free(timeout);
     }
 }
@@ -51,7 +52,7 @@ int launch_server(data_t *data)
         return 84;
     printf("Port : %i\n", data->port);
     listen_to_inputs(&my_addr, server_fd, data);
-    detect_win(data, 1);
+    detect_server_close(data);
     close(server_fd);
     return 0;
 }
