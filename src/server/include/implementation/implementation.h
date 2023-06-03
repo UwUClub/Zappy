@@ -61,7 +61,7 @@
      */
     int is_player(data_t *data, const int i);
 
-    * @brief Calculate remaning time or execute pending commands
+    /** @brief Calculate remaning time or execute pending commands
     * @param data The server data
     * @param elapsed_time_ms The elapsed time since the last call
     */
