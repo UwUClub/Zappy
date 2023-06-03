@@ -51,7 +51,7 @@ int launch_server(data_t *data)
         return 84;
     printf("Port : %i\n", data->port);
     listen_to_inputs(&my_addr, server_fd, data);
-    end_of_game(data);
+    detect_win(data, 1);
     close(server_fd);
     return 0;
 }
