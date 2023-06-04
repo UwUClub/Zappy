@@ -52,6 +52,7 @@ add_executable(zappy_server
         utils/word_array_len.c
         utils/get_ms_since_epoch.c
         utils/calc_outbound.c
+        utils/is_ip.c
         include/core.h
         include/utils.h
         include/resources.h

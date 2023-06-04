@@ -74,6 +74,7 @@
         int freq;
         int port;
         unsigned long long last_select_ms;
+        char *ip;
     } data_t;
 
     typedef struct option_s {
@@ -163,6 +164,14 @@
     * @return Status of the parsing
     */
     int set_freq(data_t *data, char *value);
+
+    /**
+     * @brief Set the ip of the server
+     * @param data The data structure to set
+     * @param value The value to set
+     * @return Status of the parsing
+     */
+    int set_ip(data_t *data, char *value);
 
     /**
     * @brief Free the data structure once the server is closed

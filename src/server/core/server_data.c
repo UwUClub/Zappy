@@ -24,6 +24,7 @@ static void set_data_default_values(data_t *data)
     data->cli_per_team = 2;
     data->freq = 100;
     data->port = 4242;
+    data->ip = "127.0.0.1";
 }
 
 static void init_single_tile(data_t *data, int x, int y)
