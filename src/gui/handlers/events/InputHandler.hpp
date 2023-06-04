@@ -11,18 +11,21 @@
 #include <OGRE/Bites/OgreInput.h>
 
 namespace Zappy::GUI {
-    class MouseHandler : public OgreBites::InputListener
+    class InputHandler : public OgreBites::InputListener
     {
         public:
-            MouseHandler();
-            ~MouseHandler() override;
+            InputHandler();
+            ~InputHandler() override;
 
             bool mousePressed(const OgreBites::MouseButtonEvent &evt) override;
             bool mouseReleased(const OgreBites::MouseButtonEvent &evt) override;
+            bool keyPressed(const OgreBites::KeyboardEvent &evt) override;
+            bool keyReleased(const OgreBites::KeyboardEvent &evt) override;
 
         protected:
             bool _isLeftClickPressed;
             bool _isRightClickPressed;
+            bool _isShiftPressed;
     };
 } // namespace Zappy::GUI
 

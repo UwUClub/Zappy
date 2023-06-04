@@ -9,7 +9,7 @@
 #include <iostream>
 
 namespace Zappy::GUI {
-    FrameHandler::FrameHandler(Ogre::SceneManager &aSceneManager)
+    FrameHandler::FrameHandler(Ogre::SceneManager *aSceneManager)
         : _sceneManager(aSceneManager)
     {}
 

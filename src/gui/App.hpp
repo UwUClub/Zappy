@@ -10,9 +10,11 @@
 #include <OGRE/Bites/OgreApplicationContext.h>
 #include <OgreRoot.h>
 #include <memory>
+#include "CameraHandler.hpp"
+#include "ClickHandler.hpp"
 #include "ClientApi.hpp"
-#include "EventHandler.hpp"
 #include "FrameHandler.hpp"
+#include "InputHandler.hpp"
 #include "ServerData.hpp"
 #include <unordered_map>
 
@@ -31,12 +33,13 @@ namespace Zappy::GUI {
             App &operator=(App &&) = delete;
 
         private:
-            void setupLight(Ogre::SceneManager &aSceneManager);
-            void setupCamera(Ogre::SceneManager &aSceneManager, Ogre::Vector3 &aCenter);
-            Ogre::Vector3f setupMap(Ogre::SceneManager &aSceneManager);
+            void setupLight(Ogre::SceneManager *aSceneManager);
+            void setupCamera(Ogre::SceneManager *aSceneManager, Ogre::Vector3 &aCenter);
+            Ogre::Vector3f setupMap(Ogre::SceneManager *aSceneManager);
             // std::unique_ptr<Zappy::GUI::ClientApi> _client;
-            EventHandler *_cameraHandler;
-            FrameHandler *_frameHandler;
+            std::unique_ptr<CameraHandler> _cameraHandler;
+            std::unique_ptr<FrameHandler> _frameHandler;
+            std::unique_ptr<ClickHandler> _clickHandler;
     };
 } // namespace Zappy::GUI
 

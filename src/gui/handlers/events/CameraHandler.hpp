@@ -13,31 +13,25 @@
 #include <OgreMath.h>
 #include <OgrePrerequisites.h>
 #include <OgreRenderWindow.h>
-#include "MouseHandler.hpp"
+#include "InputHandler.hpp"
 
 namespace Zappy::GUI {
     const Ogre::Radian BASE_INCLINATION = Ogre::Radian(45);
     const Ogre::Radian BASE_AZIMUTH = Ogre::Radian(45);
 
-    class EventHandler final : public MouseHandler
+    class CameraHandler final : public InputHandler
     {
         public:
-            EventHandler(Ogre::SceneNode *cameraNode, Ogre::Vector3 center, Ogre::Real radius,
-                         Ogre::SceneManager &aSceneManager, Ogre::RenderWindow *aRenderWindow);
-            ~EventHandler() final;
+            CameraHandler(Ogre::SceneNode *cameraNode, Ogre::Vector3 center, Ogre::Real radius);
+            ~CameraHandler() final;
 
             bool mouseMoved(const OgreBites::MouseMotionEvent &evt) final;
-            bool mousePressed(const OgreBites::MouseButtonEvent &evt) final;
-            bool mouseReleased(const OgreBites::MouseButtonEvent &evt) final;
             bool mouseWheelRolled(const OgreBites::MouseWheelEvent &evt) final;
             bool keyPressed(const OgreBites::KeyboardEvent &evt) final;
-            bool keyReleased(const OgreBites::KeyboardEvent &evt) final;
 
         protected:
         private:
-            Ogre::SceneNode *getNodeUnderMouse(const Ogre::Vector2 &mousePos);
             void updateCameraPosition();
-            bool _isShiftPressed;
             Ogre::SceneNode *_cameraNode;
             Ogre::Vector3 _cameraPositionBase;
             Ogre::Vector3 _center;
@@ -45,8 +39,6 @@ namespace Zappy::GUI {
             Ogre::Real _radiusBase;
             Ogre::Radian _inclination;
             Ogre::Radian _azimuth;
-            Ogre::SceneManager &_sceneManager;
-            Ogre::RenderWindow *_renderWindow;
     };
 } // namespace Zappy::GUI
 

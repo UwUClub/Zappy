@@ -15,7 +15,7 @@ namespace Zappy::GUI {
     class FrameHandler : public Ogre::FrameListener
     {
         public:
-            FrameHandler(Ogre::SceneManager &aSceneManager);
+            FrameHandler(Ogre::SceneManager *aSceneManager);
             ~FrameHandler() override;
 
             bool frameRenderingQueued(const Ogre::FrameEvent &evt) override;
@@ -24,7 +24,7 @@ namespace Zappy::GUI {
 
         protected:
         private:
-            Ogre::SceneManager &_sceneManager;
+            Ogre::SceneManager *_sceneManager;
     };
 } // namespace Zappy::GUI
 
