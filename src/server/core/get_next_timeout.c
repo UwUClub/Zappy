@@ -23,7 +23,7 @@ static void update_smallest_remaining_ms(player_t *player,
 struct timeval *get_next_timeout(data_t *data)
 {
     struct timeval *timeout = NULL;
-    unsigned long long smallest_remaining_ms = -1;
+    unsigned long long smallest_remaining_ms = data->remaining_rsrc_spawn_ms;
 
     for (int i = 0; data->clients[i]; i++) {
         if (data->clients[i]->fd >= 0 && data->clients[i]->player) {
