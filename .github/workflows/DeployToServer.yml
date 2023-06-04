@@ -28,5 +28,5 @@ jobs:
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
         port: 21
-        local-dir: ./build/zappy_server_dir
+        local-dir: ./build/zappy_server_dir/
         server-dir: /home/matheo/
