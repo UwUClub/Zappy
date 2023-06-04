@@ -164,6 +164,12 @@ namespace Zappy::GUI {
              * @param aResponse
              */
             void ReceivePnw(const std::string &aResponse);
+      
+            /**
+             * @brief parse sgt response
+             * @param aResponse
+             */
+            void ReceiveSgt(const std::string &aResponse);
 
             // Attributes
             std::string _address;
