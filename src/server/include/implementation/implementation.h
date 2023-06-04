@@ -54,7 +54,7 @@
     char *get_world_dimensions(data_t *data);
 
     /**
-     * @brief Calculate the coordinates of a player after a forward command
+     * @brief Check if the client is a player
      * @param data The current server data, clients and current client index
      * @param i The index of the player
      * @return 1 if the player is a player, 0 otherwise
