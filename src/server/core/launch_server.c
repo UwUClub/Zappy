@@ -52,7 +52,6 @@ int launch_server(data_t *data)
         return 84;
     printf("Port : %i\n", data->port);
     listen_to_inputs(&my_addr, server_fd, data);
-    detect_server_close(data);
     close(server_fd);
     return 0;
 }

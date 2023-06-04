@@ -16,7 +16,6 @@ add_executable(zappy_server
         core/launch_server.c
         core/server_data.c
         core/detect_win.c
-        core/detect_server_close.c
         core/read_client.c
         core/clients_lifecycle.c
         core/welcome_single_client.c
