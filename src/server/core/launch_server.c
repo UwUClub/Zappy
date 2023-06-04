@@ -31,7 +31,10 @@ static void listen_to_inputs(struct sockaddr_in *addr, int server_fd,
             free(timeout);
             return;
         }
-        detect_win(data);
+        if (detect_win(data)) {
+            free(timeout);
+            return;
+        }
         free(timeout);
     }
 }

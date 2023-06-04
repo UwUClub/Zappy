@@ -54,9 +54,8 @@
      * @brief Sends to the gui the end of the game
      * @param data The current server data, clients and current client index
      * @param team_name The name of the team that won
-     * @param is_ctrl_c If the game ended because of a ctrl-c
      * @return Status of the parsing / command
     */
-    int do_seg(data_t *data, const char *team_name, const int is_ctrl_c);
+    int do_seg(data_t *data, const char *team_name);
 
 #endif /* ZAPPY_GUI_CMD_H */
