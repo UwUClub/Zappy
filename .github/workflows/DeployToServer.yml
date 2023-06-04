@@ -13,6 +13,14 @@ jobs:
     - name: 🚚 Get latest code
       uses: actions/checkout@v3
 
+    - name: 📂 Compile the files
+      run: |
+        cmake -S . -B ./build
+        cd build
+        make -j
+        mkdir zappy_server_dir
+        mv zappy_server ./zappy_server_dir
+
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
@@ -20,4 +28,5 @@ jobs:
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
         port: 21
-        server-dir: /home/matheo/Zappy/
+        local-dir: ./build/zappy_server_dir
+        server-dir: /home/matheo/
