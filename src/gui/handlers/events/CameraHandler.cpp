@@ -24,10 +24,11 @@ namespace Zappy::GUI {
         : _cameraNode(aCameraNode),
           _cameraPositionBase(aCameraNode->getPosition()),
           _center(aCenter),
+          _centerBase(aCenter),
           _radius(aRadius),
           _radiusBase(aRadius),
-          _inclination(Ogre::Degree(BASE_INCLINATION)),
-          _azimuth(Ogre::Degree(BASE_AZIMUTH))
+          _inclination(Ogre::Degree(Ogre::Radian(BASE_ANGLE))),
+          _azimuth(Ogre::Degree(Ogre::Radian(BASE_ANGLE)))
     {}
 
     CameraHandler::~CameraHandler() = default;
@@ -44,7 +45,11 @@ namespace Zappy::GUI {
             return true;
         }
         if (_isRightClickPressed) {
-            // move camera on X and Z axis
+            Ogre::Vector3 moveDirection(-static_cast<float>(aEvt.xrel), 0, static_cast<float>(aEvt.yrel));
+            _center += moveDirection * myMouseSensitivity;
+
+            updateCameraPosition();
+            return true;
         }
         return true;
     }
@@ -53,10 +58,9 @@ namespace Zappy::GUI {
     {
         const constexpr float myZoomPower = 10.0F;
         const constexpr float myRadMax = 1000.0F;
-        const constexpr float myRadMin = 10.0F;
+        const constexpr float myRadMin = 0.0F;
 
         _radius += -static_cast<float>(aEvt.y) * myZoomPower;
-
         _radius = Ogre::Math::Clamp<Ogre::Real>(_radius, myRadMin, myRadMax);
 
         updateCameraPosition();
@@ -69,8 +73,9 @@ namespace Zappy::GUI {
 
         if (aEvt.keysym.sym == OgreBites::SDLK_SPACE) {
             _radius = _radiusBase;
-            _inclination = Ogre::Degree(BASE_INCLINATION);
-            _azimuth = Ogre::Degree(BASE_AZIMUTH);
+            _inclination = Ogre::Degree(Ogre::Radian(BASE_ANGLE));
+            _azimuth = Ogre::Degree(Ogre::Radian(BASE_ANGLE));
+            _center = _centerBase;
             _cameraNode->setPosition(_cameraPositionBase);
             _cameraNode->setOrientation(Ogre::Quaternion::IDENTITY);
             _cameraNode->lookAt(_center, Ogre::Node::TS_PARENT);

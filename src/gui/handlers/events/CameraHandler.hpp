@@ -16,8 +16,7 @@
 #include "InputHandler.hpp"
 
 namespace Zappy::GUI {
-    const Ogre::Radian BASE_INCLINATION = Ogre::Radian(45);
-    const Ogre::Radian BASE_AZIMUTH = Ogre::Radian(45);
+    const constexpr int BASE_ANGLE = 45;
 
     class CameraHandler final : public InputHandler
     {
@@ -35,6 +34,7 @@ namespace Zappy::GUI {
             Ogre::SceneNode *_cameraNode;
             Ogre::Vector3 _cameraPositionBase;
             Ogre::Vector3 _center;
+            Ogre::Vector3 _centerBase;
             Ogre::Real _radius;
             Ogre::Real _radiusBase;
             Ogre::Radian _inclination;
