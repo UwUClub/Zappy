@@ -226,12 +226,12 @@ namespace Zappy::GUI {
         std::cout << "Player " << myPlayerId << " joined the game" << std::endl;
         _serverData._players.push_back(myPlayer);
 
-    void ClientApi::ReceiveSgt(const std::string &aResponse)
-    {
-        std::string const &myArg = aResponse;
-        std::string const myTime = myArg.substr(0, myArg.find(' '));
+        void ClientApi::ReceiveSgt(const std::string &aResponse)
+        {
+            std::string const &myArg = aResponse;
+            std::string const myTime = myArg.substr(0, myArg.find(' '));
 
-        _serverData._timeUnit = std::stoi(myTime);
-    }
+            _serverData._timeUnit = std::stoi(myTime);
+        }
 
-} // namespace Zappy::GUI
+    } // namespace Zappy::GUI
