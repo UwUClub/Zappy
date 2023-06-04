@@ -35,6 +35,7 @@ jobs:
       uses: appleboy/ssh-action@v0.1.10
       with:
         host: ${{ secrets.FTP_SERVER }}
-        username: ${{ secrets.FTP_USERNAME }}
+        username: root
+        password: ${{ secrets.FTP_PASSWORD }}
         key: ${{ secrets.SSH_KEY }}
-        script: ./targetscript.sh
+        script: reboot
