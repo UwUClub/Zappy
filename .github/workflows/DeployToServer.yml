@@ -2,7 +2,6 @@ on:
   push:
     branches:
       - main
-      - ZAP-125-deploying-zappy-server-on-server
 
 name: 🚀 Deploy Server on push
 jobs:
