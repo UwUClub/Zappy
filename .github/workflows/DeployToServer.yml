@@ -20,4 +20,4 @@ jobs:
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
         port: 21
-        server-dir: /home/matheo/Zappy
+        server-dir: /home/matheo/Zappy/
