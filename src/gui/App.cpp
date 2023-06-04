@@ -14,7 +14,6 @@
 #include <OgrePrerequisites.h>
 #include <OgreRenderWindow.h>
 #include <OgreRoot.h>
-#include "CameraHandler.hpp"
 #include "EventHandler.hpp"
 #include "FrameHandler.hpp"
 #include "ServerData.hpp"
@@ -39,7 +38,6 @@ namespace Zappy::GUI {
         auto nodeCenterPos = this->setupMap(*myScnMgr);
         this->setupCamera(*myScnMgr, nodeCenterPos);
         myRoot->addFrameListener(_frameHandler);
-        this->addInputListener(&_eventHandler);
     }
 
     App::~App()
@@ -75,11 +73,11 @@ namespace Zappy::GUI {
         myCamNode->attachObject(myCam);
         myCamNode->lookAt(aCenterPos, Ogre::Node::TS_WORLD);
 
-        _cameraHandler = new CameraHandler(myCamNode, aCenterPos, myRadius);
-        this->addInputListener(_cameraHandler);
-
         auto *myRenderWindow = this->getRenderWindow();
         if (myRenderWindow != nullptr) {
+            _cameraHandler = new EventHandler(myCamNode, aCenterPos, myRadius, aSceneManager, myRenderWindow);
+            this->addInputListener(_cameraHandler);
+
             myRenderWindow->addViewport(myCam);
         }
     }
@@ -88,6 +86,7 @@ namespace Zappy::GUI {
     {
         const constexpr int myMapSize = 10;
         const constexpr int myTileSize = 1;
+        const constexpr int myOffset = 1;
 
         Ogre::Vector3f myCenterPos(0, 0, 0);
         for (int i = 0; i < myMapSize; i++) {
@@ -96,11 +95,13 @@ namespace Zappy::GUI {
                 Ogre::Entity *myEntity = aSceneManager.createEntity(name, "Sinbad.mesh");
                 Ogre::SceneNode *myNode = aSceneManager.getRootSceneNode()->createChildSceneNode(name);
                 myNode->attachObject(myEntity);
-                myNode->setPosition(i * myTileSize, 0, j * myTileSize);
+                myNode->setPosition(static_cast<float>(i) * (myTileSize * myOffset), 0,
+                                    static_cast<float>(j) * (myTileSize * myOffset));
             }
         }
-        myCenterPos.x = myMapSize / 2;
-        myCenterPos.z = myMapSize / 2;
+        // get the middle tile position to center the camera
+        myCenterPos.x = (myMapSize / 2) * (myTileSize * myOffset);
+        myCenterPos.z = (myMapSize / 2) * (myTileSize * myOffset);
         return myCenterPos;
     }
 } // namespace Zappy::GUI

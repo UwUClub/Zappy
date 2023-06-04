@@ -2,6 +2,7 @@
 // Created by beafowl on 22/05/23.
 //
 
+#include <OgreRenderWindow.h>
 #include "App.hpp"
 #include "ParserData.hpp"
 
@@ -21,7 +22,6 @@ int main(int argc, const char **argv)
     //     std::cerr << e.what() << std::endl;
     // }
     Zappy::GUI::App ctx("Zappy");
-    // camNode->lookAt(node->_getDerivedPosition(), Ogre::Node::TS_WORLD);
     ctx.getRoot()->startRendering();
     return 0;
 }

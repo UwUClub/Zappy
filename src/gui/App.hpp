@@ -10,7 +10,6 @@
 #include <OGRE/Bites/OgreApplicationContext.h>
 #include <OgreRoot.h>
 #include <memory>
-#include "CameraHandler.hpp"
 #include "ClientApi.hpp"
 #include "EventHandler.hpp"
 #include "FrameHandler.hpp"
@@ -36,8 +35,7 @@ namespace Zappy::GUI {
             void setupCamera(Ogre::SceneManager &aSceneManager, Ogre::Vector3 &aCenter);
             Ogre::Vector3f setupMap(Ogre::SceneManager &aSceneManager);
             // std::unique_ptr<Zappy::GUI::ClientApi> _client;
-            EventHandler _eventHandler;
-            CameraHandler *_cameraHandler;
+            EventHandler *_cameraHandler;
             FrameHandler *_frameHandler;
     };
 } // namespace Zappy::GUI
