@@ -38,12 +38,11 @@ void send_to_everyone(client_t **clients, const char *msg)
     }
 }
 
-void write_to_selected_client(client_t **client)
+void write_to_selected_client(data_t *data, client_t **client)
 {
     dprintf((*client)->fd, "%s", (*client)->output);
     if (!strcmp((*client)->output, "dead\n")) {
-        close_single_client(*client);
-        init_single_client(client);
+        handle_client_quit(data);
     }
     free((*client)->output);
     (*client)->output = strdup("");

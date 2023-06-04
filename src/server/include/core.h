@@ -261,9 +261,11 @@
 
     /**
     * @brief Write the client output and append it to his write buffer
+    * @param data The structure that includes server data,
+    * clients and current client index
     * @param clients Client to write to
     */
-    void write_to_selected_client(client_t **client);
+    void write_to_selected_client(data_t *data, client_t **client);
 
     /**
     * @brief Spawn resources on the map
@@ -285,5 +287,13 @@
      * @return The list of player on the tile
      */
     client_t **check_player_on_tile(data_t *data, const int x, const int y);
+
+    /**
+     * @brief Handle quit by closing client and sending pdi to gui
+     * @param data The structure that includes server data,
+     * clients and current client index
+     * @return The list of player on the tile
+     */
+    void handle_client_quit(data_t *data);
 
 #endif /* ZAPPY_SERVER_CORE_H */

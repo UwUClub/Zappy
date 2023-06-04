@@ -5,6 +5,7 @@
 ** inventory
 */
 
+#include "core.h"
 #include "implementation.h"
 #include "player_cmd.h"
 
