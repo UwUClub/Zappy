@@ -30,3 +30,11 @@ jobs:
         port: 21
         local-dir: ./build/zappy_server_dir/
         server-dir: /home/matheo/
+
+    - name: executing remote ssh commands using ssh key
+      uses: appleboy/ssh-action@v0.1.10
+      with:
+        host: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        script: ./targetscript.sh
