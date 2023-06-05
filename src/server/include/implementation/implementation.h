@@ -83,4 +83,12 @@
     */
     void kill_player(data_t *data);
 
+    /**
+    * @brief Get the player by his id
+    * @param data The current server data, clients and current client index
+    * @param id The id of the player
+    * @return The player if found, NULL otherwise
+    */
+    player_t *get_player_by_id(data_t *data, const unsigned int id);
+
 #endif /* ZAPPY_IMPLEMENTATION_H */

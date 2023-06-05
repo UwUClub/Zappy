@@ -58,4 +58,12 @@
     */
     int do_seg(data_t *data, const char *team_name);
 
+    /**
+     * @brief Sends player id, position and inventory to gui
+     * @param data The current server data, clients and current client index
+     * @param args The arguments of the command
+     * @return Status of the parsing / command
+    */
+    int do_pin(data_t *data, char **args);
+
 #endif /* ZAPPY_GUI_CMD_H */
