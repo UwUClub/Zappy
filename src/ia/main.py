@@ -14,5 +14,8 @@ def main():
     player.preliminaries()
     player.look()
     player.forward()
+    player.right()
+    player.left()
+    player.connectNbr()
     player.look()
     player.disconnect()

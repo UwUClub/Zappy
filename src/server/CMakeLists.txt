@@ -41,6 +41,7 @@ add_executable(zappy_server
         implementation/player/cmd/take.c
         implementation/player/cmd/set.c
         implementation/player/cmd/inventory.c
+        implementation/player/cmd/connect_nbr.c
         implementation/player/cmd/look.c
         utils/concat_str.c
         utils/free_word_array.c

@@ -139,7 +139,22 @@
     int get_inventory(data_t *data, char **args);
 
     /**
-     * @brief Sends a response to the look command sent by the client
+    * @brief Schedule connect_nbr command
+    * @param data The current server data, clients and current client index
+    * @param args The arguments of the command
+    * @return Status of the schedule
+    */
+    int schedule_connect_nbr(data_t *data, char **args);
+
+    /**
+     * @brief Sends a response to the connect_nbr command sent by the client
+     * @param data The current server data, clients and current client index
+     * @param args The arguments of the command
+     * @return Status of the parsing / command
+     */
+    int connect_nbr(data_t *data, char **args);
+
+    /** @brief Sends a response to the look command sent by the client
      * @param data The current server data, clients and current client index
      * @param args The arguments of the command
      * @return Status of the parsing / command
