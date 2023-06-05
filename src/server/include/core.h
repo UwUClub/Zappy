@@ -10,6 +10,10 @@
 
     #define _GNU_SOURCE
 
+    #define DEFAULT_PORT 4242
+    #define DEFAULT_MAP_WIDTH 10
+    #define DEFAULT_MAP_HEIGHT 10
+    #define DEFAULT_FREQ 100
     #define LEVEL_START 1
 
     #include <stdio.h>
@@ -74,6 +78,7 @@
         int freq;
         int port;
         unsigned long long last_select_ms;
+        unsigned long long remaining_rsrc_spawn_ms;
     } data_t;
 
     typedef struct option_s {
@@ -266,10 +271,13 @@
     void write_to_selected_client(client_t **client);
 
     /**
-    * @brief Spawn resources on the map
+    * @brief Update remaining time before next resurce spawn. If remaining time
+    * is 0, spawn resources on the map
     * @param data The server data
+    * @param elapsed_time_ms The elapsed time since the last call
     */
-    void spawn_resources(data_t *data);
+    void handle_resource_spawn(data_t *data,
+        unsigned long long elapsed_time_ms);
 
     /**
     * @brief Handle SIGINT signal by stopping the server
