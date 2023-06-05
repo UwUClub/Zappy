@@ -48,7 +48,6 @@ int launch_server(data_t *data)
         return 84;
     if (listen(server_fd, MAX_TEAMS * data->cli_per_team) < 0)
         return 84;
-    printf("Ip : %s\n", data->ip);
     printf("Port : %i\n", data->port);
     listen_to_inputs(&my_addr, server_fd, data);
     close(server_fd);
