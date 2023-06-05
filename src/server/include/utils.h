@@ -80,4 +80,11 @@
      */
     int calc_outbound(int value, int max);
 
+    /**
+     * @brief Merge an array of strings
+     * @param args The array of words
+     * @return The merged string
+     */
+    char *concat_word_array(char **args);
+
 #endif /* ZAPPY_UTILS_H */

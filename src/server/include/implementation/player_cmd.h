@@ -169,4 +169,31 @@
      */
     int schedule_look(data_t *data, char **args);
 
+    /**
+     * @brief Schedule broadcast command
+     * @param data The current server data, clients and current client index
+     * @param args The arguments of the command
+     * @return Status of the schedule
+     */
+    int schedule_broadcast(data_t *data, char **args);
+
+    /**
+     * @brief Sends a response to the broadcast command sent by the client
+     * @param data The current server data, clients and current client index
+     * @param args The arguments of the command
+     * @return Status of the parsing / command
+     */
+    int broadcast(data_t *data, char **args);
+
+    /**
+    * @brief Get tile number from source direction (used for broadcast)
+    * @param data The current server data, clients and current client index
+    * @param player_id The id of the player
+    * @param source_x The x position of the source
+    * @param source_y The y position of the source
+    * @return Id of the tile
+    */
+    int get_tile_from_source(data_t *data, const unsigned int player_id,
+        const unsigned int source_x, const unsigned int source_y);
+
 #endif /* ZAPPY_PLAYER_CMD_H */
