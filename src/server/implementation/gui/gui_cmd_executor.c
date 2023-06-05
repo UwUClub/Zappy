@@ -16,6 +16,7 @@ static const cmd_t commands[] = {
     {"sgt", &do_sgt, 0},
     {"pin", &do_pin, 0},
     {"plv", &do_plv, 0},
+    {"ppo", &do_ppo, 0},
     {NULL, NULL}
 };
 

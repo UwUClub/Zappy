@@ -10,8 +10,8 @@
 
 int move_right(data_t *data, __attribute__((unused)) char **args)
 {
-    if (data->clients[data->curr_cli_index]->player->orientation == NORTH)
-        data->clients[data->curr_cli_index]->player->orientation = WEST;
+    if (data->clients[data->curr_cli_index]->player->orientation == WEST)
+        data->clients[data->curr_cli_index]->player->orientation = NORTH;
     else
         data->clients[data->curr_cli_index]->player->orientation += 1;
     send_to_client(data->clients, data->curr_cli_index, "ok\n");
