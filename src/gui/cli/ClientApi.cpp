@@ -266,5 +266,4 @@ namespace Zappy::GUI {
 
         _serverData._timeUnit = std::stoi(myTime);
     }
-}
-
+} // namespace Zappy::GUI
