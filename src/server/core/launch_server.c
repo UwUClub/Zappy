@@ -44,7 +44,6 @@ int launch_server(data_t *data)
     int server_fd = socket(PF_INET, SOCK_STREAM, 0);
     struct sockaddr_in my_addr = get_sockaddr(inet_addr(data->ip),
         data->port);
-
     if (server_fd < 0)
         return 84;
     setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &(int) { 1 }, sizeof(int));

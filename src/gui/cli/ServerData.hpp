@@ -8,23 +8,11 @@ namespace Zappy::GUI {
 
     class Player;
 
-    class Tile
+    struct Tile
     {
-        public:
-            Tile() = default;
-            ~Tile() = default;
-
-            void fillTile(std::vector<int> &tileData);
-
-            int _x;
-            int _y;
-            int _food;
-            int _linemate;
-            int _deraumere;
-            int _sibur;
-            int _mendiane;
-            int _phiras;
-            int _thystame;
+            unsigned int _x;
+            unsigned int _y;
+            ItemPacket _items;
     };
 
     struct ServerData
@@ -33,6 +21,6 @@ namespace Zappy::GUI {
             std::vector<Tile> _mapTiles;
             std::vector<std::string> _teamNames;
             std::vector<Player> _players;
-            int _timeUnit;
+            int _freq;
     };
 } // namespace Zappy::GUI

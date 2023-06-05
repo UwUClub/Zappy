@@ -11,8 +11,8 @@ namespace Zappy::GUI {
 
     void ParserData::parseData(int aArgc, char **aArgv)
     {
-        std::string myFirstOpt;
-        std::string mySecondOpt;
+        std::string const myFirstOpt;
+        std::string const mySecondOpt;
         int myOpt = 0;
 
         while ((myOpt = getopt(aArgc, aArgv, "p:h:")) != -1) {
