@@ -178,7 +178,8 @@ namespace Zappy::GUI {
             myResources.push_back(std::stoi(myArg));
         }
         myItemPacket.fillItemPacket(myResources);
-        _serverData._mapTiles.push_back(Tile(static_cast<unsigned int>(myX), static_cast<unsigned int>(myY), myItemPacket));
+        _serverData._mapTiles.push_back(
+            Tile(static_cast<unsigned int>(myX), static_cast<unsigned int>(myY), myItemPacket));
     }
 
     void ClientApi::ReceiveTna(const std::string &aResponse)

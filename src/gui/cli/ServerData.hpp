@@ -10,9 +10,9 @@ namespace Zappy::GUI {
 
     struct Tile
     {
-        unsigned int _x;
-        unsigned int _y;
-        ItemPacket _items;
+            unsigned int _x;
+            unsigned int _y;
+            ItemPacket _items;
     };
 
     struct ServerData
