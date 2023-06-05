@@ -14,9 +14,8 @@
 void send_to_all_gui(client_t **clients, const char *msg)
 {
     for (int i = 0; clients[i] != NULL; i++) {
-        if (clients[i]->fd != -1
-            && clients[i]->is_registered &&
-            clients[i]->player == NULL) {
+        if (clients[i]->fd != -1 && clients[i]->is_registered
+            && clients[i]->player == NULL) {
                 send_to_client(clients, i, msg);
         }
     }
