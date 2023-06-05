@@ -128,7 +128,7 @@ namespace Zappy::GUI {
             {"WELCOME", &ClientApi::ReceiveWelcome}, {"msz", &ClientApi::ReceiveMsz}, {"bct", &ClientApi::ReceiveBct},
             {"ko", &ClientApi::ReceiveError},        {"tna", &ClientApi::ReceiveTna}, {"sbp", &ClientApi::ReceiveError},
             {"ppo", &ClientApi::ReceivePpo},         {"plv", &ClientApi::ReceivePlv}, {"suc", &ClientApi::ReceiveError},
-            {"sgt", &ClientApi::ReceiveSgt},         {"sst", &ClientApi::ReceiveSgt}};
+            {"sgt", &ClientApi::ReceiveSgt},         {"sst", &ClientApi::ReceiveSst}, {"pnw", &ClientApi::ReceivePnw}};
 
         while (_readBuffer.find('\n') != std::string::npos) {
             std::string const myResponse = _readBuffer.substr(0, _readBuffer.find('\n'));
@@ -204,7 +204,38 @@ namespace Zappy::GUI {
         _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId))).setLevel(std::stoi(myLevel));
     }
 
+    void ClientApi::ReceivePnw(const std::string &aResponse)
+    {
+        Player myPlayer = {};
+        std::string myArg = aResponse;
+        std::string const myPlayerId = myArg.substr(0, myArg.find(' '));
+        std::string const myX = myArg.substr(myArg.find(' ') + 1, myArg.find(' '));
+        myArg = myArg.substr(myArg.find(' ') + 1);
+        std::string const myY = myArg.substr(myArg.find(' ') + 1, myArg.find(' '));
+        myArg = myArg.substr(myArg.find(' ') + 1);
+        std::string const myOrientation = myArg.substr(myArg.find(' ') + 1, myArg.find(' '));
+        myArg = myArg.substr(myArg.find(' ') + 1);
+        std::string const myLevel = myArg.substr(myArg.find(' ') + 1, myArg.find(' '));
+        myArg = myArg.substr(myArg.find(' ') + 1);
+        std::string const myTeamName = myArg.substr(myArg.find(' ') + 1);
+
+        myPlayer.setPosition(static_cast<unsigned int>(std::stoi(myX)), static_cast<unsigned int>(std::stoi(myY)));
+        myPlayer.setOrientation((std::stoi(myOrientation)));
+        myPlayer.setLevel(std::stoi(myLevel));
+        myPlayer.setTeamName(myTeamName);
+        std::cout << "Player " << myPlayerId << " joined the game" << std::endl;
+        _serverData._players.push_back(myPlayer);
+    }
+
     void ClientApi::ReceiveSgt(const std::string &aResponse)
+    {
+        std::string const &myArg = aResponse;
+        std::string const myTime = myArg.substr(0, myArg.find(' '));
+
+        _serverData._timeUnit = std::stoi(myTime);
+    }
+
+    void ClientApi::ReceiveSst(const std::string &aResponse)
     {
         std::string const &myArg = aResponse;
         std::string const myTime = myArg.substr(0, myArg.find(' '));

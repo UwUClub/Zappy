@@ -45,3 +45,14 @@ int set_freq(data_t *data, char *value)
     data->freq = atoi(value);
     return 0;
 }
+
+int set_ip(data_t *data, char *value)
+{
+    if (!value || !is_ip(value)) {
+        dprintf(2, "\n-v option only accepts valid IPv4 addresses\n");
+        print_help(data, NULL);
+        return 84;
+    }
+    data->ip = strdup(value);
+    return 0;
+}
