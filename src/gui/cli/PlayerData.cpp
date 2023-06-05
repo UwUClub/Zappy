@@ -67,7 +67,7 @@ namespace Zappy::GUI {
         return _inventory[aSlot];
     }
 
-    std::string &PlayerData::getTeamName() const
+    const std::string &PlayerData::getTeamName() const
     {
         return _teamName;
     }

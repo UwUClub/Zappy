@@ -96,7 +96,7 @@ namespace Zappy::GUI {
              * @brief Get the team name of the player
              * @return std::string
              */
-            [[nodiscard]] std::string &getTeamName() const;
+            [[nodiscard]] const std::string &getTeamName() const;
 
         private:
             // Attributes
