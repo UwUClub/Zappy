@@ -29,10 +29,6 @@ execute_process(
     OUTPUT_QUIET
 )
 
-find_package(glfw3 QUIET)
-find_package(glm QUIET)
-find_package(Vulkan QUIET)
-
 include(cmake/PreventInSourceBuilds.cmake)
 include(ProjectOptions.cmake)
 
