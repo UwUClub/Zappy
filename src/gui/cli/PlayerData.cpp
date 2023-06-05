@@ -18,6 +18,14 @@ namespace Zappy::GUI {
         _orientation = aOrientation;
     }
 
+    void PlayerData::setOrientation(int aOrientation)
+    {
+        if (aOrientation > 4 || aOrientation < 1) {
+            return;
+        }
+        _orientation = static_cast<Orientation>(aOrientation - 1);
+    }
+
     void PlayerData::setLevel(int aLevel)
     {
         _level = aLevel;
@@ -29,6 +37,11 @@ namespace Zappy::GUI {
             return;
         }
         _inventory[aSlot] = aItem;
+    }
+
+    void PlayerData::setTeamName(std::string aTeamName)
+    {
+        _teamName = std::move(aTeamName);
     }
 
     const std::pair<unsigned int, unsigned int> &PlayerData::getPosition() const
@@ -52,5 +65,10 @@ namespace Zappy::GUI {
             return -1;
         }
         return _inventory[aSlot];
+    }
+
+    std::string &PlayerData::getTeamName() const
+    {
+        return _teamName;
     }
 }; // namespace Zappy::GUI

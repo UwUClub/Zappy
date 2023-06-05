@@ -6,28 +6,54 @@
 */
 
 #include <unistd.h>
-#include "server_core.h"
+#include "core.h"
+#include "resources.h"
 
 void init_single_client(client_t **client)
 {
     (*client)->fd = -1;
-    (*client)->pos_x = -1;
-    (*client)->pos_y = -1;
-    (*client)->orientation = NORTH;
-    (*client)->level = 0;
-    for (int i = 0; i < TILE_SIZE; i++)
-        (*client)->inventory[i] = 0;
-    (*client)->team_name = NULL;
+    (*client)->is_registered = 0;
+    (*client)->player = NULL;
     (*client)->input = NULL;
     (*client)->output = strdup("");
+}
+
+void init_player(client_t **client, const char *team_name, map_t *map)
+{
+    (*client)->player = malloc(sizeof(player_t));
+    (*client)->player->pos_x = rand() % map->width;
+    (*client)->player->pos_y = rand() % map->height;
+    (*client)->player->orientation = NORTH;
+    (*client)->player->level = LEVEL_START;
+    (*client)->player->inventory[0] = FOOD_START;
+    for (int i = 1; i < TILE_SIZE; i++) {
+        (*client)->player->inventory[i] = 0;
+    }
+    (*client)->player->team_name = strdup(team_name);
+    for (int i = 0; i < MAX_PENDING_CMD; i++) {
+        (*client)->player->pending_cmd_queue[i] = NULL;
+    }
+    (*client)->player->remaining_digestion_ms = 0;
+}
+
+static void close_single_player(client_t *client)
+{
+    if (client->player == NULL)
+        return;
+    if (client->player->team_name != NULL)
+        free(client->player->team_name);
+    for (int i = 0; i < MAX_PENDING_CMD; i++) {
+        if (client->player->pending_cmd_queue[i] != NULL)
+            free(client->player->pending_cmd_queue[i]);
+    }
+    free(client->player);
 }
 
 void close_single_client(client_t *client)
 {
     if (client->fd != -1)
         close(client->fd);
-    if (client->team_name != NULL)
-        free(client->team_name);
+    close_single_player(client);
     if (client->input != NULL)
         free(client->input);
     if (client->output != NULL)

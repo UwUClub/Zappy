@@ -4,6 +4,7 @@ include_directories(core)
 include_directories(implementation)
 include_directories(utils)
 include_directories(include)
+include_directories(include/implementation)
 
 add_executable(zappy_server
         main.c
@@ -14,24 +15,40 @@ add_executable(zappy_server
         core/handle_clients.c
         core/launch_server.c
         core/server_data.c
+        core/detect_win.c
         core/read_client.c
         core/clients_lifecycle.c
         core/welcome_single_client.c
         core/write_to_client.c
         core/spawn_resources.c
-        implementation/cmd_parser.c
-        implementation/team_parser.c
+        core/get_next_timeout.c
+        core/handle_client_quit.c
+        implementation/input_parser.c
+        implementation/is_player.c
+        implementation/event/seg.c
         implementation/get_remaining_slots.c
-        implementation/gui/msz.c
-        implementation/gui/bct.c
-        implementation/gui/tna.c
-        implementation/gui/sgt.c
-        implementation/ia/forward.c
-        implementation/ia/right.c
-        implementation/ia/left.c
-        implementation/ia/take.c
-        implementation/ia/set.c
-        implementation/ia/inventory.c
+        implementation/check_player_on_tile.c
+        implementation/gui/append_gui_client.c
+        implementation/gui/gui_cmd_executor.c
+        implementation/gui/cmd/msz.c
+        implementation/gui/cmd/bct.c
+        implementation/gui/cmd/tna.c
+        implementation/gui/cmd/sgt.c
+        implementation/gui/cmd/pin.c
+        implementation/player/append_player_client.c
+        implementation/player/player_cmd_scheduler.c
+        implementation/player/handle_pending_cmd.c
+        implementation/player/handle_player_digestion.c
+        implementation/player/kill_player.c
+        implementation/player/get_player_by_id.c
+        implementation/player/cmd/forward.c
+        implementation/player/cmd/right.c
+        implementation/player/cmd/left.c
+        implementation/player/cmd/take.c
+        implementation/player/cmd/set.c
+        implementation/player/cmd/inventory.c
+        implementation/player/cmd/connect_nbr.c
+        implementation/player/cmd/look.c
         utils/concat_str.c
         utils/free_word_array.c
         utils/get_sockaddr.c
@@ -40,11 +57,15 @@ add_executable(zappy_server
         utils/revstr.c
         utils/str_to_word_array.c
         utils/word_array_len.c
-        include/server_implementation.h
-        include/server_core.h
+        utils/get_ms_since_epoch.c
+        utils/calc_outbound.c
+        include/core.h
         include/utils.h
         include/resources.h
         include/ranges.h
+        include/implementation/implementation.h
+        include/implementation/gui_cmd.h
+        include/implementation/player_cmd.h
         )
 
 

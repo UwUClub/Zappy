@@ -142,11 +142,10 @@ namespace Zappy::GUI {
             void ReceiveWelcome(const std::string &aResponse);
 
             /**
-             * @brief parse ko response
+             * @brief parse all the error responses, can't be made static because of the unordered_map
              * @param aResponse
-             * @return string "ko"
              */
-            std::string ReceiveKo(const std::string &aResponse);
+            void ReceiveError(const std::string &aResponse);
 
             /**
              * @brief parse msz response
@@ -159,6 +158,36 @@ namespace Zappy::GUI {
              * @param aResponse
              */
             void ReceiveBct(const std::string &aResponse);
+
+            /**
+             * @brief parse tna response
+             * @param aResponse
+             */
+            void ReceiveTna(const std::string &aResponse);
+
+            /**
+             * @brief parse ppo response
+             * @param aResponse
+             */
+            void ReceivePpo(const std::string &aResponse);
+
+            /**
+             * @brief parse plv response
+             * @param aResponse
+             */
+            void ReceivePlv(const std::string &aResponse);
+
+            /**
+             * @brief parse pnw response
+             * @param aResponse
+             */
+            void ReceivePnw(const std::string &aResponse);
+
+            /**
+             * @brief parse sgt response
+             * @param aResponse
+             */
+            void ReceiveSgt(const std::string &aResponse);
 
             // Attributes
             std::string _address;

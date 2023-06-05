@@ -13,17 +13,29 @@
 #include <sys/types.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-#include "server_core.h"
-#include "server_implementation.h"
+#include <time.h>
+#include "core.h"
+#include "gui_cmd.h"
+#include "implementation.h"
 #include "utils.h"
 
 static void listen_to_inputs(struct sockaddr_in *addr, int server_fd,
     data_t *data)
 {
+    struct timeval *timeout = NULL;
+
     while (1) {
-        if (select_clients(addr, server_fd, data)) {
+        data->last_select_ms = get_ms_since_epoch();
+        timeout = get_next_timeout(data);
+        if (select_clients(addr, server_fd, data, timeout)) {
+            free(timeout);
             return;
         }
+        if (detect_win(data)) {
+            free(timeout);
+            return;
+        }
+        free(timeout);
     }
 }
 

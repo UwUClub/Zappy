@@ -8,6 +8,8 @@
 #ifndef ZAPPY_RESOURCES_H
     #define ZAPPY_RESOURCES_H
 
+    #define SPAWN_INTERVAL 20
+
     #define FOOD 0
     #define LINEMATE 1
     #define DERAUMERE 2
@@ -15,6 +17,10 @@
     #define MENDIANE 4
     #define PHIRAS 5
     #define THYSTAME 6
+
+    #define FOOD_START 10
+
+    #define DIGESTION_TIME 126
 
     #define FOOD_DENSITY 0.5
     #define LINEMATE_DENSITY 0.3
