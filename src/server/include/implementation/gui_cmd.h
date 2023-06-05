@@ -51,6 +51,14 @@
     int do_sgt(data_t *data, char **args);
 
     /**
+     * @brief Set the new frequency given
+     * @param data The current server data, clients and current client index
+     * @param args The arguments of the command
+     * @return Status of the parsing / command
+    */
+    int do_sst(data_t *data, char **args);
+
+    /**
      * @brief Sends to the gui the end of the game
      * @param data The current server data, clients and current client index
      * @param team_name The name of the team that won
