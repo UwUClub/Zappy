@@ -66,4 +66,20 @@
     */
     int do_pin(data_t *data, char **args);
 
+    /**
+     * @brief Sends player id and level to gui
+     * @param data The current server data, clients and current client index
+     * @param args The arguments of the command
+     * @return Status of the parsing / command
+    */
+    int do_plv(data_t *data, char **args);
+
+    /**
+     * @brief Sends player id, position and orientation to gui
+     * @param data The current server data, clients and current client index
+     * @param args The arguments of the command
+     * @return Status of the parsing / command
+    */
+    int do_ppo(data_t *data, char **args);
+
 #endif /* ZAPPY_GUI_CMD_H */

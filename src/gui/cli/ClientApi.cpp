@@ -1,7 +1,6 @@
 #include "ClientApi.hpp"
 #include <arpa/inet.h>
 #include <cstdio>
-#include <cstdlib>
 #include <cstring>
 #include <errno.h>
 #include <functional>
@@ -128,7 +127,8 @@ namespace Zappy::GUI {
             {"WELCOME", &ClientApi::ReceiveWelcome}, {"msz", &ClientApi::ReceiveMsz}, {"bct", &ClientApi::ReceiveBct},
             {"ko", &ClientApi::ReceiveError},        {"tna", &ClientApi::ReceiveTna}, {"sbp", &ClientApi::ReceiveError},
             {"ppo", &ClientApi::ReceivePpo},         {"plv", &ClientApi::ReceivePlv}, {"suc", &ClientApi::ReceiveError},
-            {"sgt", &ClientApi::ReceiveSgt},         {"sst", &ClientApi::ReceiveSst}, {"pnw", &ClientApi::ReceivePnw}};
+            {"sgt", &ClientApi::ReceiveSgt},         {"sst", &ClientApi::ReceiveSst}, {"pnw", &ClientApi::ReceivePnw},
+            {"pin", &ClientApi::ReceivePin}};
 
         while (_readBuffer.find('\n') != std::string::npos) {
             std::string const myResponse = _readBuffer.substr(0, _readBuffer.find('\n'));
@@ -162,21 +162,25 @@ namespace Zappy::GUI {
 
     void ClientApi::ReceiveBct(const std::string &aResponse)
     {
-        Tile myTilesMap = {};
+        ItemPacket myItemPacket = {};
+        int myX = 0;
+        int myY = 0;
         std::vector<int> myResources;
         std::string myArg = aResponse;
 
-        for (size_t pos = myArg.find(' '); pos != std::string::npos; pos = myArg.find(' ')) {
-            std::string const myResource = myArg.substr(0, pos);
+        myX = std::stoi(myArg.substr(0, myArg.find(' ')));
+        myY = std::stoi(myArg.substr(myArg.find(' ') + 1, myArg.find(' ')));
 
-            myResources.push_back(std::stoi(myResource));
-            myArg = myArg.substr(pos + 1);
+        for (int i = 0; i < 7; i++) {
+            myResources.push_back(std::stoi(myArg.substr(myArg.find(' ') + 1, myArg.find(' '))));
+            myArg = myArg.substr(myArg.find(' ') + 1);
         }
         if (!myArg.empty()) {
             myResources.push_back(std::stoi(myArg));
         }
-        myTilesMap.fillTile(myResources);
-        _serverData._mapTiles.push_back(myTilesMap);
+        myItemPacket.fillItemPacket(myResources);
+        _serverData._mapTiles.push_back(
+            Tile(static_cast<unsigned int>(myX), static_cast<unsigned int>(myY), myItemPacket));
     }
 
     void ClientApi::ReceiveTna(const std::string &aResponse)
@@ -202,6 +206,35 @@ namespace Zappy::GUI {
         std::string const myLevel = myArg.substr(myArg.find(' ') + 1);
 
         _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId))).setLevel(std::stoi(myLevel));
+    }
+
+    void ClientApi::ReceivePin(const std::string &aResponse)
+    {
+        ItemPacket myItemPacket = {};
+        int myPlayerId = 0;
+        [[maybe_unused]] int myX = 0;
+        [[maybe_unused]] int myY = 0;
+        std::vector<int> myResources;
+        std::string myArg = aResponse;
+
+        myPlayerId = std::stoi(myArg.substr(0, myArg.find(' ')));
+        myX = std::stoi(myArg.substr(myArg.find(' ') + 1, myArg.find(' ')));
+        myArg = myArg.substr(myArg.find(' ') + 1);
+        myY = std::stoi(myArg.substr(myArg.find(' ') + 1, myArg.find(' ')));
+        myArg = myArg.substr(myArg.find(' ') + 1);
+
+        for (int i = 0; i < 6; i++) {
+            myResources.push_back(std::stoi(myArg.substr(myArg.find(' ') + 1, myArg.find(' '))));
+            myArg = myArg.substr(myArg.find(' ') + 1);
+        }
+        if (!myArg.empty()) {
+            myResources.push_back(std::stoi(myArg));
+        }
+        myItemPacket.fillItemPacket(myResources);
+        if (static_cast<unsigned long>(myPlayerId) > _serverData._players.size()) {
+            throw Zappy::GUI::ClientApi::ClientException("Player didn't exist");
+        }
+        _serverData._players.at(static_cast<unsigned long>(myPlayerId)).setInventory(myItemPacket);
     }
 
     void ClientApi::ReceivePnw(const std::string &aResponse)
@@ -232,7 +265,7 @@ namespace Zappy::GUI {
         std::string const &myArg = aResponse;
         std::string const myTime = myArg.substr(0, myArg.find(' '));
 
-        _serverData._timeUnit = std::stoi(myTime);
+        _serverData._freq = std::stoi(myTime);
     }
 
     void ClientApi::ReceiveSst(const std::string &aResponse)
@@ -242,5 +275,4 @@ namespace Zappy::GUI {
 
         _serverData._timeUnit = std::stoi(myTime);
     }
-
 } // namespace Zappy::GUI
