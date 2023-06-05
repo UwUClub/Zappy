@@ -60,15 +60,34 @@ namespace Zappy::GUI {
 
     int Player::getInventory(int aSlot) const
     {
-        static const std::unordered_map<int, std::function<int (ItemPacket)>> myInventoryMap = {
-                {0, [](ItemPacket aInventory) { return aInventory._food; }},
-                {1, [](ItemPacket aInventory) { return aInventory._linemate; }},
-                {2, [](ItemPacket aInventory) { return aInventory._deraumere; }},
-                {3, [](ItemPacket aInventory) { return aInventory._sibur; }},
-                {4, [](ItemPacket aInventory) { return aInventory._mendiane; }},
-                {5, [](ItemPacket aInventory) { return aInventory._phiras; }},
-                {6, [](ItemPacket aInventory) { return aInventory._thystame; }}
-            };
+        static const std::unordered_map<int, std::function<int(ItemPacket)>> myInventoryMap = {
+            {0,
+             [](ItemPacket aInventory) {
+                 return aInventory._food;
+             }},
+            {1,
+             [](ItemPacket aInventory) {
+                 return aInventory._linemate;
+             }},
+            {2,
+             [](ItemPacket aInventory) {
+                 return aInventory._deraumere;
+             }},
+            {3,
+             [](ItemPacket aInventory) {
+                 return aInventory._sibur;
+             }},
+            {4,
+             [](ItemPacket aInventory) {
+                 return aInventory._mendiane;
+             }},
+            {5,
+             [](ItemPacket aInventory) {
+                 return aInventory._phiras;
+             }},
+            {6, [](ItemPacket aInventory) {
+                 return aInventory._thystame;
+             }}};
         if (myInventoryMap.find(aSlot) == myInventoryMap.end()) {
             return -1;
         }

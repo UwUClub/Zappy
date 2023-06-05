@@ -1,11 +1,11 @@
 #pragma once
 
 #include <array>
+#include <functional>
 #include <iostream>
 #include <vector>
-#include <unordered_map>
-#include <functional>
 #include "ItemPacket.hpp"
+#include <unordered_map>
 
 const constexpr int INVENTORY_SIZE = 7;
 
