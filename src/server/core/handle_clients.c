@@ -49,7 +49,7 @@ static void run_client_flow(data_t *data, unsigned long long elapsed_time_ms,
         handle_player_digestion(data, elapsed_time_ms);
     }
     if (FD_ISSET(cli->fd, &write_fd_set)) {
-        write_to_selected_client(&(data->clients)[data->curr_cli_index]);
+        write_to_selected_client(data, &(data->clients)[data->curr_cli_index]);
     }
     if (FD_ISSET(cli->fd, &read_fd_set)) {
         read_selected_client(data);
@@ -62,6 +62,7 @@ static void handle_clients(data_t *data, fd_set read_fd_set,
     unsigned long long elapsed_time_ms = 0;
 
     elapsed_time_ms = get_ms_since_epoch() - data->last_select_ms;
+    handle_resource_spawn(data, elapsed_time_ms);
     for (int i = 0; data->clients[i]; i++) {
         if (data->clients[i]->fd > 0) {
             data->curr_cli_index = i;

@@ -8,6 +8,8 @@
 #ifndef ZAPPY_RESOURCES_H
     #define ZAPPY_RESOURCES_H
 
+    #define SPAWN_INTERVAL 20
+
     #define FOOD 0
     #define LINEMATE 1
     #define DERAUMERE 2
