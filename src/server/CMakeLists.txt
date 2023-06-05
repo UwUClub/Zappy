@@ -21,6 +21,7 @@ add_executable(zappy_server
         core/write_to_client.c
         core/spawn_resources.c
         core/get_next_timeout.c
+        core/handle_client_quit.c
         implementation/input_parser.c
         implementation/get_remaining_slots.c
         implementation/check_player_on_tile.c

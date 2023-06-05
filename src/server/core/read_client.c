@@ -29,14 +29,6 @@ const unsigned int size)
     free(clean_cmd);
 }
 
-static void handle_quit(data_t *data)
-{
-    client_t *cli = data->clients[data->curr_cli_index];
-
-    close_single_client(cli);
-    init_single_client(&cli);
-}
-
 void read_selected_client(data_t *data)
 {
     char buffer[1024];
@@ -53,6 +45,6 @@ void read_selected_client(data_t *data)
         free(cli->input);
         cli->input = NULL;
     } else if (size == 0) {
-        handle_quit(data);
+        handle_client_quit(data);
     }
 }
