@@ -9,7 +9,7 @@
 #include "player_cmd.h"
 #include "utils.h"
 
-int move_forward(data_t *data, __attribute__((unused)) char **args)
+static int move_forward(data_t *data, __attribute__((unused)) char **args)
 {
     if (data->clients[data->curr_cli_index]->player->orientation == NORTH)
         data->clients[data->curr_cli_index]->player->pos_y -= 1;

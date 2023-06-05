@@ -81,6 +81,13 @@
     int calc_outbound(int value, int max);
 
     /**
+     * @brief Merge an array of strings
+     * @param args The array of words
+     * @return The merged string
+     */
+    char *concat_word_array(char **args);
+
+    /**
      * @brief Check if a string is an ip address
      * @param str The string to check
      * @return 1 if the string is an ip address, 0 otherwise

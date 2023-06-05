@@ -32,7 +32,7 @@ static char *add_tile_content(char **look, int x, int y, data_t *data)
     }
 }
 
-void look_front_tiles(int x, int y, data_t *data, char **look)
+static void look_front_tiles(int x, int y, data_t *data, char **look)
 {
     int x_tile = 0;
     int y_tile = 0;
@@ -56,7 +56,7 @@ void look_front_tiles(int x, int y, data_t *data, char **look)
     }
 }
 
-int look(data_t *data, char **args)
+static int look(data_t *data, char **args)
 {
     char *look = NULL;
 
