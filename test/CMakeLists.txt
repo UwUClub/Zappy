@@ -18,6 +18,7 @@ add_executable(test_zappy
 
 target_include_directories(test_zappy
         PRIVATE ../src/gui/cli
+        ../src/gui
         )
 
 target_link_libraries(test_zappy

@@ -116,6 +116,7 @@ namespace Zappy::GUI {
         myStr[myReadSize] = '\0';
         _readBuffer += myStr;
         std::cout << "@read: " << _readBuffer;
+        this->notifySubscribers(_readBuffer);
         ParseServerResponses();
     }
 
@@ -182,6 +183,18 @@ namespace Zappy::GUI {
         }
         myTilesMap.fillTile(myResources);
         _serverData._mapTiles.push_back(myTilesMap);
+    }
+
+    void ClientApi::registerSubscriber(Subscriber &aSubscriber)
+    {
+        _subscribers.emplace_back(aSubscriber);
+    }
+
+    void ClientApi::notifySubscribers(std::string &aNotification)
+    {
+        for (auto &mySubscriber : _subscribers) {
+            mySubscriber.get().getNotified(aNotification);
+        }
     }
 
 } // namespace Zappy::GUI

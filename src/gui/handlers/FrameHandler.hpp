@@ -10,12 +10,13 @@
 
 #include <OGRE/OgreFrameListener.h>
 #include <OgreSceneManager.h>
+#include "ClientApi.hpp"
 
 namespace Zappy::GUI {
     class FrameHandler : public Ogre::FrameListener
     {
         public:
-            FrameHandler(Ogre::SceneManager *aSceneManager);
+            FrameHandler(Ogre::SceneManager *aSceneManager, Zappy::GUI::ClientApi &client);
             ~FrameHandler() override;
 
             bool frameRenderingQueued(const Ogre::FrameEvent &evt) override;
@@ -25,6 +26,7 @@ namespace Zappy::GUI {
         protected:
         private:
             Ogre::SceneManager *_sceneManager;
+            Zappy::GUI::ClientApi &_client;
     };
 } // namespace Zappy::GUI
 

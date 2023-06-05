@@ -16,15 +16,14 @@
 #include "FrameHandler.hpp"
 #include "InputHandler.hpp"
 #include "ServerData.hpp"
+#include "Subscriber.hpp"
 #include <unordered_map>
 
 namespace Zappy::GUI {
-    class App final : public OgreBites::ApplicationContext
+    class App final : public OgreBites::ApplicationContext, public Subscriber
     {
         public:
-            // explicit App(std::unique_ptr<Zappy::GUI::ClientApi> client,
-            //              const std::string &aWindowName = "UwU Zappy UwU");
-            explicit App(const std::string &aWindowName = "UwU Zappy UwU");
+            explicit App(Zappy::GUI::ClientApi &client, const std::string &aWindowName = "UwU Zappy UwU");
             ~App() final;
 
             App(const App &) = delete;
@@ -32,11 +31,14 @@ namespace Zappy::GUI {
             App(App &&) = delete;
             App &operator=(App &&) = delete;
 
+            void getNotified(std::string &aNotification) final;
+
         private:
             void setupLight(Ogre::SceneManager *aSceneManager);
             void setupCamera(Ogre::SceneManager *aSceneManager, Ogre::Vector3 &aCenter);
             Ogre::Vector3f setupMap(Ogre::SceneManager *aSceneManager);
             // std::unique_ptr<Zappy::GUI::ClientApi> _client;
+            Zappy::GUI::ClientApi &_client;
             std::unique_ptr<CameraHandler> _cameraHandler;
             std::unique_ptr<FrameHandler> _frameHandler;
             std::unique_ptr<ClickHandler> _clickHandler;

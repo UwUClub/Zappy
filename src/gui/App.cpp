@@ -21,20 +21,20 @@
 #include "ServerData.hpp"
 
 namespace Zappy::GUI {
-    App::App(const std::string &aWindowName)
+    App::App(Zappy::GUI::ClientApi &client, const std::string &aWindowName)
         : OgreBites::ApplicationContext(aWindowName),
+          _client(client),
           _cameraHandler(nullptr),
           _frameHandler(nullptr),
           _clickHandler(nullptr)
-
-    //   _client(std::move(client)),
     {
         this->initApp();
+        _client.registerSubscriber(*this);
 
         auto *myRoot = this->getRoot();
         auto *myScnMgr = myRoot->createSceneManager();
         Ogre::RTShader::ShaderGenerator *myShadergen = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
-        _frameHandler = std::make_unique<FrameHandler>(myScnMgr);
+        _frameHandler = std::make_unique<FrameHandler>(myScnMgr, _client);
 
         myShadergen->addSceneManager(myScnMgr);
         this->setupLight(myScnMgr);
@@ -60,7 +60,7 @@ namespace Zappy::GUI {
 
     void App::setupCamera(Ogre::SceneManager *aSceneManager, Ogre::Vector3 &aCenterPos)
     {
-        const constexpr int myRadius = 15;
+        const constexpr int myRadius = 15 * (10 / 3);
         const constexpr int myClipDistance = 5;
         Ogre::Vector3 myCamPos(aCenterPos.x, aCenterPos.y + myRadius + myClipDistance, aCenterPos.z + myRadius);
 
@@ -89,7 +89,7 @@ namespace Zappy::GUI {
     {
         const constexpr int myMapSize = 10;
         const constexpr int myTileSize = 1;
-        const constexpr int myOffset = 1;
+        const constexpr int myOffset = 5;
 
         Ogre::Vector3f myCenterPos(0, 0, 0);
         for (int i = 0; i < myMapSize; i++) {
@@ -106,5 +106,10 @@ namespace Zappy::GUI {
         myCenterPos.x = (myMapSize / 2) * (myTileSize * myOffset);
         myCenterPos.z = (myMapSize / 2) * (myTileSize * myOffset);
         return myCenterPos;
+    }
+
+    void App::getNotified(std::string &aNotification)
+    {
+        std::cout << "App: " << aNotification << std::endl;
     }
 } // namespace Zappy::GUI

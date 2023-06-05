@@ -1,12 +1,9 @@
-add_executable(zappy_gui
-        main.cpp
-        App.cpp
-        )
-
-add_subdirectory(cli)
-add_subdirectory(handlers)
-
 find_package(OGRE QUIET)
+
+add_executable(zappy_gui
+main.cpp
+App.cpp
+)
 
 target_link_libraries(zappy_gui
     PRIVATE myproject::myproject_options
@@ -16,7 +13,11 @@ target_link_libraries(zappy_gui
 )
 
 target_include_directories(zappy_gui PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/cli")
+target_include_directories(zappy_gui PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}")
 target_include_directories(zappy_gui PRIVATE "${OGRE_INCLUDE_DIRS}")
+
+add_subdirectory(cli)
+add_subdirectory(handlers)
 
 set_target_properties(zappy_gui
     PROPERTIES

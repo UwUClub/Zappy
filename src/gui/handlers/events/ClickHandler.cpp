@@ -27,6 +27,7 @@ namespace Zappy::GUI {
             auto *myNode = getNodeUnderMouse(Ogre::Vector2(static_cast<float>(aEvt.x), static_cast<float>(aEvt.y)));
             if (myNode != nullptr) {
                 // display inventory
+                myNode->showBoundingBox(!myNode->getShowBoundingBox());
             }
             return true;
         }
