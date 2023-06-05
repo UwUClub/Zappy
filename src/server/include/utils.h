@@ -87,4 +87,11 @@
      */
     char *concat_word_array(char **args);
 
+    /**
+     * @brief Check if a string is an ip address
+     * @param str The string to check
+     * @return 1 if the string is an ip address, 0 otherwise
+     */
+    int is_ip(char const *str);
+
 #endif /* ZAPPY_UTILS_H */

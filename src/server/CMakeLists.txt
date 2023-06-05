@@ -35,6 +35,7 @@ add_executable(zappy_server
         implementation/gui/cmd/tna.c
         implementation/gui/cmd/sgt.c
         implementation/gui/cmd/pin.c
+        implementation/gui/cmd/ppo.c
         implementation/player/append_player_client.c
         implementation/player/player_cmd_scheduler.c
         implementation/player/handle_pending_cmd.c
@@ -62,6 +63,7 @@ add_executable(zappy_server
         utils/get_ms_since_epoch.c
         utils/calc_outbound.c
         utils/concat_word_array.c
+        utils/is_ip.c
         include/core.h
         include/utils.h
         include/resources.h
