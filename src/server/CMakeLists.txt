@@ -34,6 +34,7 @@ add_executable(zappy_server
         implementation/gui/cmd/bct.c
         implementation/gui/cmd/tna.c
         implementation/gui/cmd/sgt.c
+        implementation/gui/cmd/sst.c
         implementation/gui/cmd/pin.c
         implementation/gui/cmd/plv.c
         implementation/gui/cmd/ppo.c
