@@ -40,6 +40,7 @@ add_executable(zappy_server
         implementation/player/cmd/set.c
         implementation/player/cmd/inventory.c
         implementation/player/cmd/look.c
+        implementation/player/cmd/fork.c
         utils/concat_str.c
         utils/free_word_array.c
         utils/get_sockaddr.c
