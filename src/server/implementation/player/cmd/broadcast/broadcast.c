@@ -36,7 +36,7 @@ static void send_broadcast_to_gui(data_t *data, const char *content)
     free(msg);
 }
 
-int broadcast(data_t *data, char **args)
+static int broadcast(data_t *data, char **args)
 {
     char *content = NULL;
 

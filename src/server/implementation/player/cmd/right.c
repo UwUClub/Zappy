@@ -8,7 +8,7 @@
 #include "implementation.h"
 #include "player_cmd.h"
 
-int move_right(data_t *data, __attribute__((unused)) char **args)
+static int move_right(data_t *data, __attribute__((unused)) char **args)
 {
     if (data->clients[data->curr_cli_index]->player->orientation == NORTH)
         data->clients[data->curr_cli_index]->player->orientation = WEST;

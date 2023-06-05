@@ -51,28 +51,12 @@
     int schedule_forward(data_t *data, char **args);
 
     /**
-    * @brief Sends a response to the forward command sent by the client
-    * @param data The current server data, clients and current client index
-    * @param args The arguments of the command
-    * @return Status of the parsing / command
-    */
-    int move_forward(data_t *data, char **args);
-
-    /**
     * @brief Schedule right command
     * @param data The current server data, clients and current client index
     * @param args The arguments of the command
     * @return Status of the schedule
     */
     int schedule_right(data_t *data, char **args);
-
-    /**
-     * @brief Sends a response to the right command sent by the client
-     * @param data The current server data, clients and current client index
-     * @param args The arguments of the command
-     * @return Status of the parsing / command
-     */
-    int move_right(data_t *data, char **args);
 
     /**
     * @brief Schedule left command
@@ -83,28 +67,12 @@
     int schedule_left(data_t *data, char **args);
 
     /**
-     * @brief Sends a response to the left command sent by the client
-     * @param data The current server data, clients and current client index
-     * @param args The arguments of the command
-     * @return Status of the parsing / command
-     */
-    int move_left(data_t *data, char **args);
-
-    /**
     * @brief Schedule take command
     * @param data The current server data, clients and current client index
     * @param args The arguments of the command
     * @return Status of the schedule
     */
     int schedule_take(data_t *data, char **args);
-
-    /**
-     * @brief Sends a response to the take command sent by the client
-     * @param data The current server data, clients and current client index
-     * @param args The arguments of the command
-     * @return Status of the parsing / command
-     */
-    int take(data_t *data, char **args);
 
     /**
     * @brief Schedule set command
@@ -115,14 +83,6 @@
     int schedule_set(data_t *data, char **args);
 
     /**
-     * @brief Sends a response to the set command sent by the client
-     * @param data The current server data, clients and current client index
-     * @param args The arguments of the command
-     * @return Status of the parsing / command
-     */
-    int set(data_t *data, char **args);
-
-    /**
     * @brief Schedule inventory command
     * @param data The current server data, clients and current client index
     * @param args The arguments of the command
@@ -131,35 +91,12 @@
     int schedule_inventory(data_t *data, char **args);
 
     /**
-     * @brief Sends a response to the inventory command sent by the client
-     * @param data The current server data, clients and current client index
-     * @param args The arguments of the command
-     * @return Status of the parsing / command
-     */
-    int get_inventory(data_t *data, char **args);
-
-    /**
     * @brief Schedule connect_nbr command
     * @param data The current server data, clients and current client index
     * @param args The arguments of the command
     * @return Status of the schedule
     */
     int schedule_connect_nbr(data_t *data, char **args);
-
-    /**
-     * @brief Sends a response to the connect_nbr command sent by the client
-     * @param data The current server data, clients and current client index
-     * @param args The arguments of the command
-     * @return Status of the parsing / command
-     */
-    int connect_nbr(data_t *data, char **args);
-
-    /** @brief Sends a response to the look command sent by the client
-     * @param data The current server data, clients and current client index
-     * @param args The arguments of the command
-     * @return Status of the parsing / command
-     */
-    int look(data_t *data, char **args);
 
     /**
      * @brief Schedule look command
@@ -176,14 +113,6 @@
      * @return Status of the schedule
      */
     int schedule_broadcast(data_t *data, char **args);
-
-    /**
-     * @brief Sends a response to the broadcast command sent by the client
-     * @param data The current server data, clients and current client index
-     * @param args The arguments of the command
-     * @return Status of the parsing / command
-     */
-    int broadcast(data_t *data, char **args);
 
     /**
     * @brief Get tile number from source direction (used for broadcast)

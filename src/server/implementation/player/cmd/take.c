@@ -42,7 +42,7 @@ static int pgt(data_t *data, int resource)
     return 0;
 }
 
-int take(data_t *data, char **args)
+static int take(data_t *data, char **args)
 {
     const char *resource[7] = {"food", "linemate", "deraumere", "sibur",
         "mendiane", "phiras", "thystame"};

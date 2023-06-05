@@ -9,7 +9,7 @@
 #include "player_cmd.h"
 #include "utils.h"
 
-int connect_nbr(data_t *data, __attribute__((unused)) char **args)
+static int connect_nbr(data_t *data, __attribute__((unused)) char **args)
 {
     int nb = 0;
     char *msg = NULL;
