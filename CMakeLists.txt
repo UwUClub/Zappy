@@ -92,8 +92,8 @@ myproject_package_project(
   myproject_warnings
 )
 
-if (OGRE_FOUND)
-    myproject_package_project(
+if (NO_CONNECTION EQUAL 0 OR OGRE_FOUND)
+myproject_package_project(
       TARGETS
       zappy_gui
       myproject_options

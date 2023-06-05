@@ -1,5 +1,5 @@
 find_package(OGRE QUIET)
-if (OGRE_FOUND)
+if (NO_CONNECTION EQUAL 0 OR OGRE_FOUND)
     message(STATUS "GUI: ON")
     add_subdirectory(gui)
 else()
