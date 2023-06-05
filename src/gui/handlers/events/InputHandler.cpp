@@ -10,10 +10,11 @@
 #include <OGRE/OgreRoot.h>
 
 namespace Zappy::GUI {
-    InputHandler::InputHandler()
+    InputHandler::InputHandler(ClientApi &client)
         : _isLeftClickPressed(false),
           _isRightClickPressed(false),
-          _isShiftPressed(false)
+          _isShiftPressed(false),
+          _client(client)
     {}
 
     InputHandler::~InputHandler() = default;
@@ -52,6 +53,7 @@ namespace Zappy::GUI {
         }
         if (aEvt.keysym.sym == OgreBites::SDLK_ESCAPE) {
             Ogre::Root::getSingleton().queueEndRendering();
+            _client.disconnect();
         }
         return true;
     }

@@ -11,8 +11,9 @@
 
 namespace Zappy::GUI {
     ClickHandler::ClickHandler(Ogre::SceneNode *aCameraNode, Ogre::RenderWindow *aRenderWindow,
-                               Ogre::SceneManager *aSceneManager)
-        : _cameraNode(aCameraNode),
+                               Ogre::SceneManager *aSceneManager, ClientApi &aClient)
+        : InputHandler(aClient),
+          _cameraNode(aCameraNode),
           _renderWindow(aRenderWindow),
           _sceneManager(aSceneManager)
     {}

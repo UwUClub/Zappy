@@ -1,12 +1,14 @@
 #include "ClientApi.hpp"
 #include <arpa/inet.h>
+#include <cerrno>
+#include <cstddef>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
-#include <errno.h>
 #include <functional>
 #include <iostream>
 #include <netinet/in.h>
+#include <syncstream>
 #include <sys/select.h>
 #include <sys/socket.h>
 #include <unistd.h>
@@ -27,6 +29,17 @@ namespace Zappy::GUI {
     {
         if (_serverFd != -1) {
             close(_serverFd);
+        }
+    }
+
+    void ClientApi::run()
+    {
+        try {
+            while (true) {
+                this->update();
+            }
+        } catch (const ClientException &e) {
+            std::osyncstream(std::cout) << e.what() << std::endl;
         }
     }
 
@@ -54,6 +67,9 @@ namespace Zappy::GUI {
             FD_SET(_serverFd, &myWriteFds);
         }
         select(FD_SETSIZE, &myReadFds, &myWriteFds, nullptr, nullptr);
+        if (_serverFd == -1) {
+            throw ClientException("Closed connection");
+        }
         if (FD_ISSET(_serverFd, &myReadFds)) {
             readFromServer();
         }
@@ -65,6 +81,10 @@ namespace Zappy::GUI {
 
     void ClientApi::disconnect()
     {
+        if (_serverFd == -1) {
+            return;
+        }
+        shutdown(_serverFd, SHUT_RDWR);
         close(_serverFd);
         _serverFd = -1;
         std::cout << "Disconnected from server" << std::endl;

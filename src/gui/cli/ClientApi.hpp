@@ -26,6 +26,8 @@ namespace Zappy::GUI {
              */
             ~ClientApi();
 
+            void run();
+
             /**
              * @brief joinGame
              */

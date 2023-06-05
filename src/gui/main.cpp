@@ -3,7 +3,9 @@
 //
 
 #include <OgreRenderWindow.h>
+#include <thread>
 #include "App.hpp"
+#include "ClientApi.hpp"
 #include "ParserData.hpp"
 
 int main(int argc, char **argv)
@@ -13,9 +15,12 @@ int main(int argc, char **argv)
         parserData.parseData(argc, argv);
         Zappy::GUI::ClientApi myClientApi(parserData.getAddress(), parserData.getPort(), "GRAPHIC");
         myClientApi.joinGame();
+        std::thread myCliThread(&Zappy::GUI::ClientApi::run, &myClientApi);
         Zappy::GUI::App ctx(myClientApi, "Zappy");
         // map size | map content | teams | time unit | player connected
         ctx.getRoot()->startRendering();
+        std::cout << "End of rendering" << std::endl;
+        myCliThread.join();
     } catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
     }

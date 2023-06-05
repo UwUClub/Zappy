@@ -24,7 +24,6 @@ namespace Zappy::GUI {
 
     bool FrameHandler::frameStarted(const Ogre::FrameEvent &aEvt)
     {
-        _client.update();
         return true;
     }
 

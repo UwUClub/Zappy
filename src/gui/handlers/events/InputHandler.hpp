@@ -9,12 +9,13 @@
 #define MOUSEHANDLER_HPP_
 
 #include <OGRE/Bites/OgreInput.h>
+#include "ClientApi.hpp"
 
 namespace Zappy::GUI {
     class InputHandler : public OgreBites::InputListener
     {
         public:
-            InputHandler();
+            explicit InputHandler(ClientApi &aClient);
             ~InputHandler() override;
 
             bool mousePressed(const OgreBites::MouseButtonEvent &evt) override;
@@ -26,6 +27,7 @@ namespace Zappy::GUI {
             bool _isLeftClickPressed;
             bool _isRightClickPressed;
             bool _isShiftPressed;
+            ClientApi &_client;
     };
 } // namespace Zappy::GUI
 

@@ -11,6 +11,7 @@
 #include <OgreRenderWindow.h>
 #include <OgreSceneManager.h>
 #include <OgreSceneNode.h>
+#include "ClientApi.hpp"
 #include "InputHandler.hpp"
 
 namespace Zappy::GUI {
@@ -18,7 +19,7 @@ namespace Zappy::GUI {
     {
         public:
             ClickHandler(Ogre::SceneNode *cameraNode, Ogre::RenderWindow *renderWindow,
-                         Ogre::SceneManager *sceneManager);
+                         Ogre::SceneManager *sceneManager, ClientApi &client);
             ~ClickHandler() override;
 
             bool mousePressed(const OgreBites::MouseButtonEvent &evt) override;

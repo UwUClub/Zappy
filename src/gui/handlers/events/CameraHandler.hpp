@@ -13,6 +13,7 @@
 #include <OgreMath.h>
 #include <OgrePrerequisites.h>
 #include <OgreRenderWindow.h>
+#include "ClientApi.hpp"
 #include "InputHandler.hpp"
 
 namespace Zappy::GUI {
@@ -21,7 +22,7 @@ namespace Zappy::GUI {
     class CameraHandler final : public InputHandler
     {
         public:
-            CameraHandler(Ogre::SceneNode *cameraNode, Ogre::Vector3 center, Ogre::Real radius);
+            CameraHandler(Ogre::SceneNode *cameraNode, Ogre::Vector3 center, Ogre::Real radius, ClientApi &aClient);
             ~CameraHandler() final;
 
             bool mouseMoved(const OgreBites::MouseMotionEvent &evt) final;

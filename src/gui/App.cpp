@@ -46,6 +46,7 @@ namespace Zappy::GUI {
     App::~App()
     {
         this->closeApp();
+        _client.disconnect();
     }
 
     void App::setupLight(Ogre::SceneManager *aSceneManager)
@@ -76,8 +77,8 @@ namespace Zappy::GUI {
 
         auto *myRenderWindow = this->getRenderWindow();
         if (myRenderWindow != nullptr) {
-            _cameraHandler = std::make_unique<CameraHandler>(myCamNode, aCenterPos, myRadius);
-            _clickHandler = std::make_unique<ClickHandler>(myCamNode, myRenderWindow, aSceneManager);
+            _cameraHandler = std::make_unique<CameraHandler>(myCamNode, aCenterPos, myRadius, _client);
+            _clickHandler = std::make_unique<ClickHandler>(myCamNode, myRenderWindow, aSceneManager, _client);
             this->addInputListener(_cameraHandler.get());
             this->addInputListener(_clickHandler.get());
 

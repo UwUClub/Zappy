@@ -20,8 +20,10 @@
 
 namespace Zappy::GUI {
 
-    CameraHandler::CameraHandler(Ogre::SceneNode *aCameraNode, Ogre::Vector3 aCenter, Ogre::Real aRadius)
-        : _cameraNode(aCameraNode),
+    CameraHandler::CameraHandler(Ogre::SceneNode *aCameraNode, Ogre::Vector3 aCenter, Ogre::Real aRadius,
+                                 ClientApi &aClient)
+        : InputHandler(aClient),
+          _cameraNode(aCameraNode),
           _cameraPositionBase(aCameraNode->getPosition()),
           _center(aCenter),
           _centerBase(aCenter),
