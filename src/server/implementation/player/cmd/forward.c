@@ -7,6 +7,7 @@
 
 #include "implementation.h"
 #include "player_cmd.h"
+#include "utils.h"
 
 int move_forward(data_t *data, __attribute__((unused)) char **args)
 {
@@ -18,6 +19,10 @@ int move_forward(data_t *data, __attribute__((unused)) char **args)
         data->clients[data->curr_cli_index]->player->pos_x += 1;
     if (data->clients[data->curr_cli_index]->player->orientation == WEST)
         data->clients[data->curr_cli_index]->player->pos_x -= 1;
+    data->clients[data->curr_cli_index]->player->pos_x = calc_outbound(
+        data->clients[data->curr_cli_index]->player->pos_x, data->map->width);
+    data->clients[data->curr_cli_index]->player->pos_y = calc_outbound(
+        data->clients[data->curr_cli_index]->player->pos_y, data->map->height);
     send_to_client(data->clients, data->curr_cli_index, "ok\n");
     return 0;
 }

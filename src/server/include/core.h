@@ -8,6 +8,8 @@
 #ifndef ZAPPY_SERVER_CORE_H
     #define ZAPPY_SERVER_CORE_H
 
+    #define _GNU_SOURCE
+
     #define LEVEL_START 1
 
     #include <stdio.h>
@@ -46,6 +48,7 @@
         int inventory[TILE_SIZE];
         char *team_name;
         pending_cmd_t *pending_cmd_queue[MAX_PENDING_CMD];
+        unsigned long long remaining_digestion_ms;
     } player_t;
 
     typedef struct client_s {
@@ -219,18 +222,19 @@
         struct timeval *timeout);
 
     /**
-    * @brief Calculate remaning time or execute pending commands
-    * @param data The server data
-    */
-    void handle_pending_cmd(data_t *data);
-
-    /**
     * @brief Append a message to the client write buffer
     * @param clients Client list of the server
     * @param id Recipient id
     * @param msg Message to append
     */
     void send_to_client(client_t **clients, const int id, const char *msg);
+
+    /**
+     * @brief Append a message to all GUI clients in the server
+     * @param clients Client list of the server
+     * @param msg Message to append
+    */
+    void send_to_all_gui(client_t **clients, const char *msg);
 
     /**
     * @brief Append a message to all clients in the server
@@ -272,5 +276,14 @@
     * @param dummy To follow the signal pattern
     */
     void detect_ctrl_c(int dummy);
+
+    /**
+     * @brief Return all the player on a tile
+     * @param data The server data
+     * @param x The x position of the tile
+     * @param y The y position of the tile
+     * @return The list of player on the tile
+     */
+    client_t **check_player_on_tile(data_t *data, const int x, const int y);
 
 #endif /* ZAPPY_SERVER_CORE_H */

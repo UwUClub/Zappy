@@ -11,6 +11,17 @@
 #include "core.h"
 #include "utils.h"
 
+void send_to_all_gui(client_t **clients, const char *msg)
+{
+    for (int i = 0; clients[i] != NULL; i++) {
+        if (clients[i]->fd != -1
+            && clients[i]->is_registered &&
+            clients[i]->player == NULL) {
+                send_to_client(clients, i, msg);
+        }
+    }
+}
+
 void send_to_client(client_t **clients, const int id, const char *msg)
 {
     if (clients[id] && clients[id]->fd != -1) {
@@ -30,6 +41,10 @@ void send_to_everyone(client_t **clients, const char *msg)
 void write_to_selected_client(client_t **client)
 {
     dprintf((*client)->fd, "%s", (*client)->output);
+    if (!strcmp((*client)->output, "dead\n")) {
+        close_single_client(*client);
+        init_single_client(client);
+    }
     free((*client)->output);
     (*client)->output = strdup("");
 }

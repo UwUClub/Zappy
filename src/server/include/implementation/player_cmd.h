@@ -8,8 +8,6 @@
 #ifndef ZAPPY_PLAYER_CMD_H
     #define ZAPPY_PLAYER_CMD_H
 
-    #define _GNU_SOURCE
-
     #define FORWARD_DELAY 7
     #define RIGHT_DELAY 7
     #define LEFT_DELAY 7
@@ -139,5 +137,36 @@
      * @return Status of the parsing / command
      */
     int get_inventory(data_t *data, char **args);
+
+    /**
+    * @brief Schedule connect_nbr command
+    * @param data The current server data, clients and current client index
+    * @param args The arguments of the command
+    * @return Status of the schedule
+    */
+    int schedule_connect_nbr(data_t *data, char **args);
+
+    /**
+     * @brief Sends a response to the connect_nbr command sent by the client
+     * @param data The current server data, clients and current client index
+     * @param args The arguments of the command
+     * @return Status of the parsing / command
+     */
+    int connect_nbr(data_t *data, char **args);
+
+    /** @brief Sends a response to the look command sent by the client
+     * @param data The current server data, clients and current client index
+     * @param args The arguments of the command
+     * @return Status of the parsing / command
+     */
+    int look(data_t *data, char **args);
+
+    /**
+     * @brief Schedule look command
+     * @param data The current server data, clients and current client index
+     * @param args The arguments of the command
+     * @return Status of the schedule
+     */
+    int schedule_look(data_t *data, char **args);
 
 #endif /* ZAPPY_PLAYER_CMD_H */

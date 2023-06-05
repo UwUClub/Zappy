@@ -23,6 +23,7 @@ add_executable(zappy_server
         core/get_next_timeout.c
         implementation/input_parser.c
         implementation/get_remaining_slots.c
+        implementation/check_player_on_tile.c
         implementation/gui/append_gui_client.c
         implementation/gui/gui_cmd_executor.c
         implementation/gui/cmd/msz.c
@@ -32,12 +33,16 @@ add_executable(zappy_server
         implementation/player/append_player_client.c
         implementation/player/player_cmd_scheduler.c
         implementation/player/handle_pending_cmd.c
+        implementation/player/handle_player_digestion.c
+        implementation/player/kill_player.c
         implementation/player/cmd/forward.c
         implementation/player/cmd/right.c
         implementation/player/cmd/left.c
         implementation/player/cmd/take.c
         implementation/player/cmd/set.c
         implementation/player/cmd/inventory.c
+        implementation/player/cmd/connect_nbr.c
+        implementation/player/cmd/look.c
         utils/concat_str.c
         utils/free_word_array.c
         utils/get_sockaddr.c
@@ -47,6 +52,7 @@ add_executable(zappy_server
         utils/str_to_word_array.c
         utils/word_array_len.c
         utils/get_ms_since_epoch.c
+        utils/calc_outbound.c
         include/core.h
         include/utils.h
         include/resources.h

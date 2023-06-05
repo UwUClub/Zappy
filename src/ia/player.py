@@ -98,7 +98,7 @@ class Player:
         elif mySet == "ok\n":
             print ("Object", aRessource, "set")
 
-    ## @brief Send inventory command
+    ## @brief Send inventory command and receive the inventory
     ## @return the inventory
     def inventory(self):
         self.send("Inventory")
@@ -109,3 +109,27 @@ class Player:
         else:
             print ("Inventory:", myInventory)
             return (myInventory)
+
+    ## @brief Send Connect_nbr command
+    ## @return the number of free slots in the team
+    def connectNbr(self):
+        self.send("Connect_nbr")
+        myConnectNbr = self.receive()
+        if myConnectNbr == "ko\n":
+            print ("Error: Connect_nbr")
+            return (None)
+        else:
+            print ("Free slots:", myConnectNbr)
+            return (int(myConnectNbr))
+        
+    ## @brief Send look command and receive the map content
+    ## @return the map content
+    def look(self):
+        self.send("Look")
+        myLook = self.receive()
+        if myLook == "ko\n":
+            print ("Error: Look")
+            return (None)
+        else:
+            print ("Look:", myLook)
+            return (myLook)

@@ -126,8 +126,8 @@ namespace Zappy::GUI {
         static std::unordered_map<std::string, std::function<void(ClientApi &, std::string)>> myResponses = {
             {"WELCOME", &ClientApi::ReceiveWelcome}, {"msz", &ClientApi::ReceiveMsz}, {"bct", &ClientApi::ReceiveBct},
             {"ko", &ClientApi::ReceiveError},        {"tna", &ClientApi::ReceiveTna}, {"sbp", &ClientApi::ReceiveError},
-            {"ppo", &ClientApi::ReceivePpo},         {"plv", &ClientApi::ReceivePlv}, {"pin", &ClientApi::ReceivePin}
-        };
+            {"ppo", &ClientApi::ReceivePpo},         {"plv", &ClientApi::ReceivePlv}, {"suc", &ClientApi::ReceiveError},
+            {"pnw", &ClientApi::ReceivePnw},         {"sgt", &ClientApi::ReceiveSgt}, {"pin", &ClientApi::ReceivePin}};
 
         while (_readBuffer.find('\n') != std::string::npos) {
             std::string const myResponse = _readBuffer.substr(0, _readBuffer.find('\n'));
@@ -210,8 +210,8 @@ namespace Zappy::GUI {
     {
         ItemPacket myItemPacket = {};
         int myPlayerId = 0;
-        int myX = 0;
-        int myY = 0;
+        [[maybe_unused]] int myX = 0;
+        [[maybe_unused]] int myY = 0;
         std::vector<int> myResources;
         std::string myArg = aResponse;
 
@@ -229,9 +229,41 @@ namespace Zappy::GUI {
             myResources.push_back(std::stoi(myArg));
         }
         myItemPacket.fillItemPacket(myResources);
-        std::cout << "put" << std::endl;
-        std::cout << _serverData._players.at(0).getInventory(1) << std::endl;
-        _serverData._players.at(0).setInventory(myItemPacket);
+        if (static_cast<unsigned long>(myPlayerId) > _serverData._players.size()) {
+            throw Zappy::GUI::ClientApi::ClientException("Player didn't exist");
+        }
+        _serverData._players.at(static_cast<unsigned long>(myPlayerId)).setInventory(myItemPacket);
     }
 
-} // namespace Zappy::GUI
+    void ClientApi::ReceivePnw(const std::string &aResponse)
+    {
+        Player myPlayer = {};
+        std::string myArg = aResponse;
+        std::string const myPlayerId = myArg.substr(0, myArg.find(' '));
+        std::string const myX = myArg.substr(myArg.find(' ') + 1, myArg.find(' '));
+        myArg = myArg.substr(myArg.find(' ') + 1);
+        std::string const myY = myArg.substr(myArg.find(' ') + 1, myArg.find(' '));
+        myArg = myArg.substr(myArg.find(' ') + 1);
+        std::string const myOrientation = myArg.substr(myArg.find(' ') + 1, myArg.find(' '));
+        myArg = myArg.substr(myArg.find(' ') + 1);
+        std::string const myLevel = myArg.substr(myArg.find(' ') + 1, myArg.find(' '));
+        myArg = myArg.substr(myArg.find(' ') + 1);
+        std::string const myTeamName = myArg.substr(myArg.find(' ') + 1);
+
+        myPlayer.setPosition(static_cast<unsigned int>(std::stoi(myX)), static_cast<unsigned int>(std::stoi(myY)));
+        myPlayer.setOrientation((std::stoi(myOrientation)));
+        myPlayer.setLevel(std::stoi(myLevel));
+        myPlayer.setTeamName(myTeamName);
+        std::cout << "Player " << myPlayerId << " joined the game" << std::endl;
+        _serverData._players.push_back(myPlayer);
+    }
+
+    void ClientApi::ReceiveSgt(const std::string &aResponse)
+    {
+        std::string const &myArg = aResponse;
+        std::string const myTime = myArg.substr(0, myArg.find(' '));
+
+        _serverData._timeUnit = std::stoi(myTime);
+    }
+}
+

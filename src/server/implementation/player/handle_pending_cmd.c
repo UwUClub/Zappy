@@ -33,12 +33,10 @@ static void treat_pending_cmd(data_t *data)
     }
 }
 
-void handle_pending_cmd(data_t *data)
+void handle_pending_cmd(data_t *data, unsigned long long elapsed_time_ms)
 {
-    unsigned long long elapsed_time_ms = 0;
     player_t *player = data->clients[data->curr_cli_index]->player;
 
-    elapsed_time_ms = get_ms_since_epoch() - data->last_select_ms;
     if (elapsed_time_ms >= player->pending_cmd_queue[0]->remaining_ms)
         player->pending_cmd_queue[0]->remaining_ms = 0;
     else
