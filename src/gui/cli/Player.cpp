@@ -5,7 +5,6 @@ namespace Zappy::GUI {
 
     Player::Player()
     {
-        std::cout << "put02" << std::endl;
         _position = std::make_pair(0, 0);
     }
 
@@ -36,7 +35,6 @@ namespace Zappy::GUI {
 
     void Player::setInventory(ItemPacket &aInventory)
     {
-        std::cout << "put1" << std::endl;
         _inventory = aInventory;
     }
 
@@ -60,26 +58,21 @@ namespace Zappy::GUI {
         return _level;
     }
 
-    int Player::getInventory(long unsigned int aSlot) const
+    int Player::getInventory(int aSlot) const
     {
-        switch (aSlot) {
-            case 0:
-                return _inventory._food;
-            case 1:
-                return _inventory._linemate;
-            case 2:
-                return _inventory._deraumere;
-            case 3:
-                return _inventory._sibur;
-            case 4:
-                return _inventory._mendiane;
-            case 5:
-                return _inventory._phiras;
-            case 6:
-                return _inventory._thystame;
-            default:
-                return -1;
+        static const std::unordered_map<int, std::function<int (ItemPacket)>> myInventoryMap = {
+                {0, [](ItemPacket aInventory) { return aInventory._food; }},
+                {1, [](ItemPacket aInventory) { return aInventory._linemate; }},
+                {2, [](ItemPacket aInventory) { return aInventory._deraumere; }},
+                {3, [](ItemPacket aInventory) { return aInventory._sibur; }},
+                {4, [](ItemPacket aInventory) { return aInventory._mendiane; }},
+                {5, [](ItemPacket aInventory) { return aInventory._phiras; }},
+                {6, [](ItemPacket aInventory) { return aInventory._thystame; }}
+            };
+        if (myInventoryMap.find(aSlot) == myInventoryMap.end()) {
+            return -1;
         }
+        return myInventoryMap.at(aSlot)(_inventory);
     }
 
     ItemPacket Player::getAllInventory()

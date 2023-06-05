@@ -21,6 +21,6 @@ namespace Zappy::GUI {
             std::vector<Tile> _mapTiles;
             std::vector<std::string> _teamNames;
             std::vector<Player> _players;
-            int _timeUnit;
+            int _freq;
     };
 } // namespace Zappy::GUI

@@ -14,8 +14,6 @@ int main(int argc, char **argv)
             if (myClientApi.update() >= 1) {
                 break;
             }
-            myClientApi.update();
-            myClientApi.sendCommand("pin 4");
         }
     } catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;

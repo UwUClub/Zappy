@@ -3,6 +3,8 @@
 #include <array>
 #include <iostream>
 #include <vector>
+#include <unordered_map>
+#include <functional>
 #include "ItemPacket.hpp"
 
 const constexpr int INVENTORY_SIZE = 7;
@@ -90,7 +92,7 @@ namespace Zappy::GUI {
              * @param aSlot
              * @return item, -1 if invalid
              */
-            [[nodiscard]] int getInventory(long unsigned int aSlot) const;
+            [[nodiscard]] int getInventory(int aSlot) const;
 
             /**
              * @brief Get the inventory of the player

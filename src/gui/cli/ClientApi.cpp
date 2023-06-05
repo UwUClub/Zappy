@@ -264,6 +264,6 @@ namespace Zappy::GUI {
         std::string const &myArg = aResponse;
         std::string const myTime = myArg.substr(0, myArg.find(' '));
 
-        _serverData._timeUnit = std::stoi(myTime);
+        _serverData._freq = std::stoi(myTime);
     }
 } // namespace Zappy::GUI
