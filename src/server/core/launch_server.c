@@ -15,6 +15,7 @@
 #include <arpa/inet.h>
 #include <time.h>
 #include "core.h"
+#include "gui_cmd.h"
 #include "implementation.h"
 #include "utils.h"
 
@@ -27,6 +28,10 @@ static void listen_to_inputs(struct sockaddr_in *addr, int server_fd,
         data->last_select_ms = get_ms_since_epoch();
         timeout = get_next_timeout(data);
         if (select_clients(addr, server_fd, data, timeout)) {
+            free(timeout);
+            return;
+        }
+        if (detect_win(data)) {
             free(timeout);
             return;
         }

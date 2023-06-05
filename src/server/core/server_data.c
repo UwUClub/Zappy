@@ -17,14 +17,16 @@ static void set_data_default_values(data_t *data)
     data->curr_cli_index = -1;
     data->clients = NULL;
     data->map = malloc(sizeof(map_t));
-    data->map->width = 10;
-    data->map->height = 10;
+    data->map->width = DEFAULT_MAP_WIDTH;
+    data->map->height = DEFAULT_MAP_HEIGHT;
     data->map->tiles = NULL;
     data->team_names = NULL;
     data->cli_per_team = 2;
-    data->freq = 100;
-    data->port = 4242;
     data->ip = "127.0.0.1";
+    data->freq = DEFAULT_FREQ;
+    data->port = DEFAULT_PORT;
+    data->last_select_ms = 0;
+    data->remaining_rsrc_spawn_ms = 0;
 }
 
 static void init_single_tile(data_t *data, int x, int y)
@@ -43,7 +45,6 @@ static void init_map_tiles(data_t *data)
             init_single_tile(data, x, y);
         }
     }
-    spawn_resources(data);
 }
 
 data_t *init_server_data(int ac, char **av)

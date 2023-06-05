@@ -5,12 +5,23 @@
 ** append_player_client
 */
 
-#include <string.h>
-#include <stdio.h>
+#include "core.h"
 #include "implementation.h"
 #include "utils.h"
 #include "gui_cmd.h"
 #include "player_cmd.h"
+
+static void send_pnw(data_t *data)
+{
+    player_t *player = data->clients[data->curr_cli_index]->player;
+    char *msg = NULL;
+
+    asprintf(&msg, "pnw %d %d %d %d %d %s\n", data->curr_cli_index,
+        player->pos_x, player->pos_y, player->orientation, player->level,
+        player->team_name);
+    send_to_all_gui(data->clients, msg);
+    free(msg);
+}
 
 int append_player_client(data_t *data, char *team_name)
 {
@@ -30,5 +41,6 @@ int append_player_client(data_t *data, char *team_name)
     send_to_client(data->clients, data->curr_cli_index, world_dimensions);
     free(str_remaining_slots);
     free(world_dimensions);
+    send_pnw(data);
     return 0;
 }
