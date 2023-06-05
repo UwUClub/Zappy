@@ -35,6 +35,7 @@ add_executable(zappy_server
         implementation/gui/cmd/tna.c
         implementation/gui/cmd/sgt.c
         implementation/gui/cmd/pin.c
+        implementation/gui/cmd/plv.c
         implementation/gui/cmd/ppo.c
         implementation/player/append_player_client.c
         implementation/player/player_cmd_scheduler.c
