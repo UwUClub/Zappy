@@ -15,6 +15,7 @@ static const cmd_t schedulers[] = {
     {"Left", &schedule_left, LEFT_DELAY},
     {"Take", &schedule_take, TAKE_DELAY},
     {"Set", &schedule_set, SET_DELAY},
+    {"Incantation", &schedule_incantation, INCANTATION_DELAY},
     {"Inventory", &schedule_inventory, INVENTORY_DELAY},
     {"Connect_nbr", &schedule_connect_nbr, CONNECT_NBR_DELAY},
     {"Look", &schedule_look, LOOK_DELAY},
