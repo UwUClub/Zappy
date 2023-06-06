@@ -205,6 +205,7 @@
     * @param map_height The height of the map
     */
     void init_player(client_t **client, const char *team_name, map_t *map);
+
     /**
     * @brief Close a client
     * @param client The client to close

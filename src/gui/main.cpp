@@ -7,6 +7,10 @@
 #include <iostream>
 #include <thread>
 #include "App.hpp"
+#include <OGRE/Bites/OgreApplicationContext.h>
+#include <OGRE/OgreSceneManager.h>
+#include <iostream>
+#include <utility>
 #include "ClientApi.hpp"
 #include "ParserData.hpp"
 

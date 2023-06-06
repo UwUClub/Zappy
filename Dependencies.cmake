@@ -9,7 +9,6 @@ function(myproject_setup_dependencies)
   # already been provided to us by a parent project
   find_package(OGRE QUIET)
 
-
   if(NOT TARGET Catch2::Catch2WithMain)
     cpmaddpackage("gh:catchorg/Catch2@3.3.2")
   endif()
