@@ -19,6 +19,7 @@
 #include "CameraHandler.hpp"
 #include "FrameHandler.hpp"
 #include "InputHandler.hpp"
+#include "PlayerData.hpp"
 #include "ServerData.hpp"
 
 namespace Zappy::GUI {
@@ -33,7 +34,7 @@ namespace Zappy::GUI {
         _client.registerSubscriber(*this);
 
         auto *myRoot = this->getRoot();
-        auto *myScnMgr = myRoot->createSceneManager();
+        auto *myScnMgr = myRoot->createSceneManager("DefaultSceneManager", "ZappySceneManager");
         Ogre::RTShader::ShaderGenerator *myShadergen = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
         _frameHandler = std::make_unique<FrameHandler>(myScnMgr, _client);
 
@@ -94,6 +95,7 @@ namespace Zappy::GUI {
     {
         auto myServerData = _client.getServerData();
         const auto myMapSize = myServerData._mapSize;
+        std::cout << "Map size: " << myMapSize.first << " " << myMapSize.second << std::endl;
         const constexpr int myTileSize = 1;
         const constexpr int myOffset = 5;
 
@@ -108,7 +110,6 @@ namespace Zappy::GUI {
                                     static_cast<float>(j) * (myTileSize * myOffset));
             }
         }
-        // get the middle tile position to center the camera
         myCenterPos.x = (static_cast<float>(myMapSize.first) / 2) * (myTileSize * myOffset);
         myCenterPos.z = (static_cast<float>(myMapSize.second) / 2) * (myTileSize * myOffset);
         return myCenterPos;
@@ -116,7 +117,44 @@ namespace Zappy::GUI {
 
     void App::getNotified(std::string &aNotification)
     {
+        auto *myScnMgr = this->getRoot()->getSceneManager("ZappySceneManager");
         std::cout << "App: " << aNotification << std::endl;
-        _client.parseServerResponses();
+        // if aNotification contains  pnw
+        if (aNotification.find("pnw") != std::string::npos) {
+            _client.parseServerResponses();
+            auto myNewPlayer = _client.getServerData()._players.back();
+            this->addPlayer(myNewPlayer, myScnMgr);
+            return;
+        }
+        if (aNotification.find("pdi") != std::string::npos) {
+            std::cout << "pdi " << aNotification.substr(4) << std::endl;
+            int myIndex = std::stoi(aNotification.substr(4));
+            std::cout << "pdi " << myIndex << std::endl;
+            this->removePlayer(myIndex, myScnMgr);
+            return;
+        }
+        // _client.parseServerResponses();
+    }
+
+    void App::addPlayer(PlayerData &aPlayer, Ogre::SceneManager *aSceneManager)
+    {
+        auto myServerData = _client.getServerData();
+        auto myPlayerId = aPlayer.getId();
+
+        std::cout << "Add player: " << myPlayerId << std::endl;
+
+        Ogre::Entity *myEntity = aSceneManager->createEntity(myPlayerId, "Sinbad.mesh");
+        Ogre::SceneNode *myNode = aSceneManager->getRootSceneNode()->createChildSceneNode(myPlayerId);
+        myNode->attachObject(myEntity);
+        myNode->setPosition(static_cast<float>(aPlayer.getPosition().first * 5), 15,
+                            static_cast<float>(aPlayer.getPosition().second * 5));
+    }
+
+    void App::removePlayer(int aIndex, Ogre::SceneManager *aSceneManager)
+    {
+        auto myServerData = _client.getServerData();
+        auto myPlayerId = std::to_string(aIndex);
+
+        aSceneManager->destroyEntity(std::to_string(aIndex));
     }
 } // namespace Zappy::GUI
