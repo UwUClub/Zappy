@@ -2,12 +2,12 @@
 // Created by beafowl on 22/05/23.
 //
 
-#include <OgreRenderWindow.h>
 #include <OGRE/OgreSceneManager.h>
-#include <thread>
+#include <OgreRenderWindow.h>
 #include <iostream>
-#include "ClientApi.hpp"
+#include <thread>
 #include "App.hpp"
+#include "ClientApi.hpp"
 #include "ParserData.hpp"
 
 int main(int argc, char **argv)

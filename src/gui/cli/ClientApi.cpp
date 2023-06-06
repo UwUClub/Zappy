@@ -1,3 +1,4 @@
+#include "ClientApi.hpp"
 #include <arpa/inet.h>
 #include <cerrno>
 #include <cstddef>
@@ -11,10 +12,9 @@
 #include <sys/socket.h>
 #include <unistd.h>
 #include <utility>
-#include <unordered_map>
 #include "ServerData.hpp"
-#include "ClientApi.hpp"
 #include "Subscriber.hpp"
+#include <unordered_map>
 
 namespace Zappy::GUI {
     ClientApi::ClientApi(std::string aAddress, unsigned int aPort, std::string aTeamName)
