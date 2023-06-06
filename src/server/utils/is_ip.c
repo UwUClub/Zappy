@@ -5,6 +5,20 @@
 ** is_ip.c
 */
 
+static int check_char(char elem, int *dots, int *digits)
+{
+    if (elem == '.') {
+        (*dots)++;
+        (*digits) = 0;
+        return 1;
+    } else if (elem >= '0' && elem <= '9') {
+        (*digits)++;
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
 int is_ip(char const *str)
 {
     int i = 0;
@@ -12,15 +26,7 @@ int is_ip(char const *str)
     int digits = 0;
 
     while (str[i] != '\0') {
-        if (str[i] == '.') {
-            dots++;
-            digits = 0;
-        } else if (str[i] >= '0' && str[i] <= '9') {
-            digits++;
-        } else {
-            return 0;
-        }
-        if (digits > 3 || dots > 3)
+        if (check_char(str[i], &dots, &digits) == 0)
             return 0;
         i++;
     }
