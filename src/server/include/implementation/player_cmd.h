@@ -133,4 +133,18 @@
     int get_tile_from_source(data_t *data, const unsigned int player_id,
         const unsigned int source_x, const unsigned int source_y);
 
+    static const cmd_t player_schedulers[] = {
+        {"Forward", &schedule_forward, FORWARD_DELAY},
+        {"Right", &schedule_right, RIGHT_DELAY},
+        {"Left", &schedule_left, LEFT_DELAY},
+        {"Take", &schedule_take, TAKE_DELAY},
+        {"Set", &schedule_set, SET_DELAY},
+        {"Inventory", &schedule_inventory, INVENTORY_DELAY},
+        {"Connect_nbr", &schedule_connect_nbr, CONNECT_NBR_DELAY},
+        {"Look", &schedule_look, LOOK_DELAY},
+        {"Fork", &schedule_fork, FORK_DELAY},
+        {"Broadcast", &schedule_broadcast, BROADCAST_DELAY},
+        {NULL, NULL}
+    };
+
 #endif /* ZAPPY_PLAYER_CMD_H */

@@ -15,6 +15,7 @@ int append_gui_client(data_t *data)
     char *x_str = NULL;
     char *y_str = NULL;
 
+    data->clients[data->curr_cli_index]->is_registered = 1;
     do_msz(data, NULL);
     do_sgt(data, NULL);
     for (int x = 0; x < data->map->width; x++) {

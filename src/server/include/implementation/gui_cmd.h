@@ -8,7 +8,7 @@
 #ifndef ZAPPY_GUI_CMD_H
     #define ZAPPY_GUI_CMD_H
 
-    #include "core.h"
+    #include "implementation.h"
 
     /**
     * @brief Executes the command sent by the client
@@ -89,5 +89,17 @@
      * @return Status of the parsing / command
     */
     int do_ppo(data_t *data, char **args);
+
+    static const cmd_t gui_commands[] = {
+        {"msz", &do_msz, 0},
+        {"bct", &do_bct, 0},
+        {"tna", &do_tna, 0},
+        {"sgt", &do_sgt, 0},
+        {"sst", &do_sst, 0},
+        {"pin", &do_pin, 0},
+        {"plv", &do_plv, 0},
+        {"ppo", &do_ppo, 0},
+        {NULL, NULL}
+    };
 
 #endif /* ZAPPY_GUI_CMD_H */

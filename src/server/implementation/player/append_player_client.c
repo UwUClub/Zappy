@@ -17,7 +17,7 @@ static void send_pnw(data_t *data)
     char *msg = NULL;
 
     asprintf(&msg, "pnw %d %d %d %d %d %s\n", data->curr_cli_index,
-        player->pos_x, player->pos_y, player->orientation, player->level,
+        player->pos->x, player->pos->y, player->orientation, player->level,
         player->team_name);
     send_to_all_gui(data->clients, msg);
     free(msg);
@@ -42,5 +42,6 @@ int append_player_client(data_t *data, char *team_name)
     free(str_remaining_slots);
     free(world_dimensions);
     send_pnw(data);
+    data->clients[data->curr_cli_index]->is_registered = 1;
     return 0;
 }

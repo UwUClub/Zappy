@@ -13,13 +13,11 @@
 static int parse_team_name(data_t *data)
 {
     if (!strcmp("GRAPHIC", data->clients[data->curr_cli_index]->input)) {
-        data->clients[data->curr_cli_index]->is_registered = 1;
         return append_gui_client(data);
     }
     for (int i = 0; data->teams[i]; i++) {
         if (!strcmp(data->teams[i]->name,
             data->clients[data->curr_cli_index]->input)) {
-            data->clients[data->curr_cli_index]->is_registered = 1;
             return append_player_client(data, data->teams[i]->name);
         }
     }

@@ -9,18 +9,6 @@
 #include "gui_cmd.h"
 #include "utils.h"
 
-static const cmd_t commands[] = {
-    {"msz", &do_msz, 0},
-    {"bct", &do_bct, 0},
-    {"tna", &do_tna, 0},
-    {"sgt", &do_sgt, 0},
-    {"sst", &do_sst, 0},
-    {"pin", &do_pin, 0},
-    {"plv", &do_plv, 0},
-    {"ppo", &do_ppo, 0},
-    {NULL, NULL}
-};
-
 static int check_cmd_status(data_t *data, int (*func)(data_t *data,
     char **args), char **args)
 {
@@ -36,9 +24,9 @@ static int check_cmd_status(data_t *data, int (*func)(data_t *data,
 
 int execute_gui_cmd(data_t *data, char *cmd_name, char **args)
 {
-    for (int i = 0; commands[i].name != NULL; i++) {
-        if (!strcmp(cmd_name, commands[i].name)) {
-            return check_cmd_status(data, commands[i].func, args);
+    for (int i = 0; gui_commands[i].name != NULL; i++) {
+        if (!strcmp(cmd_name, gui_commands[i].name)) {
+            return check_cmd_status(data, gui_commands[i].func, args);
         }
     }
     send_to_client(data->clients, data->curr_cli_index, "suc\n");

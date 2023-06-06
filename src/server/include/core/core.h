@@ -32,6 +32,11 @@
         END
     } orientation_t;
 
+    typedef struct pos_s {
+        int x;
+        int y;
+    } pos_t;
+
     typedef struct pending_cmd_s {
         int (*func)(data_t *data, char **args);
         char **args;
@@ -39,8 +44,7 @@
     } pending_cmd_t;
 
     typedef struct player_s {
-        int pos_x;
-        int pos_y;
+        pos_t *pos;
         orientation_t orientation;
         int level;
         int inventory[TILE_SIZE];
@@ -66,7 +70,7 @@
     typedef struct team_s {
         char *name;
         unsigned int nb_cli;
-        int fork_mode;
+        pos_t **eggs;
     } team_t;
 
     typedef struct data_s {

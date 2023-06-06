@@ -31,7 +31,8 @@ int set_team_names(data_t *data, char *value)
         data->teams[i] = malloc(sizeof(team_t));
         data->teams[i]->name = strdup(team_names[i]);
         data->teams[i]->nb_cli = DEFAULT_CLI_PER_TEAM;
-        data->teams[i]->fork_mode = 0;
+        data->teams[i]->eggs = malloc(sizeof(pos_t *));
+        data->teams[i]->eggs[0] = NULL;
     }
     data->teams[nb_teams] = NULL;
     free_word_array(team_names);
