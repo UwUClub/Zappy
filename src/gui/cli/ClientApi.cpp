@@ -22,7 +22,8 @@ namespace Zappy::GUI {
           _port(aPort),
           _teamName(std::move(aTeamName)),
           _connectStatus(-1),
-          _serverFd(-1)
+          _serverFd(-1),
+          _serverData(ServerData::getInstance())
     {}
 
     ClientApi::~ClientApi()

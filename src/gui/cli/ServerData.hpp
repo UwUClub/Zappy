@@ -17,10 +17,18 @@ namespace Zappy::GUI {
 
     struct ServerData
     {
+            static ServerData &getInstance()
+            {
+                static ServerData instance;
+                return instance;
+            }
             std::pair<unsigned int, unsigned int> _mapSize;
             std::vector<TileContent> _mapTiles;
             std::vector<std::string> _teamNames;
             std::vector<PlayerData> _players;
-            int _freq;
+            int _freq {0};
+
+        private:
+            ServerData() = default;
     };
 } // namespace Zappy::GUI
