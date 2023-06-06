@@ -92,6 +92,11 @@ namespace Zappy::GUI {
         return myInventoryMap.at(aSlot)(_inventory);
     }
 
+    ItemPacket PlayerData::getAllInventory()
+    {
+        return _inventory;
+    }
+
     const std::string &PlayerData::getTeamName() const
     {
         return _teamName;

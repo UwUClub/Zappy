@@ -171,7 +171,6 @@ namespace Zappy::GUI {
             }
             _readBuffer = _readBuffer.substr(_readBuffer.find('\n') + 1);
         }
-        _readBuffer = "";
     }
 
     void ClientApi::registerSubscriber(Zappy::GUI::Subscriber &aSubscriber)
