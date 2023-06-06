@@ -223,7 +223,8 @@ namespace Zappy::GUI {
         ItemPacket myItemPacket = {};
 
         myStream >> myX >> myY >> food >> linemate >> deraumere >> sibur >> mendiane >> phiras >> thystame;
-        myResource = {std::stoi(food), std::stoi(linemate), std::stoi(deraumere), std::stoi(sibur), std::stoi(mendiane), std::stoi(phiras), std::stoi(thystame)};
+        myResource = {std::stoi(food),     std::stoi(linemate), std::stoi(deraumere), std::stoi(sibur),
+                      std::stoi(mendiane), std::stoi(phiras),   std::stoi(thystame)};
         myItemPacket.fillItemPacket(myResource);
         _serverData._mapTiles.push_back(TileContent(static_cast<unsigned int>(std::stoi(myX)),
                                                     static_cast<unsigned int>(std::stoi(myY)), myItemPacket));
@@ -274,8 +275,10 @@ namespace Zappy::GUI {
         std::vector<int> myResource;
         ItemPacket myItemPacket = {};
 
-        myStream >> myPlayerId >> myX >> myY >> food >> linemate >> deraumere >> sibur >> mendiane >> phiras >> thystame;
-        myResource = {std::stoi(food), std::stoi(linemate), std::stoi(deraumere), std::stoi(sibur), std::stoi(mendiane), std::stoi(phiras), std::stoi(thystame)};
+        myStream >> myPlayerId >> myX >> myY >> food >> linemate >> deraumere >> sibur >> mendiane >> phiras
+            >> thystame;
+        myResource = {std::stoi(food),     std::stoi(linemate), std::stoi(deraumere), std::stoi(sibur),
+                      std::stoi(mendiane), std::stoi(phiras),   std::stoi(thystame)};
         myItemPacket.fillItemPacket(myResource);
         _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId)))
             .setPosition(static_cast<unsigned int>(std::stoi(myX)), static_cast<unsigned int>(std::stoi(myY)));
