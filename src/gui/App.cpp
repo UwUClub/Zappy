@@ -16,7 +16,7 @@
 #include <OgreRoot.h>
 <<<<<<< HEAD
 #include <algorithm>
-    =======
+    == == == =
 >>>>>>> dev
 #include <memory>
 #include "CameraHandler.hpp"
