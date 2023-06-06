@@ -5,6 +5,7 @@
 ** App
 */
 
+#include "App.hpp"
 #include <OGRE/Bites/OgreApplicationContext.h>
 #include <OGRE/OgreSceneManager.h>
 #include <Ogre.h>
@@ -15,15 +16,13 @@
 #include <OgreRoot.h>
 #include <algorithm>
 #include <memory>
-#include "App.hpp"
 #include "CameraHandler.hpp"
 #include "FrameHandler.hpp"
 #include "InputHandler.hpp"
 #include "ServerData.hpp"
 
-    namespace Zappy::GUI
-{
-    App::App(Zappy::GUI::ClientApi & client, const std::string &aWindowName)
+namespace Zappy::GUI {
+    App::App(Zappy::GUI::ClientApi &client, const std::string &aWindowName)
         : OgreBites::ApplicationContext(aWindowName),
           _client(client),
           _cameraHandler(nullptr),
@@ -51,7 +50,7 @@
         _client.disconnect();
     }
 
-    void App::setupLight(Ogre::SceneManager * aSceneManager)
+    void App::setupLight(Ogre::SceneManager *aSceneManager)
     {
         const constexpr double myRGB = 1.0;
         aSceneManager->setAmbientLight(Ogre::ColourValue(myRGB, myRGB, myRGB));
@@ -61,7 +60,7 @@
         // lightNode->attachObject(light);
     }
 
-    void App::setupCamera(Ogre::SceneManager * aSceneManager, Ogre::Vector3 & aCenterPos)
+    void App::setupCamera(Ogre::SceneManager *aSceneManager, Ogre::Vector3 &aCenterPos)
     {
         auto myServerData = _client.getServerData();
         const auto myMapSize = myServerData._mapSize;
@@ -91,7 +90,7 @@
         }
     }
 
-    Ogre::Vector3f App::setupMap(Ogre::SceneManager * aSceneManager)
+    Ogre::Vector3f App::setupMap(Ogre::SceneManager *aSceneManager)
     {
         auto myServerData = _client.getServerData();
         const auto myMapSize = myServerData._mapSize;
@@ -115,7 +114,7 @@
         return myCenterPos;
     }
 
-    void App::getNotified(std::string & aNotification)
+    void App::getNotified(std::string &aNotification)
     {
         std::cout << "App: " << aNotification << std::endl;
         _client.parseServerResponses();
