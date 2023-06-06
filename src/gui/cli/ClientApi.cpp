@@ -22,12 +22,8 @@ namespace Zappy::GUI {
           _port(aPort),
           _teamName(std::move(aTeamName)),
           _connectStatus(-1),
-<<<<<<< HEAD
-          _serverFd(-1)
-=======
           _serverFd(-1),
           _serverData(ServerData::getInstance())
->>>>>>> dev
     {}
 
     ClientApi::~ClientApi()
@@ -211,21 +207,6 @@ namespace Zappy::GUI {
         myItemPacket.fillItemPacket(myResources);
         _serverData._mapTiles.push_back(
             TileContent(static_cast<unsigned int>(myX), static_cast<unsigned int>(myY), myItemPacket));
-<<<<<<< HEAD
-=======
-    }
-
-    void ClientApi::registerSubscriber(Zappy::GUI::Subscriber &aSubscriber)
-    {
-        _subscribers.emplace_back(aSubscriber);
-    }
-
-    void ClientApi::notifySubscribers(std::string &aNotification)
-    {
-        for (auto &mySubscriber : _subscribers) {
-            mySubscriber.get().getNotified(aNotification);
-        }
->>>>>>> dev
     }
 
     void ClientApi::registerSubscriber(Zappy::GUI::Subscriber &aSubscriber)
