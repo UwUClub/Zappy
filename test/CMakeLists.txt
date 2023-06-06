@@ -8,7 +8,6 @@ add_executable(test_zappy
         testCommandGuiCli.cpp
         ../src/gui/cli/ClientApi.cpp
         ../src/gui/cli/ClientApi.hpp
-        ../src/gui/cli/ServerData.cpp
         ../src/gui/cli/ServerData.hpp
         ../src/gui/cli/PlayerData.cpp
         ../src/gui/cli/PlayerData.hpp

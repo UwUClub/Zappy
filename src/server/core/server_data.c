@@ -22,6 +22,7 @@ static void set_data_default_values(data_t *data)
     data->map->tiles = NULL;
     data->team_names = NULL;
     data->cli_per_team = 2;
+    data->ip = "127.0.0.1";
     data->freq = DEFAULT_FREQ;
     data->port = DEFAULT_PORT;
     data->last_select_ms = 0;

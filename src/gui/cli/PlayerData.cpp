@@ -2,8 +2,7 @@
 
 namespace Zappy::GUI {
     PlayerData::PlayerData()
-        : _position(std::make_pair(0, 0)),
-          _inventory({0, 0, 0, 0, 0, 0, 0})
+        : _position(std::make_pair(0, 0))
     {}
 
     PlayerData::~PlayerData() = default;
@@ -31,12 +30,9 @@ namespace Zappy::GUI {
         _level = aLevel;
     }
 
-    void PlayerData::setInventory(int aItem, long unsigned int aSlot)
+    void PlayerData::setInventory(ItemPacket &aInventory)
     {
-        if (aSlot > 6) {
-            return;
-        }
-        _inventory[aSlot] = aItem;
+        _inventory = aInventory;
     }
 
     void PlayerData::setTeamName(std::string aTeamName)
@@ -59,12 +55,40 @@ namespace Zappy::GUI {
         return _level;
     }
 
-    int PlayerData::getInventory(long unsigned int aSlot) const
+    int PlayerData::getInventory(int aSlot) const
     {
-        if (aSlot > 6) {
+        static const std::unordered_map<int, std::function<int(ItemPacket)>> myInventoryMap = {
+            {0,
+             [](ItemPacket aInventory) {
+                 return aInventory._food;
+             }},
+            {1,
+             [](ItemPacket aInventory) {
+                 return aInventory._linemate;
+             }},
+            {2,
+             [](ItemPacket aInventory) {
+                 return aInventory._deraumere;
+             }},
+            {3,
+             [](ItemPacket aInventory) {
+                 return aInventory._sibur;
+             }},
+            {4,
+             [](ItemPacket aInventory) {
+                 return aInventory._mendiane;
+             }},
+            {5,
+             [](ItemPacket aInventory) {
+                 return aInventory._phiras;
+             }},
+            {6, [](ItemPacket aInventory) {
+                 return aInventory._thystame;
+             }}};
+        if (myInventoryMap.find(aSlot) == myInventoryMap.end()) {
             return -1;
         }
-        return _inventory[aSlot];
+        return myInventoryMap.at(aSlot)(_inventory);
     }
 
     const std::string &PlayerData::getTeamName() const

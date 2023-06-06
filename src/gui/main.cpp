@@ -3,9 +3,11 @@
 //
 
 #include <OgreRenderWindow.h>
+#include <OGRE/OgreSceneManager.h>
 #include <thread>
-#include "App.hpp"
+#include <iostream>
 #include "ClientApi.hpp"
+#include "App.hpp"
 #include "ParserData.hpp"
 
 int main(int argc, char **argv)

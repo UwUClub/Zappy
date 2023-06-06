@@ -1,7 +1,6 @@
 #include <iostream>
 #include "../src/gui/cli/ClientApi.hpp"
 #include "../src/gui/cli/ParserData.hpp"
-#include "ServerData.hpp"
 #include <catch2/catch_test_macros.hpp>
 
 constexpr auto SERVER_IP = "127.0.0.1";
@@ -9,7 +8,6 @@ constexpr auto SERVER_PORT = 4242;
 
 TEST_CASE("testingBct", "[testingBct]")
 {
-    Zappy::GUI::TileContent const tile = {};
     Zappy::GUI::ParserData const parserData(SERVER_IP, SERVER_PORT, "");
     Zappy::GUI::ClientApi myClientApi(parserData.getAddress(), parserData.getPort(), "GRAPHIC");
     myClientApi.joinGame();

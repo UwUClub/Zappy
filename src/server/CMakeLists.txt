@@ -34,7 +34,10 @@ add_executable(zappy_server
         implementation/gui/cmd/bct.c
         implementation/gui/cmd/tna.c
         implementation/gui/cmd/sgt.c
+        implementation/gui/cmd/sst.c
         implementation/gui/cmd/pin.c
+        implementation/gui/cmd/plv.c
+        implementation/gui/cmd/ppo.c
         implementation/player/append_player_client.c
         implementation/player/player_cmd_scheduler.c
         implementation/player/handle_pending_cmd.c
@@ -49,6 +52,8 @@ add_executable(zappy_server
         implementation/player/cmd/inventory.c
         implementation/player/cmd/connect_nbr.c
         implementation/player/cmd/look.c
+        implementation/player/cmd/broadcast/broadcast.c
+        implementation/player/cmd/broadcast/get_tile_from_source.c
         utils/concat_str.c
         utils/free_word_array.c
         utils/get_sockaddr.c
@@ -59,6 +64,8 @@ add_executable(zappy_server
         utils/word_array_len.c
         utils/get_ms_since_epoch.c
         utils/calc_outbound.c
+        utils/concat_word_array.c
+        utils/is_ip.c
         include/core.h
         include/utils.h
         include/resources.h
