@@ -26,6 +26,9 @@ namespace Zappy::GUI {
              */
             ~ClientApi();
 
+            /**
+             * @brief run the client, update the server data, must be called in another thread, use disconnect to stop
+             */
             void run();
 
             /**
