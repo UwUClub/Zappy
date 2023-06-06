@@ -5,9 +5,10 @@
 ** map_setters
 */
 
-#include <stdio.h>
 #include "core.h"
 #include "utils.h"
+#include "server_options.h"
+#include "default_values.h"
 
 static int is_value_valid(data_t *data, char *value, char option)
 {

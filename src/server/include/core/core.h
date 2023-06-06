@@ -10,12 +10,6 @@
 
     #define _GNU_SOURCE
 
-    #define DEFAULT_PORT 4242
-    #define DEFAULT_MAP_WIDTH 10
-    #define DEFAULT_MAP_HEIGHT 10
-    #define DEFAULT_FREQ 100
-    #define LEVEL_START 1
-
     #include <stdio.h>
     #include <stdlib.h>
     #include <string.h>
@@ -69,12 +63,17 @@
         int (**tiles)[TILE_SIZE];
     } map_t;
 
+    typedef struct team_s {
+        char *name;
+        unsigned int nb_cli;
+        int fork_mode;
+    } team_t;
+
     typedef struct data_s {
         int curr_cli_index;
         client_t **clients;
         map_t *map;
-        char **team_names;
-        int cli_per_team;
+        team_t **teams;
         int freq;
         int port;
         unsigned long long last_select_ms;
@@ -91,98 +90,6 @@
         char *name;
         int (*func)(data_t *data, char **args);
     } instruction_t;
-
-    /**
-    * @brief Init the data structure that includes all the data needed for
-    * the server
-    * @return The data structure
-    */
-    data_t *init_server_data(int ac, char **av);
-
-    /**
-    * @brief Free the data structure once the server is closed
-    * @param data The data structure to free
-    */
-    void free_server_data(data_t *data);
-
-    /**
-    * @brief Parse the arguments passed to the server
-    * @param data The data structure to set
-    * @param ac The number of arguments
-    * @param av The arguments
-    * @return Status of the parsing
-    */
-    int parse_data_options(data_t *data, int ac, char **av);
-
-    /**
-    * @brief Print the help message
-    * @param data To follow the option pattern
-    * @param value To follow the option pattern
-    * @return Status of the printing
-    */
-    int print_help(data_t *data, char *value);
-
-    /**
-    * @brief Set the data structure with the arguments passed to the server
-    * @param data The data structure to set
-    * @param value The value to set
-    * @return Status of the parsing
-    */
-    int set_port(data_t *data, char *value);
-
-    /**
-    * @brief Set the data structure with the arguments passed to the server
-    * @param data The data structure to set
-    * @param value The value to set
-    * @return Status of the parsing
-    */
-    int set_map_width(data_t *data, char *value);
-
-    /**
-    * @brief Set the data structure with the arguments passed to the server
-    * @param data The data structure to set
-    * @param value The value to set
-    * @return Status of the parsing
-    */
-    int set_map_height(data_t *data, char *value);
-
-    /**
-    * @brief Set the data structure with the arguments passed to the server
-    * @param data The data structure to set
-    * @param value The value to set
-    * @return Status of the parsing
-    */
-    int set_team_names(data_t *data, char *value);
-
-    /**
-    * @brief Set the data structure with the arguments passed to the server
-    * @param data The data structure to set
-    * @param value The value to set
-    * @return Status of the parsing
-    */
-    int set_cli_per_team(data_t *data, char *value);
-
-    /**
-    * @brief Set the data structure with the arguments passed to the server
-    * @param data The data structure to set
-    * @param value The value to set
-    * @return Status of the parsing
-    */
-    int set_freq(data_t *data, char *value);
-
-    /**
-     * @brief Set the ip of the server
-     * @param data The data structure to set
-     * @param value The value to set
-     * @return Status of the parsing
-     */
-    int set_ip(data_t *data, char *value);
-
-    /**
-    * @brief Free the data structure once the server is closed
-    * @param data The data structure to free
-    */
-    void free_data(data_t *data);
 
     /**
     * @brief Launch the server
@@ -319,5 +226,12 @@
      * @return The list of player on the tile
      */
     void handle_client_quit(data_t *data);
+
+    /**
+     * @brief Init map tiles with no resources
+     * @param data The structure that includes server data,
+     * clients and current client index
+     */
+    void init_map_tiles(data_t *data);
 
 #endif /* ZAPPY_SERVER_CORE_H */

@@ -5,12 +5,9 @@
 ** parse_options
 */
 
-#include <unistd.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include "core.h"
 #include "utils.h"
+#include "server_options.h"
 
 static const option_t options[] = {
     { 'h', &print_help },
@@ -33,7 +30,7 @@ static void parse_team_names(data_t *data, int ac, char **av)
         teams = concat_str(teams, av[optind]);
         teams = concat_str(teams, " ");
     }
-    data->team_names = str_to_word_array(teams, " ");
+    set_team_names(data, teams);
     free(teams);
 }
 

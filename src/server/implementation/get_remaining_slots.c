@@ -18,5 +18,10 @@ int get_remaining_slots(data_t *data, char *team_name)
             curr_team_size++;
         }
     }
-    return data->cli_per_team - curr_team_size;
+    for (unsigned int i = 0; data->teams[i]; i++) {
+        if (!strcmp(data->teams[i]->name, team_name)) {
+            return data->teams[i]->nb_cli - curr_team_size;
+        }
+    }
+    return -1;
 }

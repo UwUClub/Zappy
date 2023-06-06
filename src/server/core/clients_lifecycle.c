@@ -5,9 +5,9 @@
 ** clients_lifecycle
 */
 
-#include <unistd.h>
 #include "core.h"
 #include "resources.h"
+#include "default_values.h"
 
 void init_single_client(client_t **client)
 {

@@ -8,15 +8,8 @@
 #include "implementation.h"
 #include "player_cmd.h"
 
-int fork_cmd(data_t *data, __attribute__((unused)) char **args)
+static int fork_cmd(data_t *data, __attribute__((unused)) char **args)
 {
-    data->cli_per_team++;
-    data->clients = realloc(data->clients,
-        sizeof(client_t *) * (data->cli_per_team + 1));
-    data->clients[data->cli_per_team] = NULL;
-    data->clients[data->cli_per_team - 1] = malloc(sizeof(client_t));
-    init_single_client(&(data->clients[data->cli_per_team - 1]));
-    send_to_client(data->clients, data->curr_cli_index, "ok\0");
     return 0;
 }
 
