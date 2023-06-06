@@ -2,15 +2,13 @@
 // Created by beafowl on 22/05/23.
 //
 
+#include <OGRE/Bites/OgreApplicationContext.h>
 #include <OGRE/OgreSceneManager.h>
 #include <OgreRenderWindow.h>
 #include <iostream>
 #include <thread>
-#include "App.hpp"
-#include <OGRE/Bites/OgreApplicationContext.h>
-#include <OGRE/OgreSceneManager.h>
-#include <iostream>
 #include <utility>
+#include "App.hpp"
 #include "ClientApi.hpp"
 #include "ParserData.hpp"
 
