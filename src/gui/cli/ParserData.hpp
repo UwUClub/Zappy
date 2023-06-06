@@ -45,7 +45,8 @@ namespace Zappy::GUI {
                      * @brief ParserException constructor
                      * @param aMessage
                      */
-                    explicit ParserException(std::string aMessage) : _message(std::move(aMessage))
+                    explicit ParserException(std::string aMessage)
+                        : _message(std::move(aMessage))
                     {}
 
                     /**

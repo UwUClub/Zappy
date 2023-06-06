@@ -3,11 +3,10 @@
 
 namespace Zappy::GUI {
     ParserData::ParserData(const std::string &aAddress, unsigned int aPort, const std::string &aClientName)
-    {
-        _address = aAddress;
-        _port = aPort;
-        _clientName = aClientName;
-    }
+        : _address(aAddress),
+          _port(aPort),
+          _clientName(aClientName)
+    {}
 
     void ParserData::parseData(int aArgc, char **aArgv)
     {

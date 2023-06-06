@@ -1,20 +1,27 @@
 #include "ClientApi.hpp"
 #include <arpa/inet.h>
+#include <cerrno>
+#include <cstddef>
 #include <cstdio>
 #include <cstring>
-#include <errno.h>
 #include <functional>
 #include <iostream>
 #include <netinet/in.h>
+#include <syncstream>
 #include <sys/select.h>
 #include <sys/socket.h>
 #include <unistd.h>
 #include <utility>
+#include "ServerData.hpp"
+#include "Subscriber.hpp"
 #include <unordered_map>
 
 namespace Zappy::GUI {
     ClientApi::ClientApi(std::string aAddress, unsigned int aPort, std::string aTeamName)
-        : _address(std::move(aAddress)), _port(aPort), _teamName(std::move(aTeamName)), _connectStatus(-1),
+        : _address(std::move(aAddress)),
+          _port(aPort),
+          _teamName(std::move(aTeamName)),
+          _connectStatus(-1),
           _serverFd(-1)
     {}
 
@@ -22,6 +29,17 @@ namespace Zappy::GUI {
     {
         if (_serverFd != -1) {
             close(_serverFd);
+        }
+    }
+
+    void ClientApi::run()
+    {
+        try {
+            while (true) {
+                this->update();
+            }
+        } catch (const ClientException &e) {
+            std::osyncstream(std::cout) << e.what() << std::endl;
         }
     }
 
@@ -49,6 +67,9 @@ namespace Zappy::GUI {
             FD_SET(_serverFd, &myWriteFds);
         }
         select(FD_SETSIZE, &myReadFds, &myWriteFds, nullptr, nullptr);
+        if (_serverFd == -1) {
+            throw ClientException("Closed connection");
+        }
         if (FD_ISSET(_serverFd, &myReadFds)) {
             readFromServer();
         }
@@ -60,6 +81,10 @@ namespace Zappy::GUI {
 
     void ClientApi::disconnect()
     {
+        if (_serverFd == -1) {
+            return;
+        }
+        shutdown(_serverFd, SHUT_RDWR);
         close(_serverFd);
         _serverFd = -1;
         std::cout << "Disconnected from server" << std::endl;
@@ -111,6 +136,7 @@ namespace Zappy::GUI {
         myStr[myReadSize] = '\0';
         _readBuffer += myStr;
         std::cout << "@read: " << _readBuffer;
+        this->notifySubscribers(_readBuffer);
         ParseServerResponses();
     }
 
@@ -180,7 +206,19 @@ namespace Zappy::GUI {
         }
         myItemPacket.fillItemPacket(myResources);
         _serverData._mapTiles.push_back(
-            Tile(static_cast<unsigned int>(myX), static_cast<unsigned int>(myY), myItemPacket));
+            TileContent(static_cast<unsigned int>(myX), static_cast<unsigned int>(myY), myItemPacket));
+    }
+
+    void ClientApi::registerSubscriber(Zappy::GUI::Subscriber &aSubscriber)
+    {
+        _subscribers.emplace_back(aSubscriber);
+    }
+
+    void ClientApi::notifySubscribers(std::string &aNotification)
+    {
+        for (auto &mySubscriber : _subscribers) {
+            mySubscriber.get().getNotified(aNotification);
+        }
     }
 
     void ClientApi::ReceiveTna(const std::string &aResponse)
@@ -239,7 +277,7 @@ namespace Zappy::GUI {
 
     void ClientApi::ReceivePnw(const std::string &aResponse)
     {
-        Player myPlayer = {};
+        PlayerData myPlayer = {};
         std::string myArg = aResponse;
         std::string const myPlayerId = myArg.substr(0, myArg.find(' '));
         std::string const myX = myArg.substr(myArg.find(' ') + 1, myArg.find(' '));
@@ -273,6 +311,6 @@ namespace Zappy::GUI {
         std::string const &myArg = aResponse;
         std::string const myTime = myArg.substr(0, myArg.find(' '));
 
-        _serverData._timeUnit = std::stoi(myTime);
+        _serverData._freq = std::stoi(myTime);
     }
 } // namespace Zappy::GUI
