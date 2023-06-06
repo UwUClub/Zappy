@@ -52,6 +52,7 @@ add_executable(zappy_server
         implementation/player/cmd/inventory.c
         implementation/player/cmd/connect_nbr.c
         implementation/player/cmd/look.c
+        implementation/player/cmd/eject.c
         implementation/player/cmd/broadcast/broadcast.c
         implementation/player/cmd/broadcast/get_tile_from_source.c
         utils/concat_str.c
