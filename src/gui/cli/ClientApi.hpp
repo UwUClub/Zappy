@@ -77,6 +77,11 @@ namespace Zappy::GUI {
             void registerSubscriber(Subscriber &aSubscriber);
 
             /**
+             * @brief parse information from server
+             */
+            void parseServerResponses();
+
+            /**
              * @brief ClientException class
              */
             class ClientException : public std::exception
@@ -134,75 +139,70 @@ namespace Zappy::GUI {
             void writeToServer();
 
             /**
-             * @brief parse information from server
-             */
-            void ParseServerResponses();
-
-            /**
              * @brief parse welcome response
              * @param aResponse
              */
-            void ReceiveWelcome(const std::string &aResponse);
+            void receiveWelcome(const std::string &aResponse);
 
             /**
              * @brief parse all the error responses, can't be made static because of the unordered_map
              * @param aResponse
              */
-            void ReceiveError(const std::string &aResponse);
+            void receiveError(const std::string &aResponse);
 
             /**
              * @brief parse msz response
              * @param aResponse
              */
-            void ReceiveMsz(const std::string &aResponse);
+            void receiveMsz(const std::string &aResponse);
 
             /**
              * @brief parse bct response
              * @param aResponse
              */
-            void ReceiveBct(const std::string &aResponse);
+            void receiveBct(const std::string &aResponse);
 
             /**
              * @brief parse tna response
              * @param aResponse
              */
-            void ReceiveTna(const std::string &aResponse);
+            void receiveTna(const std::string &aResponse);
 
             /**
              * @brief parse ppo response
              * @param aResponse
              */
-            void ReceivePpo(const std::string &aResponse);
+            void receivePpo(const std::string &aResponse);
 
             /**
              * @brief parse plv response
              * @param aResponse
              */
-            void ReceivePlv(const std::string &aResponse);
+            void receivePlv(const std::string &aResponse);
 
             /**
              * @brief parse pin response
              * @param aResponse
              */
-            void ReceivePin(const std::string &aResponse);
+            void receivePin(const std::string &aResponse);
 
             /**
              * @brief parse pnw response
              * @param aResponse
              */
-            void ReceivePnw(const std::string &aResponse);
+            void receivePnw(const std::string &aResponse);
 
             /**
              * @brief parse sgt response
              * @param aResponse
              */
-            void ReceiveSgt(const std::string &aResponse);
+            void receiveSgt(const std::string &aResponse);
 
             /**
              * @brief parse sst response
              * @param aResponse
              */
-            void ReceiveSst(const std::string &aResponse);
+            void receiveSst(const std::string &aResponse);
 
             // Attributes
             std::string _address;
