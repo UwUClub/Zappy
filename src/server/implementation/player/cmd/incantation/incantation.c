@@ -10,9 +10,9 @@
 #include "utils.h"
 #include "player_cmd.h"
 
-static int check_ressources(data_t *data, int level_index)
+static int check_ressources(data_t *data, const unsigned int level_index)
 {
-    for (int i = 1; i < 7; i++) {
+    for (int i = 1; i < TILE_SIZE; i++) {
         if (check_tile(data, i) <= level_incantation[level_index][i])
             return 1;
     }
@@ -48,6 +48,7 @@ static int do_incantation(data_t *data, char **args)
             client->player->level += 1;
             remove_all_ressources_from_tile(data);
         } else {
+            send_to_client(data->clients, data->curr_cli_index, "ko\n");
             return 1;
         }
     }
@@ -61,7 +62,6 @@ int schedule_incantation(data_t *data, char **args)
     if (args)
         return 1;
     can_incant = check_incantation(data);
-    printf("can_incant: %d\n", can_incant);
     if (can_incant == 0)
         append_scheduler_to_queue(data, &do_incantation, args,
         INCANTATION_DELAY);

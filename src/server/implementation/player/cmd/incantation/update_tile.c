@@ -22,7 +22,8 @@ int check_tile(data_t *data, int ressource)
     return tile[ressource];
 }
 
-static int remove_ressource_from_tile(data_t *data, int ressource)
+static int remove_ressource_from_tile(data_t *data,
+    const unsigned int ressource)
 {
     int x = data->clients[data->curr_cli_index]->player->pos_x;
     int y = data->clients[data->curr_cli_index]->player->pos_y;
@@ -43,7 +44,7 @@ int remove_all_ressources_from_tile(data_t *data)
     int *tile = data->map->tiles[y][x];
     int remove_status;
 
-    for (int i = 1; i < 8; i++) {
+    for (int i = 1; i < TILE_SIZE; i++) {
         remove_status = remove_ressource_from_tile(data, i);
         if (remove_status == 1)
             return remove_status;
