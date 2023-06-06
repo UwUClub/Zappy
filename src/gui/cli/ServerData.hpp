@@ -2,13 +2,13 @@
 
 #include <iostream>
 #include <vector>
-#include "Player.hpp"
+#include "PlayerData.hpp"
 
 namespace Zappy::GUI {
 
-    class Player;
+    class PlayerData;
 
-    struct Tile
+    struct TileContent
     {
             unsigned int _x;
             unsigned int _y;
@@ -17,10 +17,18 @@ namespace Zappy::GUI {
 
     struct ServerData
     {
+            static ServerData &getInstance()
+            {
+                static ServerData instance;
+                return instance;
+            }
             std::pair<unsigned int, unsigned int> _mapSize;
-            std::vector<Tile> _mapTiles;
+            std::vector<TileContent> _mapTiles;
             std::vector<std::string> _teamNames;
-            std::vector<Player> _players;
-            int _freq;
+            std::vector<PlayerData> _players;
+            int _freq {0};
+
+        private:
+            ServerData() = default;
     };
 } // namespace Zappy::GUI

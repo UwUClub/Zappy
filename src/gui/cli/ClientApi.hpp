@@ -1,9 +1,12 @@
 #pragma once
 
+#include <functional>
 #include <netinet/in.h>
 #include <string>
 #include <utility>
+#include <vector>
 #include "ServerData.hpp"
+#include "Subscriber.hpp"
 #include <unordered_map>
 
 namespace Zappy::GUI {
@@ -22,6 +25,11 @@ namespace Zappy::GUI {
              * @brief ClientApi destructor
              */
             ~ClientApi();
+
+            /**
+             * @brief run the client, update the server data, must be called in another thread, use disconnect to stop
+             */
+            void run();
 
             /**
              * @brief joinGame
@@ -63,6 +71,12 @@ namespace Zappy::GUI {
             [[nodiscard]] const ServerData &getServerData() const;
 
             /**
+             * @brief register a subscriber
+             * @param aSubscriber
+             */
+            void registerSubscriber(Subscriber &aSubscriber);
+
+            /**
              * @brief ClientException class
              */
             class ClientException : public std::exception
@@ -72,7 +86,8 @@ namespace Zappy::GUI {
                      * @brief ClientException constructor
                      * @param aMessage
                      */
-                    explicit ClientException(std::string aMessage) : _message(std::move(aMessage))
+                    explicit ClientException(std::string aMessage)
+                        : _message(std::move(aMessage))
                     {}
 
                     /**
@@ -101,6 +116,12 @@ namespace Zappy::GUI {
              * @return sockaddr_in
              */
             static struct sockaddr_in getSockaddr(in_addr_t aAddress, unsigned int aPort);
+
+            /**
+             * @brief notify subscribers
+             * @param aNotification
+             */
+            void notifySubscribers(std::string &aNotification);
 
             /**
              * @brief reading information from server
@@ -192,5 +213,6 @@ namespace Zappy::GUI {
             std::string _writeBuffer;
             int _serverFd;
             ServerData _serverData;
+            std::vector<std::reference_wrapper<Subscriber>> _subscribers;
     };
 } // namespace Zappy::GUI

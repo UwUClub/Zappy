@@ -19,18 +19,18 @@ namespace Zappy::GUI {
         WEST
     };
 
-    class Player
+    class PlayerData
     {
         public:
             /**
              * @brief Player constructor
              */
-            Player();
+            PlayerData();
 
             /**
              * @brief Player destructor
              */
-            ~Player();
+            ~PlayerData();
 
             /**
              * @brief Set the position of the player
@@ -104,7 +104,7 @@ namespace Zappy::GUI {
              * @brief Get the team name of the player
              * @return std::string
              */
-            [[nodiscard]] std::string getTeamName() const;
+            [[nodiscard]] const std::string &getTeamName() const;
 
         private:
             // Attributes

@@ -1,5 +1,12 @@
+//
+// Created by beafowl on 22/05/23.
+//
+
 #include <OGRE/OgreSceneManager.h>
+#include <OgreRenderWindow.h>
 #include <iostream>
+#include <thread>
+#include "App.hpp"
 #include "ClientApi.hpp"
 #include "ParserData.hpp"
 
@@ -10,11 +17,12 @@ int main(int argc, char **argv)
         parserData.parseData(argc, argv);
         Zappy::GUI::ClientApi myClientApi(parserData.getAddress(), parserData.getPort(), "GRAPHIC");
         myClientApi.joinGame();
-        while (true) {
-            if (myClientApi.update() >= 1) {
-                break;
-            }
-        }
+        std::thread myCliThread(&Zappy::GUI::ClientApi::run, &myClientApi);
+        Zappy::GUI::App ctx(myClientApi, "Zappy");
+        // map size | map content | teams | time unit | player connected
+        ctx.getRoot()->startRendering();
+        std::cout << "End of rendering" << std::endl;
+        myCliThread.join();
     } catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
     }
