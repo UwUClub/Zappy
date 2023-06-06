@@ -16,7 +16,7 @@ static int connect_nbr(data_t *data, __attribute__((unused)) char **args)
 
     nb = get_remaining_slots(data,
     data->clients[data->curr_cli_index]->player->team_name);
-    msg = int_to_s(nb);
+    asprintf(&msg, "%d\n", nb);
     send_to_client(data->clients, data->curr_cli_index, msg);
     free(msg);
     return 0;
