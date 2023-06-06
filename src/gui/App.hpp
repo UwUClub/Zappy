@@ -37,7 +37,6 @@ namespace Zappy::GUI {
             void setupLight(Ogre::SceneManager *aSceneManager);
             void setupCamera(Ogre::SceneManager *aSceneManager, Ogre::Vector3 &aCenter);
             Ogre::Vector3f setupMap(Ogre::SceneManager *aSceneManager);
-            // std::unique_ptr<Zappy::GUI::ClientApi> _client;
             Zappy::GUI::ClientApi &_client;
             std::unique_ptr<CameraHandler> _cameraHandler;
             std::unique_ptr<FrameHandler> _frameHandler;
