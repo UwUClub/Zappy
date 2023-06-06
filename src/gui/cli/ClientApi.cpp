@@ -22,8 +22,12 @@ namespace Zappy::GUI {
           _port(aPort),
           _teamName(std::move(aTeamName)),
           _connectStatus(-1),
+<<<<<<< HEAD
+          _serverFd(-1)
+=======
           _serverFd(-1),
           _serverData(ServerData::getInstance())
+>>>>>>> dev
     {}
 
     ClientApi::~ClientApi()
@@ -138,7 +142,6 @@ namespace Zappy::GUI {
         _readBuffer += myStr;
         std::cout << "@read: " << _readBuffer;
         this->notifySubscribers(_readBuffer);
-        ParseServerResponses();
     }
 
     void ClientApi::writeToServer()
@@ -148,14 +151,14 @@ namespace Zappy::GUI {
         _writeBuffer = "";
     }
 
-    void ClientApi::ParseServerResponses()
+    void ClientApi::parseServerResponses()
     {
-        static std::unordered_map<std::string, std::function<void(ClientApi &, std::string)>> myResponses = {
-            {"WELCOME", &ClientApi::ReceiveWelcome}, {"msz", &ClientApi::ReceiveMsz}, {"bct", &ClientApi::ReceiveBct},
-            {"ko", &ClientApi::ReceiveError},        {"tna", &ClientApi::ReceiveTna}, {"sbp", &ClientApi::ReceiveError},
-            {"ppo", &ClientApi::ReceivePpo},         {"plv", &ClientApi::ReceivePlv}, {"suc", &ClientApi::ReceiveError},
-            {"sgt", &ClientApi::ReceiveSgt},         {"sst", &ClientApi::ReceiveSst}, {"pnw", &ClientApi::ReceivePnw},
-            {"pin", &ClientApi::ReceivePin}};
+        static const std::unordered_map<std::string, std::function<void(ClientApi &, std::string)>> myResponses = {
+            {"WELCOME", &ClientApi::receiveWelcome}, {"msz", &ClientApi::receiveMsz}, {"bct", &ClientApi::receiveBct},
+            {"ko", &ClientApi::receiveError},        {"tna", &ClientApi::receiveTna}, {"sbp", &ClientApi::receiveError},
+            {"ppo", &ClientApi::receivePpo},         {"plv", &ClientApi::receivePlv}, {"suc", &ClientApi::receiveError},
+            {"sgt", &ClientApi::receiveSgt},         {"sst", &ClientApi::receiveSst}, {"pnw", &ClientApi::receivePnw},
+            {"pin", &ClientApi::receivePin}};
 
         while (_readBuffer.find('\n') != std::string::npos) {
             std::string const myResponse = _readBuffer.substr(0, _readBuffer.find('\n'));
@@ -163,23 +166,23 @@ namespace Zappy::GUI {
             std::string const myArgs = myResponse.substr(myResponse.find(' ') + 1);
 
             if (myResponses.find(myCommand) != myResponses.end()) {
-                myResponses[myCommand](*this, myArgs);
+                myResponses.at(myCommand)(*this, myArgs);
             }
             _readBuffer = _readBuffer.substr(_readBuffer.find('\n') + 1);
         }
     }
 
-    void ClientApi::ReceiveWelcome(__attribute__((unused)) const std::string &aResponse)
+    void ClientApi::receiveWelcome(__attribute__((unused)) const std::string &aResponse)
     {
         _writeBuffer += _teamName + "\n";
     }
 
-    void ClientApi::ReceiveError(const std::string &aResponse)
+    void ClientApi::receiveError(const std::string &aResponse)
     {
         std::cout << "Server error: " << aResponse << std::endl;
     }
 
-    void ClientApi::ReceiveMsz(const std::string &aResponse)
+    void ClientApi::receiveMsz(const std::string &aResponse)
     {
         std::string const myX = aResponse.substr(0, aResponse.find(' '));
         std::string const myY = aResponse.substr(aResponse.find(' ') + 1);
@@ -187,7 +190,7 @@ namespace Zappy::GUI {
         _serverData._mapSize = std::make_pair(std::stoi(myX), std::stoi(myY));
     }
 
-    void ClientApi::ReceiveBct(const std::string &aResponse)
+    void ClientApi::receiveBct(const std::string &aResponse)
     {
         ItemPacket myItemPacket = {};
         int myX = 0;
@@ -208,6 +211,21 @@ namespace Zappy::GUI {
         myItemPacket.fillItemPacket(myResources);
         _serverData._mapTiles.push_back(
             TileContent(static_cast<unsigned int>(myX), static_cast<unsigned int>(myY), myItemPacket));
+<<<<<<< HEAD
+=======
+    }
+
+    void ClientApi::registerSubscriber(Zappy::GUI::Subscriber &aSubscriber)
+    {
+        _subscribers.emplace_back(aSubscriber);
+    }
+
+    void ClientApi::notifySubscribers(std::string &aNotification)
+    {
+        for (auto &mySubscriber : _subscribers) {
+            mySubscriber.get().getNotified(aNotification);
+        }
+>>>>>>> dev
     }
 
     void ClientApi::registerSubscriber(Zappy::GUI::Subscriber &aSubscriber)
@@ -222,12 +240,12 @@ namespace Zappy::GUI {
         }
     }
 
-    void ClientApi::ReceiveTna(const std::string &aResponse)
+    void ClientApi::receiveTna(const std::string &aResponse)
     {
         _serverData._teamNames.push_back(aResponse);
     }
 
-    void ClientApi::ReceivePpo(const std::string &aResponse)
+    void ClientApi::receivePpo(const std::string &aResponse)
     {
         std::string const &myArg = aResponse;
         std::string const myPlayerId = myArg.substr(0, myArg.find(' '));
@@ -238,7 +256,7 @@ namespace Zappy::GUI {
             .setPosition(static_cast<unsigned int>(std::stoi(myX)), static_cast<unsigned int>(std::stoi(myY)));
     }
 
-    void ClientApi::ReceivePlv(const std::string &aResponse)
+    void ClientApi::receivePlv(const std::string &aResponse)
     {
         std::string const &myArg = aResponse;
         std::string const myPlayerId = myArg.substr(0, myArg.find(' '));
@@ -247,7 +265,7 @@ namespace Zappy::GUI {
         _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId))).setLevel(std::stoi(myLevel));
     }
 
-    void ClientApi::ReceivePin(const std::string &aResponse)
+    void ClientApi::receivePin(const std::string &aResponse)
     {
         ItemPacket myItemPacket = {};
         int myPlayerId = 0;
@@ -276,7 +294,7 @@ namespace Zappy::GUI {
         _serverData._players.at(static_cast<unsigned long>(myPlayerId)).setInventory(myItemPacket);
     }
 
-    void ClientApi::ReceivePnw(const std::string &aResponse)
+    void ClientApi::receivePnw(const std::string &aResponse)
     {
         PlayerData myPlayer = {};
         std::string myArg = aResponse;
@@ -299,7 +317,7 @@ namespace Zappy::GUI {
         _serverData._players.push_back(myPlayer);
     }
 
-    void ClientApi::ReceiveSgt(const std::string &aResponse)
+    void ClientApi::receiveSgt(const std::string &aResponse)
     {
         std::string const &myArg = aResponse;
         std::string const myTime = myArg.substr(0, myArg.find(' '));
@@ -307,7 +325,7 @@ namespace Zappy::GUI {
         _serverData._freq = std::stoi(myTime);
     }
 
-    void ClientApi::ReceiveSst(const std::string &aResponse)
+    void ClientApi::receiveSst(const std::string &aResponse)
     {
         std::string const &myArg = aResponse;
         std::string const myTime = myArg.substr(0, myArg.find(' '));

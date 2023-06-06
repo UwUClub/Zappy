@@ -27,8 +27,5 @@ namespace Zappy::GUI {
             std::vector<std::string> _teamNames;
             std::vector<PlayerData> _players;
             int _freq {0};
-
-        private:
-            ServerData() = default;
     };
 } // namespace Zappy::GUI
