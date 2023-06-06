@@ -36,7 +36,11 @@ def \mbox{\hyperlink{classplayer_1_1Player_a16ec6a579c7652284016268a73db1ade}{ta
 def \mbox{\hyperlink{classplayer_1_1Player_a69fb4b4cf941692636d2fdc58bcc7102}{set}} (self, a\+Ressource)
 \begin{DoxyCompactList}\small\item\em Send set command. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classplayer_1_1Player_ade8deb9c70d265fafa94e2b4ba6cc86f}{inventory}} (self)
-\begin{DoxyCompactList}\small\item\em Send inventory command. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Send inventory command and receive the inventory. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classplayer_1_1Player_a5103f7111fd3bd7ba8c4d7d5d66513fd}{connect\+Nbr}} (self)
+\begin{DoxyCompactList}\small\item\em Send Connect\+\_\+nbr command. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classplayer_1_1Player_a48ddfdc24df9fc1196657f7c1dde004c}{look}} (self)
+\begin{DoxyCompactList}\small\item\em Send look command and receive the map content. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -58,6 +62,19 @@ Connect to the server.
 {\em info} & The connection information \\
 \hline
 \end{DoxyParams}
+\mbox{\Hypertarget{classplayer_1_1Player_a5103f7111fd3bd7ba8c4d7d5d66513fd}\label{classplayer_1_1Player_a5103f7111fd3bd7ba8c4d7d5d66513fd}} 
+\index{player.Player@{player.Player}!connectNbr@{connectNbr}}
+\index{connectNbr@{connectNbr}!player.Player@{player.Player}}
+\doxysubsubsection{\texorpdfstring{connectNbr()}{connectNbr()}}
+{\footnotesize\ttfamily def player.\+Player.\+connect\+Nbr (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Send Connect\+\_\+nbr command. 
+
+\begin{DoxyReturn}{Returns}
+the number of free slots in the team 
+\end{DoxyReturn}
 \mbox{\Hypertarget{classplayer_1_1Player_aa05db30d8f22d8b878f027d4865a6ebd}\label{classplayer_1_1Player_aa05db30d8f22d8b878f027d4865a6ebd}} 
 \index{player.Player@{player.Player}!disconnect@{disconnect}}
 \index{disconnect@{disconnect}!player.Player@{player.Player}}
@@ -92,7 +109,7 @@ None
 
 
 
-Send inventory command. 
+Send inventory command and receive the inventory. 
 
 \begin{DoxyReturn}{Returns}
 the inventory 
@@ -109,6 +126,19 @@ Send left command.
 
 \begin{DoxyReturn}{Returns}
 None 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classplayer_1_1Player_a48ddfdc24df9fc1196657f7c1dde004c}\label{classplayer_1_1Player_a48ddfdc24df9fc1196657f7c1dde004c}} 
+\index{player.Player@{player.Player}!look@{look}}
+\index{look@{look}!player.Player@{player.Player}}
+\doxysubsubsection{\texorpdfstring{look()}{look()}}
+{\footnotesize\ttfamily def player.\+Player.\+look (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Send look command and receive the map content. 
+
+\begin{DoxyReturn}{Returns}
+the map content 
 \end{DoxyReturn}
 \mbox{\Hypertarget{classplayer_1_1Player_a74a28098b83c846cef3f0821b1ac8fc3}\label{classplayer_1_1Player_a74a28098b83c846cef3f0821b1ac8fc3}} 
 \index{player.Player@{player.Player}!msz@{msz}}

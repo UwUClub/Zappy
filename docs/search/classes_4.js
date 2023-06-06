@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['parserdata_60',['ParserData',['../classZappy_1_1GUI_1_1ParserData.html',1,'Zappy::GUI']]],
-  ['parserexception_61',['ParserException',['../classZappy_1_1GUI_1_1ParserData_1_1ParserException.html',1,'Zappy::GUI::ParserData']]],
-  ['player_62',['Player',['../classplayer_1_1Player.html',1,'player.Player'],['../classZappy_1_1GUI_1_1Player.html',1,'Zappy::GUI::Player']]]
+  ['inputhandler_81',['InputHandler',['../classZappy_1_1GUI_1_1InputHandler.html',1,'Zappy::GUI']]],
+  ['instruction_5fs_82',['instruction_s',['../structinstruction__s.html',1,'']]],
+  ['itempacket_83',['ItemPacket',['../classZappy_1_1GUI_1_1ItemPacket.html',1,'Zappy::GUI']]]
 ];

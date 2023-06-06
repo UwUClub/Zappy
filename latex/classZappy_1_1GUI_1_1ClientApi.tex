@@ -13,6 +13,9 @@ class \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi_1_1ClientException}{Client
 \mbox{\Hypertarget{classZappy_1_1GUI_1_1ClientApi_aeb643a6aca56fccf94f80a91aabc76b2}\label{classZappy_1_1GUI_1_1ClientApi_aeb643a6aca56fccf94f80a91aabc76b2}} 
 \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi_aeb643a6aca56fccf94f80a91aabc76b2}{$\sim$\+Client\+Api}} ()
 \begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi}{Client\+Api}} destructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1ClientApi_a56f160b8b369354c1a15af4eca955272}\label{classZappy_1_1GUI_1_1ClientApi_a56f160b8b369354c1a15af4eca955272}} 
+void \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi_a56f160b8b369354c1a15af4eca955272}{run}} ()
+\begin{DoxyCompactList}\small\item\em run the client, update the server data, must be called in another thread, use disconnect to stop \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classZappy_1_1GUI_1_1ClientApi_a0a57ee6141abd42008ad46b8850df9cd}\label{classZappy_1_1GUI_1_1ClientApi_a0a57ee6141abd42008ad46b8850df9cd}} 
 void \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi_a0a57ee6141abd42008ad46b8850df9cd}{join\+Game}} ()
 \begin{DoxyCompactList}\small\item\em join\+Game \end{DoxyCompactList}\item 
@@ -28,7 +31,12 @@ int \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi_aa7b6f662add7f445aade3d28bba
 void \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi_ab06cd586fb8286744d71e363a8dbdbcf}{send\+Command}} (const std\+::string \&a\+Command)
 \begin{DoxyCompactList}\small\item\em Append a command to the write buffer. \end{DoxyCompactList}\item 
 const \mbox{\hyperlink{structZappy_1_1GUI_1_1ServerData}{Server\+Data}} \& \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi_a1476368818de1ac789f87931e8e9e1a7}{get\+Server\+Data}} () const
-\begin{DoxyCompactList}\small\item\em geting the server data \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em geting the server data \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi_a75a9a6447c2c83bc5f884cdf142a0bcb}{register\+Subscriber}} (\mbox{\hyperlink{classZappy_1_1GUI_1_1Subscriber}{Subscriber}} \&a\+Subscriber)
+\begin{DoxyCompactList}\small\item\em register a subscriber \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1ClientApi_af44476f034727b91c4013b8a0edee45b}\label{classZappy_1_1GUI_1_1ClientApi_af44476f034727b91c4013b8a0edee45b}} 
+void \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi_af44476f034727b91c4013b8a0edee45b}{parse\+Server\+Responses}} ()
+\begin{DoxyCompactList}\small\item\em parse information from server \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
@@ -93,6 +101,21 @@ geting the server fd
 \begin{DoxyReturn}{Returns}
 server\+Fd 
 \end{DoxyReturn}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1ClientApi_a75a9a6447c2c83bc5f884cdf142a0bcb}\label{classZappy_1_1GUI_1_1ClientApi_a75a9a6447c2c83bc5f884cdf142a0bcb}} 
+\index{Zappy::GUI::ClientApi@{Zappy::GUI::ClientApi}!registerSubscriber@{registerSubscriber}}
+\index{registerSubscriber@{registerSubscriber}!Zappy::GUI::ClientApi@{Zappy::GUI::ClientApi}}
+\doxysubsubsection{\texorpdfstring{registerSubscriber()}{registerSubscriber()}}
+{\footnotesize\ttfamily void Zappy\+::\+GUI\+::\+Client\+Api\+::register\+Subscriber (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classZappy_1_1GUI_1_1Subscriber}{Subscriber}} \&}]{a\+Subscriber }\end{DoxyParamCaption})}
+
+
+
+register a subscriber 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Subscriber} & \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{classZappy_1_1GUI_1_1ClientApi_ab06cd586fb8286744d71e363a8dbdbcf}\label{classZappy_1_1GUI_1_1ClientApi_ab06cd586fb8286744d71e363a8dbdbcf}} 
 \index{Zappy::GUI::ClientApi@{Zappy::GUI::ClientApi}!sendCommand@{sendCommand}}
 \index{sendCommand@{sendCommand}!Zappy::GUI::ClientApi@{Zappy::GUI::ClientApi}}

@@ -1,0 +1,234 @@
+\hypertarget{classZappy_1_1GUI_1_1PlayerData}{}\doxysection{Zappy\+::GUI\+::Player\+Data Class Reference}
+\label{classZappy_1_1GUI_1_1PlayerData}\index{Zappy::GUI::PlayerData@{Zappy::GUI::PlayerData}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1PlayerData_a122bf2eec7398632b6d14021ffedc834}\label{classZappy_1_1GUI_1_1PlayerData_a122bf2eec7398632b6d14021ffedc834}} 
+\mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData_a122bf2eec7398632b6d14021ffedc834}{Player\+Data}} (const std\+::string \&a\+Id)
+\begin{DoxyCompactList}\small\item\em Player constructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1PlayerData_a46b8206e69f289dd3a7e8b7283698c98}\label{classZappy_1_1GUI_1_1PlayerData_a46b8206e69f289dd3a7e8b7283698c98}} 
+\mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData_a46b8206e69f289dd3a7e8b7283698c98}{$\sim$\+Player\+Data}} ()
+\begin{DoxyCompactList}\small\item\em Player destructor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData_a0df43e955d95ca7b65515f895a318cf3}{set\+Position}} (unsigned int aX, unsigned int aY)
+\begin{DoxyCompactList}\small\item\em Set the position of the player. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData_ad59f57102c6680c0c0aa9d22d5a325d9}{set\+Orientation}} (Orientation a\+Orientation)
+\begin{DoxyCompactList}\small\item\em Set the orientation of the player. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData_a833bceb775f6671caf9f4b8f21f5cd11}{set\+Orientation}} (int a\+Orientation)
+\begin{DoxyCompactList}\small\item\em Set the orientation of the player. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData_ac19d854148fa19ab2ef66d1b132927ab}{set\+Level}} (int a\+Level)
+\begin{DoxyCompactList}\small\item\em Set the level of the player. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData_ad8caf618ba379f1af7950ea5fc1e26ee}{set\+Inventory}} (\mbox{\hyperlink{classZappy_1_1GUI_1_1ItemPacket}{Item\+Packet}} \&a\+Inventory)
+\begin{DoxyCompactList}\small\item\em Set the inventory of the player. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData_a3a911977b7e884a0410b7ea94a67a3c6}{set\+Team\+Name}} (std\+::string a\+Team\+Name)
+\begin{DoxyCompactList}\small\item\em Set the team name of the player. \end{DoxyCompactList}\item 
+const std\+::pair$<$ unsigned int, unsigned int $>$ \& \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData_a67576b3d541ce6c17486bdc01635f2d8}{get\+Position}} () const
+\begin{DoxyCompactList}\small\item\em Get the position of the player. \end{DoxyCompactList}\item 
+const Orientation \& \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData_acbfeba828667eeeabafe26cd9f91b6b0}{get\+Orientation}} () const
+\begin{DoxyCompactList}\small\item\em Get the orientation of the player. \end{DoxyCompactList}\item 
+const std\+::string \& \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData_a62f7067bee1192cb5f1c95fdaf7e856e}{get\+Id}} () const
+\begin{DoxyCompactList}\small\item\em Get the Id object. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData_a8998904a8c905f18680335382cec1c8c}{get\+Level}} () const
+\begin{DoxyCompactList}\small\item\em Get the level of the player. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData_a79d4bed5b687e8fb023af6f7c5e27377}{get\+Inventory}} (int a\+Slot) const
+\begin{DoxyCompactList}\small\item\em Get the inventory of the player. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classZappy_1_1GUI_1_1ItemPacket}{Item\+Packet}} \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData_a8541400c72b3c52dcc661e280bec3777}{get\+All\+Inventory}} ()
+\begin{DoxyCompactList}\small\item\em Get the inventory of the player. \end{DoxyCompactList}\item 
+const std\+::string \& \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData_af9d752ece384b40d4c25e1cb10e96231}{get\+Team\+Name}} () const
+\begin{DoxyCompactList}\small\item\em Get the team name of the player. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1PlayerData_a8541400c72b3c52dcc661e280bec3777}\label{classZappy_1_1GUI_1_1PlayerData_a8541400c72b3c52dcc661e280bec3777}} 
+\index{Zappy::GUI::PlayerData@{Zappy::GUI::PlayerData}!getAllInventory@{getAllInventory}}
+\index{getAllInventory@{getAllInventory}!Zappy::GUI::PlayerData@{Zappy::GUI::PlayerData}}
+\doxysubsubsection{\texorpdfstring{getAllInventory()}{getAllInventory()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classZappy_1_1GUI_1_1ItemPacket}{Item\+Packet}} Zappy\+::\+GUI\+::\+Player\+Data\+::get\+All\+Inventory (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the inventory of the player. 
+
+\begin{DoxyReturn}{Returns}
+Tile 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1PlayerData_a62f7067bee1192cb5f1c95fdaf7e856e}\label{classZappy_1_1GUI_1_1PlayerData_a62f7067bee1192cb5f1c95fdaf7e856e}} 
+\index{Zappy::GUI::PlayerData@{Zappy::GUI::PlayerData}!getId@{getId}}
+\index{getId@{getId}!Zappy::GUI::PlayerData@{Zappy::GUI::PlayerData}}
+\doxysubsubsection{\texorpdfstring{getId()}{getId()}}
+{\footnotesize\ttfamily const std\+::string \& Zappy\+::\+GUI\+::\+Player\+Data\+::get\+Id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Id object. 
+
+\begin{DoxyReturn}{Returns}
+const std\+::string\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1PlayerData_a79d4bed5b687e8fb023af6f7c5e27377}\label{classZappy_1_1GUI_1_1PlayerData_a79d4bed5b687e8fb023af6f7c5e27377}} 
+\index{Zappy::GUI::PlayerData@{Zappy::GUI::PlayerData}!getInventory@{getInventory}}
+\index{getInventory@{getInventory}!Zappy::GUI::PlayerData@{Zappy::GUI::PlayerData}}
+\doxysubsubsection{\texorpdfstring{getInventory()}{getInventory()}}
+{\footnotesize\ttfamily int Zappy\+::\+GUI\+::\+Player\+Data\+::get\+Inventory (\begin{DoxyParamCaption}\item[{int}]{a\+Slot }\end{DoxyParamCaption}) const}
+
+
+
+Get the inventory of the player. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Slot} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+item, -\/1 if invalid 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1PlayerData_a8998904a8c905f18680335382cec1c8c}\label{classZappy_1_1GUI_1_1PlayerData_a8998904a8c905f18680335382cec1c8c}} 
+\index{Zappy::GUI::PlayerData@{Zappy::GUI::PlayerData}!getLevel@{getLevel}}
+\index{getLevel@{getLevel}!Zappy::GUI::PlayerData@{Zappy::GUI::PlayerData}}
+\doxysubsubsection{\texorpdfstring{getLevel()}{getLevel()}}
+{\footnotesize\ttfamily int Zappy\+::\+GUI\+::\+Player\+Data\+::get\+Level (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the level of the player. 
+
+\begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1PlayerData_acbfeba828667eeeabafe26cd9f91b6b0}\label{classZappy_1_1GUI_1_1PlayerData_acbfeba828667eeeabafe26cd9f91b6b0}} 
+\index{Zappy::GUI::PlayerData@{Zappy::GUI::PlayerData}!getOrientation@{getOrientation}}
+\index{getOrientation@{getOrientation}!Zappy::GUI::PlayerData@{Zappy::GUI::PlayerData}}
+\doxysubsubsection{\texorpdfstring{getOrientation()}{getOrientation()}}
+{\footnotesize\ttfamily const Orientation \& Zappy\+::\+GUI\+::\+Player\+Data\+::get\+Orientation (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the orientation of the player. 
+
+\begin{DoxyReturn}{Returns}
+Orientation 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1PlayerData_a67576b3d541ce6c17486bdc01635f2d8}\label{classZappy_1_1GUI_1_1PlayerData_a67576b3d541ce6c17486bdc01635f2d8}} 
+\index{Zappy::GUI::PlayerData@{Zappy::GUI::PlayerData}!getPosition@{getPosition}}
+\index{getPosition@{getPosition}!Zappy::GUI::PlayerData@{Zappy::GUI::PlayerData}}
+\doxysubsubsection{\texorpdfstring{getPosition()}{getPosition()}}
+{\footnotesize\ttfamily const std\+::pair$<$ unsigned int, unsigned int $>$ \& Zappy\+::\+GUI\+::\+Player\+Data\+::get\+Position (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the position of the player. 
+
+\begin{DoxyReturn}{Returns}
+std\+::pair$<$unsigned int, unsigned int$>$ 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1PlayerData_af9d752ece384b40d4c25e1cb10e96231}\label{classZappy_1_1GUI_1_1PlayerData_af9d752ece384b40d4c25e1cb10e96231}} 
+\index{Zappy::GUI::PlayerData@{Zappy::GUI::PlayerData}!getTeamName@{getTeamName}}
+\index{getTeamName@{getTeamName}!Zappy::GUI::PlayerData@{Zappy::GUI::PlayerData}}
+\doxysubsubsection{\texorpdfstring{getTeamName()}{getTeamName()}}
+{\footnotesize\ttfamily const std\+::string \& Zappy\+::\+GUI\+::\+Player\+Data\+::get\+Team\+Name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the team name of the player. 
+
+\begin{DoxyReturn}{Returns}
+std\+::string 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1PlayerData_ad8caf618ba379f1af7950ea5fc1e26ee}\label{classZappy_1_1GUI_1_1PlayerData_ad8caf618ba379f1af7950ea5fc1e26ee}} 
+\index{Zappy::GUI::PlayerData@{Zappy::GUI::PlayerData}!setInventory@{setInventory}}
+\index{setInventory@{setInventory}!Zappy::GUI::PlayerData@{Zappy::GUI::PlayerData}}
+\doxysubsubsection{\texorpdfstring{setInventory()}{setInventory()}}
+{\footnotesize\ttfamily void Zappy\+::\+GUI\+::\+Player\+Data\+::set\+Inventory (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classZappy_1_1GUI_1_1ItemPacket}{Item\+Packet}} \&}]{a\+Inventory }\end{DoxyParamCaption})}
+
+
+
+Set the inventory of the player. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Inventory} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1PlayerData_ac19d854148fa19ab2ef66d1b132927ab}\label{classZappy_1_1GUI_1_1PlayerData_ac19d854148fa19ab2ef66d1b132927ab}} 
+\index{Zappy::GUI::PlayerData@{Zappy::GUI::PlayerData}!setLevel@{setLevel}}
+\index{setLevel@{setLevel}!Zappy::GUI::PlayerData@{Zappy::GUI::PlayerData}}
+\doxysubsubsection{\texorpdfstring{setLevel()}{setLevel()}}
+{\footnotesize\ttfamily void Zappy\+::\+GUI\+::\+Player\+Data\+::set\+Level (\begin{DoxyParamCaption}\item[{int}]{a\+Level }\end{DoxyParamCaption})}
+
+
+
+Set the level of the player. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Level} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1PlayerData_a833bceb775f6671caf9f4b8f21f5cd11}\label{classZappy_1_1GUI_1_1PlayerData_a833bceb775f6671caf9f4b8f21f5cd11}} 
+\index{Zappy::GUI::PlayerData@{Zappy::GUI::PlayerData}!setOrientation@{setOrientation}}
+\index{setOrientation@{setOrientation}!Zappy::GUI::PlayerData@{Zappy::GUI::PlayerData}}
+\doxysubsubsection{\texorpdfstring{setOrientation()}{setOrientation()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Zappy\+::\+GUI\+::\+Player\+Data\+::set\+Orientation (\begin{DoxyParamCaption}\item[{int}]{a\+Orientation }\end{DoxyParamCaption})}
+
+
+
+Set the orientation of the player. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Orientation} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1PlayerData_ad59f57102c6680c0c0aa9d22d5a325d9}\label{classZappy_1_1GUI_1_1PlayerData_ad59f57102c6680c0c0aa9d22d5a325d9}} 
+\index{Zappy::GUI::PlayerData@{Zappy::GUI::PlayerData}!setOrientation@{setOrientation}}
+\index{setOrientation@{setOrientation}!Zappy::GUI::PlayerData@{Zappy::GUI::PlayerData}}
+\doxysubsubsection{\texorpdfstring{setOrientation()}{setOrientation()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Zappy\+::\+GUI\+::\+Player\+Data\+::set\+Orientation (\begin{DoxyParamCaption}\item[{Orientation}]{a\+Orientation }\end{DoxyParamCaption})}
+
+
+
+Set the orientation of the player. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Orientation} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1PlayerData_a0df43e955d95ca7b65515f895a318cf3}\label{classZappy_1_1GUI_1_1PlayerData_a0df43e955d95ca7b65515f895a318cf3}} 
+\index{Zappy::GUI::PlayerData@{Zappy::GUI::PlayerData}!setPosition@{setPosition}}
+\index{setPosition@{setPosition}!Zappy::GUI::PlayerData@{Zappy::GUI::PlayerData}}
+\doxysubsubsection{\texorpdfstring{setPosition()}{setPosition()}}
+{\footnotesize\ttfamily void Zappy\+::\+GUI\+::\+Player\+Data\+::set\+Position (\begin{DoxyParamCaption}\item[{unsigned int}]{aX,  }\item[{unsigned int}]{aY }\end{DoxyParamCaption})}
+
+
+
+Set the position of the player. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em aX} & \\
+\hline
+{\em aY} & \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1PlayerData_a3a911977b7e884a0410b7ea94a67a3c6}\label{classZappy_1_1GUI_1_1PlayerData_a3a911977b7e884a0410b7ea94a67a3c6}} 
+\index{Zappy::GUI::PlayerData@{Zappy::GUI::PlayerData}!setTeamName@{setTeamName}}
+\index{setTeamName@{setTeamName}!Zappy::GUI::PlayerData@{Zappy::GUI::PlayerData}}
+\doxysubsubsection{\texorpdfstring{setTeamName()}{setTeamName()}}
+{\footnotesize\ttfamily void Zappy\+::\+GUI\+::\+Player\+Data\+::set\+Team\+Name (\begin{DoxyParamCaption}\item[{std\+::string}]{a\+Team\+Name }\end{DoxyParamCaption})}
+
+
+
+Set the team name of the player. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Team\+Name} & \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/gui/cli/Player\+Data.\+hpp\item 
+src/gui/cli/Player\+Data.\+cpp\end{DoxyCompactItemize}

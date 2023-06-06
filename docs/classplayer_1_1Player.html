@@ -135,8 +135,14 @@ def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 <tr class="memdesc:a69fb4b4cf941692636d2fdc58bcc7102"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send set command.  <a href="classplayer_1_1Player.html#a69fb4b4cf941692636d2fdc58bcc7102">More...</a><br /></td></tr>
 <tr class="separator:a69fb4b4cf941692636d2fdc58bcc7102"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade8deb9c70d265fafa94e2b4ba6cc86f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classplayer_1_1Player.html#ade8deb9c70d265fafa94e2b4ba6cc86f">inventory</a> (self)</td></tr>
-<tr class="memdesc:ade8deb9c70d265fafa94e2b4ba6cc86f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send inventory command.  <a href="classplayer_1_1Player.html#ade8deb9c70d265fafa94e2b4ba6cc86f">More...</a><br /></td></tr>
+<tr class="memdesc:ade8deb9c70d265fafa94e2b4ba6cc86f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send inventory command and receive the inventory.  <a href="classplayer_1_1Player.html#ade8deb9c70d265fafa94e2b4ba6cc86f">More...</a><br /></td></tr>
 <tr class="separator:ade8deb9c70d265fafa94e2b4ba6cc86f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5103f7111fd3bd7ba8c4d7d5d66513fd"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classplayer_1_1Player.html#a5103f7111fd3bd7ba8c4d7d5d66513fd">connectNbr</a> (self)</td></tr>
+<tr class="memdesc:a5103f7111fd3bd7ba8c4d7d5d66513fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send Connect_nbr command.  <a href="classplayer_1_1Player.html#a5103f7111fd3bd7ba8c4d7d5d66513fd">More...</a><br /></td></tr>
+<tr class="separator:a5103f7111fd3bd7ba8c4d7d5d66513fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48ddfdc24df9fc1196657f7c1dde004c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classplayer_1_1Player.html#a48ddfdc24df9fc1196657f7c1dde004c">look</a> (self)</td></tr>
+<tr class="memdesc:a48ddfdc24df9fc1196657f7c1dde004c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send look command and receive the map content.  <a href="classplayer_1_1Player.html#a48ddfdc24df9fc1196657f7c1dde004c">More...</a><br /></td></tr>
+<tr class="separator:a48ddfdc24df9fc1196657f7c1dde004c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class that contains the player information. </p>
@@ -174,6 +180,27 @@ def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a5103f7111fd3bd7ba8c4d7d5d66513fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5103f7111fd3bd7ba8c4d7d5d66513fd">&#9670;&nbsp;</a></span>connectNbr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def player.Player.connectNbr </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Send Connect_nbr command. </p>
+<dl class="section return"><dt>Returns</dt><dd>the number of free slots in the team </dd></dl>
 
 </div>
 </div>
@@ -235,7 +262,7 @@ def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
       </table>
 </div><div class="memdoc">
 
-<p>Send inventory command. </p>
+<p>Send inventory command and receive the inventory. </p>
 <dl class="section return"><dt>Returns</dt><dd>the inventory </dd></dl>
 
 </div>
@@ -258,6 +285,27 @@ def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class
 
 <p>Send left command. </p>
 <dl class="section return"><dt>Returns</dt><dd>None </dd></dl>
+
+</div>
+</div>
+<a id="a48ddfdc24df9fc1196657f7c1dde004c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48ddfdc24df9fc1196657f7c1dde004c">&#9670;&nbsp;</a></span>look()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def player.Player.look </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Send look command and receive the map content. </p>
+<dl class="section return"><dt>Returns</dt><dd>the map content </dd></dl>
 
 </div>
 </div>

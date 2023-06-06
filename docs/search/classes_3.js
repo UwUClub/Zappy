@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['option_5fs_59',['option_s',['../structoption__s.html',1,'']]]
+  ['framehandler_80',['FrameHandler',['../classZappy_1_1GUI_1_1FrameHandler.html',1,'Zappy::GUI']]]
 ];
