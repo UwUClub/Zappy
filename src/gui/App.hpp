@@ -36,6 +36,8 @@ namespace Zappy::GUI {
         private:
             void setupLight(Ogre::SceneManager *aSceneManager);
             void setupCamera(Ogre::SceneManager *aSceneManager, Ogre::Vector3 &aCenter);
+            void addPlayer(PlayerData &aPlayer, Ogre::SceneManager *aSceneManager);
+            void removePlayer(int aIndex, Ogre::SceneManager *aSceneManager);
             Ogre::Vector3f setupMap(Ogre::SceneManager *aSceneManager);
             Zappy::GUI::ClientApi &_client;
             std::unique_ptr<CameraHandler> _cameraHandler;

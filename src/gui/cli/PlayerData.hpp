@@ -25,7 +25,7 @@ namespace Zappy::GUI {
             /**
              * @brief Player constructor
              */
-            PlayerData();
+            PlayerData(const std::string &aId);
 
             /**
              * @brief Player destructor
@@ -82,6 +82,13 @@ namespace Zappy::GUI {
             [[nodiscard]] const Orientation &getOrientation() const;
 
             /**
+             * @brief Get the Id object
+             *
+             * @return const std::string&
+             */
+            [[nodiscard]] const std::string &getId() const;
+
+            /**
              * @brief Get the level of the player
              * @return int
              */
@@ -113,5 +120,6 @@ namespace Zappy::GUI {
             int _level {1};
             ItemPacket _inventory;
             std::string _teamName;
+            const std::string _id;
     };
 } // namespace Zappy::GUI

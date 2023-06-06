@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <cstdio>
 #include <cstring>
+#include <fstream>
 #include <functional>
 #include <iostream>
 #include <netinet/in.h>
@@ -22,12 +23,9 @@ namespace Zappy::GUI {
           _port(aPort),
           _teamName(std::move(aTeamName)),
           _connectStatus(-1),
-<<<<<<< HEAD
-          _serverFd(-1)
-=======
           _serverFd(-1),
-          _serverData(ServerData::getInstance())
->>>>>>> dev
+          _serverData(ServerData::getInstance()),
+          _isInitialized(false)
     {}
 
     ClientApi::~ClientApi()
@@ -142,6 +140,9 @@ namespace Zappy::GUI {
         _readBuffer += myStr;
         std::cout << "@read: " << _readBuffer;
         this->notifySubscribers(_readBuffer);
+        if (!_isInitialized) {
+            parseServerResponses();
+        }
     }
 
     void ClientApi::writeToServer()
@@ -170,6 +171,7 @@ namespace Zappy::GUI {
             }
             _readBuffer = _readBuffer.substr(_readBuffer.find('\n') + 1);
         }
+        _readBuffer = "";
     }
 
     void ClientApi::receiveWelcome(__attribute__((unused)) const std::string &aResponse)
@@ -211,25 +213,11 @@ namespace Zappy::GUI {
         myItemPacket.fillItemPacket(myResources);
         _serverData._mapTiles.push_back(
             TileContent(static_cast<unsigned int>(myX), static_cast<unsigned int>(myY), myItemPacket));
-<<<<<<< HEAD
-=======
     }
 
     void ClientApi::registerSubscriber(Zappy::GUI::Subscriber &aSubscriber)
     {
-        _subscribers.emplace_back(aSubscriber);
-    }
-
-    void ClientApi::notifySubscribers(std::string &aNotification)
-    {
-        for (auto &mySubscriber : _subscribers) {
-            mySubscriber.get().getNotified(aNotification);
-        }
->>>>>>> dev
-    }
-
-    void ClientApi::registerSubscriber(Zappy::GUI::Subscriber &aSubscriber)
-    {
+        _isInitialized = true;
         _subscribers.emplace_back(aSubscriber);
     }
 
@@ -296,19 +284,17 @@ namespace Zappy::GUI {
 
     void ClientApi::receivePnw(const std::string &aResponse)
     {
-        PlayerData myPlayer = {};
-        std::string myArg = aResponse;
-        std::string const myPlayerId = myArg.substr(0, myArg.find(' '));
-        std::string const myX = myArg.substr(myArg.find(' ') + 1, myArg.find(' '));
-        myArg = myArg.substr(myArg.find(' ') + 1);
-        std::string const myY = myArg.substr(myArg.find(' ') + 1, myArg.find(' '));
-        myArg = myArg.substr(myArg.find(' ') + 1);
-        std::string const myOrientation = myArg.substr(myArg.find(' ') + 1, myArg.find(' '));
-        myArg = myArg.substr(myArg.find(' ') + 1);
-        std::string const myLevel = myArg.substr(myArg.find(' ') + 1, myArg.find(' '));
-        myArg = myArg.substr(myArg.find(' ') + 1);
-        std::string const myTeamName = myArg.substr(myArg.find(' ') + 1);
+        std::istringstream myIss(aResponse);
+        std::string myPlayerId;
+        std::string myX;
+        std::string myY;
+        std::string myOrientation;
+        std::string myLevel;
+        std::string myTeamName;
 
+        myIss >> myPlayerId >> myX >> myY >> myOrientation >> myLevel >> myTeamName;
+
+        PlayerData myPlayer(myPlayerId);
         myPlayer.setPosition(static_cast<unsigned int>(std::stoi(myX)), static_cast<unsigned int>(std::stoi(myY)));
         myPlayer.setOrientation((std::stoi(myOrientation)));
         myPlayer.setLevel(std::stoi(myLevel));
