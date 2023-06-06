@@ -132,7 +132,6 @@ class Player:
             return (None)
         else:
             print ("Look:", myLook)
-            return (myLook)
     
     ## @brief Send incantation command
     ## @return the incantation result
@@ -145,3 +144,25 @@ class Player:
         else:
             print ("Incantation:", myIncantation)
             return (myIncantation)
+
+    
+    ## @brief Send broadcast command
+    ## @return None
+    def broadcast(self, aMessage):
+        self.send("Broadcast " + aMessage)
+        myBroadcast = self.receive()
+        if myBroadcast == "ko\n":
+            print ("Error: Broadcast")
+        else:
+            print ("Broadcast:", myBroadcast)
+    
+    ## @brief Send Eject command
+    ## @return None
+    def eject(self):
+        self.send("Eject")
+        myEject = self.receive()
+        if myEject == "ko\n":
+            print ("Error: Eject")
+        else:
+            print ("Eject:", myEject)
+        

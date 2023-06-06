@@ -152,6 +152,14 @@
         const unsigned int source_x, const unsigned int source_y);
 
     /**
+     * @brief Schedule eject command
+     * @param data The current server data, clients and current client index
+     * @param args The arguments of the command
+     * @return Status of the schedule
+     */
+    int schedule_eject(data_t *data, char **args);
+
+    /**
      * @brief Check the ressource asked of a tile
      * @param data The current server data, clients and current client index
      * @param ressource The ressource to check
