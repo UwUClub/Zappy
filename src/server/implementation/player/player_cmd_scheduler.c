@@ -19,6 +19,7 @@ static const cmd_t schedulers[] = {
     {"Connect_nbr", &schedule_connect_nbr, CONNECT_NBR_DELAY},
     {"Look", &schedule_look, LOOK_DELAY},
     {"Broadcast", &schedule_broadcast, BROADCAST_DELAY},
+    {"Eject", &schedule_eject, EJECT_DELAY},
     {NULL, NULL}
 };
 
