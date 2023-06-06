@@ -8,21 +8,25 @@
 #include "implementation.h"
 #include "player_cmd.h"
 
-static void append_egg(data_t *data, const unsigned int team_index,
+static void append_egg(data_t *data, const unsigned int team_id,
     const int pos_x, const int pos_y)
 {
     int nb_eggs = 0;
 
-    for (int i = 0; data->teams[team_index]->eggs[i]; i++) {
+    for (int i = 0; data->teams[team_id]->eggs[i]; i++) {
         nb_eggs++;
     }
-    data->teams[team_index]->nb_cli++;
-    data->teams[team_index]->eggs = realloc(data->teams[team_index]->eggs,
-        sizeof(pos_t *) * (nb_eggs + 2));
-    data->teams[team_index]->eggs[nb_eggs] = malloc(sizeof(pos_t));
-    data->teams[team_index]->eggs[nb_eggs]->x = pos_x;
-    data->teams[team_index]->eggs[nb_eggs]->y = pos_y;
-    data->teams[team_index]->eggs[nb_eggs + 1] = NULL;
+    data->teams[team_id]->nb_cli++;
+    data->teams[team_id]->eggs = realloc(data->teams[team_id]->eggs,
+        sizeof(egg_t *) * (nb_eggs + 2));
+    data->teams[team_id]->eggs[nb_eggs] = malloc(sizeof(egg_t));
+    data->teams[team_id]->eggs[nb_eggs]->id = data->teams[team_id]->nb_cli;
+    data->teams[team_id]->eggs[nb_eggs]->progenitor_id = data->curr_cli_index;
+    data->teams[team_id]->eggs[nb_eggs]->pos = malloc(sizeof(pos_t));
+    data->teams[team_id]->eggs[nb_eggs]->pos->x = pos_x;
+    data->teams[team_id]->eggs[nb_eggs]->pos->y = pos_y;
+    data->teams[team_id]->eggs[nb_eggs + 1] = NULL;
+    do_enw(data, data->teams[team_id]->eggs[nb_eggs]);
 }
 
 static int fork_cmd(data_t *data, __attribute__((unused)) char **args)
@@ -32,6 +36,7 @@ static int fork_cmd(data_t *data, __attribute__((unused)) char **args)
 
     for (int i = 0; data->teams[i]; i++) {
         if (!strcmp(team_name, data->teams[i]->name)) {
+            do_pfk(data, data->curr_cli_index);
             append_egg(data, i, player_pos->x, player_pos->y);
             send_to_client(data->clients, data->curr_cli_index, "ok\n");
             return 0;

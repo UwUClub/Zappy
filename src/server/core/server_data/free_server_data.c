@@ -14,6 +14,7 @@ void free_teams(data_t *data)
     for (int i = 0; data->teams[i]; i++) {
         free(data->teams[i]->name);
         for (int j = 0; data->teams[i]->eggs[j]; j++) {
+            free(data->teams[i]->eggs[j]->pos);
             free(data->teams[i]->eggs[j]);
         }
         free(data->teams[i]->eggs);

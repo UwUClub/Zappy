@@ -67,10 +67,16 @@
         int (**tiles)[TILE_SIZE];
     } map_t;
 
+    typedef struct egg_s {
+        unsigned int id;
+        unsigned int progenitor_id;
+        pos_t *pos;
+    } egg_t;
+
     typedef struct team_s {
         char *name;
         unsigned int nb_cli;
-        pos_t **eggs;
+        egg_t **eggs;
     } team_t;
 
     typedef struct data_s {

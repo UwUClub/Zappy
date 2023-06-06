@@ -10,14 +10,11 @@
 #include "gui_cmd.h"
 #include "player_cmd.h"
 
-int append_gui_client(data_t *data)
+static void run_bct_through_map(data_t *data)
 {
     char *x_str = NULL;
     char *y_str = NULL;
 
-    data->clients[data->curr_cli_index]->is_registered = 1;
-    do_msz(data, NULL);
-    do_sgt(data, NULL);
     for (int x = 0; x < data->map->width; x++) {
         for (int y = 0; y < data->map->height; y++) {
             x_str = int_to_s(x);
@@ -27,6 +24,24 @@ int append_gui_client(data_t *data)
             free(y_str);
         }
     }
+}
+
+static void run_enw_through_eggs(data_t *data)
+{
+    for (int i = 0; data->teams[i]; i++) {
+        for (int j = 0; data->teams[i]->eggs[j]; j++) {
+            do_enw(data, data->teams[i]->eggs[j]);
+        }
+    }
+}
+
+int append_gui_client(data_t *data)
+{
+    data->clients[data->curr_cli_index]->is_registered = 1;
+    do_msz(data, NULL);
+    do_sgt(data, NULL);
+    run_bct_through_map(data);
     do_tna(data, NULL);
+    run_enw_through_eggs(data);
     return 0;
 }

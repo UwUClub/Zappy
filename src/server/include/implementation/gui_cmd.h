@@ -90,6 +90,20 @@
     */
     int do_ppo(data_t *data, char **args);
 
+    /**
+     * @brief Sends egg progenitor to gui
+     * @param data The current server data, clients and current client index
+     * @param player_id The id of the player
+    */
+    void do_pfk(data_t *data, const unsigned int player_id);
+
+    /**
+     * @brief Sends egg progenitor, id and position to gui
+     * @param data The current server data, clients and current client index
+     * @param egg The egg to show
+    */
+    void do_enw(data_t *data, egg_t *egg);
+
     static const cmd_t gui_commands[] = {
         {"msz", &do_msz, 0},
         {"bct", &do_bct, 0},

@@ -16,7 +16,7 @@ void init_teams(data_t *data)
         data->teams[i] = malloc(sizeof(team_t));
         asprintf(&data->teams[i]->name, "%s%d", DEFAULT_TEAM_NAME, i + 1);
         data->teams[i]->nb_cli = DEFAULT_CLI_PER_TEAM;
-        data->teams[i]->eggs = malloc(sizeof(pos_t *));
+        data->teams[i]->eggs = malloc(sizeof(egg_t *));
         data->teams[i]->eggs[0] = NULL;
     }
     data->teams[MAX_TEAMS] = NULL;
