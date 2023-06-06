@@ -36,6 +36,7 @@ if (NO_CONNECTION EQUAL 0)
     include(Dependencies.cmake)
     myproject_setup_dependencies()
     find_package(OGRE QUIET)
+    message(STATUS "OGRE_FOUND: ${OGRE_FOUND}")
 endif()
 
 myproject_setup_options()
@@ -91,8 +92,8 @@ myproject_package_project(
   myproject_warnings
 )
 
-if (NO_CONNECTION EQUAL 0 AND OGRE_FOUND)
-    myproject_package_project(
+if (NO_CONNECTION EQUAL 0 OR OGRE_FOUND)
+myproject_package_project(
       TARGETS
       zappy_gui
       myproject_options

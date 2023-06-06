@@ -8,8 +8,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "server_core.h"
+#include "core.h"
 #include "utils.h"
+
+void send_to_all_gui(client_t **clients, const char *msg)
+{
+    for (int i = 0; clients[i] != NULL; i++) {
+        if (clients[i]->fd != -1 && clients[i]->is_registered
+            && clients[i]->player == NULL) {
+                send_to_client(clients, i, msg);
+        }
+    }
+}
 
 void send_to_client(client_t **clients, const int id, const char *msg)
 {
@@ -27,9 +37,12 @@ void send_to_everyone(client_t **clients, const char *msg)
     }
 }
 
-void write_to_selected_client(client_t **client)
+void write_to_selected_client(data_t *data, client_t **client)
 {
     dprintf((*client)->fd, "%s", (*client)->output);
+    if (!strcmp((*client)->output, "dead\n")) {
+        handle_client_quit(data);
+    }
     free((*client)->output);
     (*client)->output = strdup("");
 }
