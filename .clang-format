@@ -50,6 +50,7 @@ SpacesInAngles: false
 SpacesInParentheses: false
 SpacesInSquareBrackets: false
 SpacesInContainerLiterals: false
+SpaceBeforeInheritanceColon: true
 SpaceAfterTemplateKeyword: false
 IndentCaseLabels: true
 NamespaceIndentation: All
@@ -67,6 +68,9 @@ AlignTrailingComments: true
 BreakStringLiterals: true
 BreakBeforeBinaryOperators: NonAssignment
 BreakBeforeTernaryOperators: true
+BreakConstructorInitializers : BeforeColon
+BreakInheritanceList: AfterColon
+PackConstructorInitializers: Never
 SortIncludes: true
 IncludeBlocks: Merge
 IncludeCategories:

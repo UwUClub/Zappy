@@ -8,16 +8,16 @@ add_executable(test_zappy
         testCommandGuiCli.cpp
         ../src/gui/cli/ClientApi.cpp
         ../src/gui/cli/ClientApi.hpp
-        ../src/gui/cli/ServerData.cpp
         ../src/gui/cli/ServerData.hpp
-        ../src/gui/cli/Player.cpp
-        ../src/gui/cli/Player.hpp
+        ../src/gui/cli/PlayerData.cpp
+        ../src/gui/cli/PlayerData.hpp
         ../src/gui/cli/ParserData.cpp
         ../src/gui/cli/ParserData.hpp
         )
 
 target_include_directories(test_zappy
         PRIVATE ../src/gui/cli
+        ../src/gui
         )
 
 target_link_libraries(test_zappy

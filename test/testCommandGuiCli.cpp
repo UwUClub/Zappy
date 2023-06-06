@@ -8,7 +8,6 @@ constexpr auto SERVER_PORT = 4242;
 
 TEST_CASE("testingBct", "[testingBct]")
 {
-    Zappy::GUI::Tile const tile = {};
     Zappy::GUI::ParserData const parserData(SERVER_IP, SERVER_PORT, "");
     Zappy::GUI::ClientApi myClientApi(parserData.getAddress(), parserData.getPort(), "GRAPHIC");
     myClientApi.joinGame();

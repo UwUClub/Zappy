@@ -1,8 +1,11 @@
 #pragma once
 
 #include <array>
+#include <functional>
 #include <iostream>
-#include "ServerData.hpp"
+#include <vector>
+#include "ItemPacket.hpp"
+#include <unordered_map>
 
 const constexpr int INVENTORY_SIZE = 7;
 
@@ -16,18 +19,18 @@ namespace Zappy::GUI {
         WEST
     };
 
-    class Player
+    class PlayerData
     {
         public:
             /**
              * @brief Player constructor
              */
-            Player();
+            PlayerData();
 
             /**
              * @brief Player destructor
              */
-            ~Player();
+            ~PlayerData();
 
             /**
              * @brief Set the position of the player
@@ -43,6 +46,12 @@ namespace Zappy::GUI {
             void setOrientation(Orientation aOrientation);
 
             /**
+             * @brief Set the orientation of the player
+             * @param aOrientation
+             */
+            void setOrientation(int aOrientation);
+
+            /**
              * @brief Set the level of the player
              * @param aLevel
              */
@@ -50,10 +59,15 @@ namespace Zappy::GUI {
 
             /**
              * @brief Set the inventory of the player
-             * @param aItem
-             * @param aSlot
+             * @param aInventory
              */
-            void setInventory(int aItem, long unsigned int aSlot);
+            void setInventory(ItemPacket &aInventory);
+
+            /**
+             * @brief Set the team name of the player
+             * @param aTeamName
+             */
+            void setTeamName(std::string aTeamName);
 
             /**
              * @brief Get the position of the player
@@ -78,13 +92,26 @@ namespace Zappy::GUI {
              * @param aSlot
              * @return item, -1 if invalid
              */
-            [[nodiscard]] int getInventory(long unsigned int aSlot) const;
+            [[nodiscard]] int getInventory(int aSlot) const;
+
+            /**
+             * @brief Get the inventory of the player
+             * @return Tile
+             */
+            ItemPacket getAllInventory();
+
+            /**
+             * @brief Get the team name of the player
+             * @return std::string
+             */
+            [[nodiscard]] const std::string &getTeamName() const;
 
         private:
             // Attributes
             std::pair<unsigned int, unsigned int> _position;
             Orientation _orientation {Orientation::NORTH};
             int _level {1};
-            std::array<int, INVENTORY_SIZE> _inventory;
+            ItemPacket _inventory;
+            std::string _teamName;
     };
 } // namespace Zappy::GUI

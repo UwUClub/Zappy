@@ -15,6 +15,7 @@
 #include <arpa/inet.h>
 #include <time.h>
 #include "core.h"
+#include "gui_cmd.h"
 #include "implementation.h"
 #include "utils.h"
 
@@ -30,6 +31,10 @@ static void listen_to_inputs(struct sockaddr_in *addr, int server_fd,
             free(timeout);
             return;
         }
+        if (detect_win(data)) {
+            free(timeout);
+            return;
+        }
         free(timeout);
     }
 }
@@ -37,9 +42,8 @@ static void listen_to_inputs(struct sockaddr_in *addr, int server_fd,
 int launch_server(data_t *data)
 {
     int server_fd = socket(PF_INET, SOCK_STREAM, 0);
-    struct sockaddr_in my_addr = get_sockaddr(inet_addr("127.0.0.1"),
+    struct sockaddr_in my_addr = get_sockaddr(inet_addr(data->ip),
         data->port);
-
     if (server_fd < 0)
         return 84;
     setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &(int) { 1 }, sizeof(int));

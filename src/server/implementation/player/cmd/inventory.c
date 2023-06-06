@@ -5,10 +5,11 @@
 ** inventory
 */
 
+#include "core.h"
 #include "implementation.h"
 #include "player_cmd.h"
 
-int get_inventory(data_t *data, __attribute__((unused)) char **args)
+static int get_inventory(data_t *data, __attribute__((unused)) char **args)
 {
     char *inventory = NULL;
     int value = 0;

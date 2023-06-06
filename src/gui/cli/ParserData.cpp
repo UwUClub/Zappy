@@ -3,16 +3,15 @@
 
 namespace Zappy::GUI {
     ParserData::ParserData(const std::string &aAddress, unsigned int aPort, const std::string &aClientName)
-    {
-        _address = aAddress;
-        _port = aPort;
-        _clientName = aClientName;
-    }
+        : _address(aAddress),
+          _port(aPort),
+          _clientName(aClientName)
+    {}
 
     void ParserData::parseData(int aArgc, char **aArgv)
     {
-        std::string myFirstOpt;
-        std::string mySecondOpt;
+        std::string const myFirstOpt;
+        std::string const mySecondOpt;
         int myOpt = 0;
 
         while ((myOpt = getopt(aArgc, aArgv, "p:h:")) != -1) {
