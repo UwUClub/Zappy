@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <cstdio>
 #include <cstring>
+#include <fstream>
 #include <functional>
 #include <iostream>
 #include <netinet/in.h>
@@ -23,7 +24,8 @@ namespace Zappy::GUI {
           _teamName(std::move(aTeamName)),
           _connectStatus(-1),
           _serverFd(-1),
-          _serverData(ServerData::getInstance())
+          _serverData(ServerData::getInstance()),
+          _isInitialized(false)
     {}
 
     ClientApi::~ClientApi()
@@ -138,6 +140,9 @@ namespace Zappy::GUI {
         _readBuffer += myStr;
         std::cout << "@read: " << _readBuffer;
         this->notifySubscribers(_readBuffer);
+        if (!_isInitialized) {
+            parseServerResponses();
+        }
     }
 
     void ClientApi::writeToServer()
@@ -168,6 +173,19 @@ namespace Zappy::GUI {
         }
     }
 
+    void ClientApi::registerSubscriber(Zappy::GUI::Subscriber &aSubscriber)
+    {
+        _isInitialized = true;
+        _subscribers.emplace_back(aSubscriber);
+    }
+
+    void ClientApi::notifySubscribers(std::string &aNotification)
+    {
+        for (auto &mySubscriber : _subscribers) {
+            mySubscriber.get().getNotified(aNotification);
+        }
+    }
+
     void ClientApi::receiveWelcome(__attribute__((unused)) const std::string &aResponse)
     {
         _writeBuffer += _teamName + "\n";
@@ -180,45 +198,35 @@ namespace Zappy::GUI {
 
     void ClientApi::receiveMsz(const std::string &aResponse)
     {
-        std::string const myX = aResponse.substr(0, aResponse.find(' '));
-        std::string const myY = aResponse.substr(aResponse.find(' ') + 1);
+        std::istringstream myStream(aResponse);
+        std::string myX;
+        std::string myY;
 
+        myStream >> myX >> myY;
         _serverData._mapSize = std::make_pair(std::stoi(myX), std::stoi(myY));
     }
 
     void ClientApi::receiveBct(const std::string &aResponse)
     {
+        std::istringstream myStream(aResponse);
+        std::string myX;
+        std::string myY;
+        std::string food;
+        std::string linemate;
+        std::string deraumere;
+        std::string sibur;
+        std::string mendiane;
+        std::string phiras;
+        std::string thystame;
+        std::vector<int> myResource;
         ItemPacket myItemPacket = {};
-        int myX = 0;
-        int myY = 0;
-        std::vector<int> myResources;
-        std::string myArg = aResponse;
 
-        myX = std::stoi(myArg.substr(0, myArg.find(' ')));
-        myY = std::stoi(myArg.substr(myArg.find(' ') + 1, myArg.find(' ')));
-
-        for (int i = 0; i < 7; i++) {
-            myResources.push_back(std::stoi(myArg.substr(myArg.find(' ') + 1, myArg.find(' '))));
-            myArg = myArg.substr(myArg.find(' ') + 1);
-        }
-        if (!myArg.empty()) {
-            myResources.push_back(std::stoi(myArg));
-        }
-        myItemPacket.fillItemPacket(myResources);
-        _serverData._mapTiles.push_back(
-            TileContent(static_cast<unsigned int>(myX), static_cast<unsigned int>(myY), myItemPacket));
-    }
-
-    void ClientApi::registerSubscriber(Zappy::GUI::Subscriber &aSubscriber)
-    {
-        _subscribers.emplace_back(aSubscriber);
-    }
-
-    void ClientApi::notifySubscribers(std::string &aNotification)
-    {
-        for (auto &mySubscriber : _subscribers) {
-            mySubscriber.get().getNotified(aNotification);
-        }
+        myStream >> myX >> myY >> food >> linemate >> deraumere >> sibur >> mendiane >> phiras >> thystame;
+        myResource = {std::stoi(food),     std::stoi(linemate), std::stoi(deraumere), std::stoi(sibur),
+                      std::stoi(mendiane), std::stoi(phiras),   std::stoi(thystame)};
+        myItemPacket.fillItemPacket(myResource);
+        _serverData._mapTiles.push_back(TileContent(static_cast<unsigned int>(std::stoi(myX)),
+                                                    static_cast<unsigned int>(std::stoi(myY)), myItemPacket));
     }
 
     void ClientApi::receiveTna(const std::string &aResponse)
@@ -228,10 +236,12 @@ namespace Zappy::GUI {
 
     void ClientApi::receivePpo(const std::string &aResponse)
     {
-        std::string const &myArg = aResponse;
-        std::string const myPlayerId = myArg.substr(0, myArg.find(' '));
-        std::string const myX = myArg.substr(myArg.find(' ') + 1, myArg.find(' '));
-        std::string const myY = myArg.substr(myArg.find(' ') + 1);
+        std::istringstream myStream(aResponse);
+        std::string myPlayerId;
+        std::string myX;
+        std::string myY;
+
+        myStream >> myPlayerId >> myX >> myY;
 
         _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId)))
             .setPosition(static_cast<unsigned int>(std::stoi(myX)), static_cast<unsigned int>(std::stoi(myY)));
@@ -239,57 +249,54 @@ namespace Zappy::GUI {
 
     void ClientApi::receivePlv(const std::string &aResponse)
     {
-        std::string const &myArg = aResponse;
-        std::string const myPlayerId = myArg.substr(0, myArg.find(' '));
-        std::string const myLevel = myArg.substr(myArg.find(' ') + 1);
+        std::istringstream myStream(aResponse);
+        std::string myPlayerId;
+        std::string myLevel;
+
+        myStream >> myPlayerId >> myLevel;
 
         _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId))).setLevel(std::stoi(myLevel));
     }
 
     void ClientApi::receivePin(const std::string &aResponse)
     {
+        std::istringstream myStream(aResponse);
+        std::string myPlayerId;
+        std::string myX;
+        std::string myY;
+        std::string food;
+        std::string linemate;
+        std::string deraumere;
+        std::string sibur;
+        std::string mendiane;
+        std::string phiras;
+        std::string thystame;
+        std::vector<int> myResource;
         ItemPacket myItemPacket = {};
-        int myPlayerId = 0;
-        [[maybe_unused]] int myX = 0;
-        [[maybe_unused]] int myY = 0;
-        std::vector<int> myResources;
-        std::string myArg = aResponse;
 
-        myPlayerId = std::stoi(myArg.substr(0, myArg.find(' ')));
-        myX = std::stoi(myArg.substr(myArg.find(' ') + 1, myArg.find(' ')));
-        myArg = myArg.substr(myArg.find(' ') + 1);
-        myY = std::stoi(myArg.substr(myArg.find(' ') + 1, myArg.find(' ')));
-        myArg = myArg.substr(myArg.find(' ') + 1);
-
-        for (int i = 0; i < 6; i++) {
-            myResources.push_back(std::stoi(myArg.substr(myArg.find(' ') + 1, myArg.find(' '))));
-            myArg = myArg.substr(myArg.find(' ') + 1);
-        }
-        if (!myArg.empty()) {
-            myResources.push_back(std::stoi(myArg));
-        }
-        myItemPacket.fillItemPacket(myResources);
-        if (static_cast<unsigned long>(myPlayerId) > _serverData._players.size()) {
-            throw Zappy::GUI::ClientApi::ClientException("Player didn't exist");
-        }
-        _serverData._players.at(static_cast<unsigned long>(myPlayerId)).setInventory(myItemPacket);
+        myStream >> myPlayerId >> myX >> myY >> food >> linemate >> deraumere >> sibur >> mendiane >> phiras
+            >> thystame;
+        myResource = {std::stoi(food),     std::stoi(linemate), std::stoi(deraumere), std::stoi(sibur),
+                      std::stoi(mendiane), std::stoi(phiras),   std::stoi(thystame)};
+        myItemPacket.fillItemPacket(myResource);
+        _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId)))
+            .setPosition(static_cast<unsigned int>(std::stoi(myX)), static_cast<unsigned int>(std::stoi(myY)));
+        _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId))).setInventory(myItemPacket);
     }
 
     void ClientApi::receivePnw(const std::string &aResponse)
     {
-        PlayerData myPlayer = {};
-        std::string myArg = aResponse;
-        std::string const myPlayerId = myArg.substr(0, myArg.find(' '));
-        std::string const myX = myArg.substr(myArg.find(' ') + 1, myArg.find(' '));
-        myArg = myArg.substr(myArg.find(' ') + 1);
-        std::string const myY = myArg.substr(myArg.find(' ') + 1, myArg.find(' '));
-        myArg = myArg.substr(myArg.find(' ') + 1);
-        std::string const myOrientation = myArg.substr(myArg.find(' ') + 1, myArg.find(' '));
-        myArg = myArg.substr(myArg.find(' ') + 1);
-        std::string const myLevel = myArg.substr(myArg.find(' ') + 1, myArg.find(' '));
-        myArg = myArg.substr(myArg.find(' ') + 1);
-        std::string const myTeamName = myArg.substr(myArg.find(' ') + 1);
+        std::istringstream myIss(aResponse);
+        std::string myPlayerId;
+        std::string myX;
+        std::string myY;
+        std::string myOrientation;
+        std::string myLevel;
+        std::string myTeamName;
 
+        myIss >> myPlayerId >> myX >> myY >> myOrientation >> myLevel >> myTeamName;
+
+        PlayerData myPlayer(myPlayerId);
         myPlayer.setPosition(static_cast<unsigned int>(std::stoi(myX)), static_cast<unsigned int>(std::stoi(myY)));
         myPlayer.setOrientation((std::stoi(myOrientation)));
         myPlayer.setLevel(std::stoi(myLevel));
@@ -300,16 +307,20 @@ namespace Zappy::GUI {
 
     void ClientApi::receiveSgt(const std::string &aResponse)
     {
-        std::string const &myArg = aResponse;
-        std::string const myTime = myArg.substr(0, myArg.find(' '));
+        std::istringstream myStream(aResponse);
+        std::string myTime;
+
+        myStream >> myTime;
 
         _serverData._freq = std::stoi(myTime);
     }
 
     void ClientApi::receiveSst(const std::string &aResponse)
     {
-        std::string const &myArg = aResponse;
-        std::string const myTime = myArg.substr(0, myArg.find(' '));
+        std::istringstream myStream(aResponse);
+        std::string myTime;
+
+        myStream >> myTime;
 
         _serverData._freq = std::stoi(myTime);
     }
