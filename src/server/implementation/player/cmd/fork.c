@@ -7,6 +7,7 @@
 
 #include "implementation.h"
 #include "player_cmd.h"
+#include "gui_cmd.h"
 
 static void append_egg(data_t *data, const unsigned int team_id,
     const int pos_x, const int pos_y)
