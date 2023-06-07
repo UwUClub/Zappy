@@ -41,7 +41,6 @@ static void send_bct_to_all_gui(data_t *data)
     free(msg);
 }
 
-
 static int remove_ressource_from_tile(data_t *data,
     const unsigned int ressource)
 {
