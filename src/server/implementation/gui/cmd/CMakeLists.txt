@@ -13,6 +13,7 @@ target_sources(zappy_server PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}/enw.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/pfk.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/pnw.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/ebo.c"
         )
 
 set_target_properties(zappy_server

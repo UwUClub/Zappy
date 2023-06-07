@@ -30,7 +30,7 @@ static int fork_cmd(data_t *data, __attribute__((unused)) char **args)
 
     for (int i = 0; data->teams[i]; i++) {
         if (!strcmp(team_name, data->teams[i]->name)) {
-            do_pfk(data, data->curr_cli_index);
+            do_pfk(data, data->clients[data->curr_cli_index]->player->id);
             append_egg(data, i, player_pos->x, player_pos->y);
             send_to_client(data->clients, data->curr_cli_index, "ok\n");
             return 0;

@@ -2,18 +2,17 @@
 ** EPITECH PROJECT, 2023
 ** zappy_server
 ** File description:
-** pnw
+** ebo
 */
 
 #include "core.h"
 
-void do_pnw(data_t *data)
+void do_ebo(data_t *data)
 {
     player_t *player = data->clients[data->curr_cli_index]->player;
     char *msg = NULL;
 
-    asprintf(&msg, "pnw %d %d %d %d %d %s\n", player->id, player->pos->x,
-        player->pos->y, player->orientation, player->level, player->team_name);
+    asprintf(&msg, "ebo %d\n", player->id);
     send_to_all_gui(data->clients, msg);
     free(msg);
 }

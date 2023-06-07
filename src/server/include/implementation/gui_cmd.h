@@ -110,6 +110,12 @@
     */
     void do_pnw(data_t *data);
 
+    /**
+     * @brief Notify to gui that a player was born and replaced an egg
+     * @param data The current server data, clients and current client index
+    */
+    void do_ebo(data_t *data);
+
     static const cmd_t gui_commands[] = {
         {"msz", &do_msz, 0},
         {"bct", &do_bct, 0},

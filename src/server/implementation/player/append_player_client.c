@@ -30,13 +30,14 @@ static void hatch_egg(data_t *data, char *team_name)
 {
     int team_index = 0;
     int egg_index = 0;
-    pos_t *egg_pos = NULL;
+    egg_t *egg = NULL;
 
     team_index = get_team_index_by_name(data->teams, team_name);
     egg_index = rand() % get_nb_eggs(data, team_name);
-    egg_pos = data->teams[team_index]->eggs[egg_index]->pos;
-    data->clients[data->curr_cli_index]->player->pos->x = egg_pos->x;
-    data->clients[data->curr_cli_index]->player->pos->y = egg_pos->y;
+    egg = data->teams[team_index]->eggs[egg_index];
+    data->clients[data->curr_cli_index]->player->id = egg->id;
+    data->clients[data->curr_cli_index]->player->pos->x = egg->pos->x;
+    data->clients[data->curr_cli_index]->player->pos->y = egg->pos->y;
     free_egg(data->teams[team_index]->eggs[egg_index]);
     for (int i = egg_index; data->teams[team_index]->eggs[i]; i++) {
         data->teams[team_index]->eggs[i] = data->teams[team_index]->eggs[i + 1];
@@ -55,6 +56,7 @@ int append_player_client(data_t *data, char *team_name)
     init_player(&(data->clients[data->curr_cli_index]), team_name, data->map);
     hatch_egg(data, team_name);
     send_welcome_data(data, remaining_slots);
+    do_ebo(data);
     do_pnw(data);
     data->clients[data->curr_cli_index]->is_registered = 1;
     return 0;

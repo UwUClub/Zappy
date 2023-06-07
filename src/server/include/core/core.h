@@ -44,6 +44,7 @@
     } pending_cmd_t;
 
     typedef struct player_s {
+        int id;
         pos_t *pos;
         orientation_t orientation;
         int level;
