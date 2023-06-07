@@ -12,8 +12,11 @@ target_sources(zappy_server PRIVATE
         )
 
 add_subdirectory(broadcast)
+add_subdirectory(incantation)
 
+target_include_directories(zappy_server PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/incantation")
 target_include_directories(zappy_server PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/broadcast")
+
 
 set_target_properties(zappy_server
     PROPERTIES

@@ -20,8 +20,18 @@
     #define TAKE_DELAY 7
     #define SET_DELAY 7
     #define INCANTATION_DELAY 300
+    #define NB_LEVELS 8
 
     #include "core.h"
+
+    static const int level_incantation[7][8] = {{1, 1, 1, 0, 0, 0, 0, 0},
+                                            {2, 2, 1, 1, 1, 0, 0, 0},
+                                            {3, 2, 2, 0, 1, 0, 2, 0},
+                                            {4, 4, 1, 1, 2, 0, 1, 0},
+                                            {5, 4, 1, 2, 1, 3, 0, 0},
+                                            {6, 6, 1, 2, 3, 0, 1, 0},
+                                            {7, 6, 2, 2, 2, 2, 2, 1},
+    };
 
     /**
     * @brief Schedule a player command to be executed after a delay
@@ -115,6 +125,14 @@
     int schedule_broadcast(data_t *data, char **args);
 
     /**
+     * @brief Schedule incantation command
+     * @param data The current server data, clients and current client index
+     * @param args The arguments of the command
+     * @return Status of the schedule
+     */
+    int schedule_incantation(data_t *data, char **args);
+
+    /**
     * @brief Get tile number from source direction (used for broadcast)
     * @param data The current server data, clients and current client index
     * @param player_id The id of the player
@@ -124,5 +142,20 @@
     */
     int get_tile_from_source(data_t *data, const unsigned int player_id,
         const unsigned int source_x, const unsigned int source_y);
+
+    /**
+     * @brief Check the ressource asked of a tile
+     * @param data The current server data, clients and current client index
+     * @param ressource The ressource to check
+     * @return return the quantity of the ressource in the tile of the player
+     */
+    int check_tile(data_t *data, int ressource);
+
+    /**
+     * @brief Remove all the ressource consummed from a tile
+     * @param data The current server data, clients and current client index
+     * @return return 0 if success, 1 if error
+     */
+    int remove_all_ressources_from_tile(data_t *data);
 
 #endif /* ZAPPY_PLAYER_CMD_H */

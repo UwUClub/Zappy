@@ -98,7 +98,6 @@ namespace Zappy::GUI {
     {
         auto myServerData = _client.getServerData();
         const auto myMapSize = myServerData._mapSize;
-        std::cout << "Map size: " << myMapSize.first << " " << myMapSize.second << std::endl;
         const constexpr int myTileSize = 1;
 
         Ogre::Vector3f myCenterPos(0, 0, 0);
