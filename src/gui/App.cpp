@@ -15,6 +15,7 @@
 #include <OgreRenderWindow.h>
 #include <OgreRoot.h>
 #include <algorithm>
+#include <functional>
 #include <memory>
 #include "CameraHandler.hpp"
 #include "Constexpr.hpp"
@@ -118,41 +119,32 @@ namespace Zappy::GUI {
 
     void App::getNotified(std::string &aNotification)
     {
-        auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
+        auto myCommand = aNotification.substr(0, aNotification.find_first_of(' '));
 
-        if (aNotification.find("pnw") != std::string::npos) {
-            auto myNewPlayer = _client.getServerData()._players.back();
-            this->addPlayer(myNewPlayer, myScnMgr);
-            return;
-        }
-        if (aNotification.find("pdi") != std::string::npos) {
-            int myIndex = std::stoi(aNotification.substr(4));
-            this->removePlayer(myIndex, myScnMgr);
-            return;
-        }
-        if (aNotification.find("ppo") != std::string::npos) {
-            int myIndex = std::stoi(aNotification.substr(4));
-            this->movePlayer(myIndex, myScnMgr);
-            return;
+        if (_notificationMap.find(myCommand) != _notificationMap.end()) {
+            _notificationMap.at(myCommand)(*this, aNotification);
         }
     }
 
-    void App::addPlayer(PlayerData &aPlayer, Ogre::SceneManager *aSceneManager)
+    void App::addPlayer([[maybe_unused]] std::string &aNotification)
     {
+        auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
         auto myServerData = _client.getServerData();
-        const auto &myPlayerId = aPlayer.getId();
-        Ogre::Entity *myEntity = aSceneManager->createEntity(myPlayerId, "Sinbad.mesh");
-        Ogre::SceneNode *myNode = aSceneManager->getRootSceneNode()->createChildSceneNode(myPlayerId);
+        auto myPlayerData = myServerData._players.back();
+        const auto &myPlayerId = myPlayerData.getId();
+        Ogre::Entity *myEntity = myScnMgr->createEntity(myPlayerId, "Sinbad.mesh");
+        Ogre::SceneNode *myNode = myScnMgr->getRootSceneNode()->createChildSceneNode(myPlayerId);
 
         myNode->attachObject(myEntity);
-        this->setPlayerPosAndOrientation(aPlayer, aSceneManager);
+        this->setPlayerPosAndOrientation(myPlayerData);
     }
 
-    void App::removePlayer(int aIndex, Ogre::SceneManager *aSceneManager)
+    void App::removePlayer(std::string &aNotification)
     {
-        auto myPlayerId = std::to_string(aIndex);
+        int myIndex = std::stoi(aNotification.substr(4));
+        auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
 
-        aSceneManager->destroyEntity(std::to_string(aIndex));
+        myScnMgr->destroyEntity(std::to_string(myIndex));
     }
 
     bool App::windowClosing(Ogre::RenderWindow *aRenderWindow)
@@ -162,33 +154,41 @@ namespace Zappy::GUI {
         return true;
     }
 
-    void App::movePlayer(int aIndex, Ogre::SceneManager *aSceneManager)
+    void App::movePlayer(std::string &aNotification)
     {
         auto myServerData = _client.getServerData();
-        auto myPlayerId = std::to_string(aIndex);
+        auto myIndex = aNotification.substr(4);
         auto myPlayerData = std::find_if(myServerData._players.begin(), myServerData._players.end(),
-                                         [&myPlayerId](const PlayerData &aPlayer) {
-                                             return aPlayer.getId() == myPlayerId;
+                                         [&myIndex](const PlayerData &aPlayer) {
+                                             return aPlayer.getId() == myIndex;
                                          });
         if (myPlayerData == myServerData._players.end()) {
             return;
         }
 
-        this->setPlayerPosAndOrientation(*myPlayerData, aSceneManager);
+        this->setPlayerPosAndOrientation(*myPlayerData);
     }
 
-    void App::setPlayerPosAndOrientation(PlayerData &aPlayer, Ogre::SceneManager *aSceneManager)
+    void App::setPlayerPosAndOrientation(PlayerData &aPlayer)
     {
+        auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
         const auto &myPlayerId = aPlayer.getId();
         static const std::unordered_map<Orientation, Ogre::Real> myOrientationMap = {{Orientation::SOUTH, 0},
                                                                                      {Orientation::EAST, 90},
                                                                                      {Orientation::NORTH, 180},
                                                                                      {Orientation::WEST, 270}};
-        Ogre::SceneNode *myNode = aSceneManager->getSceneNode(myPlayerId);
+        Ogre::SceneNode *myNode = myScnMgr->getSceneNode(myPlayerId);
 
         myNode->setPosition(static_cast<float>(aPlayer.getPosition().first * MAP_OFFSET), NEW_PLAYER_Y_POS,
                             static_cast<float>(aPlayer.getPosition().second * MAP_OFFSET));
         myNode->setOrientation(
             Ogre::Quaternion(Ogre::Degree(myOrientationMap.at(aPlayer.getOrientation())), Ogre::Vector3::UNIT_Y));
+    }
+
+    void App::displayServerMessage(std::string &aNotification)
+    {
+        auto myMessage = aNotification.substr(4);
+
+        std::cout << "Server message: " << myMessage << std::endl;
     }
 } // namespace Zappy::GUI

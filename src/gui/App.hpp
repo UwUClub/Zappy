@@ -9,6 +9,7 @@
 #define APP_HPP_
 #include <OGRE/Bites/OgreApplicationContext.h>
 #include <OgreRoot.h>
+#include <functional>
 #include <memory>
 #include "CameraHandler.hpp"
 #include "ClickHandler.hpp"
@@ -40,26 +41,33 @@ namespace Zappy::GUI {
             void setupLight(Ogre::SceneManager *aSceneManager);
             void setupCamera(Ogre::SceneManager *aSceneManager, Ogre::Vector3 &aCenter);
             Ogre::Vector3f setupMap(Ogre::SceneManager *aSceneManager);
-            void addPlayer(PlayerData &aPlayer, Ogre::SceneManager *aSceneManager);
-            static void removePlayer(int aIndex, Ogre::SceneManager *aSceneManager);
+            void addPlayer(std::string &aNotification);
+            void removePlayer(std::string &aNotification);
             /**
              * @brief Move the a player
              *
-             * @param aIndex the index of the player
+             * @param aNotification the notification
              * @param aSceneManager the scene manager
              */
-            void movePlayer(int aIndex, Ogre::SceneManager *aSceneManager);
+            void movePlayer(std::string &aNotification);
             /**
              * @brief Set the Player Pos And Orientation object
              *
              * @param aPlayer the playerData
              * @param aSceneManager the scene manager
              */
-            static void setPlayerPosAndOrientation(PlayerData &aPlayer, Ogre::SceneManager *aSceneManager);
+            void setPlayerPosAndOrientation(PlayerData &aPlayer);
+            void displayServerMessage(std::string &aNotification);
             Zappy::GUI::ClientApi &_client;
             std::unique_ptr<CameraHandler> _cameraHandler;
             std::unique_ptr<FrameHandler> _frameHandler;
             std::unique_ptr<ClickHandler> _clickHandler;
+
+            static const inline std::unordered_map<std::string, std::function<void(App &, std::string &)>>
+                _notificationMap = {{"pnw", &App::addPlayer},
+                                    {"pdi", &App::removePlayer},
+                                    {"ppo", &App::movePlayer},
+                                    {"message", &App::displayServerMessage}};
     };
 } // namespace Zappy::GUI
 
