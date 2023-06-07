@@ -26,7 +26,7 @@ static void send_welcome_data(data_t *data, const int remaining_slots)
     free(world_dimensions);
 }
 
-static void hatch_egg(data_t *data, char *team_name)
+static void find_egg_to_hatch(data_t *data, char *team_name)
 {
     int team_index = 0;
     int egg_index = 0;
@@ -38,10 +38,7 @@ static void hatch_egg(data_t *data, char *team_name)
     data->clients[data->curr_cli_index]->player->id = egg->id;
     data->clients[data->curr_cli_index]->player->pos->x = egg->pos->x;
     data->clients[data->curr_cli_index]->player->pos->y = egg->pos->y;
-    free_egg(data->teams[team_index]->eggs[egg_index]);
-    for (int i = egg_index; data->teams[team_index]->eggs[i]; i++) {
-        data->teams[team_index]->eggs[i] = data->teams[team_index]->eggs[i + 1];
-    }
+    hatch_egg(data, team_index, egg_index);
 }
 
 int append_player_client(data_t *data, char *team_name)
@@ -54,7 +51,7 @@ int append_player_client(data_t *data, char *team_name)
         return 84;
     }
     init_player(&(data->clients[data->curr_cli_index]), team_name, data->map);
-    hatch_egg(data, team_name);
+    find_egg_to_hatch(data, team_name);
     send_welcome_data(data, remaining_slots);
     do_ebo(data);
     do_pnw(data);

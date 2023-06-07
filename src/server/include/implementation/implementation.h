@@ -69,6 +69,22 @@
         unsigned long long elapsed_time_ms);
 
     /**
+    * @brief Make all eggs consume food and kill them if no food anymore
+    * @param data The current server data, clients and current client index
+    * @param elapsed_time_ms The elapsed time since the last call
+    */
+    void handle_eggs_digestion(data_t *data,
+        unsigned long long elapsed_time_ms);
+
+    /**
+    * @brief Hatch an egg
+    * @param data The current server data, clients and current client index
+    * @param team_index Team in the which the egg is
+    * @param egg_index The index of the egg in the team
+    */
+    void hatch_egg(data_t *data, const int team_index, const int egg_index);
+
+    /**
     * @brief Kill current player defined in data by sending him a death message
     * The server closes the client socket once the message is sent
     * @param data The current server data, clients and current client index

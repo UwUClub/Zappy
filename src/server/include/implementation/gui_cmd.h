@@ -116,6 +116,12 @@
     */
     void do_ebo(data_t *data);
 
+    /**
+     * @brief Notify to gui that an egg hatched
+     * @param data The current server data, clients and current client index
+    */
+    void do_edi(data_t *data, const int egg_index);
+
     static const cmd_t gui_commands[] = {
         {"msz", &do_msz, 0},
         {"bct", &do_bct, 0},
