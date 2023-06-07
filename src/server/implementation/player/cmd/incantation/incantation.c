@@ -9,6 +9,7 @@
 #include "implementation.h"
 #include "utils.h"
 #include "player_cmd.h"
+#include "gui_cmd.h"
 
 static int check_ressources(data_t *data, const unsigned int level_index)
 {
@@ -25,7 +26,7 @@ static int check_incantation(data_t *data)
     int status = 0;
 
     level = data->clients[data->curr_cli_index]->player->level;
-    for (int i = 0; i < NB_LEVEL; i++) {
+    for (int i = 0; i < NB_LEVELS - 1; i++) {
         if (level == level_incantation[i][0]) {
             status = check_ressources(data, i);
         }
@@ -35,17 +36,33 @@ static int check_incantation(data_t *data)
     return status;
 }
 
+static void send_plv_to_all_gui(data_t *data)
+{
+    char **msg = NULL;
+
+    msg = malloc(sizeof(char *) * 2);
+    if (!msg)
+        return;
+    asprintf(&msg[0], "%d", data->clients[data->curr_cli_index]->player->level);
+    msg[1] = NULL;
+    do_plv_to_all_gui(data, msg);
+    free(msg[0]);
+    free(msg);
+}
+
+
 static int do_incantation(data_t *data, char **args)
 {
     client_t *client = NULL;
 
     client = data->clients[data->curr_cli_index];
-    if (client->player->level == 8) {
+    if (client->player->level == NB_LEVELS) {
         send_to_client(data->clients, data->curr_cli_index, "ko\n");
         return 1;
     } else {
         if (check_incantation(data) == 0) {
             client->player->level += 1;
+            send_plv_to_all_gui(data);   
             remove_all_ressources_from_tile(data);
         } else {
             send_to_client(data->clients, data->curr_cli_index, "ko\n");

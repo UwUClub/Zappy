@@ -9,6 +9,7 @@
 #include "implementation.h"
 #include "utils.h"
 #include "player_cmd.h"
+#include "gui_cmd.h"
 
 int check_tile(data_t *data, int ressource)
 {
@@ -22,6 +23,25 @@ int check_tile(data_t *data, int ressource)
     return tile[ressource];
 }
 
+static void send_bct_to_all_gui(data_t *data)
+{
+    int x = data->clients[data->curr_cli_index]->player->pos_x;
+    int y = data->clients[data->curr_cli_index]->player->pos_y;
+    char **msg = NULL;
+
+    msg = malloc(sizeof(char *) * 3);
+    if (!msg)
+        return;
+    asprintf(&msg[0], "%d", x);
+    asprintf(&msg[1], "%d", y);
+    msg[2] = NULL;
+    do_bct_to_all_gui(data, msg);
+    free(msg[0]);
+    free(msg[1]);
+    free(msg);
+}
+
+
 static int remove_ressource_from_tile(data_t *data,
     const unsigned int ressource)
 {
@@ -32,6 +52,7 @@ static int remove_ressource_from_tile(data_t *data,
 
     if (tile[ressource] > 0) {
         tile[ressource] -= level_incantation[level - 1][ressource];
+        send_bct_to_all_gui(data);
         return 0;
     }
     return 1;
