@@ -8,6 +8,7 @@
 #include "ClickHandler.hpp"
 #include <OgreScriptCompiler.h>
 #include <iostream>
+#include "Constexpr.hpp"
 
 namespace Zappy::GUI {
     ClickHandler::ClickHandler(Ogre::SceneNode *aCameraNode, Ogre::RenderWindow *aRenderWindow,
@@ -37,7 +38,7 @@ namespace Zappy::GUI {
 
     Ogre::SceneNode *ClickHandler::getNodeUnderMouse(const Ogre::Vector2 &mousePos)
     {
-        Ogre::Camera *myCamera = reinterpret_cast<Ogre::Camera *>(_cameraNode->getAttachedObject("MainCamera"));
+        auto *myCamera = reinterpret_cast<Ogre::Camera *>(_cameraNode->getAttachedObject(CAMERA_NAME));
         if (myCamera == nullptr) {
             std::cout << "Camera not found" << std::endl;
             return nullptr;
