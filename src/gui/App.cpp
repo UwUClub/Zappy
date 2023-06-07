@@ -182,4 +182,11 @@ namespace Zappy::GUI {
                                 static_cast<float>(myEgg.getPosition().second * MAP_OFFSET));
         }
     }
+
+    void App::setTime(int aTime)
+    {
+        std::string myCommand = "sst " + std::to_string(aTime);
+
+        _client.sendCommand(myCommand);
+    }
 } // namespace Zappy::GUI

@@ -134,6 +134,12 @@ namespace Zappy::GUI {
              * @param aSceneManager the scene manager
              */
             void removePlayer(std::string &aNotification);
+            /**
+             * @brief Send a command to the server to set the time
+             *
+             * @param aTime the time
+             */
+            void setTime(int aTime);
             Zappy::GUI::ClientApi &_client;
             std::unique_ptr<CameraHandler> _cameraHandler;
             std::unique_ptr<FrameHandler> _frameHandler;
