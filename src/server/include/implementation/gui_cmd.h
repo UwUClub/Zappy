@@ -36,6 +36,14 @@
     int do_bct(data_t *data, char **args);
 
     /**
+     * @brief Sends a response to the bct command sent by the client to all gui
+     * @param data The current server data, clients and current client index
+     * @param args The arguments of the command
+     * @return Status of the parsing / command
+    */
+    int do_bct_to_all_gui(data_t *data, char **args);
+
+    /**
     * @brief Sends a response to the tna command sent by the client
     * @param data The current server data, clients and current client index
     * @return Status of the parsing / command
@@ -81,6 +89,14 @@
      * @return Status of the parsing / command
     */
     int do_plv(data_t *data, char **args);
+
+    /**
+     * @brief Sends player id and level to all gui
+     * @param data The current server data, clients and current client index
+     * @param args The arguments of the command
+     * @return Status of the parsing / command
+    */
+    int do_plv_to_all_gui(data_t *data, char **args);
 
     /**
      * @brief Sends player id, position and orientation to gui
