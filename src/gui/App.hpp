@@ -16,6 +16,7 @@
 #include "Constexpr.hpp"
 #include "FrameHandler.hpp"
 #include "InputHandler.hpp"
+#include "PlayerData.hpp"
 #include "ServerData.hpp"
 #include "Subscriber.hpp"
 #include <unordered_map>
@@ -33,13 +34,16 @@ namespace Zappy::GUI {
             App &operator=(App &&) = delete;
 
             void getNotified(std::string &aNotification) final;
+            bool windowClosing(Ogre::RenderWindow *aRenderWindow) final;
 
         private:
             void setupLight(Ogre::SceneManager *aSceneManager);
             void setupCamera(Ogre::SceneManager *aSceneManager, Ogre::Vector3 &aCenter);
-            void addPlayer(PlayerData &aPlayer, Ogre::SceneManager *aSceneManager);
-            void removePlayer(int aIndex, Ogre::SceneManager *aSceneManager);
             Ogre::Vector3f setupMap(Ogre::SceneManager *aSceneManager);
+            void addPlayer(PlayerData &aPlayer, Ogre::SceneManager *aSceneManager);
+            static void removePlayer(int aIndex, Ogre::SceneManager *aSceneManager);
+            void movePlayer(int aIndex, Ogre::SceneManager *aSceneManager);
+            static void setPlayerPosAndOrientation(PlayerData &aPlayer, Ogre::SceneManager *aSceneManager);
             Zappy::GUI::ClientApi &_client;
             std::unique_ptr<CameraHandler> _cameraHandler;
             std::unique_ptr<FrameHandler> _frameHandler;

@@ -121,7 +121,6 @@ namespace Zappy::GUI {
         auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
 
         if (aNotification.find("pnw") != std::string::npos) {
-            _client.parseServerResponses();
             auto myNewPlayer = _client.getServerData()._players.back();
             this->addPlayer(myNewPlayer, myScnMgr);
             return;
@@ -129,36 +128,67 @@ namespace Zappy::GUI {
         if (aNotification.find("pdi") != std::string::npos) {
             int myIndex = std::stoi(aNotification.substr(4));
             this->removePlayer(myIndex, myScnMgr);
-            _client.parseServerResponses();
             return;
         }
-        // _client.parseServerResponses();
+        if (aNotification.find("ppo") != std::string::npos) {
+            int myIndex = std::stoi(aNotification.substr(4));
+            this->movePlayer(myIndex, myScnMgr);
+            return;
+        }
     }
 
     void App::addPlayer(PlayerData &aPlayer, Ogre::SceneManager *aSceneManager)
     {
-        static const std::unordered_map<Orientation, Ogre::Real> myOrientationMap = {{Orientation::SOUTH, 0},
-                                                                                     {Orientation::EAST, 90},
-                                                                                     {Orientation::NORTH, 180},
-                                                                                     {Orientation::WEST, 270}};
         auto myServerData = _client.getServerData();
         const auto &myPlayerId = aPlayer.getId();
-
         Ogre::Entity *myEntity = aSceneManager->createEntity(myPlayerId, "Sinbad.mesh");
         Ogre::SceneNode *myNode = aSceneManager->getRootSceneNode()->createChildSceneNode(myPlayerId);
 
         myNode->attachObject(myEntity);
-        myNode->setPosition(static_cast<float>(aPlayer.getPosition().first * MAP_OFFSET), NEW_PLAYER_Y_POS,
-                            static_cast<float>(aPlayer.getPosition().second * MAP_OFFSET));
-        myNode->setOrientation(
-            Ogre::Quaternion(Ogre::Degree(myOrientationMap.at(aPlayer.getOrientation())), Ogre::Vector3::UNIT_Y));
+        this->setPlayerPosAndOrientation(aPlayer, aSceneManager);
     }
 
     void App::removePlayer(int aIndex, Ogre::SceneManager *aSceneManager)
     {
-        auto myServerData = _client.getServerData();
         auto myPlayerId = std::to_string(aIndex);
 
         aSceneManager->destroyEntity(std::to_string(aIndex));
+    }
+
+    bool App::windowClosing(Ogre::RenderWindow *aRenderWindow)
+    {
+        _client.disconnect();
+        OgreBites::ApplicationContext::windowClosing(aRenderWindow);
+        return true;
+    }
+
+    void App::movePlayer(int aIndex, Ogre::SceneManager *aSceneManager)
+    {
+        auto myServerData = _client.getServerData();
+        auto myPlayerId = std::to_string(aIndex);
+        auto myPlayerData = std::find_if(myServerData._players.begin(), myServerData._players.end(),
+                                         [&myPlayerId](const PlayerData &aPlayer) {
+                                             return aPlayer.getId() == myPlayerId;
+                                         });
+        if (myPlayerData == myServerData._players.end()) {
+            return;
+        }
+
+        this->setPlayerPosAndOrientation(*myPlayerData, aSceneManager);
+    }
+
+    void App::setPlayerPosAndOrientation(PlayerData &aPlayer, Ogre::SceneManager *aSceneManager)
+    {
+        const auto &myPlayerId = aPlayer.getId();
+        static const std::unordered_map<Orientation, Ogre::Real> myOrientationMap = {{Orientation::SOUTH, 0},
+                                                                                     {Orientation::EAST, 90},
+                                                                                     {Orientation::NORTH, 180},
+                                                                                     {Orientation::WEST, 270}};
+        Ogre::SceneNode *myNode = aSceneManager->getSceneNode(myPlayerId);
+
+        myNode->setPosition(static_cast<float>(aPlayer.getPosition().first * MAP_OFFSET), NEW_PLAYER_Y_POS,
+                            static_cast<float>(aPlayer.getPosition().second * MAP_OFFSET));
+        myNode->setOrientation(
+            Ogre::Quaternion(Ogre::Degree(myOrientationMap.at(aPlayer.getOrientation())), Ogre::Vector3::UNIT_Y));
     }
 } // namespace Zappy::GUI
