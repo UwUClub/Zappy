@@ -191,4 +191,11 @@ namespace Zappy::GUI {
 
         std::cout << "Server message: " << myMessage << std::endl;
     }
+
+    void App::setTime(int aTime)
+    {
+        std::string myCommand = "sst " + std::to_string(aTime);
+
+        _client.sendCommand(myCommand);
+    }
 } // namespace Zappy::GUI
