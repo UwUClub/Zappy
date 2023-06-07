@@ -25,7 +25,7 @@ static int check_incantation(data_t *data)
     int status = 0;
 
     level = data->clients[data->curr_cli_index]->player->level;
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < NB_LEVEL; i++) {
         if (level == level_incantation[i][0]) {
             status = check_ressources(data, i);
         }
@@ -62,10 +62,10 @@ int schedule_incantation(data_t *data, char **args)
     if (args)
         return 1;
     can_incant = check_incantation(data);
-    if (can_incant == 0)
-        append_scheduler_to_queue(data, &do_incantation, args,
-        INCANTATION_DELAY);
-    else
+    if (can_incant == 1) {
         return 1;
+    }
+    append_scheduler_to_queue(data, &do_incantation, args,
+    INCANTATION_DELAY);
     return 0;
 }

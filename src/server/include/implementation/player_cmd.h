@@ -20,6 +20,7 @@
     #define TAKE_DELAY 7
     #define SET_DELAY 7
     #define INCANTATION_DELAY 300
+    #define NB_LEVEL 7
 
     #include "core.h"
 
