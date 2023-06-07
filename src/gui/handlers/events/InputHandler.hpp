@@ -12,6 +12,10 @@
 #include "ClientApi.hpp"
 
 namespace Zappy::GUI {
+    /**
+     * @brief Class used to handle the mouse events
+     * @details Refer to the Ogre documentation
+     */
     class InputHandler : public OgreBites::InputListener
     {
         public:

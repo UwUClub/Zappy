@@ -97,7 +97,6 @@ namespace Zappy::GUI {
     {
         auto myServerData = _client.getServerData();
         const auto myMapSize = myServerData._mapSize;
-        std::cout << "Map size: " << myMapSize.first << " " << myMapSize.second << std::endl;
         const constexpr int myTileSize = 1;
 
         Ogre::Vector3f myCenterPos(0, 0, 0);
@@ -156,9 +155,13 @@ namespace Zappy::GUI {
 
     void App::removePlayer(int aIndex, Ogre::SceneManager *aSceneManager)
     {
-        auto myServerData = _client.getServerData();
-        auto myPlayerId = std::to_string(aIndex);
+        try {
+            auto myServerData = _client.getServerData();
+            auto myPlayerId = std::to_string(aIndex);
 
-        aSceneManager->destroyEntity(std::to_string(aIndex));
+            aSceneManager->destroyEntity(std::to_string(aIndex));
+        } catch (std::exception &e) {
+            std::cerr << e.what() << std::endl;
+        }
     }
 } // namespace Zappy::GUI

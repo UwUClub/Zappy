@@ -18,6 +18,11 @@
 #include "InputHandler.hpp"
 
 namespace Zappy::GUI {
+    /**
+     * @brief Class used to handle the camera
+     * @details This class is used to handle the camera, it is used to move the camera in the scene, refer to the Ogre
+     * documentation
+     */
     class CameraHandler final : public InputHandler
     {
         public:
