@@ -50,7 +50,6 @@ static void send_plv_to_all_gui(data_t *data)
     free(msg);
 }
 
-
 static int do_incantation(data_t *data, char **args)
 {
     client_t *client = NULL;
@@ -62,7 +61,7 @@ static int do_incantation(data_t *data, char **args)
     } else {
         if (check_incantation(data) == 0) {
             client->player->level += 1;
-            send_plv_to_all_gui(data);   
+            send_plv_to_all_gui(data);
             remove_all_ressources_from_tile(data);
         } else {
             send_to_client(data->clients, data->curr_cli_index, "ko\n");
