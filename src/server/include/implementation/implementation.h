@@ -99,4 +99,12 @@
     */
     team_t *get_team_by_name(team_t **teams, const char *name);
 
+    /**
+    * @brief Get a team index by its name
+    * @param teams The teams array
+    * @param name The name of the team
+    * @return The index of the team if found, -1 otherwise
+    */
+    int get_team_index_by_name(team_t **teams, const char *name);
+
 #endif /* ZAPPY_IMPLEMENTATION_H */

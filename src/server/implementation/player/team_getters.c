@@ -17,6 +17,16 @@ team_t *get_team_by_name(team_t **teams, const char *name)
     return NULL;
 }
 
+int get_team_index_by_name(team_t **teams, const char *name)
+{
+    for (int i = 0; teams[i]; i++) {
+        if (!strcmp(teams[i]->name, name)) {
+            return i;
+        }
+    }
+    return -1;
+}
+
 int get_nb_eggs(data_t *data, const char *team_name)
 {
     team_t *team = NULL;

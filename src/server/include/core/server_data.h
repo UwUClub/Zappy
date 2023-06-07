@@ -44,4 +44,10 @@
      */
     void free_teams(data_t *data);
 
+    /**
+     * @brief Free an egg
+     * @param egg The egg to free
+     */
+    void free_egg(egg_t *egg);
+
 #endif /* ZAPPY_SERVER_DATA_H */

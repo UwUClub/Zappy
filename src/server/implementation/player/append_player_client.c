@@ -7,6 +7,7 @@
 
 #include "core.h"
 #include "implementation.h"
+#include "server_data.h"
 #include "utils.h"
 #include "gui_cmd.h"
 #include "player_cmd.h"
@@ -25,16 +26,34 @@ static void send_welcome_data(data_t *data, const int remaining_slots)
     free(world_dimensions);
 }
 
+static void hatch_egg(data_t *data, char *team_name)
+{
+    int team_index = 0;
+    int egg_index = 0;
+    pos_t *egg_pos = NULL;
+
+    team_index = get_team_index_by_name(data->teams, team_name);
+    egg_index = rand() % get_nb_eggs(data, team_name);
+    egg_pos = data->teams[team_index]->eggs[egg_index]->pos;
+    data->clients[data->curr_cli_index]->player->pos->x = egg_pos->x;
+    data->clients[data->curr_cli_index]->player->pos->y = egg_pos->y;
+    free_egg(data->teams[team_index]->eggs[egg_index]);
+    for (int i = egg_index; data->teams[team_index]->eggs[i]; i++) {
+        data->teams[team_index]->eggs[i] = data->teams[team_index]->eggs[i + 1];
+    }
+}
+
 int append_player_client(data_t *data, char *team_name)
 {
-    int remaining_slots = get_nb_eggs(data, team_name);
+    int remaining_slots = 0;
 
+    remaining_slots = get_nb_eggs(data, team_name);
     if (remaining_slots <= 0) {
         send_to_client(data->clients, data->curr_cli_index, "ko\n");
         return 84;
     }
     init_player(&(data->clients[data->curr_cli_index]), team_name, data->map);
-    // TODO: use an egg and remove it
+    hatch_egg(data, team_name);
     send_welcome_data(data, remaining_slots);
     do_pnw(data);
     data->clients[data->curr_cli_index]->is_registered = 1;

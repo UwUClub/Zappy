@@ -7,6 +7,12 @@
 
 #include "core.h"
 
+void free_egg(egg_t *egg)
+{
+    free(egg->pos);
+    free(egg);
+}
+
 void free_teams(data_t *data)
 {
     if (!data->teams)
@@ -14,8 +20,7 @@ void free_teams(data_t *data)
     for (int i = 0; data->teams[i]; i++) {
         free(data->teams[i]->name);
         for (int j = 0; data->teams[i]->eggs[j]; j++) {
-            free(data->teams[i]->eggs[j]->pos);
-            free(data->teams[i]->eggs[j]);
+            free_egg(data->teams[i]->eggs[j]);
         }
         free(data->teams[i]->eggs);
         free(data->teams[i]);
