@@ -14,11 +14,10 @@
 #include <OgrePrerequisites.h>
 #include <OgreRenderWindow.h>
 #include "ClientApi.hpp"
+#include "Constexpr.hpp"
 #include "InputHandler.hpp"
 
 namespace Zappy::GUI {
-    const constexpr int BASE_ANGLE = 45;
-
     class CameraHandler final : public InputHandler
     {
         public:

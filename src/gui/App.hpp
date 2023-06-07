@@ -13,6 +13,7 @@
 #include "CameraHandler.hpp"
 #include "ClickHandler.hpp"
 #include "ClientApi.hpp"
+#include "Constexpr.hpp"
 #include "FrameHandler.hpp"
 #include "InputHandler.hpp"
 #include "ServerData.hpp"
@@ -23,7 +24,7 @@ namespace Zappy::GUI {
     class App final : public OgreBites::ApplicationContext, public Subscriber
     {
         public:
-            explicit App(Zappy::GUI::ClientApi &client, const std::string &aWindowName = "UwU Zappy UwU");
+            explicit App(Zappy::GUI::ClientApi &client, const std::string &aWindowName = WINDOW_NAME);
             ~App() final;
 
             App(const App &) = delete;
@@ -36,6 +37,8 @@ namespace Zappy::GUI {
         private:
             void setupLight(Ogre::SceneManager *aSceneManager);
             void setupCamera(Ogre::SceneManager *aSceneManager, Ogre::Vector3 &aCenter);
+            void addPlayer(PlayerData &aPlayer, Ogre::SceneManager *aSceneManager);
+            void removePlayer(int aIndex, Ogre::SceneManager *aSceneManager);
             Ogre::Vector3f setupMap(Ogre::SceneManager *aSceneManager);
             Zappy::GUI::ClientApi &_client;
             std::unique_ptr<CameraHandler> _cameraHandler;
