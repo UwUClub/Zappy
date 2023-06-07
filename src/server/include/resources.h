@@ -17,6 +17,7 @@
     #define MENDIANE 4
     #define PHIRAS 5
     #define THYSTAME 6
+    #define NB_RESOURCES 7
 
     #define FOOD_START 10
 
