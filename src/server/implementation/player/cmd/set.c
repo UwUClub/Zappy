@@ -8,6 +8,7 @@
 #include "implementation.h"
 #include "utils.h"
 #include "player_cmd.h"
+#include "resources.h"
 
 static int pdr(data_t *data, int resource)
 {
@@ -31,10 +32,10 @@ static int pdr(data_t *data, int resource)
 
 static int set(data_t *data, char **args)
 {
-    const char *resource[7] = {"food", "linemate", "deraumere", "sibur",
-        "mendiane", "phiras", "thystame"};
+    const char *resource[NB_RESOURCES] = {"food", "linemate", "deraumere",
+    "sibur", "mendiane", "phiras", "thystame"};
 
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < NB_RESOURCES; i++) {
         if (strcmp(args[0], resource[i]) == 0
             && data->clients[data->curr_cli_index]->player->inventory[i] > 0) {
             data->clients[data->curr_cli_index]->player->inventory[i] -= 1;
@@ -50,10 +51,22 @@ static int set(data_t *data, char **args)
 
 int schedule_set(data_t *data, char **args)
 {
+    const char *resource[NB_RESOURCES] = {"food", "linemate", "deraumere",
+    "sibur", "mendiane", "phiras", "thystame"};
+    int is_resource = 1;
+
     if (args == NULL || word_array_len(args) > 1) {
         return 1;
     }
-    // TODO: check if the arg is valid
+    for (int i = 0; i < NB_RESOURCES; i++) {
+        if (strcmp(args[0], resource[i]) == 0 &&
+        data->clients[data->curr_cli_index]->player->inventory[i] > 0) {
+            is_resource = 0;
+        }
+    }
+    if (is_resource == 1) {
+        return 1;
+    }
     append_scheduler_to_queue(data, &set, args, SET_DELAY);
     return 0;
 }
