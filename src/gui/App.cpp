@@ -17,10 +17,12 @@
 #include <algorithm>
 #include <memory>
 #include "CameraHandler.hpp"
+#include "Constexpr.hpp"
 #include "FrameHandler.hpp"
 #include "InputHandler.hpp"
 #include "PlayerData.hpp"
 #include "ServerData.hpp"
+#include <unordered_map>
 
 namespace Zappy::GUI {
     App::App(Zappy::GUI::ClientApi &client, const std::string &aWindowName)
@@ -34,7 +36,7 @@ namespace Zappy::GUI {
         _client.registerSubscriber(*this);
 
         auto *myRoot = this->getRoot();
-        auto *myScnMgr = myRoot->createSceneManager("DefaultSceneManager", "ZappySceneManager");
+        auto *myScnMgr = myRoot->createSceneManager("DefaultSceneManager", SCENE_MAN_NAME);
         Ogre::RTShader::ShaderGenerator *myShadergen = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
         _frameHandler = std::make_unique<FrameHandler>(myScnMgr, _client);
 
@@ -73,7 +75,7 @@ namespace Zappy::GUI {
         Ogre::SceneNode *myCamNode = aSceneManager->getRootSceneNode()->createChildSceneNode();
         myCamNode->setPosition(myCamPos);
 
-        Ogre::Camera *myCam = aSceneManager->createCamera("MainCamera");
+        Ogre::Camera *myCam = aSceneManager->createCamera(CAMERA_NAME);
         myCam->setNearClipDistance(myClipDistance);
         myCam->setAutoAspectRatio(true);
 
@@ -97,7 +99,6 @@ namespace Zappy::GUI {
         const auto myMapSize = myServerData._mapSize;
         std::cout << "Map size: " << myMapSize.first << " " << myMapSize.second << std::endl;
         const constexpr int myTileSize = 1;
-        const constexpr int myOffset = 5;
 
         Ogre::Vector3f myCenterPos(0, 0, 0);
         for (unsigned int i = 0; i < myMapSize.first; i++) {
@@ -106,20 +107,19 @@ namespace Zappy::GUI {
                 Ogre::Entity *myEntity = aSceneManager->createEntity(name, "Sinbad.mesh");
                 Ogre::SceneNode *myNode = aSceneManager->getRootSceneNode()->createChildSceneNode(name);
                 myNode->attachObject(myEntity);
-                myNode->setPosition(static_cast<float>(i) * (myTileSize * myOffset), 0,
-                                    static_cast<float>(j) * (myTileSize * myOffset));
+                myNode->setPosition(static_cast<float>(i) * (myTileSize * MAP_OFFSET), 0,
+                                    static_cast<float>(j) * (myTileSize * MAP_OFFSET));
             }
         }
-        myCenterPos.x = (static_cast<float>(myMapSize.first) / 2) * (myTileSize * myOffset);
-        myCenterPos.z = (static_cast<float>(myMapSize.second) / 2) * (myTileSize * myOffset);
+        myCenterPos.x = (static_cast<float>(myMapSize.first) / 2) * (myTileSize * MAP_OFFSET);
+        myCenterPos.z = (static_cast<float>(myMapSize.second) / 2) * (myTileSize * MAP_OFFSET);
         return myCenterPos;
     }
 
     void App::getNotified(std::string &aNotification)
     {
-        auto *myScnMgr = this->getRoot()->getSceneManager("ZappySceneManager");
-        std::cout << "App: " << aNotification << std::endl;
-        // if aNotification contains  pnw
+        auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
+
         if (aNotification.find("pnw") != std::string::npos) {
             _client.parseServerResponses();
             auto myNewPlayer = _client.getServerData()._players.back();
@@ -127,10 +127,9 @@ namespace Zappy::GUI {
             return;
         }
         if (aNotification.find("pdi") != std::string::npos) {
-            std::cout << "pdi " << aNotification.substr(4) << std::endl;
             int myIndex = std::stoi(aNotification.substr(4));
-            std::cout << "pdi " << myIndex << std::endl;
             this->removePlayer(myIndex, myScnMgr);
+            _client.parseServerResponses();
             return;
         }
         // _client.parseServerResponses();
@@ -138,16 +137,21 @@ namespace Zappy::GUI {
 
     void App::addPlayer(PlayerData &aPlayer, Ogre::SceneManager *aSceneManager)
     {
+        static const std::unordered_map<Orientation, Ogre::Real> myOrientationMap = {{Orientation::SOUTH, 0},
+                                                                                     {Orientation::EAST, 90},
+                                                                                     {Orientation::NORTH, 180},
+                                                                                     {Orientation::WEST, 270}};
         auto myServerData = _client.getServerData();
-        auto myPlayerId = aPlayer.getId();
-
-        std::cout << "Add player: " << myPlayerId << std::endl;
+        const auto &myPlayerId = aPlayer.getId();
 
         Ogre::Entity *myEntity = aSceneManager->createEntity(myPlayerId, "Sinbad.mesh");
         Ogre::SceneNode *myNode = aSceneManager->getRootSceneNode()->createChildSceneNode(myPlayerId);
+
         myNode->attachObject(myEntity);
-        myNode->setPosition(static_cast<float>(aPlayer.getPosition().first * 5), 15,
-                            static_cast<float>(aPlayer.getPosition().second * 5));
+        myNode->setPosition(static_cast<float>(aPlayer.getPosition().first * MAP_OFFSET), NEW_PLAYER_Y_POS,
+                            static_cast<float>(aPlayer.getPosition().second * MAP_OFFSET));
+        myNode->setOrientation(
+            Ogre::Quaternion(Ogre::Degree(myOrientationMap.at(aPlayer.getOrientation())), Ogre::Vector3::UNIT_Y));
     }
 
     void App::removePlayer(int aIndex, Ogre::SceneManager *aSceneManager)

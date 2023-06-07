@@ -4,11 +4,9 @@
 #include <functional>
 #include <iostream>
 #include <vector>
+#include "Constexpr.hpp"
 #include "ItemPacket.hpp"
 #include <unordered_map>
-
-const constexpr int INVENTORY_SIZE = 7;
-
 namespace Zappy::GUI {
 
     enum class Orientation
