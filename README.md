@@ -28,8 +28,7 @@ The zappy project is a compilation of 3 different projects, a server, a client a
 ### SSH
 
 > G++ 20+ is required
-> Other dependencies : Ogre3D, Catch
-> Other dependencies are installed automatically if not found
+> Other dependencies : Ogre3D, Catch should be installed automatically if not found
 
 ```bash
 git clone git@github.com:UwUClub/Zappy.git
