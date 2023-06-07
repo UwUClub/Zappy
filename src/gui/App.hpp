@@ -43,6 +43,12 @@ namespace Zappy::GUI {
             void addPlayer(PlayerData &aPlayer, Ogre::SceneManager *aSceneManager);
             static void removePlayer(int aIndex, Ogre::SceneManager *aSceneManager);
             void movePlayer(int aIndex, Ogre::SceneManager *aSceneManager);
+            /**
+             * @brief Set the Player Pos And Orientation object
+             *
+             * @param aPlayer
+             * @param aSceneManager
+             */
             static void setPlayerPosAndOrientation(PlayerData &aPlayer, Ogre::SceneManager *aSceneManager);
             Zappy::GUI::ClientApi &_client;
             std::unique_ptr<CameraHandler> _cameraHandler;
