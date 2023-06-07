@@ -42,12 +42,18 @@ namespace Zappy::GUI {
             Ogre::Vector3f setupMap(Ogre::SceneManager *aSceneManager);
             void addPlayer(PlayerData &aPlayer, Ogre::SceneManager *aSceneManager);
             static void removePlayer(int aIndex, Ogre::SceneManager *aSceneManager);
+            /**
+             * @brief Move the a player
+             *
+             * @param aIndex the index of the player
+             * @param aSceneManager the scene manager
+             */
             void movePlayer(int aIndex, Ogre::SceneManager *aSceneManager);
             /**
              * @brief Set the Player Pos And Orientation object
              *
-             * @param aPlayer
-             * @param aSceneManager
+             * @param aPlayer the playerData
+             * @param aSceneManager the scene manager
              */
             static void setPlayerPosAndOrientation(PlayerData &aPlayer, Ogre::SceneManager *aSceneManager);
             Zappy::GUI::ClientApi &_client;
