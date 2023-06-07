@@ -104,6 +104,12 @@
     */
     void do_enw(data_t *data, egg_t *egg);
 
+    /**
+     * @brief Notify player connection to gui
+     * @param data The current server data, clients and current client index
+    */
+    void do_pnw(data_t *data);
+
     static const cmd_t gui_commands[] = {
         {"msz", &do_msz, 0},
         {"bct", &do_bct, 0},

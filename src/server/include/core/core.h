@@ -68,16 +68,22 @@
     } map_t;
 
     typedef struct egg_s {
-        unsigned int id;
-        unsigned int progenitor_id;
+        int id;
+        int progenitor_id;
         pos_t *pos;
+        unsigned long long remaining_digestion_ms;
+        int food;
     } egg_t;
 
     typedef struct team_s {
         char *name;
-        unsigned int nb_cli;
         egg_t **eggs;
     } team_t;
+
+    typedef struct saved_opt_s {
+        char **team_names;
+        int nb_cli_per_team;
+    } saved_opt_t;
 
     typedef struct data_s {
         int curr_cli_index;
@@ -89,6 +95,7 @@
         unsigned long long last_select_ms;
         char *ip;
         unsigned long long remaining_rsrc_spawn_ms;
+        int nb_slots;
     } data_t;
 
     typedef struct option_s {

@@ -35,7 +35,8 @@
      * @param data The structure that includes server data,
      * clients and current client index
      */
-    void init_teams(data_t *data);
+    void init_teams(data_t *data, char **team_names,
+        const unsigned int nb_egg_per_team);
 
     /**
      * @brief Free teams

@@ -7,6 +7,7 @@ target_sources(zappy_server PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}/handle_player_digestion.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/kill_player.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/get_player_by_id.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/team_getters.c"
         )
 
 add_subdirectory(cmd)

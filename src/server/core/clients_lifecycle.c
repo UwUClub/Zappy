@@ -22,8 +22,8 @@ void init_player(client_t **client, const char *team_name, map_t *map)
 {
     (*client)->player = malloc(sizeof(player_t));
     (*client)->player->pos = malloc(sizeof(pos_t));
-    (*client)->player->pos->x = rand() % map->width;
-    (*client)->player->pos->y = rand() % map->height;
+    (*client)->player->pos->x = 0;
+    (*client)->player->pos->y = 0;
     (*client)->player->orientation = NORTH;
     (*client)->player->level = LEVEL_START;
     (*client)->player->inventory[0] = FOOD_START;

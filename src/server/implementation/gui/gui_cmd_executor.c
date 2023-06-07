@@ -30,5 +30,6 @@ int execute_gui_cmd(data_t *data, char *cmd_name, char **args)
         }
     }
     send_to_client(data->clients, data->curr_cli_index, "suc\n");
+    free_word_array(args);
     return 84;
 }

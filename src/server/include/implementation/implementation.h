@@ -24,14 +24,6 @@
     int parse_input(data_t *data);
 
     /**
-    * @brief Get remaining opened slots in a team
-    * @param data The current server data, clients and current client index
-    * @param team_name The team name to check
-    * @return Number of remaining slots
-    */
-    int get_remaining_slots(data_t *data, char *team_name);
-
-    /**
     * @brief Register client as gui
     * @param data The current server data, clients and current client index
     * @return Status of the registration
@@ -90,5 +82,21 @@
     * @return The player if found, NULL otherwise
     */
     player_t *get_player_by_id(data_t *data, const unsigned int id);
+
+    /**
+    * @brief Get the number of eggs in a team
+    * @param data The current server data, clients and current client index
+    * @param team_name Name of the team
+    * @return The number of eggs in the team
+    */
+    int get_nb_eggs(data_t *data, const char *team_name);
+
+    /**
+    * @brief Get a team by its name
+    * @param teams The teams array
+    * @param name The name of the team
+    * @return The team if found, NULL otherwise
+    */
+    team_t *get_team_by_name(team_t **teams, const char *name);
 
 #endif /* ZAPPY_IMPLEMENTATION_H */
