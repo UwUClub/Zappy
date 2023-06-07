@@ -41,8 +41,20 @@
     /**
      * @brief Free teams
      * @param data The structure that includes server data,
+     * clients and current client index
      */
     void free_teams(data_t *data);
+
+    /**
+     * @brief Init an egg
+     * @param data The structure that includes server data,
+     * clients and current client index
+     * @param pos_x The x position of the egg
+     * @param pos_y The y position of the egg
+     * @return The egg
+     */
+    egg_t *init_egg(data_t *data, const unsigned int pos_x,
+        const unsigned int pos_y);
 
     /**
      * @brief Free an egg
