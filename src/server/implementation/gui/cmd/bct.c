@@ -21,7 +21,7 @@ static void concat_str_item(char **result, const int item_quantity)
 
 static char *get_tile_at(data_t *data, const int x, const int y)
 {
-    int *tile = data->map->tiles[y][x];
+    int *tile = data->map->tiles[x][y];
     char *result = NULL;
 
     result = strdup("");

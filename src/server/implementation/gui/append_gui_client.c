@@ -15,8 +15,8 @@ static void run_bct_through_map(data_t *data)
     char *x_str = NULL;
     char *y_str = NULL;
 
-    for (int x = 0; x < data->map->width; x++) {
-        for (int y = 0; y < data->map->height; y++) {
+    for (int y = 0; y < data->map->height; y++) {
+        for (int x = 0; x < data->map->width; x++) {
             x_str = int_to_s(x);
             y_str = int_to_s(y);
             do_bct(data, (char *[]){x_str, y_str, NULL});

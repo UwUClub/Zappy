@@ -28,7 +28,7 @@ void free_server_data(data_t *data)
     close_clients(data->clients);
     free_teams(data);
     if (data->map) {
-        for (int x = 0; x < data->map->height; x++) {
+        for (int x = 0; x < data->map->width; x++) {
             free(data->map->tiles[x]);
         }
         free(data->map->tiles);

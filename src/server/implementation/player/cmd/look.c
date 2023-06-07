@@ -25,7 +25,7 @@ static char *add_tile_content(char **look, int x, int y, data_t *data)
     }
     free(clients);
     for (int i = 0; i < TILE_SIZE; i++) {
-        for (int j = 0; j < data->map->tiles[y][x][i]; j++) {
+        for (int j = 0; j < data->map->tiles[x][y][i]; j++) {
             strcat((*look), " \0");
             strcat((*look), resource[i]);
         }
