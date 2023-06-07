@@ -24,8 +24,7 @@ namespace Zappy::GUI {
           _teamName(std::move(aTeamName)),
           _connectStatus(-1),
           _serverFd(-1),
-          _serverData(ServerData::getInstance()),
-          _isInitialized(false)
+          _serverData(ServerData::getInstance())
     {}
 
     ClientApi::~ClientApi()
@@ -139,10 +138,9 @@ namespace Zappy::GUI {
         myStr[myReadSize] = '\0';
         _readBuffer += myStr;
         std::cout << "@read: " << _readBuffer;
-        this->notifySubscribers(_readBuffer);
-        if (!_isInitialized) {
-            parseServerResponses();
-        }
+        std::string mySavedBuffer = _readBuffer;
+        parseServerResponses();
+        this->notifySubscribers(mySavedBuffer);
     }
 
     void ClientApi::writeToServer()
@@ -175,7 +173,6 @@ namespace Zappy::GUI {
 
     void ClientApi::registerSubscriber(Zappy::GUI::Subscriber &aSubscriber)
     {
-        _isInitialized = true;
         _subscribers.emplace_back(aSubscriber);
     }
 

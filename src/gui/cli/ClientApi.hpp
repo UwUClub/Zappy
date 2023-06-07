@@ -214,6 +214,5 @@ namespace Zappy::GUI {
             int _serverFd;
             ServerData _serverData;
             std::vector<std::reference_wrapper<Subscriber>> _subscribers;
-            bool _isInitialized;
     };
 } // namespace Zappy::GUI
