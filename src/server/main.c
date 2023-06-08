@@ -5,12 +5,11 @@
 ** main
 */
 
-#include <stdio.h>
 #include <signal.h>
-#include <stdlib.h>
 #include <time.h>
 #include "core.h"
 #include "utils.h"
+#include "server_data.h"
 
 int main(int ac, char **av)
 {

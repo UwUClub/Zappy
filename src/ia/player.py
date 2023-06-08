@@ -133,7 +133,7 @@ class Player:
         else:
             print ("Look:", myLook)
             return (myLook)
-    
+
     ## @brief Send broadcast command
     ## @return None
     def broadcast(self, aMessage):
@@ -153,4 +153,15 @@ class Player:
             print ("Error: Eject")
         else:
             print ("Eject:", myEject)
-        
+  
+    ## @brief Send Incantation command
+    ## @return Incantation status
+    def incantation(self):
+        self.send("Incantation")
+        myIncantation = self.receive()
+        if myIncantation == "ko\n":
+            print ("Error: Incantation")
+            return (None)
+        else:
+            print ("Incantation:", myIncantation)
+            return (myIncantation)

@@ -4,11 +4,9 @@
 #include <functional>
 #include <iostream>
 #include <vector>
+#include "Constexpr.hpp"
 #include "ItemPacket.hpp"
 #include <unordered_map>
-
-const constexpr int INVENTORY_SIZE = 7;
-
 namespace Zappy::GUI {
 
     enum class Orientation
@@ -19,18 +17,18 @@ namespace Zappy::GUI {
         WEST
     };
 
-    class Player
+    class PlayerData
     {
         public:
             /**
              * @brief Player constructor
              */
-            Player();
+            PlayerData(const std::string &aId);
 
             /**
              * @brief Player destructor
              */
-            ~Player();
+            ~PlayerData();
 
             /**
              * @brief Set the position of the player
@@ -82,6 +80,13 @@ namespace Zappy::GUI {
             [[nodiscard]] const Orientation &getOrientation() const;
 
             /**
+             * @brief Get the Id object
+             *
+             * @return const std::string&
+             */
+            [[nodiscard]] const std::string &getId() const;
+
+            /**
              * @brief Get the level of the player
              * @return int
              */
@@ -104,7 +109,7 @@ namespace Zappy::GUI {
              * @brief Get the team name of the player
              * @return std::string
              */
-            [[nodiscard]] std::string getTeamName() const;
+            [[nodiscard]] const std::string &getTeamName() const;
 
         private:
             // Attributes
@@ -113,5 +118,6 @@ namespace Zappy::GUI {
             int _level {1};
             ItemPacket _inventory;
             std::string _teamName;
+            const std::string _id;
     };
 } // namespace Zappy::GUI

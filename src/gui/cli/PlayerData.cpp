@@ -1,26 +1,24 @@
-#include "Player.hpp"
-#include <utility>
+#include "PlayerData.hpp"
 
 namespace Zappy::GUI {
+    PlayerData::PlayerData(const std::string &aId)
+        : _position(std::make_pair(0, 0)),
+          _id(aId)
+    {}
 
-    Player::Player()
-    {
-        _position = std::make_pair(0, 0);
-    }
+    PlayerData::~PlayerData() = default;
 
-    Player::~Player() = default;
-
-    void Player::setPosition(unsigned int aX, unsigned int aY)
+    void PlayerData::setPosition(unsigned int aX, unsigned int aY)
     {
         _position = std::make_pair(aX, aY);
     }
 
-    void Player::setOrientation(Orientation aOrientation)
+    void PlayerData::setOrientation(Orientation aOrientation)
     {
         _orientation = aOrientation;
     }
 
-    void Player::setOrientation(int aOrientation)
+    void PlayerData::setOrientation(int aOrientation)
     {
         if (aOrientation > 4 || aOrientation < 1) {
             return;
@@ -28,37 +26,37 @@ namespace Zappy::GUI {
         _orientation = static_cast<Orientation>(aOrientation - 1);
     }
 
-    void Player::setLevel(int aLevel)
+    void PlayerData::setLevel(int aLevel)
     {
         _level = aLevel;
     }
 
-    void Player::setInventory(ItemPacket &aInventory)
+    void PlayerData::setInventory(ItemPacket &aInventory)
     {
         _inventory = aInventory;
     }
 
-    void Player::setTeamName(std::string aTeamName)
+    void PlayerData::setTeamName(std::string aTeamName)
     {
         _teamName = std::move(aTeamName);
     }
 
-    const std::pair<unsigned int, unsigned int> &Player::getPosition() const
+    const std::pair<unsigned int, unsigned int> &PlayerData::getPosition() const
     {
         return _position;
     }
 
-    const Orientation &Player::getOrientation() const
+    const Orientation &PlayerData::getOrientation() const
     {
         return _orientation;
     }
 
-    int Player::getLevel() const
+    int PlayerData::getLevel() const
     {
         return _level;
     }
 
-    int Player::getInventory(int aSlot) const
+    int PlayerData::getInventory(int aSlot) const
     {
         static const std::unordered_map<int, std::function<int(ItemPacket)>> myInventoryMap = {
             {0,
@@ -94,13 +92,18 @@ namespace Zappy::GUI {
         return myInventoryMap.at(aSlot)(_inventory);
     }
 
-    ItemPacket Player::getAllInventory()
+    ItemPacket PlayerData::getAllInventory()
     {
         return _inventory;
     }
 
-    std::string Player::getTeamName() const
+    const std::string &PlayerData::getTeamName() const
     {
         return _teamName;
+    }
+
+    const std::string &PlayerData::getId() const
+    {
+        return _id;
     }
 }; // namespace Zappy::GUI

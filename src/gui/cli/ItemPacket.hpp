@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <vector>
-#include "Player.hpp"
+#include "PlayerData.hpp"
 
 namespace Zappy::GUI {
     class ItemPacket

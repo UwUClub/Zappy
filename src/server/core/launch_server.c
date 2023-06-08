@@ -50,7 +50,7 @@ int launch_server(data_t *data)
     if (bind(server_fd, (const struct sockaddr *) &my_addr,
     sizeof(struct sockaddr_in)) < 0)
         return 84;
-    if (listen(server_fd, MAX_TEAMS * data->cli_per_team) < 0)
+    if (listen(server_fd, 1) < 0)
         return 84;
     printf("Port : %i\n", data->port);
     listen_to_inputs(&my_addr, server_fd, data);

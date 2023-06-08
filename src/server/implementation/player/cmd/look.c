@@ -25,7 +25,7 @@ static char *add_tile_content(char **look, int x, int y, data_t *data)
     }
     free(clients);
     for (int i = 0; i < TILE_SIZE; i++) {
-        for (int j = 0; j < data->map->tiles[y][x][i]; j++) {
+        for (int j = 0; j < data->map->tiles[x][y][i]; j++) {
             strcat((*look), " \0");
             strcat((*look), resource[i]);
         }
@@ -36,8 +36,8 @@ static void look_front_tiles(int x, int y, data_t *data, char **look)
 {
     int x_tile = 0;
     int y_tile = 0;
-    int player_x = data->clients[data->curr_cli_index]->player->pos_x;
-    int player_y = data->clients[data->curr_cli_index]->player->pos_y;
+    int player_x = data->clients[data->curr_cli_index]->player->pos->x;
+    int player_y = data->clients[data->curr_cli_index]->player->pos->y;
 
     strcat((*look), "[\0");
     add_tile_content(look, player_x, player_y, data);
