@@ -12,11 +12,11 @@
 #include <sys/socket.h>
 #include <unistd.h>
 #include <utility>
-#include <unordered_map>
+#include "EggData.hpp"
 #include "PlayerData.hpp"
 #include "ServerData.hpp"
 #include "Subscriber.hpp"
-#include "EggData.hpp"
+#include <unordered_map>
 
 namespace Zappy::GUI {
     ClientApi::ClientApi(std::string aAddress, unsigned int aPort, std::string aTeamName)
