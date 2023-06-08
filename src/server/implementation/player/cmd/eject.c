@@ -7,6 +7,7 @@
 
 #include "implementation.h"
 #include "player_cmd.h"
+#include "gui_cmd.h"
 
 static void perform_ejection(orientation_t orientation, pos_t *player_pos)
 {
@@ -42,7 +43,7 @@ static void eject_player(data_t *data, const int player_index, player_t *kicker)
         send_to_client(data->clients, player_index, "ko\n");
     }
     send_to_client(data->clients, player_index, "eject\n");
-    // do pex
+    do_pex(data, player->id);
 }
 
 static int eject_cmd(data_t *data, __attribute__((unused)) char **args)

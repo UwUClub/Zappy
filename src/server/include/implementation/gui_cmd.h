@@ -138,6 +138,12 @@
     */
     void do_edi(data_t *data, const int egg_index);
 
+    /**
+     * @brief Notify to gui that a player has been expulsed
+     * @param data The current server data, clients and current client index
+    */ 
+    int do_pex(data_t *data, const int player_id);
+
     static const cmd_t gui_commands[] = {
         {"msz", &do_msz, 0},
         {"bct", &do_bct, 0},
