@@ -48,6 +48,7 @@ namespace Zappy::GUI {
         this->setupLight(myScnMgr);
         auto nodeCenterPos = this->setupMap(myScnMgr);
         this->setupCamera(myScnMgr, nodeCenterPos);
+        this->setupPlayersAndEggs(myScnMgr);
         myRoot->addFrameListener(_frameHandler.get());
     }
 
@@ -148,10 +149,20 @@ namespace Zappy::GUI {
         return myCenterPos;
     }
 
-    void App::setTime(int aTime)
+    void App::setupPlayersAndEggs(Ogre::SceneManager *aSceneManager)
     {
-        std::string myCommand = "sst " + std::to_string(aTime);
+        auto myServerData = _client.getServerData();
+        auto myPlayerData = myServerData._players;
+        // auto myEggData = myServerData._eggs;
 
-        _client.sendCommand(myCommand);
+        for (const auto &myPlayer : myPlayerData) {
+            std::cout << "Player: " << myPlayer.getId() << std::endl;
+            const auto &myPlayerId = myPlayer.getId();
+            Ogre::Entity *myEntity = aSceneManager->createEntity(myPlayerId, "Sinbad.mesh");
+            Ogre::SceneNode *myNode = aSceneManager->getRootSceneNode()->createChildSceneNode(myPlayerId);
+
+            myNode->attachObject(myEntity);
+            this->setPlayerPosAndOrientation(myPlayer);
+        }
     }
 } // namespace Zappy::GUI

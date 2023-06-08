@@ -71,7 +71,7 @@ namespace Zappy::GUI {
         this->setPlayerPosAndOrientation(*myPlayerData);
     }
 
-    void App::setPlayerPosAndOrientation(PlayerData &aPlayer)
+    void App::setPlayerPosAndOrientation(const PlayerData &aPlayer)
     {
         auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
         const auto &myPlayerId = aPlayer.getId();
