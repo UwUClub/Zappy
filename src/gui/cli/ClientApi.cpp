@@ -157,7 +157,7 @@ namespace Zappy::GUI {
             {"ko", &ClientApi::receiveError},        {"tna", &ClientApi::receiveTna}, {"sbp", &ClientApi::receiveError},
             {"ppo", &ClientApi::receivePpo},         {"plv", &ClientApi::receivePlv}, {"suc", &ClientApi::receiveError},
             {"sgt", &ClientApi::receiveSgt},         {"sst", &ClientApi::receiveSst}, {"pnw", &ClientApi::receivePnw},
-            {"pin", &ClientApi::receivePin}};
+            {"pin", &ClientApi::receivePin},         {"pex", &ClientApi::receivePex}};
 
         while (_readBuffer.find('\n') != std::string::npos) {
             std::string const myResponse = _readBuffer.substr(0, _readBuffer.find('\n'));
@@ -321,4 +321,10 @@ namespace Zappy::GUI {
 
         _serverData._freq = std::stoi(myTime);
     }
+
+    void ClientApi::receivePex(const std::string &aResponse)
+    {
+        this->sendCommand("ppo " + aResponse);
+    }
+
 } // namespace Zappy::GUI
