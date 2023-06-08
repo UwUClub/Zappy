@@ -351,24 +351,24 @@ namespace Zappy::GUI {
     void ClientApi::receivePdr(const std::string &aResponse)
     {
         std::istringstream myStream(aResponse);
-        std::string myPlayerId;
-        std::string myResourceId;
+        unsigned long myPlayerId = 0;
+        int myResourceId = 0;
 
         myStream >> myPlayerId >> myResourceId;
 
-        int const myPlayerInventory = _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId)))
-                                          .getInventory(std::stoi(myResourceId));
+        int const myPlayerInventory = _serverData._players.at(myPlayerId)
+                                          .getInventory(myResourceId);
         std::pair<int, int> const myPos =
-            _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId))).getPosition();
+            _serverData._players.at(myPlayerId).getPosition();
 
         if (myPlayerInventory > 0) {
-            _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId)))
-                .setInventory(std::stoi(myResourceId), myPlayerInventory - 1);
+            _serverData._players.at(myPlayerId)
+                .setInventory(myResourceId, myPlayerInventory - 1);
         }
         _serverData._mapTiles
             .at(static_cast<unsigned int>(myPos.second) * _serverData._mapSize.first
                 + static_cast<unsigned int>(myPos.first))
-            ._items.addResources(std::stoi(myResourceId));
+            ._items.addResources(myResourceId);
     }
 
     void ClientApi::receivePex(const std::string &aResponse)
