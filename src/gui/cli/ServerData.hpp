@@ -2,8 +2,8 @@
 
 #include <iostream>
 #include <vector>
-#include "PlayerData.hpp"
 #include "EggData.hpp"
+#include "PlayerData.hpp"
 
 namespace Zappy::GUI {
 

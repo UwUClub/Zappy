@@ -8,9 +8,10 @@
 #include <iostream>
 
 namespace Zappy::GUI {
-    class EggData {
+    class EggData
+    {
         public:
-            EggData(int aId, std::pair <int, int> aPosition, std::string aTeamName);
+            EggData(int aId, std::pair<int, int> aPosition, std::string aTeamName);
             ~EggData() = default;
 
             /**
@@ -23,7 +24,7 @@ namespace Zappy::GUI {
              * @brief return the position of the egg
              * @return std::pair<int, int>
              */
-            [[nodiscard]] std::pair <int, int> getPosition() const;
+            [[nodiscard]] std::pair<int, int> getPosition() const;
 
             /**
              * @brief return the team id of the egg
@@ -32,10 +33,10 @@ namespace Zappy::GUI {
             [[nodiscard]] std::string getTeamName() const;
 
         private:
-            std::pair <int, int> _position;
+            std::pair<int, int> _position;
             std::string _teamName;
             int _id;
     };
-}
+} // namespace Zappy::GUI
 
-#endif //TESTING_CMAKE_EGGDATA_HPP
+#endif // TESTING_CMAKE_EGGDATA_HPP
