@@ -85,6 +85,13 @@
     void hatch_egg(data_t *data, const int team_index, const int egg_index);
 
     /**
+    * @brief Hatch all eggs at a given position
+    * @param data The current server data, clients and current client index
+    * @param pos The position
+    */
+    void hatch_eggs_at_pos(data_t *data, pos_t *pos);
+
+    /**
     * @brief Kill current player defined in data by sending him a death message
     * The server closes the client socket once the message is sent
     * @param data The current server data, clients and current client index
