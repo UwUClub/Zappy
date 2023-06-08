@@ -134,6 +134,8 @@ class Player:
             print ("Look:", myLook)
             return (myLook)
     
+    ## @brief Send incantation command
+    ## @return the incantation result
     def incantation(self):
         self.send("Incantation")
         myIncantation = self.receive()
