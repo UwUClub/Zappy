@@ -1,6 +1,6 @@
 find_package(OGRE QUIET)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lpthread")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lpthread -O2")
 
 add_executable(zappy_gui
         main.cpp

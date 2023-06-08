@@ -12,6 +12,7 @@
 #include <sys/socket.h>
 #include <unistd.h>
 #include <utility>
+#include "EggData.hpp"
 #include "PlayerData.hpp"
 #include "ServerData.hpp"
 #include "Subscriber.hpp"
@@ -156,7 +157,8 @@ namespace Zappy::GUI {
             {"ko", &ClientApi::receiveError},        {"tna", &ClientApi::receiveTna}, {"sbp", &ClientApi::receiveError},
             {"ppo", &ClientApi::receivePpo},         {"plv", &ClientApi::receivePlv}, {"suc", &ClientApi::receiveError},
             {"sgt", &ClientApi::receiveSgt},         {"sst", &ClientApi::receiveSst}, {"pnw", &ClientApi::receivePnw},
-            {"pin", &ClientApi::receivePin},         {"pex", &ClientApi::receivePex}, {"pdr", &ClientApi::receivePdr}};
+            {"pin", &ClientApi::receivePin},         {"pex", &ClientApi::receivePex}, {"pdr", &ClientApi::receivePdr},
+            {"enw", &ClientApi::receiveEnw}};
 
         while (_readBuffer.find('\n') != std::string::npos) {
             std::string myResponse = _readBuffer.substr(0, _readBuffer.find('\n'));
@@ -377,5 +379,23 @@ namespace Zappy::GUI {
     void ClientApi::receivePex(const std::string &aResponse)
     {
         this->sendCommand("ppo " + aResponse);
+    }
+
+    void ClientApi::receiveEnw(const std::string &aResponse)
+    {
+        std::istringstream myStream(aResponse);
+        std::string myPlayerId;
+        int myEggId;
+        unsigned int myX = 0;
+        unsigned int myY = 0;
+
+        myStream >> myEggId >> myPlayerId >> myX >> myY;
+        auto myPlayerData = std::find_if(_serverData._players.begin(), _serverData._players.end(),
+                                         [&myPlayerId](const PlayerData &aPlayer) {
+                                             return aPlayer.getId() == myPlayerId;
+                                         });
+
+        EggData myEgg(myEggId, std::pair<int, int>(myX, myY), myPlayerData->getTeamName());
+        _serverData._eggs.push_back(myEgg);
     }
 } // namespace Zappy::GUI
