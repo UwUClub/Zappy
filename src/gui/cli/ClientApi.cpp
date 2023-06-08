@@ -351,24 +351,28 @@ namespace Zappy::GUI {
     void ClientApi::receivePdr(const std::string &aResponse)
     {
         std::istringstream myStream(aResponse);
-        unsigned long myPlayerId = 0;
+        std::string myPlayerId = 0;
         int myResourceId = 0;
+        std::pair<int, int> const myPos = {};
 
         myStream >> myPlayerId >> myResourceId;
 
-        int const myPlayerInventory = _serverData._players.at(myPlayerId)
-                                          .getInventory(myResourceId);
-        std::pair<int, int> const myPos =
-            _serverData._players.at(myPlayerId).getPosition();
+        auto myPlayerData = std::find_if(_serverData._players.begin(), _serverData._players.end(),
+                                         [&myPlayerId](const PlayerData &aPlayer) {
+                                             return aPlayer.getId() == myPlayerId;
+                                         });
+        auto myTileData = std::find_if(_serverData._mapTiles.begin(), _serverData._mapTiles.end(),
+                                       [&myPos](const TileContent &aTile) {
+                                           return std::pair<int, int>(aTile._x, aTile._y)
+                                               == myPos;
+                                       });
 
-        if (myPlayerInventory > 0) {
-            _serverData._players.at(myPlayerId)
-                .setInventory(myResourceId, myPlayerInventory - 1);
+        if (myPlayerData != _serverData._players.end()) {
+            myPlayerData->setInventory(myResourceId, myPlayerData->getInventory(myResourceId) - 1);
+            myTileData->_items.addResources(myResourceId);
+        } else {
+            throw ClientException("Player not found");
         }
-        _serverData._mapTiles
-            .at(static_cast<unsigned int>(myPos.second) * _serverData._mapSize.first
-                + static_cast<unsigned int>(myPos.first))
-            ._items.addResources(myResourceId);
     }
 
     void ClientApi::receivePex(const std::string &aResponse)
