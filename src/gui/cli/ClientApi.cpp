@@ -406,10 +406,10 @@ namespace Zappy::GUI {
 
         myStream >> myEggId;
 
-        auto myEggData = std::find_if(_serverData._eggs.begin(), _serverData._eggs.end(),
-                                      [&myEggId](const EggData &aEgg) {
-                                          return aEgg.getId() == myEggId;
-                                      });
+        auto myEggData =
+            std::find_if(_serverData._eggs.begin(), _serverData._eggs.end(), [&myEggId](const EggData &aEgg) {
+                return aEgg.getId() == myEggId;
+            });
         if (myEggData != _serverData._eggs.end()) {
             _serverData._eggs.erase(myEggData);
         } else {
