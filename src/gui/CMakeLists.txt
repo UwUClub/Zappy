@@ -5,7 +5,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -lpthread")
 add_executable(zappy_gui
         main.cpp
         App.cpp
-        App.hpp
+        App+Listener.cpp
         Subscriber.hpp
         )
 
