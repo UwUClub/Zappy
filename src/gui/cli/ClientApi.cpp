@@ -1,10 +1,8 @@
 #include "ClientApi.hpp"
 #include <arpa/inet.h>
 #include <cerrno>
-#include <cstddef>
 #include <cstdio>
 #include <cstring>
-#include <fstream>
 #include <functional>
 #include <iostream>
 #include <netinet/in.h>
@@ -157,7 +155,7 @@ namespace Zappy::GUI {
             {"ko", &ClientApi::receiveError},        {"tna", &ClientApi::receiveTna}, {"sbp", &ClientApi::receiveError},
             {"ppo", &ClientApi::receivePpo},         {"plv", &ClientApi::receivePlv}, {"suc", &ClientApi::receiveError},
             {"sgt", &ClientApi::receiveSgt},         {"sst", &ClientApi::receiveSst}, {"pnw", &ClientApi::receivePnw},
-            {"pin", &ClientApi::receivePin},         {"pex", &ClientApi::receivePex}};
+            {"pin", &ClientApi::receivePin},         {"pex", &ClientApi::receivePex}, {"pdr", &ClientApi::receivePdr}};
 
         while (_readBuffer.find('\n') != std::string::npos) {
             std::string const myResponse = _readBuffer.substr(0, _readBuffer.find('\n'));
@@ -322,9 +320,31 @@ namespace Zappy::GUI {
         _serverData._freq = std::stoi(myTime);
     }
 
+    void ClientApi::receivePdr(const std::string &aResponse)
+    {
+        std::istringstream myStream(aResponse);
+        std::string myPlayerId;
+        std::string myResourceId;
+
+        myStream >> myPlayerId >> myResourceId;
+
+        int const myPlayerInventory = _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId)))
+                                          .getInventory(std::stoi(myResourceId));
+        std::pair<int, int> const myPos =
+            _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId))).getPosition();
+
+        if (myPlayerInventory > 0) {
+            _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId)))
+                .setInventory(std::stoi(myResourceId), myPlayerInventory - 1);
+        }
+        _serverData._mapTiles
+            .at(static_cast<unsigned int>(myPos.second) * _serverData._mapSize.first
+                + static_cast<unsigned int>(myPos.first))
+            ._items.addResources(std::stoi(myResourceId));
+    }
+
     void ClientApi::receivePex(const std::string &aResponse)
     {
         this->sendCommand("ppo " + aResponse);
     }
-
 } // namespace Zappy::GUI
