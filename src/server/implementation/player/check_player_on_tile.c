@@ -14,8 +14,8 @@ client_t **check_player_on_tile(data_t *data, const int x, const int y)
     int index = 0;
 
     for (unsigned int i = 0; data->clients[i] != NULL; i++) {
-        if (data->clients[i]->player->pos_x == x
-            && data->clients[i]->player->pos_y == y) {
+        if (data->clients[i]->player->pos->x == x
+            && data->clients[i]->player->pos->y == y) {
             clients = realloc(clients, sizeof(client_t *) * (index + 2));
             clients[index + 1] = NULL;
             clients[index] = data->clients[i];

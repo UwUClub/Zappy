@@ -133,3 +133,13 @@ class Player:
         else:
             print ("Look:", myLook)
             return (myLook)
+    
+    def incantation(self):
+        self.send("Incantation")
+        myIncantation = self.receive()
+        if myIncantation == "ko\n":
+            print ("Error: Incantation")
+            return (None)
+        else:
+            print ("Incantation:", myIncantation)
+            return (myIncantation)

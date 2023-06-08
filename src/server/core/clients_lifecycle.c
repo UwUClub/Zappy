@@ -5,9 +5,9 @@
 ** clients_lifecycle
 */
 
-#include <unistd.h>
 #include "core.h"
 #include "resources.h"
+#include "default_values.h"
 
 void init_single_client(client_t **client)
 {
@@ -21,8 +21,10 @@ void init_single_client(client_t **client)
 void init_player(client_t **client, const char *team_name, map_t *map)
 {
     (*client)->player = malloc(sizeof(player_t));
-    (*client)->player->pos_x = rand() % map->width;
-    (*client)->player->pos_y = rand() % map->height;
+    (*client)->player->id = 0;
+    (*client)->player->pos = malloc(sizeof(pos_t));
+    (*client)->player->pos->x = 0;
+    (*client)->player->pos->y = 0;
     (*client)->player->orientation = NORTH;
     (*client)->player->level = LEVEL_START;
     (*client)->player->inventory[0] = FOOD_START;
@@ -42,9 +44,12 @@ static void close_single_player(client_t *client)
         return;
     if (client->player->team_name != NULL)
         free(client->player->team_name);
+    if (client->player->pos != NULL)
+        free(client->player->pos);
     for (int i = 0; i < MAX_PENDING_CMD; i++) {
-        if (client->player->pending_cmd_queue[i] != NULL)
+        if (client->player->pending_cmd_queue[i] != NULL) {
             free(client->player->pending_cmd_queue[i]);
+        }
     }
     free(client->player);
 }

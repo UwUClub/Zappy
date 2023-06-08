@@ -21,7 +21,7 @@ static void concat_str_item(char **result, const int item_quantity)
 
 static char *get_tile_at(data_t *data, const int x, const int y)
 {
-    int *tile = data->map->tiles[y][x];
+    int *tile = data->map->tiles[x][y];
     char *result = NULL;
 
     result = strdup("");
@@ -41,6 +41,27 @@ static int parse_args(data_t *data, char **args, int *x, int *y)
     *y = atoi(args[1]);
     if (*x < 0 || *x >= data->map->width || *y < 0 || *y >= data->map->height)
         return 84;
+    return 0;
+}
+
+int do_bct_to_all_gui(data_t *data, char **args)
+{
+    char *msg = NULL;
+    char *result = NULL;
+    int x = 0;
+    int y = 0;
+
+    if (parse_args(data, args, &x, &y) == 84)
+        return 1;
+    msg = strdup("bct ");
+    msg = concat_str(msg, args[0]);
+    msg = concat_str(msg, " ");
+    msg = concat_str(msg, args[1]);
+    result = get_tile_at(data, x, y);
+    msg = concat_str(msg, result);
+    free(result);
+    send_to_all_gui(data->clients, msg);
+    free(msg);
     return 0;
 }
 

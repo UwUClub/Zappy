@@ -21,8 +21,7 @@ static void init_inventory(client_t **client)
 void init_single_client(client_t **client)
 {
     (*client)->fd = -1;
-    (*client)->pos_x = -1;
-    (*client)->pos_y = -1;
+    (*client)->pos = NULL;
     (*client)->orientation = UNKNOWN;
     (*client)->level = 0;
     init_inventory(client);

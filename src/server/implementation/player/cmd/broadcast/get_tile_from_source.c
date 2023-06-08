@@ -62,8 +62,8 @@ int get_tile_from_source(data_t *data, const unsigned int player_id,
     const unsigned int source_x, const unsigned int source_y)
 {
     player_t *player = data->clients[player_id]->player;
-    int dir_x = source_x - player->pos_x;
-    int dir_y = source_y - player->pos_y;
+    int dir_x = source_x - player->pos->x;
+    int dir_y = source_y - player->pos->y;
 
     if (dir_x > data->map->width / 2)
         dir_x -= data->map->width;
