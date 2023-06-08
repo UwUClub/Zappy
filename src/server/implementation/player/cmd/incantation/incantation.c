@@ -36,20 +36,6 @@ static int check_incantation(data_t *data)
     return status;
 }
 
-static void send_plv_to_all_gui(data_t *data)
-{
-    char **msg = NULL;
-
-    msg = malloc(sizeof(char *) * 2);
-    if (!msg)
-        return;
-    asprintf(&msg[0], "%d", data->clients[data->curr_cli_index]->player->level);
-    msg[1] = NULL;
-    do_plv_to_all_gui(data, msg);
-    free(msg[0]);
-    free(msg);
-}
-
 static int do_incantation(data_t *data, char **args)
 {
     client_t *client = NULL;
@@ -61,7 +47,7 @@ static int do_incantation(data_t *data, char **args)
     } else {
         if (check_incantation(data) == 0) {
             client->player->level += 1;
-            send_plv_to_all_gui(data);
+            send_plv_to_all_gui(data, client->player);
             remove_all_ressources_from_tile(data);
         } else {
             send_to_client(data->clients, data->curr_cli_index, "ko\n");

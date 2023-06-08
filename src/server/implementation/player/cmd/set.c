@@ -32,9 +32,6 @@ static int pdr(data_t *data, int resource)
 
 static int set(data_t *data, char **args)
 {
-    const char *resource[NB_RESOURCES] = {"food", "linemate", "deraumere",
-    "sibur", "mendiane", "phiras", "thystame"};
-
     for (int i = 0; i < NB_RESOURCES; i++) {
         if (strcmp(args[0], resource[i]) == 0
             && data->clients[data->curr_cli_index]->player->inventory[i] > 0) {
@@ -52,8 +49,6 @@ static int set(data_t *data, char **args)
 
 int schedule_set(data_t *data, char **args)
 {
-    const char *resource[NB_RESOURCES] = {"food", "linemate", "deraumere",
-    "sibur", "mendiane", "phiras", "thystame"};
     int is_resource = 1;
 
     if (args == NULL || word_array_len(args) > 1) {

@@ -47,8 +47,8 @@ static int check_cmd_status(data_t *data, int (*func)(data_t *data,
     status = func(data, args);
     if (status == 1) {
         append_scheduler_to_queue(data, &send_ko, NULL, delay);
+        free_word_array(args);
     }
-    free_word_array(args);
     return status;
 }
 
