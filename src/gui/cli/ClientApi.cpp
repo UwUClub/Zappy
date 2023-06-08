@@ -157,7 +157,8 @@ namespace Zappy::GUI {
             {"ko", &ClientApi::receiveError},        {"tna", &ClientApi::receiveTna}, {"sbp", &ClientApi::receiveError},
             {"ppo", &ClientApi::receivePpo},         {"plv", &ClientApi::receivePlv}, {"suc", &ClientApi::receiveError},
             {"sgt", &ClientApi::receiveSgt},         {"sst", &ClientApi::receiveSst}, {"pnw", &ClientApi::receivePnw},
-            {"pin", &ClientApi::receivePin},         {"pex", &ClientApi::receivePex}, {"pdr", &ClientApi::receivePdr}};
+            {"pin", &ClientApi::receivePin},         {"pex", &ClientApi::receivePex}, {"pdr", &ClientApi::receivePdr},
+            {"enw", &ClientApi::receiveEnw}};
 
         while (_readBuffer.find('\n') != std::string::npos) {
             std::string myResponse = _readBuffer.substr(0, _readBuffer.find('\n'));
