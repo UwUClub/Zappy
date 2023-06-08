@@ -156,7 +156,8 @@ namespace Zappy::GUI {
             {"ko", &ClientApi::receiveError},        {"tna", &ClientApi::receiveTna}, {"sbp", &ClientApi::receiveError},
             {"ppo", &ClientApi::receivePpo},         {"plv", &ClientApi::receivePlv}, {"suc", &ClientApi::receiveError},
             {"sgt", &ClientApi::receiveSgt},         {"sst", &ClientApi::receiveSst}, {"pnw", &ClientApi::receivePnw},
-            {"pin", &ClientApi::receivePin},         {"pex", &ClientApi::receivePex}, {"pdr", &ClientApi::receivePdr}};
+            {"pin", &ClientApi::receivePin},         {"pex", &ClientApi::receivePex}, {"pdr", &ClientApi::receivePdr},
+            {"pgt", &ClientApi::receivePgt}};
 
         while (_readBuffer.find('\n') != std::string::npos) {
             std::string myResponse = _readBuffer.substr(0, _readBuffer.find('\n'));
@@ -377,5 +378,31 @@ namespace Zappy::GUI {
     void ClientApi::receivePex(const std::string &aResponse)
     {
         this->sendCommand("ppo " + aResponse);
+    }
+
+    void ClientApi::receivePgt(const std::string &aResponse)
+    {
+        std::istringstream myStream(aResponse);
+        std::string myPlayerId;
+        int myResourceId = 0;
+        std::pair<int, int> const myPos = {};
+
+        myStream >> myPlayerId >> myResourceId;
+
+        auto myPlayerData = std::find_if(_serverData._players.begin(), _serverData._players.end(),
+                                         [&myPlayerId](const PlayerData &aPlayer) {
+                                             return aPlayer.getId() == myPlayerId;
+                                         });
+        auto myTileData = std::find_if(_serverData._mapTiles.begin(), _serverData._mapTiles.end(),
+                                       [&myPos](const TileContent &aTile) {
+                                           return std::pair<int, int>(aTile._x, aTile._y) == myPos;
+                                       });
+
+        if (myPlayerData != _serverData._players.end()) {
+            myPlayerData->setInventory(myResourceId, myPlayerData->getInventory(myResourceId) + 1);
+            myTileData->_items.removeResources(myResourceId);
+        } else {
+            throw ClientException("Player not found");
+        }
     }
 } // namespace Zappy::GUI
