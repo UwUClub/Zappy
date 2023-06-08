@@ -222,6 +222,12 @@ namespace Zappy::GUI {
              */
             void receiveEnw(const std::string &aResponse);
 
+            /**
+             * @brief parse ebo response
+             * @param aResponse
+             */
+            void receiveEbo(const std::string &aResponse);
+
             // Attributes
             std::string _address;
             unsigned int _port;
