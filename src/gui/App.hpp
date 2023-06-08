@@ -77,7 +77,7 @@ namespace Zappy::GUI {
              * @param aPlayer the playerData
              * @param aSceneManager the scene manager
              */
-            void setPlayerPosAndOrientation(PlayerData &aPlayer);
+            void setPlayerPosAndOrientation(const PlayerData &aPlayer);
             void displayServerMessage(std::string &aNotification);
             /**
              * @brief Setup the map of the scene
@@ -85,6 +85,12 @@ namespace Zappy::GUI {
              * @return Ogre::Vector3f the center of the map
              */
             Ogre::Vector3f setupMap(Ogre::SceneManager *aSceneManager);
+            /**
+             * @brief Setup the players and eggs of the scene already on the map
+             *
+             * @param aSceneManager the scene manager
+             */
+            void setupPlayersAndEggs(Ogre::SceneManager *aSceneManager);
             /**
              * @brief Add a player to the scene
              * @param aPlayer the playerData of the player to add

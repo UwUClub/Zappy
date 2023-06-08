@@ -45,6 +45,7 @@ namespace Zappy::GUI {
         this->setupLight(myScnMgr);
         auto nodeCenterPos = this->setupMap(myScnMgr);
         this->setupCamera(myScnMgr, nodeCenterPos);
+        this->setupPlayersAndEggs(myScnMgr);
         myRoot->addFrameListener(_frameHandler.get());
     }
 
@@ -116,6 +117,23 @@ namespace Zappy::GUI {
         return myCenterPos;
     }
 
+    void App::setupPlayersAndEggs(Ogre::SceneManager *aSceneManager)
+    {
+        auto myServerData = _client.getServerData();
+        auto myPlayerData = myServerData._players;
+        // auto myEggData = myServerData._eggs;
+
+        for (const auto &myPlayer : myPlayerData) {
+            std::cout << "Player: " << myPlayer.getId() << std::endl;
+            const auto &myPlayerId = myPlayer.getId();
+            Ogre::Entity *myEntity = aSceneManager->createEntity(myPlayerId, "Sinbad.mesh");
+            Ogre::SceneNode *myNode = aSceneManager->getRootSceneNode()->createChildSceneNode(myPlayerId);
+
+            myNode->attachObject(myEntity);
+            this->setPlayerPosAndOrientation(myPlayer);
+        }
+    }
+
     void App::getNotified(std::string &aNotification)
     {
         auto myCommand = aNotification.substr(0, aNotification.find_first_of(' '));
@@ -168,7 +186,7 @@ namespace Zappy::GUI {
         this->setPlayerPosAndOrientation(*myPlayerData);
     }
 
-    void App::setPlayerPosAndOrientation(PlayerData &aPlayer)
+    void App::setPlayerPosAndOrientation(const PlayerData &aPlayer)
     {
         auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
         const auto &myPlayerId = aPlayer.getId();
