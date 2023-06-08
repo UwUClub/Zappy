@@ -1,5 +1,5 @@
-#include <utility>
 #include "PlayerData.hpp"
+#include <utility>
 
 namespace Zappy::GUI {
     PlayerData::PlayerData(std::string aId)

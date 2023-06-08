@@ -22,35 +22,35 @@ namespace Zappy::GUI {
                 _thystame = aItemPacketData[6];
             };
 
-            void addResources(int a) {
-                static const std::unordered_map<int, std::function<void()>> myInventoryMap = {
-                    {0,
-                     [this]() {
-                         _food++;
-                     }},
-                    {1,
-                     [this]() {
-                         _linemate++;
-                     }},
-                    {2,
-                     [this]() {
-                         _deraumere++;
-                     }},
-                    {3,
-                     [this]() {
-                         _sibur++;
-                     }},
-                    {4,
-                     [this]() {
-                         _mendiane++;
-                     }},
-                    {5,
-                     [this]() {
-                         _phiras++;
-                     }},
-                    {6, [this]() {
-                         _thystame++;
-                     }}};
+            void addResources(int a)
+            {
+                static const std::unordered_map<int, std::function<void()>> myInventoryMap = {{0,
+                                                                                               [this]() {
+                                                                                                   _food++;
+                                                                                               }},
+                                                                                              {1,
+                                                                                               [this]() {
+                                                                                                   _linemate++;
+                                                                                               }},
+                                                                                              {2,
+                                                                                               [this]() {
+                                                                                                   _deraumere++;
+                                                                                               }},
+                                                                                              {3,
+                                                                                               [this]() {
+                                                                                                   _sibur++;
+                                                                                               }},
+                                                                                              {4,
+                                                                                               [this]() {
+                                                                                                   _mendiane++;
+                                                                                               }},
+                                                                                              {5,
+                                                                                               [this]() {
+                                                                                                   _phiras++;
+                                                                                               }},
+                                                                                              {6, [this]() {
+                                                                                                   _thystame++;
+                                                                                               }}};
 
                 if (myInventoryMap.find(a) == myInventoryMap.end()) {
                     return;
@@ -58,35 +58,35 @@ namespace Zappy::GUI {
                 myInventoryMap.at(a)();
             }
 
-            void removeResources(int a) {
-                static const std::unordered_map<int, std::function<void()>> myInventoryMap = {
-                    {0,
-                     [this]() {
-                         _food--;
-                     }},
-                    {1,
-                     [this]() {
-                         _linemate--;
-                     }},
-                    {2,
-                     [this]() {
-                         _deraumere--;
-                     }},
-                    {3,
-                     [this]() {
-                         _sibur--;
-                     }},
-                    {4,
-                     [this]() {
-                         _mendiane--;
-                     }},
-                    {5,
-                     [this]() {
-                         _phiras--;
-                     }},
-                    {6, [this]() {
-                         _thystame--;
-                     }}};
+            void removeResources(int a)
+            {
+                static const std::unordered_map<int, std::function<void()>> myInventoryMap = {{0,
+                                                                                               [this]() {
+                                                                                                   _food--;
+                                                                                               }},
+                                                                                              {1,
+                                                                                               [this]() {
+                                                                                                   _linemate--;
+                                                                                               }},
+                                                                                              {2,
+                                                                                               [this]() {
+                                                                                                   _deraumere--;
+                                                                                               }},
+                                                                                              {3,
+                                                                                               [this]() {
+                                                                                                   _sibur--;
+                                                                                               }},
+                                                                                              {4,
+                                                                                               [this]() {
+                                                                                                   _mendiane--;
+                                                                                               }},
+                                                                                              {5,
+                                                                                               [this]() {
+                                                                                                   _phiras--;
+                                                                                               }},
+                                                                                              {6, [this]() {
+                                                                                                   _thystame--;
+                                                                                               }}};
 
                 if (myInventoryMap.find(a) == myInventoryMap.end()) {
                     return;

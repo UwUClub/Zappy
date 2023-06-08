@@ -1,3 +1,4 @@
+#include "ClientApi.hpp"
 #include <arpa/inet.h>
 #include <cerrno>
 #include <cstdio>
@@ -10,10 +11,9 @@
 #include <sys/socket.h>
 #include <unistd.h>
 #include <utility>
-#include "ClientApi.hpp"
-#include <unordered_map>
 #include "ServerData.hpp"
 #include "Subscriber.hpp"
+#include <unordered_map>
 
 namespace Zappy::GUI {
     ClientApi::ClientApi(std::string aAddress, unsigned int aPort, std::string aTeamName)
@@ -320,23 +320,26 @@ namespace Zappy::GUI {
         _serverData._freq = std::stoi(myTime);
     }
 
-    void ClientApi::receivePdr(const std::string &aResponse) {
+    void ClientApi::receivePdr(const std::string &aResponse)
+    {
         std::istringstream myStream(aResponse);
         std::string myPlayerId;
         std::string myResourceId;
 
         myStream >> myPlayerId >> myResourceId;
 
-        int const myPlayerInventory = _serverData._players.at(
-                static_cast<unsigned long>(std::stoi(myPlayerId))).getInventory(std::stoi(myResourceId));
-        std::pair<int, int> const myPos = _serverData._players.at(
-                static_cast<unsigned long>(std::stoi(myPlayerId))).getPosition();
+        int const myPlayerInventory = _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId)))
+                                          .getInventory(std::stoi(myResourceId));
+        std::pair<int, int> const myPos =
+            _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId))).getPosition();
 
         if (myPlayerInventory > 0) {
             _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId)))
                 .setInventory(std::stoi(myResourceId), myPlayerInventory - 1);
         }
-        _serverData._mapTiles.at(static_cast<unsigned int>(myPos.second) * _serverData._mapSize.first +
-                                         static_cast<unsigned int>(myPos.first))._items.addResources(std::stoi(myResourceId));
+        _serverData._mapTiles
+            .at(static_cast<unsigned int>(myPos.second) * _serverData._mapSize.first
+                + static_cast<unsigned int>(myPos.first))
+            ._items.addResources(std::stoi(myResourceId));
     }
 } // namespace Zappy::GUI
