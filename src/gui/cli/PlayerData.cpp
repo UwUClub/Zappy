@@ -36,6 +36,43 @@ namespace Zappy::GUI {
         _inventory = aInventory;
     }
 
+
+    void PlayerData::setInventory(int aSlot, int aQuantity)
+    {
+        static const std::unordered_map<int, std::function<void(ItemPacket &, int)>> myInventoryMap = {
+            {0,
+             [](ItemPacket &aInventory, int aQuantity) {
+                aInventory._food = aQuantity;
+            }},
+            {1,
+             [](ItemPacket &aInventory, int aQuantity) {
+                aInventory._linemate = aQuantity;
+            }},
+            {2,
+             [](ItemPacket &aInventory, int aQuantity) {
+                 aInventory._deraumere = aQuantity;
+             }},
+            {3,
+             [](ItemPacket &aInventory, int aQuantity) {
+                 aInventory._sibur = aQuantity;
+             }},
+            {4,
+             [](ItemPacket &aInventory, int aQuantity) {
+                 aInventory._mendiane = aQuantity;
+             }},
+            {5,
+             [](ItemPacket &aInventory, int aQuantity) {
+                 aInventory._phiras = aQuantity;
+             }},
+            {6, [](ItemPacket &aInventory, int aQuantity) {
+                 aInventory._thystame = aQuantity;
+             }}};
+        if (myInventoryMap.find(aSlot) == myInventoryMap.end()) {
+            return;
+        }
+        myInventoryMap.at(aSlot)(_inventory, aQuantity);
+    }
+
     void PlayerData::setTeamName(std::string aTeamName)
     {
         _teamName = std::move(aTeamName);
@@ -85,7 +122,7 @@ namespace Zappy::GUI {
              }},
             {6, [](ItemPacket aInventory) {
                  return aInventory._thystame;
-             }}};
+             }}};X
         if (myInventoryMap.find(aSlot) == myInventoryMap.end()) {
             return -1;
         }

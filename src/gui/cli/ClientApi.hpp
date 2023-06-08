@@ -204,6 +204,12 @@ namespace Zappy::GUI {
              */
             void receiveSst(const std::string &aResponse);
 
+            /**
+             * @brief parse pdr response
+             * @param aResponse
+             */
+            void receivePdr(const std::string &aResponse);
+
             // Attributes
             std::string _address;
             unsigned int _port;

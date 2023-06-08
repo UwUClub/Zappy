@@ -62,6 +62,12 @@ namespace Zappy::GUI {
             void setInventory(ItemPacket &aInventory);
 
             /**
+             * @brief Set the inventory of the player
+             * @param aSlot
+             */
+            void setInventory(int aSlot, int aQuantity);
+
+            /**
              * @brief Set the team name of the player
              * @param aTeamName
              */

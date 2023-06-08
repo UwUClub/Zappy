@@ -157,7 +157,7 @@ namespace Zappy::GUI {
             {"ko", &ClientApi::receiveError},        {"tna", &ClientApi::receiveTna}, {"sbp", &ClientApi::receiveError},
             {"ppo", &ClientApi::receivePpo},         {"plv", &ClientApi::receivePlv}, {"suc", &ClientApi::receiveError},
             {"sgt", &ClientApi::receiveSgt},         {"sst", &ClientApi::receiveSst}, {"pnw", &ClientApi::receivePnw},
-            {"pin", &ClientApi::receivePin}};
+            {"pin", &ClientApi::receivePin},         {"pdr", &ClientApi::receivePdr}};
 
         while (_readBuffer.find('\n') != std::string::npos) {
             std::string const myResponse = _readBuffer.substr(0, _readBuffer.find('\n'));
@@ -320,5 +320,20 @@ namespace Zappy::GUI {
         myStream >> myTime;
 
         _serverData._freq = std::stoi(myTime);
+    }
+
+    void ClientApi::receivePdr(const std::string &aResponse)
+    {
+        std::istringstream myStream(aResponse);
+        std::string myPlayerId;
+        std::string myResourceId;
+
+        myStream >> myPlayerId >> myResourceId;
+
+        int const myPlayerInventory = _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId))).getInventory(std::stoi(myResourceId));
+
+        if (myPlayerInventory > 0) {
+            _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId))).setInventory(std::stoi(myResourceId), myPlayerInventory - 1);
+        }
     }
 } // namespace Zappy::GUI
