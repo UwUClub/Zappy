@@ -1,8 +1,9 @@
 #include "PlayerData.hpp"
 
 namespace Zappy::GUI {
-    PlayerData::PlayerData()
-        : _position(std::make_pair(0, 0))
+    PlayerData::PlayerData(const std::string &aId)
+        : _position(std::make_pair(0, 0)),
+          _id(aId)
     {}
 
     PlayerData::~PlayerData() = default;
@@ -91,8 +92,18 @@ namespace Zappy::GUI {
         return myInventoryMap.at(aSlot)(_inventory);
     }
 
+    ItemPacket PlayerData::getAllInventory()
+    {
+        return _inventory;
+    }
+
     const std::string &PlayerData::getTeamName() const
     {
         return _teamName;
+    }
+
+    const std::string &PlayerData::getId() const
+    {
+        return _id;
     }
 }; // namespace Zappy::GUI

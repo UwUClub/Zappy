@@ -14,11 +14,15 @@
 #include <OgrePrerequisites.h>
 #include <OgreRenderWindow.h>
 #include "ClientApi.hpp"
+#include "Constexpr.hpp"
 #include "InputHandler.hpp"
 
 namespace Zappy::GUI {
-    const constexpr int BASE_ANGLE = 45;
-
+    /**
+     * @brief Class used to handle the camera
+     * @details This class is used to handle the camera, it is used to move the camera in the scene, refer to the Ogre
+     * documentation
+     */
     class CameraHandler final : public InputHandler
     {
         public:

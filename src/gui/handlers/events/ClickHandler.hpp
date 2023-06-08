@@ -15,6 +15,11 @@
 #include "InputHandler.hpp"
 
 namespace Zappy::GUI {
+    /**
+     * @brief Class used to handle the mouse clicks
+     * @details This class is used to handle the mouse clicks, it is used to select a node in the scene, refer to the
+     * Ogre documentation
+     */
     class ClickHandler : public InputHandler
     {
         public:
