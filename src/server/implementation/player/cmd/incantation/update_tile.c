@@ -17,16 +17,16 @@ int check_tile(data_t *data, int ressource)
     int y = 0;
     int *tile = NULL;
 
-    x = data->clients[data->curr_cli_index]->player->pos_x;
-    y = data->clients[data->curr_cli_index]->player->pos_y;
+    x = data->clients[data->curr_cli_index]->player->pos->x;
+    y = data->clients[data->curr_cli_index]->player->pos->y;
     tile = data->map->tiles[y][x];
     return tile[ressource];
 }
 
 static void send_bct_to_all_gui(data_t *data)
 {
-    int x = data->clients[data->curr_cli_index]->player->pos_x;
-    int y = data->clients[data->curr_cli_index]->player->pos_y;
+    int x = data->clients[data->curr_cli_index]->player->pos->x;
+    int y = data->clients[data->curr_cli_index]->player->pos->y;
     char **msg = NULL;
 
     msg = malloc(sizeof(char *) * 3);
@@ -44,8 +44,8 @@ static void send_bct_to_all_gui(data_t *data)
 static int remove_ressource_from_tile(data_t *data,
     const unsigned int ressource)
 {
-    int x = data->clients[data->curr_cli_index]->player->pos_x;
-    int y = data->clients[data->curr_cli_index]->player->pos_y;
+    int x = data->clients[data->curr_cli_index]->player->pos->x;
+    int y = data->clients[data->curr_cli_index]->player->pos->y;
     int level = data->clients[data->curr_cli_index]->player->level;
     int *tile = data->map->tiles[y][x];
 
@@ -59,8 +59,8 @@ static int remove_ressource_from_tile(data_t *data,
 
 int remove_all_ressources_from_tile(data_t *data)
 {
-    int x = data->clients[data->curr_cli_index]->player->pos_x;
-    int y = data->clients[data->curr_cli_index]->player->pos_y;
+    int x = data->clients[data->curr_cli_index]->player->pos->x;
+    int y = data->clients[data->curr_cli_index]->player->pos->y;
     int *tile = data->map->tiles[y][x];
     int remove_status;
 
