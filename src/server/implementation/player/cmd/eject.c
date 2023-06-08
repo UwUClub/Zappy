@@ -39,7 +39,7 @@ static int eject_cmd(data_t *data, __attribute__((unused)) char **args)
             eject_player(data, i);
         }
     }
-    send_to_client(data->clients, data->curr_cli_index, "ok\0");
+    send_to_client(data->clients, data->curr_cli_index, "ok\n");
     return 0;
 }
 
