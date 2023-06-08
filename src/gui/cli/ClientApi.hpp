@@ -216,6 +216,12 @@ namespace Zappy::GUI {
              */
             void receivePex(const std::string &aResponse);
 
+            /**
+             * @brief parse pdi response
+             * @param aResponse
+             */
+            void receivePdi(const std::string &aResponse);
+
             // Attributes
             std::string _address;
             unsigned int _port;
