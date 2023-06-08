@@ -39,8 +39,9 @@ static int set(data_t *data, char **args)
         if (strcmp(args[0], resource[i]) == 0
             && data->clients[data->curr_cli_index]->player->inventory[i] > 0) {
             data->clients[data->curr_cli_index]->player->inventory[i] -= 1;
-            data->map->tiles[data->clients[data->curr_cli_index]->player->pos_y]
-            [data->clients[data->curr_cli_index]->player->pos_x][i] += 1;
+            data->map->tiles[data->clients[data->curr_cli_index]->player->
+            pos->x][data->clients[data->curr_cli_index]->player->pos->y]
+            [i] += 1;
             pdr(data, i);
             send_to_client(data->clients, data->curr_cli_index, "ok\n");
             return 0;

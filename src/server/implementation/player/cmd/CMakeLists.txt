@@ -9,6 +9,7 @@ target_sources(zappy_server PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}/inventory.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/connect_nbr.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/look.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/fork.c"
         )
 
 add_subdirectory(broadcast)

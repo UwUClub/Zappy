@@ -12,12 +12,12 @@
 
 static int check_is_on_tile(data_t *data, int resource)
 {
-    int x = data->clients[data->curr_cli_index]->player->pos_x;
-    int y = data->clients[data->curr_cli_index]->player->pos_y;
-    int *tile = data->map->tiles[y][x];
+    int x = data->clients[data->curr_cli_index]->player->pos->x;
+    int y = data->clients[data->curr_cli_index]->player->pos->y;
+    int *tile = data->map->tiles[x][y];
 
     if (tile[resource] > 0) {
-        data->map->tiles[y][x][resource] -= 1;
+        data->map->tiles[x][y][resource] -= 1;
         return 0;
     }
     return 1;

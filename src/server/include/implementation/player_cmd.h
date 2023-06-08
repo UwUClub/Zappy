@@ -101,20 +101,28 @@
     int schedule_inventory(data_t *data, char **args);
 
     /**
-    * @brief Schedule connect_nbr command
-    * @param data The current server data, clients and current client index
-    * @param args The arguments of the command
-    * @return Status of the schedule
-    */
-    int schedule_connect_nbr(data_t *data, char **args);
-
-    /**
      * @brief Schedule look command
      * @param data The current server data, clients and current client index
      * @param args The arguments of the command
      * @return Status of the schedule
      */
     int schedule_look(data_t *data, char **args);
+
+    /**
+     * @brief Schedule connect_nbr command
+     * @param data The current server data, clients and current client index
+     * @param args The arguments of the command
+     * @return Status of the schedule
+     */
+    int schedule_connect_nbr(data_t *data, char **args);
+
+    /**
+     * @brief Schedule fork command
+     * @param data The current server data, clients and current client index
+     * @param args The arguments of the command
+     * @return Status of the schedule
+     */
+    int schedule_fork(data_t *data, char **args);
 
     /**
      * @brief Schedule broadcast command
@@ -157,5 +165,20 @@
      * @return return 0 if success, 1 if error
      */
     int remove_all_ressources_from_tile(data_t *data);
+
+    static const cmd_t player_schedulers[] = {
+        {"Forward", &schedule_forward, FORWARD_DELAY},
+        {"Right", &schedule_right, RIGHT_DELAY},
+        {"Left", &schedule_left, LEFT_DELAY},
+        {"Take", &schedule_take, TAKE_DELAY},
+        {"Set", &schedule_set, SET_DELAY},
+        {"Inventory", &schedule_inventory, INVENTORY_DELAY},
+        {"Connect_nbr", &schedule_connect_nbr, CONNECT_NBR_DELAY},
+        {"Look", &schedule_look, LOOK_DELAY},
+        {"Fork", &schedule_fork, FORK_DELAY},
+        {"Broadcast", &schedule_broadcast, BROADCAST_DELAY},
+        {"Incantation", &schedule_incantation, INCANTATION_DELAY},
+        {NULL, NULL}
+    };
 
 #endif /* ZAPPY_PLAYER_CMD_H */

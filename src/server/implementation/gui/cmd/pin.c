@@ -21,7 +21,7 @@ int do_pin(data_t *data, char **args)
     player = get_player_by_id(data, atoi(args[0]));
     if (!player)
         return 1;
-    asprintf(&msg, "pin %s %d %d", args[0], player->pos_x, player->pos_y);
+    asprintf(&msg, "pin %s %d %d", args[0], player->pos->x, player->pos->y);
     for (int i = 0; i < TILE_SIZE; i++) {
         asprintf(&tmp, " %d", player->inventory[i]);
         msg = concat_str(msg, tmp);
