@@ -151,6 +151,13 @@
     */
     int do_pgt(data_t *data, int resource);
 
+    /**
+     * @brief Notify to gui that a player dropped an object
+     * @param data The current server data, clients and current client index
+     * @param resource The id of the resource dropped
+    */
+    int do_pdr(data_t *data, int resource);
+
     static const cmd_t gui_commands[] = {
         {"msz", &do_msz, 0},
         {"bct", &do_bct, 0},
