@@ -36,18 +36,17 @@ namespace Zappy::GUI {
         _inventory = aInventory;
     }
 
-
     void PlayerData::setInventory(int aSlot, int aQuantity)
     {
         static const std::unordered_map<int, std::function<void(ItemPacket &, int)>> myInventoryMap = {
             {0,
              [](ItemPacket &aInventory, int aQuantity) {
-                aInventory._food = aQuantity;
-            }},
+                 aInventory._food = aQuantity;
+             }},
             {1,
              [](ItemPacket &aInventory, int aQuantity) {
-                aInventory._linemate = aQuantity;
-            }},
+                 aInventory._linemate = aQuantity;
+             }},
             {2,
              [](ItemPacket &aInventory, int aQuantity) {
                  aInventory._deraumere = aQuantity;
@@ -122,8 +121,9 @@ namespace Zappy::GUI {
              }},
             {6, [](ItemPacket aInventory) {
                  return aInventory._thystame;
-             }}};X
-        if (myInventoryMap.find(aSlot) == myInventoryMap.end()) {
+             }}};
+        X if (myInventoryMap.find(aSlot) == myInventoryMap.end())
+        {
             return -1;
         }
         return myInventoryMap.at(aSlot)(_inventory);

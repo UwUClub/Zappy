@@ -330,10 +330,12 @@ namespace Zappy::GUI {
 
         myStream >> myPlayerId >> myResourceId;
 
-        int const myPlayerInventory = _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId))).getInventory(std::stoi(myResourceId));
+        int const myPlayerInventory = _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId)))
+                                          .getInventory(std::stoi(myResourceId));
 
         if (myPlayerInventory > 0) {
-            _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId))).setInventory(std::stoi(myResourceId), myPlayerInventory - 1);
+            _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId)))
+                .setInventory(std::stoi(myResourceId), myPlayerInventory - 1);
         }
     }
 } // namespace Zappy::GUI
