@@ -356,14 +356,11 @@ namespace Zappy::GUI {
 
         myStream >> myPlayerId >> myResourceId;
 
-        int const myPlayerInventory = _serverData._players.at(myPlayerId)
-                                          .getInventory(myResourceId);
-        std::pair<int, int> const myPos =
-            _serverData._players.at(myPlayerId).getPosition();
+        int const myPlayerInventory = _serverData._players.at(myPlayerId).getInventory(myResourceId);
+        std::pair<int, int> const myPos = _serverData._players.at(myPlayerId).getPosition();
 
         if (myPlayerInventory > 0) {
-            _serverData._players.at(myPlayerId)
-                .setInventory(myResourceId, myPlayerInventory - 1);
+            _serverData._players.at(myPlayerId).setInventory(myResourceId, myPlayerInventory - 1);
         }
         _serverData._mapTiles
             .at(static_cast<unsigned int>(myPos.second) * _serverData._mapSize.first
