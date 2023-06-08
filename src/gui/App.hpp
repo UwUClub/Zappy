@@ -50,7 +50,6 @@ namespace Zappy::GUI {
              * @brief Overriden method from Subscriber
              */
             void getNotified(std::string &aNotification) final;
-            bool windowClosing(Ogre::RenderWindow *aRenderWindow) final;
 
         private:
             /**

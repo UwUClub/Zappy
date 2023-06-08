@@ -155,7 +155,7 @@ namespace Zappy::GUI {
             {"ko", &ClientApi::receiveError},        {"tna", &ClientApi::receiveTna}, {"sbp", &ClientApi::receiveError},
             {"ppo", &ClientApi::receivePpo},         {"plv", &ClientApi::receivePlv}, {"suc", &ClientApi::receiveError},
             {"sgt", &ClientApi::receiveSgt},         {"sst", &ClientApi::receiveSst}, {"pnw", &ClientApi::receivePnw},
-            {"pin", &ClientApi::receivePin},         {"pdr", &ClientApi::receivePdr}};
+            {"pin", &ClientApi::receivePin},         {"pex", &ClientApi::receivePex}, {"pdr", &ClientApi::receivePdr}};
 
         while (_readBuffer.find('\n') != std::string::npos) {
             std::string const myResponse = _readBuffer.substr(0, _readBuffer.find('\n'));
@@ -341,5 +341,10 @@ namespace Zappy::GUI {
             .at(static_cast<unsigned int>(myPos.second) * _serverData._mapSize.first
                 + static_cast<unsigned int>(myPos.first))
             ._items.addResources(std::stoi(myResourceId));
+    }
+  
+    void ClientApi::receivePex(const std::string &aResponse)
+    {
+        this->sendCommand("ppo " + aResponse);
     }
 } // namespace Zappy::GUI
