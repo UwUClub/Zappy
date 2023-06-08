@@ -342,7 +342,7 @@ namespace Zappy::GUI {
                 + static_cast<unsigned int>(myPos.first))
             ._items.addResources(std::stoi(myResourceId));
     }
-  
+
     void ClientApi::receivePex(const std::string &aResponse)
     {
         this->sendCommand("ppo " + aResponse);

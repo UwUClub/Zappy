@@ -209,7 +209,7 @@ namespace Zappy::GUI {
              * @param aResponse
              */
             void receivePdr(const std::string &aResponse);
-      
+
             /**
              * @brief parse pex response
              * @param aResponse
