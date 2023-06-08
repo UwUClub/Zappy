@@ -10,7 +10,6 @@
 
 static void init_single_tile(data_t *data, int x, int y)
 {
-
     for (int i = 0; i < TILE_SIZE; i++) {
         data->map->tiles[x][y][i] = 0;
     }
