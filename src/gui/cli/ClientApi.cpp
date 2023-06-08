@@ -351,7 +351,7 @@ namespace Zappy::GUI {
     void ClientApi::receivePdr(const std::string &aResponse)
     {
         std::istringstream myStream(aResponse);
-        std::string myPlayerId = 0;
+        std::string myPlayerId;
         int myResourceId = 0;
         std::pair<int, int> const myPos = {};
 
