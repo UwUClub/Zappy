@@ -363,8 +363,7 @@ namespace Zappy::GUI {
                                          });
         auto myTileData = std::find_if(_serverData._mapTiles.begin(), _serverData._mapTiles.end(),
                                        [&myPos](const TileContent &aTile) {
-                                           return std::pair<int, int>(aTile._x, aTile._y)
-                                               == myPos;
+                                           return std::pair<int, int>(aTile._x, aTile._y) == myPos;
                                        });
 
         if (myPlayerData != _serverData._players.end()) {
