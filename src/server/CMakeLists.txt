@@ -2,7 +2,7 @@ set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wpedantic")
 
 add_executable(zappy_server
         main.c
-        )
+)
 
 add_subdirectory(core)
 add_subdirectory(implementation)
