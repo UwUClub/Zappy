@@ -14,6 +14,7 @@
 #include <OgreRenderWindow.h>
 #include <OgreResourceGroupManager.h>
 #include <OgreRoot.h>
+#include <fstream>
 #include "App.hpp"
 
 namespace Zappy::GUI {
@@ -36,6 +37,7 @@ namespace Zappy::GUI {
         Ogre::Entity *myEntity = myScnMgr->createEntity(myPlayerId, "Sinbad.mesh");
         Ogre::SceneNode *myNode = myScnMgr->getRootSceneNode()->createChildSceneNode(myPlayerId);
 
+        std::cout << "Adding player " << myPlayerId << std::endl;
         myNode->attachObject(myEntity);
         myNode->setScale(myScale, myScale, myScale);
         this->setPlayerPosAndOrientation(myPlayerData);
@@ -51,16 +53,21 @@ namespace Zappy::GUI {
 
     void App::movePlayer(std::string &aNotification)
     {
+        std::istringstream myStream(aNotification);
         auto myServerData = _client.getServerData();
-        auto myIndex = aNotification.substr(4);
+        std::string myIndex;
+
+        myStream >> myIndex;
         auto myPlayerData = std::find_if(myServerData._players.begin(), myServerData._players.end(),
                                          [&myIndex](const PlayerData &aPlayer) {
                                              return aPlayer.getId() == myIndex;
                                          });
+
         if (myPlayerData == myServerData._players.end()) {
+            std::cerr << "Player " << myIndex << " not found" << std::endl;
             return;
         }
-
+        std::cout << "Moving player " << myIndex << std::endl;
         this->setPlayerPosAndOrientation(*myPlayerData);
     }
 
@@ -68,9 +75,9 @@ namespace Zappy::GUI {
     {
         auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
         const auto &myPlayerId = aPlayer.getId();
-        static const std::unordered_map<Orientation, Ogre::Real> myOrientationMap = {{Orientation::SOUTH, 0},
+        static const std::unordered_map<Orientation, Ogre::Real> myOrientationMap = {{Orientation::NORTH, 180},
                                                                                      {Orientation::EAST, 90},
-                                                                                     {Orientation::NORTH, 180},
+                                                                                     {Orientation::SOUTH, 0},
                                                                                      {Orientation::WEST, 270}};
         Ogre::SceneNode *myNode = myScnMgr->getSceneNode(myPlayerId);
 
@@ -82,8 +89,6 @@ namespace Zappy::GUI {
 
     void App::displayServerMessage(std::string &aNotification)
     {
-        auto myMessage = aNotification.substr(4);
-
-        std::cout << "Server message: " << myMessage << std::endl;
+        std::cout << "Server message: " << aNotification << std::endl;
     }
 } // namespace Zappy::GUI
