@@ -13,21 +13,20 @@ static void eject_player(data_t *data, int index)
     player_t *player = data->clients[index]->player;
     char *msg = NULL;
 
-    if (player->pos_x != data->clients[data->curr_cli_index]->player->pos_x ||
-        player->pos_y != data->clients[data->curr_cli_index]->player->pos_y)
+    if (player->pos->x != data->clients[data->curr_cli_index]->player->pos->x
+    || player->pos->y != data->clients[data->curr_cli_index]->player->pos->y)
         return;
     switch (data->clients[data->curr_cli_index]->player->orientation) {
         case NORTH:
-            player->pos_y -= 1;
+            player->pos->y -= 1;
         case SOUTH:
-            player->pos_y += 1;
+            player->pos->y += 1;
         case EAST:
-            player->pos_x += 1;
+            player->pos->x += 1;
         case WEST:
-            player->pos_x -= 1;
+            player->pos->x -= 1;
     }
-    asprintf(&msg, "eject\n", data->clients[data->curr_cli_index]
-                                            ->player->orientation);
+    asprintf(&msg, "eject\n");
     send_to_client(data->clients, index, msg);
     free(msg);
 }
