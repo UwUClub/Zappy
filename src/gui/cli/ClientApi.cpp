@@ -12,10 +12,11 @@
 #include <sys/socket.h>
 #include <unistd.h>
 #include <utility>
+#include <unordered_map>
 #include "PlayerData.hpp"
 #include "ServerData.hpp"
 #include "Subscriber.hpp"
-#include <unordered_map>
+#include "EggData.hpp"
 
 namespace Zappy::GUI {
     ClientApi::ClientApi(std::string aAddress, unsigned int aPort, std::string aTeamName)
@@ -377,5 +378,23 @@ namespace Zappy::GUI {
     void ClientApi::receivePex(const std::string &aResponse)
     {
         this->sendCommand("ppo " + aResponse);
+    }
+
+    void ClientApi::receiveEnw(const std::string &aResponse)
+    {
+        std::istringstream myStream(aResponse);
+        std::string myPlayerId;
+        int myEggId;
+        unsigned int myX = 0;
+        unsigned int myY = 0;
+
+        myStream >> myEggId >> myPlayerId >> myX >> myY;
+        auto myPlayerData = std::find_if(_serverData._players.begin(), _serverData._players.end(),
+                                         [&myPlayerId](const PlayerData &aPlayer) {
+                                             return aPlayer.getId() == myPlayerId;
+                                         });
+
+        EggData myEgg(myEggId, std::pair<int, int>(myX, myY), myPlayerData->getTeamName());
+        _serverData._eggs.push_back(myEgg);
     }
 } // namespace Zappy::GUI
