@@ -8,12 +8,12 @@
 #include <unordered_map>
 namespace Zappy::GUI {
 
-    enum class Orientation
+    enum class Orientation : int
     {
-        NORTH,
-        EAST,
-        SOUTH,
-        WEST
+        NORTH = 1,
+        EAST = 2,
+        SOUTH = 3,
+        WEST = 4
     };
 
     class PlayerData

@@ -6,11 +6,13 @@
 #include <functional>
 #include <iostream>
 #include <netinet/in.h>
+#include <string>
 #include <syncstream>
 #include <sys/select.h>
 #include <sys/socket.h>
 #include <unistd.h>
 #include <utility>
+#include "PlayerData.hpp"
 #include "ServerData.hpp"
 #include "Subscriber.hpp"
 #include <unordered_map>
@@ -112,19 +114,20 @@ namespace Zappy::GUI {
 
     struct sockaddr_in ClientApi::getSockaddr(in_addr_t aAddress, unsigned int aPort)
     {
-        const constexpr int bufferSize = 8;
+        const constexpr int myBufferSize = 8;
         struct sockaddr_in myAddr = {};
 
         myAddr.sin_family = AF_INET;
         myAddr.sin_port = htons(static_cast<short unsigned int>(aPort));
         myAddr.sin_addr.s_addr = aAddress;
-        memset(&(myAddr.sin_zero), '\0', bufferSize);
+        memset(&(myAddr.sin_zero), '\0', myBufferSize);
         return myAddr;
     }
 
     void ClientApi::readFromServer()
     {
-        char myStr[4096] = {0};
+        const constexpr int myBufferSize = 4096;
+        char myStr[myBufferSize] = {0};
         int const myReadSize = static_cast<int>(read(_serverFd, myStr, 4096));
 
         if (myReadSize == -1) {
@@ -136,9 +139,7 @@ namespace Zappy::GUI {
         myStr[myReadSize] = '\0';
         _readBuffer += myStr;
         std::cout << "@read: " << _readBuffer;
-        std::string mySavedBuffer = _readBuffer;
         parseServerResponses();
-        this->notifySubscribers(mySavedBuffer);
     }
 
     void ClientApi::writeToServer()
@@ -158,13 +159,18 @@ namespace Zappy::GUI {
             {"pin", &ClientApi::receivePin},         {"pex", &ClientApi::receivePex}, {"pdr", &ClientApi::receivePdr}};
 
         while (_readBuffer.find('\n') != std::string::npos) {
-            std::string const myResponse = _readBuffer.substr(0, _readBuffer.find('\n'));
+            std::string myResponse = _readBuffer.substr(0, _readBuffer.find('\n'));
             std::string const myCommand = myResponse.substr(0, myResponse.find(' '));
             std::string const myArgs = myResponse.substr(myResponse.find(' ') + 1);
 
             if (myResponses.find(myCommand) != myResponses.end()) {
-                myResponses.at(myCommand)(*this, myArgs);
+                try {
+                    myResponses.at(myCommand)(*this, myArgs);
+                } catch (const std::exception &e) {
+                    std::osyncstream(std::cout) << e.what() << std::endl;
+                }
             }
+            this->notifySubscribers(myResponse);
             _readBuffer = _readBuffer.substr(_readBuffer.find('\n') + 1);
         }
     }
@@ -194,34 +200,32 @@ namespace Zappy::GUI {
     void ClientApi::receiveMsz(const std::string &aResponse)
     {
         std::istringstream myStream(aResponse);
-        std::string myX;
-        std::string myY;
+        unsigned int myY = 0;
+        unsigned int myX = 0;
 
         myStream >> myX >> myY;
-        _serverData._mapSize = std::make_pair(std::stoi(myX), std::stoi(myY));
+        _serverData._mapSize = std::make_pair(myX, myY);
     }
 
     void ClientApi::receiveBct(const std::string &aResponse)
     {
         std::istringstream myStream(aResponse);
-        std::string myX;
-        std::string myY;
-        std::string food;
-        std::string linemate;
-        std::string deraumere;
-        std::string sibur;
-        std::string mendiane;
-        std::string phiras;
-        std::string thystame;
+        unsigned int myX = 0;
+        unsigned int myY = 0;
+        int food = 0;
+        int linemate = 0;
+        int deraumere = 0;
+        int sibur = 0;
+        int mendiane = 0;
+        int phiras = 0;
+        int thystame = 0;
         std::vector<int> myResource;
         ItemPacket myItemPacket = {};
 
         myStream >> myX >> myY >> food >> linemate >> deraumere >> sibur >> mendiane >> phiras >> thystame;
-        myResource = {std::stoi(food),     std::stoi(linemate), std::stoi(deraumere), std::stoi(sibur),
-                      std::stoi(mendiane), std::stoi(phiras),   std::stoi(thystame)};
+        myResource = {food, linemate, deraumere, sibur, mendiane, phiras, thystame};
         myItemPacket.fillItemPacket(myResource);
-        _serverData._mapTiles.push_back(TileContent(static_cast<unsigned int>(std::stoi(myX)),
-                                                    static_cast<unsigned int>(std::stoi(myY)), myItemPacket));
+        _serverData._mapTiles.push_back(TileContent(myX, myY, myItemPacket));
     }
 
     void ClientApi::receiveTna(const std::string &aResponse)
@@ -233,114 +237,141 @@ namespace Zappy::GUI {
     {
         std::istringstream myStream(aResponse);
         std::string myPlayerId;
-        std::string myX;
-        std::string myY;
+        unsigned int myX = 0;
+        unsigned int myY = 0;
+        int myOrientation = 0;
 
-        myStream >> myPlayerId >> myX >> myY;
+        myStream >> myPlayerId >> myX >> myY >> myOrientation;
 
-        _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId)))
-            .setPosition(static_cast<unsigned int>(std::stoi(myX)), static_cast<unsigned int>(std::stoi(myY)));
+        auto myPlayerData = std::find_if(_serverData._players.begin(), _serverData._players.end(),
+                                         [&myPlayerId](const PlayerData &aPlayer) {
+                                             return aPlayer.getId() == myPlayerId;
+                                         });
+        if (myPlayerData != _serverData._players.end()) {
+            myPlayerData->setPosition(myX, myY);
+            myPlayerData->setOrientation(Orientation(myOrientation));
+        } else {
+            throw ClientException("Player not found");
+        }
     }
 
     void ClientApi::receivePlv(const std::string &aResponse)
     {
         std::istringstream myStream(aResponse);
         std::string myPlayerId;
-        std::string myLevel;
+        int myLevel = 0;
 
         myStream >> myPlayerId >> myLevel;
 
-        _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId))).setLevel(std::stoi(myLevel));
+        auto myPlayerData = std::find_if(_serverData._players.begin(), _serverData._players.end(),
+                                         [&myPlayerId](const PlayerData &aPlayer) {
+                                             return aPlayer.getId() == myPlayerId;
+                                         });
+        if (myPlayerData != _serverData._players.end()) {
+            myPlayerData->setLevel(myLevel);
+        } else {
+            throw ClientException("Player not found");
+        }
     }
 
     void ClientApi::receivePin(const std::string &aResponse)
     {
         std::istringstream myStream(aResponse);
         std::string myPlayerId;
-        std::string myX;
-        std::string myY;
-        std::string food;
-        std::string linemate;
-        std::string deraumere;
-        std::string sibur;
-        std::string mendiane;
-        std::string phiras;
-        std::string thystame;
+        unsigned int myX = 0;
+        unsigned int myY = 0;
+        int food = 0;
+        int linemate = 0;
+        int deraumere = 0;
+        int sibur = 0;
+        int mendiane = 0;
+        int phiras = 0;
+        int thystame = 0;
         std::vector<int> myResource;
         ItemPacket myItemPacket = {};
 
         myStream >> myPlayerId >> myX >> myY >> food >> linemate >> deraumere >> sibur >> mendiane >> phiras
             >> thystame;
-        myResource = {std::stoi(food),     std::stoi(linemate), std::stoi(deraumere), std::stoi(sibur),
-                      std::stoi(mendiane), std::stoi(phiras),   std::stoi(thystame)};
+        myResource = {food, linemate, deraumere, sibur, mendiane, phiras, thystame};
         myItemPacket.fillItemPacket(myResource);
-        _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId)))
-            .setPosition(static_cast<unsigned int>(std::stoi(myX)), static_cast<unsigned int>(std::stoi(myY)));
-        _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId))).setInventory(myItemPacket);
+
+        auto myPlayerData = std::find_if(_serverData._players.begin(), _serverData._players.end(),
+                                         [&myPlayerId](const PlayerData &aPlayer) {
+                                             return aPlayer.getId() == myPlayerId;
+                                         });
+
+        if (myPlayerData != _serverData._players.end()) {
+            myPlayerData->setPosition(myX, myY);
+            myPlayerData->setInventory(myItemPacket);
+        } else {
+            throw ClientException("Player not found");
+        }
     }
 
     void ClientApi::receivePnw(const std::string &aResponse)
     {
         std::istringstream myIss(aResponse);
         std::string myPlayerId;
-        std::string myX;
-        std::string myY;
-        std::string myOrientation;
-        std::string myLevel;
         std::string myTeamName;
+        unsigned int myX = 0;
+        unsigned int myY = 0;
+        int myOrientation = 0;
+        int myLevel = 0;
 
         myIss >> myPlayerId >> myX >> myY >> myOrientation >> myLevel >> myTeamName;
 
         PlayerData myPlayer(myPlayerId);
-        myPlayer.setPosition(static_cast<unsigned int>(std::stoi(myX)), static_cast<unsigned int>(std::stoi(myY)));
-        myPlayer.setOrientation((std::stoi(myOrientation)));
-        myPlayer.setLevel(std::stoi(myLevel));
+        myPlayer.setPosition(myX, myY);
+        myPlayer.setOrientation(Orientation(myOrientation));
+        myPlayer.setLevel(myLevel);
         myPlayer.setTeamName(myTeamName);
-        std::cout << "Player " << myPlayerId << " joined the game" << std::endl;
         _serverData._players.push_back(myPlayer);
     }
 
     void ClientApi::receiveSgt(const std::string &aResponse)
     {
         std::istringstream myStream(aResponse);
-        std::string myTime;
+        int myTime = 0;
 
         myStream >> myTime;
 
-        _serverData._freq = std::stoi(myTime);
+        _serverData._freq = myTime;
     }
 
     void ClientApi::receiveSst(const std::string &aResponse)
     {
         std::istringstream myStream(aResponse);
-        std::string myTime;
+        int myTime = 0;
 
         myStream >> myTime;
 
-        _serverData._freq = std::stoi(myTime);
+        _serverData._freq = myTime;
     }
 
     void ClientApi::receivePdr(const std::string &aResponse)
     {
         std::istringstream myStream(aResponse);
         std::string myPlayerId;
-        std::string myResourceId;
+        int myResourceId = 0;
+        std::pair<int, int> const myPos = {};
 
         myStream >> myPlayerId >> myResourceId;
 
-        int const myPlayerInventory = _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId)))
-                                          .getInventory(std::stoi(myResourceId));
-        std::pair<int, int> const myPos =
-            _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId))).getPosition();
+        auto myPlayerData = std::find_if(_serverData._players.begin(), _serverData._players.end(),
+                                         [&myPlayerId](const PlayerData &aPlayer) {
+                                             return aPlayer.getId() == myPlayerId;
+                                         });
+        auto myTileData = std::find_if(_serverData._mapTiles.begin(), _serverData._mapTiles.end(),
+                                       [&myPos](const TileContent &aTile) {
+                                           return std::pair<int, int>(aTile._x, aTile._y) == myPos;
+                                       });
 
-        if (myPlayerInventory > 0) {
-            _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId)))
-                .setInventory(std::stoi(myResourceId), myPlayerInventory - 1);
+        if (myPlayerData != _serverData._players.end()) {
+            myPlayerData->setInventory(myResourceId, myPlayerData->getInventory(myResourceId) - 1);
+            myTileData->_items.addResources(myResourceId);
+        } else {
+            throw ClientException("Player not found");
         }
-        _serverData._mapTiles
-            .at(static_cast<unsigned int>(myPos.second) * _serverData._mapSize.first
-                + static_cast<unsigned int>(myPos.first))
-            ._items.addResources(std::stoi(myResourceId));
     }
 
     void ClientApi::receivePex(const std::string &aResponse)

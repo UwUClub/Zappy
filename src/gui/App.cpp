@@ -35,16 +35,10 @@ namespace Zappy::GUI {
           _clickHandler(nullptr)
     {
         this->initApp();
-        try {
-            Ogre::ResourceGroupManager::getSingleton().addResourceLocation("./assets", "FileSystem", "Zappy");
-            Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
-            Ogre::ResourceGroupManager::getSingleton().loadResourceGroup("Zappy");
-        } catch (const Ogre::Exception &e) {
-            std::cerr << e.what() << std::endl;
-        }
         auto *myRoot = this->getRoot();
         auto *myScnMgr = myRoot->createSceneManager("DefaultSceneManager", SCENE_MAN_NAME);
-        myScnMgr->createEntity("", "Sinbad.mesh");
+
+        this->instantiateApp();
         _client.registerSubscriber(*this);
 
         Ogre::RTShader::ShaderGenerator *myShadergen = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
@@ -61,6 +55,22 @@ namespace Zappy::GUI {
     {
         this->closeApp();
         _client.disconnect();
+    }
+
+    void App::instantiateApp()
+    {
+        try {
+            auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
+
+            Ogre::ResourceGroupManager::getSingleton().addResourceLocation("./assets", "FileSystem", "Zappy");
+            Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
+            Ogre::ResourceGroupManager::getSingleton().loadResourceGroup("Zappy");
+            myScnMgr->createEntity("Sinbad.mesh");
+            myScnMgr->createEntity("Egg.mesh");
+
+        } catch (const Ogre::Exception &e) {
+            throw AppException(e.what());
+        }
     }
 
     void App::setupLight(Ogre::SceneManager *aSceneManager)
@@ -85,6 +95,7 @@ namespace Zappy::GUI {
         const constexpr int myClipDistance = 5;
         const float myRadius = myBaseRadius * (static_cast<float>(std::max(myMapSize.first, myMapSize.second)) / 3);
         Ogre::Vector3 myCamPos(aCenterPos.x, aCenterPos.y + myRadius + myClipDistance, aCenterPos.z + myRadius);
+        auto *myRenderWindow = this->getRenderWindow();
 
         Ogre::SceneNode *myCamNode = aSceneManager->getRootSceneNode()->createChildSceneNode();
         myCamNode->setPosition(myCamPos);
@@ -96,7 +107,6 @@ namespace Zappy::GUI {
         myCamNode->attachObject(myCam);
         myCamNode->lookAt(aCenterPos, Ogre::Node::TS_WORLD);
 
-        auto *myRenderWindow = this->getRenderWindow();
         if (myRenderWindow != nullptr) {
             _cameraHandler = std::make_unique<CameraHandler>(myCamNode, aCenterPos, myRadius, _client);
             _clickHandler = std::make_unique<ClickHandler>(myCamNode, myRenderWindow, aSceneManager, _client);
@@ -113,14 +123,16 @@ namespace Zappy::GUI {
         const auto myMapSize = myServerData._mapSize;
         const constexpr int myTileSize = 1;
         const constexpr Ogre::Real myScale = 0.05F;
-
         Ogre::Vector3f myCenterPos(0, 0, 0);
+
         for (unsigned int i = 0; i < myMapSize.first; i++) {
             for (unsigned int j = 0; j < myMapSize.second; j++) {
-                std::string name = std::to_string(i) + " " + std::to_string(j);
+                std::string myName = std::to_string(i) + " " + std::to_string(j);
+
                 try {
-                    Ogre::Entity *myEntity = aSceneManager->createEntity(name, "Rock.mesh");
-                    Ogre::SceneNode *myNode = aSceneManager->getRootSceneNode()->createChildSceneNode(name);
+                    Ogre::Entity *myEntity = aSceneManager->createEntity(myName, "Rock.mesh");
+                    Ogre::SceneNode *myNode = aSceneManager->getRootSceneNode()->createChildSceneNode(myName);
+
                     myNode->attachObject(myEntity);
                     myNode->setPosition(static_cast<float>(i) * (myTileSize * MAP_OFFSET), 0,
                                         static_cast<float>(j) * (myTileSize * MAP_OFFSET));

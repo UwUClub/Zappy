@@ -24,7 +24,7 @@ namespace Zappy::GUI {
         if (aOrientation > 4 || aOrientation < 1) {
             return;
         }
-        _orientation = static_cast<Orientation>(aOrientation - 1);
+        _orientation = static_cast<Orientation>(aOrientation);
     }
 
     void PlayerData::setLevel(int aLevel)
