@@ -93,6 +93,9 @@ myproject_package_project(
 )
 
 if (NO_CONNECTION EQUAL 0 OR OGRE_FOUND)
+execute_process(
+            COMMAND sh ${CMAKE_CURRENT_SOURCE_DIR}/copy_resources.sh
+    )
 myproject_package_project(
       TARGETS
       zappy_gui

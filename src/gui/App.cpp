@@ -13,6 +13,7 @@
 #include <OgreInput.h>
 #include <OgrePrerequisites.h>
 #include <OgreRenderWindow.h>
+#include <OgreResourceGroupManager.h>
 #include <OgreRoot.h>
 #include <algorithm>
 #include <functional>
@@ -34,10 +35,18 @@ namespace Zappy::GUI {
           _clickHandler(nullptr)
     {
         this->initApp();
-        _client.registerSubscriber(*this);
-
+        try {
+            Ogre::ResourceGroupManager::getSingleton().addResourceLocation("./assets", "FileSystem", "Zappy");
+            Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
+            Ogre::ResourceGroupManager::getSingleton().loadResourceGroup("Zappy");
+        } catch (const Ogre::Exception &e) {
+            std::cerr << e.what() << std::endl;
+        }
         auto *myRoot = this->getRoot();
         auto *myScnMgr = myRoot->createSceneManager("DefaultSceneManager", SCENE_MAN_NAME);
+        myScnMgr->createEntity("", "Sinbad.mesh");
+        _client.registerSubscriber(*this);
+
         Ogre::RTShader::ShaderGenerator *myShadergen = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
         _frameHandler = std::make_unique<FrameHandler>(myScnMgr, _client);
 
@@ -57,11 +66,15 @@ namespace Zappy::GUI {
     void App::setupLight(Ogre::SceneManager *aSceneManager)
     {
         const constexpr double myRGB = 1.0;
+        const constexpr int myLightX = 0;
+        const constexpr int myLightY = 50;
+        const constexpr int myLightZ = 15;
+        Ogre::Light *light = aSceneManager->createLight("MainLight");
+        Ogre::SceneNode *lightNode = aSceneManager->getRootSceneNode()->createChildSceneNode();
+
         aSceneManager->setAmbientLight(Ogre::ColourValue(myRGB, myRGB, myRGB));
-        // Ogre::Light *light = scnMgr->createLight("MainLight");
-        // Ogre::SceneNode *lightNode = scnMgr->getRootSceneNode()->createChildSceneNode();
-        // lightNode->setPosition(0, 10, 15);
-        // lightNode->attachObject(light);
+        lightNode->setPosition(myLightX, myLightY, myLightZ);
+        lightNode->attachObject(light);
     }
 
     void App::setupCamera(Ogre::SceneManager *aSceneManager, Ogre::Vector3 &aCenterPos)
@@ -99,95 +112,27 @@ namespace Zappy::GUI {
         auto myServerData = _client.getServerData();
         const auto myMapSize = myServerData._mapSize;
         const constexpr int myTileSize = 1;
+        const constexpr Ogre::Real myScale = 0.05F;
 
         Ogre::Vector3f myCenterPos(0, 0, 0);
         for (unsigned int i = 0; i < myMapSize.first; i++) {
             for (unsigned int j = 0; j < myMapSize.second; j++) {
                 std::string name = std::to_string(i) + " " + std::to_string(j);
-                Ogre::Entity *myEntity = aSceneManager->createEntity(name, "Sinbad.mesh");
-                Ogre::SceneNode *myNode = aSceneManager->getRootSceneNode()->createChildSceneNode(name);
-                myNode->attachObject(myEntity);
-                myNode->setPosition(static_cast<float>(i) * (myTileSize * MAP_OFFSET), 0,
-                                    static_cast<float>(j) * (myTileSize * MAP_OFFSET));
+                try {
+                    Ogre::Entity *myEntity = aSceneManager->createEntity(name, "Rock.mesh");
+                    Ogre::SceneNode *myNode = aSceneManager->getRootSceneNode()->createChildSceneNode(name);
+                    myNode->attachObject(myEntity);
+                    myNode->setPosition(static_cast<float>(i) * (myTileSize * MAP_OFFSET), 0,
+                                        static_cast<float>(j) * (myTileSize * MAP_OFFSET));
+                    myNode->setScale(myScale, myScale, myScale);
+                } catch (Ogre::Exception &e) {
+                    std::cerr << e.what() << std::endl;
+                    return myCenterPos;
+                }
             }
         }
         myCenterPos.x = (static_cast<float>(myMapSize.first) / 2) * (myTileSize * MAP_OFFSET);
         myCenterPos.z = (static_cast<float>(myMapSize.second) / 2) * (myTileSize * MAP_OFFSET);
         return myCenterPos;
-    }
-
-    void App::getNotified(std::string &aNotification)
-    {
-        auto myCommand = aNotification.substr(0, aNotification.find_first_of(' '));
-
-        if (_notificationMap.find(myCommand) != _notificationMap.end()) {
-            _notificationMap.at(myCommand)(*this, aNotification);
-        }
-    }
-
-    void App::addPlayer([[maybe_unused]] std::string &aNotification)
-    {
-        auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
-        auto myServerData = _client.getServerData();
-        auto myPlayerData = myServerData._players.back();
-        const auto &myPlayerId = myPlayerData.getId();
-        Ogre::Entity *myEntity = myScnMgr->createEntity(myPlayerId, "Sinbad.mesh");
-        Ogre::SceneNode *myNode = myScnMgr->getRootSceneNode()->createChildSceneNode(myPlayerId);
-
-        myNode->attachObject(myEntity);
-        this->setPlayerPosAndOrientation(myPlayerData);
-    }
-
-    void App::removePlayer(std::string &aNotification)
-    {
-        int myIndex = std::stoi(aNotification.substr(4));
-        auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
-
-        myScnMgr->destroyEntity(std::to_string(myIndex));
-    }
-
-    bool App::windowClosing(Ogre::RenderWindow *aRenderWindow)
-    {
-        _client.disconnect();
-        OgreBites::ApplicationContext::windowClosing(aRenderWindow);
-        return true;
-    }
-
-    void App::movePlayer(std::string &aNotification)
-    {
-        auto myServerData = _client.getServerData();
-        auto myIndex = aNotification.substr(4);
-        auto myPlayerData = std::find_if(myServerData._players.begin(), myServerData._players.end(),
-                                         [&myIndex](const PlayerData &aPlayer) {
-                                             return aPlayer.getId() == myIndex;
-                                         });
-        if (myPlayerData == myServerData._players.end()) {
-            return;
-        }
-
-        this->setPlayerPosAndOrientation(*myPlayerData);
-    }
-
-    void App::setPlayerPosAndOrientation(PlayerData &aPlayer)
-    {
-        auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
-        const auto &myPlayerId = aPlayer.getId();
-        static const std::unordered_map<Orientation, Ogre::Real> myOrientationMap = {{Orientation::SOUTH, 0},
-                                                                                     {Orientation::EAST, 90},
-                                                                                     {Orientation::NORTH, 180},
-                                                                                     {Orientation::WEST, 270}};
-        Ogre::SceneNode *myNode = myScnMgr->getSceneNode(myPlayerId);
-
-        myNode->setPosition(static_cast<float>(aPlayer.getPosition().first * MAP_OFFSET), NEW_PLAYER_Y_POS,
-                            static_cast<float>(aPlayer.getPosition().second * MAP_OFFSET));
-        myNode->setOrientation(
-            Ogre::Quaternion(Ogre::Degree(myOrientationMap.at(aPlayer.getOrientation())), Ogre::Vector3::UNIT_Y));
-    }
-
-    void App::displayServerMessage(std::string &aNotification)
-    {
-        auto myMessage = aNotification.substr(4);
-
-        std::cout << "Server message: " << myMessage << std::endl;
     }
 } // namespace Zappy::GUI
