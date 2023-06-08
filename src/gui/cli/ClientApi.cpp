@@ -333,8 +333,8 @@ namespace Zappy::GUI {
                 static_cast<unsigned long>(std::stoi(myPlayerId))).getPosition();
 
         if (myPlayerInventory > 0) {
-            _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId))).setInventory(
-                    std::stoi(myResourceId), myPlayerInventory - 1);
+            _serverData._players.at(static_cast<unsigned long>(std::stoi(myPlayerId)))
+                .setInventory(std::stoi(myResourceId), myPlayerInventory - 1);
         }
         _serverData._mapTiles.at(static_cast<unsigned int>(myPos.second) * _serverData._mapSize.first +
                                          static_cast<unsigned int>(myPos.first))._items.addResources(std::stoi(myResourceId));
