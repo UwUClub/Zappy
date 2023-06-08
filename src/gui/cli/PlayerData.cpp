@@ -1,9 +1,10 @@
+#include <utility>
 #include "PlayerData.hpp"
 
 namespace Zappy::GUI {
-    PlayerData::PlayerData(const std::string &aId)
+    PlayerData::PlayerData(std::string aId)
         : _position(std::make_pair(0, 0)),
-          _id(aId)
+          _id(std::move(aId))
     {}
 
     PlayerData::~PlayerData() = default;
@@ -122,7 +123,7 @@ namespace Zappy::GUI {
              }},
             {6, [](ItemPacket aInventory) {
                  return aInventory._thystame;
-             }}};X
+             }}};
         if (myInventoryMap.find(aSlot) == myInventoryMap.end()) {
             return -1;
         }

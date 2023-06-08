@@ -5,9 +5,9 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <unordered_map>
 #include "ServerData.hpp"
 #include "Subscriber.hpp"
-#include <unordered_map>
 
 namespace Zappy::GUI {
     class ClientApi

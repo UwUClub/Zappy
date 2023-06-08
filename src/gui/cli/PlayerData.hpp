@@ -1,12 +1,11 @@
 #pragma once
 
-#include <array>
 #include <functional>
 #include <iostream>
 #include <vector>
+#include <unordered_map>
 #include "Constexpr.hpp"
 #include "ItemPacket.hpp"
-#include <unordered_map>
 namespace Zappy::GUI {
 
     enum class Orientation
@@ -23,7 +22,7 @@ namespace Zappy::GUI {
             /**
              * @brief Player constructor
              */
-            PlayerData(const std::string &aId);
+            PlayerData(std::string aId);
 
             /**
              * @brief Player destructor
@@ -124,6 +123,6 @@ namespace Zappy::GUI {
             int _level {1};
             ItemPacket _inventory;
             std::string _teamName;
-            const std::string _id;
+            std::string _id;
     };
 } // namespace Zappy::GUI
