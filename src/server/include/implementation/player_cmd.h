@@ -141,6 +141,14 @@
     int schedule_incantation(data_t *data, char **args);
 
     /**
+     * @brief Schedule eject command
+     * @param data The current server data, clients and current client index
+     * @param args The arguments of the command
+     * @return Status of the schedule
+     */
+    int schedule_eject(data_t *data, char **args);
+
+    /**
     * @brief Get tile number from source direction (used for broadcast)
     * @param data The current server data, clients and current client index
     * @param player_id The id of the player
@@ -153,6 +161,7 @@
 
     /**
      * @brief Check the resource asked of a tile
+     * @brief Check the ressource asked of a tile
      * @param data The current server data, clients and current client index
      * @param resource The resource to check
      * @return return the quantity of the resource in the tile of the player
@@ -177,6 +186,7 @@
         {"Look", &schedule_look, LOOK_DELAY},
         {"Fork", &schedule_fork, FORK_DELAY},
         {"Broadcast", &schedule_broadcast, BROADCAST_DELAY},
+        {"Eject", &schedule_eject, EJECT_DELAY},
         {"Incantation", &schedule_incantation, INCANTATION_DELAY},
         {NULL, NULL}
     };
