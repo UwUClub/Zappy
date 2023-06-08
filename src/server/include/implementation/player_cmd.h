@@ -158,20 +158,22 @@
     */
     int get_tile_from_source(data_t *data, const unsigned int player_id,
         const unsigned int source_x, const unsigned int source_y);
-    /*
-     * @brief Check the ressource asked of a tile
-     * @param data The current server data, clients and current client index
-     * @param ressource The ressource to check
-     * @return return the quantity of the ressource in the tile of the player
-     */
-    int check_tile(data_t *data, int ressource);
 
     /**
-     * @brief Remove all the ressource consummed from a tile
+     * @brief Check the resource asked of a tile
+     * @brief Check the ressource asked of a tile
+     * @param data The current server data, clients and current client index
+     * @param resource The resource to check
+     * @return return the quantity of the resource in the tile of the player
+     */
+    int check_tile(data_t *data, int resource);
+
+    /**
+     * @brief Remove all the resource consummed from a tile
      * @param data The current server data, clients and current client index
      * @return return 0 if success, 1 if error
      */
-    int remove_all_ressources_from_tile(data_t *data);
+    int remove_all_resources_from_tile(data_t *data);
 
     static const cmd_t player_schedulers[] = {
         {"Forward", &schedule_forward, FORWARD_DELAY},

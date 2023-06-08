@@ -7,6 +7,7 @@
 
 #include "implementation.h"
 #include "player_cmd.h"
+#include "gui_cmd.h"
 #include "utils.h"
 
 static int move_forward(data_t *data, __attribute__((unused)) char **args)
@@ -24,6 +25,7 @@ static int move_forward(data_t *data, __attribute__((unused)) char **args)
     data->clients[data->curr_cli_index]->player->pos->y = calc_outbound(
         data->clients[data->curr_cli_index]->player->pos->y, data->map->height);
     send_to_client(data->clients, data->curr_cli_index, "ok\n");
+    send_ppo_to_all_gui(data, data->clients[data->curr_cli_index]->player);
     return 0;
 }
 
