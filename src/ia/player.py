@@ -9,6 +9,7 @@ class Player:
         self._name = ""
         self._mapWidth = 0
         self._mapHeight = 0
+        self._lookTiles = []
 
     ## @brief Connect to the server
     ## @param info The connection information
@@ -165,4 +166,21 @@ class Player:
         else:
             print ("Incantation:", myIncantation)
             return (myIncantation)
-      
+    ## @brief Parse the look command
+    ## @return the look tiles
+    def parseLook(self, aLook : str):
+        myLook = aLook.split(",")
+        for x in myLook:
+            x = str(x)
+            if x.find('[') != -1:
+                x = x.replace("[", "")
+            if x.find(']') != -1:
+                x = x.replace("]", "")
+            if x.find('\n') != -1:
+                x = x.replace("\n", "")
+            if x == '':
+                myLook.remove(x)
+                continue
+            self._lookTiles.append(x)
+        print(f"Look tiles = {self._lookTiles}")
+        return (myLook)
