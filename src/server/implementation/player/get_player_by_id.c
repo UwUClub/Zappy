@@ -15,8 +15,6 @@ player_t *get_player_by_id(data_t *data, const unsigned int id)
         if (data->clients[i]->is_registered &&
         data->clients[i]->player && data->clients[i]->player->id == id) {
             player = data->clients[i]->player;
-        }
-        if (i == id) {
             break;
         }
     }

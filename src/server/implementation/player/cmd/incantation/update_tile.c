@@ -11,7 +11,7 @@
 #include "player_cmd.h"
 #include "gui_cmd.h"
 
-int check_tile(data_t *data, int ressource)
+int check_tile(data_t *data, int resource)
 {
     int x = 0;
     int y = 0;
@@ -20,44 +20,26 @@ int check_tile(data_t *data, int ressource)
     x = data->clients[data->curr_cli_index]->player->pos->x;
     y = data->clients[data->curr_cli_index]->player->pos->y;
     tile = data->map->tiles[y][x];
-    return tile[ressource];
+    return tile[resource];
 }
 
-static void send_bct_to_all_gui(data_t *data)
-{
-    int x = data->clients[data->curr_cli_index]->player->pos->x;
-    int y = data->clients[data->curr_cli_index]->player->pos->y;
-    char **msg = NULL;
-
-    msg = malloc(sizeof(char *) * 3);
-    if (!msg)
-        return;
-    asprintf(&msg[0], "%d", x);
-    asprintf(&msg[1], "%d", y);
-    msg[2] = NULL;
-    do_bct_to_all_gui(data, msg);
-    free(msg[0]);
-    free(msg[1]);
-    free(msg);
-}
-
-static int remove_ressource_from_tile(data_t *data,
-    const unsigned int ressource)
+static int remove_resource_from_tile(data_t *data,
+    const unsigned int resource)
 {
     int x = data->clients[data->curr_cli_index]->player->pos->x;
     int y = data->clients[data->curr_cli_index]->player->pos->y;
     int level = data->clients[data->curr_cli_index]->player->level;
     int *tile = data->map->tiles[y][x];
 
-    if (tile[ressource] > 0) {
-        tile[ressource] -= level_incantation[level - 1][ressource];
-        send_bct_to_all_gui(data);
+    if (tile[resource] > 0) {
+        tile[resource] -= level_incantation[level - 1][resource];
+        do_bct_to_all_gui(data, x, y);
         return 0;
     }
     return 1;
 }
 
-int remove_all_ressources_from_tile(data_t *data)
+int remove_all_resources_from_tile(data_t *data)
 {
     int x = data->clients[data->curr_cli_index]->player->pos->x;
     int y = data->clients[data->curr_cli_index]->player->pos->y;
@@ -65,7 +47,7 @@ int remove_all_ressources_from_tile(data_t *data)
     int remove_status;
 
     for (int i = 1; i < TILE_SIZE; i++) {
-        remove_status = remove_ressource_from_tile(data, i);
+        remove_status = remove_resource_from_tile(data, i);
         if (remove_status == 1)
             return remove_status;
     }

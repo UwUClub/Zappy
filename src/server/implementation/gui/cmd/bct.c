@@ -5,7 +5,6 @@
 ** msz
 */
 
-#include <stdio.h>
 #include "implementation.h"
 #include "utils.h"
 
@@ -28,7 +27,6 @@ static char *get_tile_at(data_t *data, const int x, const int y)
     for (int i = 0; i < TILE_SIZE; i++) {
         concat_str_item(&result, tile[i]);
     }
-    result = concat_str(result, "\n");
     return result;
 }
 
@@ -44,23 +42,15 @@ static int parse_args(data_t *data, char **args, int *x, int *y)
     return 0;
 }
 
-int do_bct_to_all_gui(data_t *data, char **args)
+int do_bct_to_all_gui(data_t *data, const int x, const int y)
 {
     char *msg = NULL;
-    char *result = NULL;
-    int x = 0;
-    int y = 0;
+    char *resources = NULL;
 
-    if (parse_args(data, args, &x, &y) == 84)
-        return 1;
-    msg = strdup("bct ");
-    msg = concat_str(msg, args[0]);
-    msg = concat_str(msg, " ");
-    msg = concat_str(msg, args[1]);
-    result = get_tile_at(data, x, y);
-    msg = concat_str(msg, result);
-    free(result);
+    resources = get_tile_at(data, x, y);
+    asprintf(&msg, "bct %d %d%s\n", x, y, resources);
     send_to_all_gui(data->clients, msg);
+    free(resources);
     free(msg);
     return 0;
 }
@@ -68,20 +58,16 @@ int do_bct_to_all_gui(data_t *data, char **args)
 int do_bct(data_t *data, char **args)
 {
     char *msg = NULL;
-    char *result = NULL;
+    char *resources = NULL;
     int x = 0;
     int y = 0;
 
     if (parse_args(data, args, &x, &y) == 84)
         return 1;
-    msg = strdup("bct ");
-    msg = concat_str(msg, args[0]);
-    msg = concat_str(msg, " ");
-    msg = concat_str(msg, args[1]);
-    result = get_tile_at(data, x, y);
-    msg = concat_str(msg, result);
-    free(result);
+    resources = get_tile_at(data, x, y);
+    asprintf(&msg, "bct %d %d%s\n", x, y, resources);
     send_to_client(data->clients, data->curr_cli_index, msg);
+    free(resources);
     free(msg);
     return 0;
 }

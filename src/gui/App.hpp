@@ -50,14 +50,34 @@ namespace Zappy::GUI {
              * @brief Overriden method from Subscriber
              */
             void getNotified(std::string &aNotification) final;
-            bool windowClosing(Ogre::RenderWindow *aRenderWindow) final;
 
         private:
+            class AppException : public std::exception
+            {
+                public:
+                    explicit AppException(const std::string &aMessage)
+                        : _message(aMessage)
+                    {}
+                    ~AppException() override = default;
+
+                    const char *what() const noexcept override
+                    {
+                        return _message.c_str();
+                    }
+
+                private:
+                    std::string _message;
+            };
             /**
              * @brief Setup the light of the scene
              * @param aSceneManager the scene manager
              */
             void setupLight(Ogre::SceneManager *aSceneManager);
+
+            /**
+             * @brief Initialize the app
+             */
+            void instantiateApp();
 
             /**
              * @brief Setup the camera of the scene
@@ -78,6 +98,11 @@ namespace Zappy::GUI {
              * @param aSceneManager the scene manager
              */
             void setPlayerPosAndOrientation(const PlayerData &aPlayer);
+            /**
+             * @brief Display a message from the server
+             *
+             * @param aNotification the notification
+             */
             void displayServerMessage(std::string &aNotification);
             /**
              * @brief Setup the map of the scene
@@ -112,7 +137,7 @@ namespace Zappy::GUI {
                 _notificationMap = {{"pnw", &App::addPlayer},
                                     {"pdi", &App::removePlayer},
                                     {"ppo", &App::movePlayer},
-                                    {"message", &App::displayServerMessage}};
+                                    {"smg", &App::displayServerMessage}};
     };
 } // namespace Zappy::GUI
 
