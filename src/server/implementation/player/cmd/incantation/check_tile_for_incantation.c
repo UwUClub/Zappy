@@ -12,7 +12,7 @@ static int check_resources_on_tile(map_t *map, pos_t *pos,
     const int target_lvl)
 {
     for (int rsrc = 0; rsrc < TILE_SIZE; rsrc++) {
-        if (map->tiles[pos->x][pos->y][rsrc] <=
+        if (map->tiles[pos->x][pos->y][rsrc] <
             elevation_secret[target_lvl - 2][rsrc + 2]) {
             return 0;
         }
@@ -20,8 +20,8 @@ static int check_resources_on_tile(map_t *map, pos_t *pos,
     return 1;
 }
 
-static int is_player_valid(client_t **clients, const int index, pos_t *pos,
-    const int target_lvl)
+int is_player_valid_for_incantation(client_t **clients, const int index,
+    pos_t *pos, const int target_lvl)
 {
     return is_player(clients, index) &&
         clients[index]->player->pos->x == pos->x &&
@@ -36,7 +36,7 @@ static int check_players_on_tile(client_t **clients, pos_t *pos,
     int is_valid = 0;
 
     for (int i = 0; clients[i]; i++) {
-        is_valid = is_player_valid(clients, i, pos, target_lvl);
+        is_valid = is_player_valid_for_incantation(clients, i, pos, target_lvl);
         if (is_valid && clients[i]->player->pending_cmd_queue[0]) {
             return 0;
         }

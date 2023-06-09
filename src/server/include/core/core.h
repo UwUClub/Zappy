@@ -52,6 +52,7 @@
         char *team_name;
         pending_cmd_t *pending_cmd_queue[MAX_PENDING_CMD];
         unsigned long long remaining_digestion_ms;
+        int is_freezed;
     } player_t;
 
     typedef struct client_s {

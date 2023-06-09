@@ -158,6 +158,16 @@
         const int target_lvl);
 
     /**
+     * @brief Check if a player is valid for incantation
+     * @param clients Client list of the server
+     * @param index The index of the player
+     * @param pos The position of the incantation
+     * @return 1 if the player is valid, 0 otherwise
+     */
+    int is_player_valid_for_incantation(client_t **clients, const int index,
+        pos_t *pos, const int target_lvl);
+
+    /**
      * @brief Schedule eject command
      * @param data The current server data, clients and current client index
      * @param args The arguments of the command
