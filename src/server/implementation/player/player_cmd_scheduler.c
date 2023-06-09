@@ -9,20 +9,6 @@
 #include "utils.h"
 #include "player_cmd.h"
 
-static const cmd_t schedulers[] = {
-    {"Forward", &schedule_forward, FORWARD_DELAY},
-    {"Right", &schedule_right, RIGHT_DELAY},
-    {"Left", &schedule_left, LEFT_DELAY},
-    {"Take", &schedule_take, TAKE_DELAY},
-    {"Set", &schedule_set, SET_DELAY},
-    {"Inventory", &schedule_inventory, INVENTORY_DELAY},
-    {"Connect_nbr", &schedule_connect_nbr, CONNECT_NBR_DELAY},
-    {"Look", &schedule_look, LOOK_DELAY},
-    {"Broadcast", &schedule_broadcast, BROADCAST_DELAY},
-    {"Eject", &schedule_eject, EJECT_DELAY},
-    {NULL, NULL}
-};
-
 void append_scheduler_to_queue(data_t *data, int (*func)(data_t *data,
     char **args), char **args, time_t delay)
 {
