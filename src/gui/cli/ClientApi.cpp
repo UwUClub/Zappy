@@ -158,7 +158,7 @@ namespace Zappy::GUI {
             {"ppo", &ClientApi::receivePpo},         {"plv", &ClientApi::receivePlv}, {"suc", &ClientApi::receiveError},
             {"sgt", &ClientApi::receiveSgt},         {"sst", &ClientApi::receiveSst}, {"pnw", &ClientApi::receivePnw},
             {"pin", &ClientApi::receivePin},         {"pex", &ClientApi::receivePex}, {"pdr", &ClientApi::receivePdr},
-            {"enw", &ClientApi::receiveEnw},         {"ebo", &ClientApi::receiveEbo}};
+            {"enw", &ClientApi::receiveEnw},         {"edi", &ClientApi::receiveEdi}, {"ebo", &ClientApi::receiveEbo}};
 
         while (_readBuffer.find('\n') != std::string::npos) {
             std::string myResponse = _readBuffer.substr(0, _readBuffer.find('\n'));
@@ -399,6 +399,24 @@ namespace Zappy::GUI {
         _serverData._eggs.push_back(myEgg);
     }
 
+    void ClientApi::receiveEdi(const std::string &aResponse)
+    {
+        std::istringstream myStream(aResponse);
+        int myEggId = 0;
+
+        myStream >> myEggId;
+
+        auto myEggData =
+            std::find_if(_serverData._eggs.begin(), _serverData._eggs.end(), [&myEggId](const EggData &aEgg) {
+                return aEgg.getId() == myEggId;
+            });
+        if (myEggData != _serverData._eggs.end()) {
+            _serverData._eggs.erase(myEggData);
+        } else {
+            throw ClientException("Egg not found");
+        }
+    }
+
     void ClientApi::receiveEbo(const std::string &aResponse)
     {
         std::istringstream myStream(aResponse);
@@ -412,7 +430,6 @@ namespace Zappy::GUI {
             });
         if (myEggData != _serverData._eggs.end()) {
             _serverData._eggs.erase(myEggData);
-
         } else {
             throw ClientException("Egg not found");
         }
