@@ -165,6 +165,7 @@ namespace Zappy::GUI {
             std::string myResponse = _readBuffer.substr(0, _readBuffer.find('\n'));
             std::string const myCommand = myResponse.substr(0, myResponse.find(' '));
             std::string const myArgs = myResponse.substr(myResponse.find(' ') + 1);
+            std::cout << "@command: " << myCommand << std::endl;
 
             if (myResponses.find(myCommand) != myResponses.end()) {
                 try {
@@ -431,7 +432,7 @@ namespace Zappy::GUI {
     {
         std::istringstream myStream(aResponse);
         std::string myPlayerId;
-        int myEggId;
+        int myEggId = 0;
         unsigned int myX = 0;
         unsigned int myY = 0;
 
@@ -440,13 +441,10 @@ namespace Zappy::GUI {
                                          [&myPlayerId](const PlayerData &aPlayer) {
                                              return aPlayer.getId() == myPlayerId;
                                          });
+        std::string myTeamName = myPlayerData != _serverData._players.end() ? myPlayerData->getTeamName() : "None";
 
-        if (myPlayerData != _serverData._players.end()) {
-            EggData myEgg(myEggId, std::pair<int, int>(myX, myY), myPlayerData->getTeamName());
-            _serverData._eggs.push_back(myEgg);
-        } else {
-            throw ClientException("Player not found");
-        }
+        EggData myEgg(myEggId, std::pair<int, int>(myX, myY), myTeamName);
+        _serverData._eggs.push_back(myEgg);
     }
 
     void ClientApi::receiveEdi(const std::string &aResponse)
