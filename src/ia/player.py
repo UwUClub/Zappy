@@ -172,7 +172,7 @@ class Player:
         myLook = aLook.split(",")
         for x in myLook:
             # the resources on the tile are stored in a list : [nb_players, food, linemate, deraumere, sibur, mendiane, phiras, thystame]
-            resources_on_tile = []
+            myResoucesOnTile = []
             x = str(x)
             if x.find('[') != -1:
                 x = x.replace("[", "")
@@ -182,15 +182,15 @@ class Player:
                 x = x.replace("\n", "")
             if x == '':
                 continue
-            resources_on_tile.append(x.count('player'))
-            resources_on_tile.append(x.count('food'))
-            resources_on_tile.append(x.count('linemate'))
-            resources_on_tile.append(x.count('deraumere'))
-            resources_on_tile.append(x.count('sibur'))
-            resources_on_tile.append(x.count('mendiane'))
-            resources_on_tile.append(x.count('phiras'))
-            resources_on_tile.append(x.count('thystame'))
-            self._lookTiles.append(resources_on_tile)
+            myResoucesOnTile.append(x.count('player'))
+            myResoucesOnTile.append(x.count('food'))
+            myResoucesOnTile.append(x.count('linemate'))
+            myResoucesOnTile.append(x.count('deraumere'))
+            myResoucesOnTile.append(x.count('sibur'))
+            myResoucesOnTile.append(x.count('mendiane'))
+            myResoucesOnTile.append(x.count('phiras'))
+            myResoucesOnTile.append(x.count('thystame'))
+            self._lookTiles.append(myResoucesOnTile)
             print(x)
         print(f"Look tiles = {self._lookTiles}")
         return (self._lookTiles)
