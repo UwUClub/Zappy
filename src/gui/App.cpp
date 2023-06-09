@@ -17,8 +17,11 @@
 #include <OgreCamera.h>
 #include <OgreFont.h>
 #include <OgreInput.h>
+<<<<<<< HEAD
 #include <OgreLight.h>
 #include <OgreOverlay.h>
+    == == == =
+>>>>>>> ea36046 (Created button class)
 #include <OgreOverlayManager.h>
 #include <OgrePrerequisites.h>
 #include <OgreRenderWindow.h>
@@ -38,8 +41,9 @@
 #include "ServerData.hpp"
 #include <unordered_map>
 
-namespace Zappy::GUI {
-    App::App(Zappy::GUI::ClientApi &client, const std::string &aWindowName)
+    namespace Zappy::GUI
+{
+    App::App(Zappy::GUI::ClientApi & client, const std::string &aWindowName)
         : OgreBites::ApplicationContext(aWindowName),
           _client(client),
           _cameraHandler(nullptr),
@@ -112,14 +116,14 @@ namespace Zappy::GUI {
         }
     }
 
-    void App::windowClosed(Ogre::RenderWindow *aRw)
+    void App::windowClosed(Ogre::RenderWindow * aRw)
     {
         _client.disconnect();
         aRw->destroy();
         this->closeApp();
     }
 
-    void App::setupLight(Ogre::SceneManager *aSceneManager, Ogre::Vector3 &aCenter)
+    void App::setupLight(Ogre::SceneManager * aSceneManager, Ogre::Vector3 & aCenter)
     {
         Ogre::Light *myLight = aSceneManager->createLight("MainLight");
         myLight->setType(Ogre::Light::LT_DIRECTIONAL);
@@ -134,7 +138,7 @@ namespace Zappy::GUI {
         aSceneManager->setAmbientLight(Ogre::ColourValue(1, 1, 1));
     }
 
-    void App::setupCamera(Ogre::SceneManager *aSceneManager, Ogre::Vector3 &aCenterPos)
+    void App::setupCamera(Ogre::SceneManager * aSceneManager, Ogre::Vector3 & aCenterPos)
     {
         auto myServerData = _client.getServerData();
         const auto myMapSize = myServerData._mapSize;
@@ -164,7 +168,7 @@ namespace Zappy::GUI {
         }
     }
 
-    Ogre::Vector3f App::setupMap(Ogre::SceneManager *aSceneManager)
+    Ogre::Vector3f App::setupMap(Ogre::SceneManager * aSceneManager)
     {
         auto myServerData = _client.getServerData();
         const auto myMapSize = myServerData._mapSize;
@@ -195,7 +199,7 @@ namespace Zappy::GUI {
         return myCenterPos;
     }
 
-    void App::setupPlayersAndEggs(Ogre::SceneManager *aSceneManager)
+    void App::setupPlayersAndEggs(Ogre::SceneManager * aSceneManager)
     {
         auto myServerData = _client.getServerData();
         auto myPlayerData = myServerData._players;

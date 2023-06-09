@@ -11,7 +11,10 @@
 #include <OgreRoot.h>
 #include <functional>
 #include <memory>
+<<<<<<< HEAD
 #include <vector>
+=======
+>>>>>>> ea36046 (Created button class)
 #include "Button.hpp"
 #include "CameraHandler.hpp"
 #include "ClickHandler.hpp"
