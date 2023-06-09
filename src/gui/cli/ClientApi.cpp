@@ -399,7 +399,6 @@ namespace Zappy::GUI {
         _serverData._eggs.push_back(myEgg);
     }
 
-
     void ClientApi::receiveEdi(const std::string &aResponse)
     {
         std::istringstream myStream(aResponse);
@@ -417,7 +416,7 @@ namespace Zappy::GUI {
             throw ClientException("Egg not found");
         }
     }
-  
+
     void ClientApi::receiveEbo(const std::string &aResponse)
     {
         std::istringstream myStream(aResponse);

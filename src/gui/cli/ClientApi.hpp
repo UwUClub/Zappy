@@ -227,7 +227,7 @@ namespace Zappy::GUI {
              * @param aResponse
              */
             void receiveEdi(const std::string &aResponse);
-      
+
             /**
              * @brief parse ebo response
              * @param aResponse
