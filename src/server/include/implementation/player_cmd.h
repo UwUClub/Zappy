@@ -53,6 +53,13 @@
     char **args), char **args, time_t delay);
 
     /**
+    * @brief Eliminate the top command in the queue and shift the next commands
+    * @param data The current server data, clients and current client index
+    * @param player_index The index of the player
+    */
+    void shift_pending_cmd(data_t *data, const int player_index);
+
+    /**
     * @brief Schedule forward command
     * @param data The current server data, clients and current client index
     * @param args The arguments of the command

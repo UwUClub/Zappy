@@ -7,37 +7,55 @@
 
 #include "implementation.h"
 #include "player_cmd.h"
+#include "gui_cmd.h"
 
-static void eject_player(data_t *data, int index)
+static void perform_ejection(orientation_t orientation, pos_t *player_pos)
 {
-    player_t *player = data->clients[index]->player;
-    char *msg = NULL;
-
-    if (player->pos->x != data->clients[data->curr_cli_index]->player->pos->x
-    || player->pos->y != data->clients[data->curr_cli_index]->player->pos->y)
-        return;
-    switch (data->clients[data->curr_cli_index]->player->orientation) {
+    switch (orientation) {
         case NORTH:
-            player->pos->y -= 1;
+            player_pos->y -= 1;
+            break;
         case SOUTH:
-            player->pos->y += 1;
+            player_pos->y += 1;
+            break;
         case EAST:
-            player->pos->x += 1;
+            player_pos->x += 1;
+            break;
         case WEST:
-            player->pos->x -= 1;
+            player_pos->x -= 1;
+            break;
+        default:
+            break;
     }
-    asprintf(&msg, "eject\n");
-    send_to_client(data->clients, index, msg);
-    free(msg);
+}
+
+static void eject_player(data_t *data, const int player_index, player_t *kicker)
+{
+    player_t *player = data->clients[player_index]->player;
+
+    if (player->pos->x != kicker->pos->x || player->pos->y != kicker->pos->y)
+        return;
+    perform_ejection(kicker->orientation, player->pos);
+    normalize_pos(data->clients[player_index]->player->pos, data->map->width,
+        data->map->height);
+    if (player->pending_cmd_queue[0] != NULL) {
+        shift_pending_cmd(data, player_index);
+        send_to_client(data->clients, player_index, "ko\n");
+    }
+    send_to_client(data->clients, player_index, "eject\n");
+    do_pex(data, player->id);
 }
 
 static int eject_cmd(data_t *data, __attribute__((unused)) char **args)
 {
+    player_t *kicker = data->clients[data->curr_cli_index]->player;
+
     for (int i = 0; data->clients[i]; i++) {
         if (is_player(data, i) && i != data->curr_cli_index) {
-            eject_player(data, i);
+            eject_player(data, i, kicker);
         }
     }
+    hatch_eggs_at_pos(data, kicker->pos);
     send_to_client(data->clients, data->curr_cli_index, "ok\n");
     return 0;
 }
