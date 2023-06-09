@@ -141,7 +141,7 @@
     /**
      * @brief Notify to gui that a player has been expulsed
      * @param data The current server data, clients and current client index
-    */ 
+    */
     int do_pex(data_t *data, const int player_id);
 
     static const cmd_t gui_commands[] = {

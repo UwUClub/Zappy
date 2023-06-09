@@ -69,9 +69,8 @@ int schedule_take(data_t *data, char **args)
     if (args == NULL || word_array_len(args) != 1) {
         return 1;
     }
-    // TODO: check if the arg is valid
     for (int i = 0; i < NB_RESOURCES; i++) {
-        if (strcmp(args[0], resource[i]) == 0 && 
+        if (strcmp(args[0], resource[i]) == 0 &&
         check_is_on_tile(data, i) == 0) {
             is_resource = 0;
         }
