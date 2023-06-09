@@ -9,15 +9,19 @@
 #include <OGRE/Bites/OgreApplicationContext.h>
 #include <OGRE/OgreSceneManager.h>
 #include <OGRE/Overlay/OgreFontManager.h>
+<<<<<<< HEAD
 #include <OGRE/Overlay/OgreOverlayContainer.h>
 #include <OGRE/Overlay/OgreOverlayManager.h>
 #include <OGRE/Overlay/OgreOverlaySystem.h>
 #include <OGRE/Overlay/OgreTextAreaOverlayElement.h>
+    == == == =
+#include <OGRE/Overlay/OgreOverlaySystem.h>
+    >>>>>>> 6b46641(Added basic overlay system, will need to refacto, add a second button)
 #include <Ogre.h>
 #include <OgreCamera.h>
 #include <OgreFont.h>
 #include <OgreInput.h>
-<<<<<<< HEAD
+        < < < < < < < HEAD
 #include <OgreLight.h>
 #include <OgreOverlay.h>
     == == == =
@@ -31,7 +35,10 @@
 #include <algorithm>
 #include <functional>
 #include <memory>
+        < < < < < < < HEAD
 #include <utility>
+        == == == =
+>>>>>>> 6b46641 (Added basic overlay system, will need to refacto, add a second button)
 #include "Button.hpp"
 #include "CameraHandler.hpp"
 #include "Constexpr.hpp"
@@ -41,7 +48,7 @@
 #include "ServerData.hpp"
 #include <unordered_map>
 
-    namespace Zappy::GUI
+            namespace Zappy::GUI
 {
     App::App(Zappy::GUI::ClientApi & client, const std::string &aWindowName)
         : OgreBites::ApplicationContext(aWindowName),
