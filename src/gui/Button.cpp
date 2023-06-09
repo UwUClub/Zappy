@@ -27,25 +27,29 @@ namespace Zappy::GUI {
             auto *myTextArea = static_cast<Ogre::TextAreaOverlayElement *>(myText);
 
             myContainer->setMetricsMode(Ogre::GMM_PIXELS);
-            myContainer->setPosition(30, 30);
-            myContainer->setDimensions(100, 100);
-            myContainer->setMaterialName("BaseWhite");
+            myContainer->setPosition(300, 300);
+            myContainer->setDimensions(500, 500);
+            myContainer->setColour(Ogre::ColourValue(255, 255, 255));
 
             myTextArea->setMetricsMode(Ogre::GMM_PIXELS);
             myTextArea->setPosition(0, 0);
             myTextArea->setDimensions(100, 100);
             myTextArea->setCaption(aButtonText);
             myTextArea->setCharHeight(16);
-            myTextArea->setFontName("BTTF.ttf");
-            myTextArea->setColourBottom(Ogre::ColourValue(0.3, 0.5, 0.3));
-            myTextArea->setColourTop(Ogre::ColourValue(0.5, 0.7, 0.5));
+            myTextArea->setFontName(FONT_NAME, "Zappy");
+            myTextArea->setColourBottom(Ogre::ColourValue(1, 1, 1));
+            myTextArea->setColourTop(Ogre::ColourValue(1, 1, 1));
 
             myContainer->addChild(myTextArea);
 
             myOverlay->add2D(myContainer);
+            myPanel->show();
+            myContainer->show();
+            myText->show();
+            myTextArea->show();
             myOverlay->show();
         } catch (const std::exception &e) {
-            std::cerr << e.what() << std::endl;
+            std::cerr << "Button error : " << e.what() << std::endl;
         }
     }
 

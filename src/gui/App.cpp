@@ -8,8 +8,11 @@
 #include "App.hpp"
 #include <OGRE/Bites/OgreApplicationContext.h>
 #include <OGRE/OgreSceneManager.h>
+#include <OGRE/Overlay/OgreFontManager.h>
+#include <OGRE/Overlay/OgreOverlaySystem.h>
 #include <Ogre.h>
 #include <OgreCamera.h>
+#include <OgreFont.h>
 #include <OgreInput.h>
 #include <OgreOverlayManager.h>
 #include <OgrePrerequisites.h>
@@ -20,6 +23,7 @@
 #include <algorithm>
 #include <functional>
 #include <memory>
+#include "Button.hpp"
 #include "CameraHandler.hpp"
 #include "Constexpr.hpp"
 #include "FrameHandler.hpp"
@@ -40,7 +44,14 @@ namespace Zappy::GUI {
         auto *myRoot = this->getRoot();
         auto *myScnMgr = myRoot->createSceneManager("DefaultSceneManager", SCENE_MAN_NAME);
 
-        this->instantiateApp();
+        try {
+            this->instantiateApp();
+        } catch (const std::exception &e) {
+            std::cerr << e.what() << std::endl;
+            this->closeApp();
+            _client.disconnect();
+            throw AppException(e.what());
+        }
         _client.registerSubscriber(*this);
 
         Ogre::RTShader::ShaderGenerator *myShadergen = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
@@ -52,7 +63,7 @@ namespace Zappy::GUI {
         this->setupCamera(myScnMgr, nodeCenterPos);
         this->setupPlayersAndEggs(myScnMgr);
         myRoot->addFrameListener(_frameHandler.get());
-        _buttons.emplace_back(std::make_unique<Button>("Connect"));
+        _buttons.emplace_back(std::make_unique<Button>("Increase speed"));
     }
 
     App::~App()
@@ -65,6 +76,7 @@ namespace Zappy::GUI {
     {
         try {
             auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
+            myScnMgr->addRenderQueueListener(mOverlaySystem);
             Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
 
             Ogre::ResourceGroupManager::getSingleton().addResourceLocation("./assets", "FileSystem", "Zappy");
@@ -76,11 +88,17 @@ namespace Zappy::GUI {
 
             overlayManager.create(BUTTON_OVERLAY);
 
+            Ogre::FontPtr font = Ogre::FontManager::getSingleton().create(FONT_NAME, "Zappy");
+            font->setType(Ogre::FontType::FT_TRUETYPE);
+            font->setSource("BTTF.ttf");
+            font->setTrueTypeSize(24);
+            font->setTrueTypeResolution(96);
+            font->load();
+
         } catch (const Ogre::Exception &e) {
             throw AppException(e.what());
         }
     }
-
     void App::setupLight(Ogre::SceneManager *aSceneManager, Ogre::Vector3 &aCenter)
     {
         Ogre::Light *myLight = aSceneManager->createLight("MainLight");
@@ -93,7 +111,7 @@ namespace Zappy::GUI {
         myLightNode->setPosition(aCenter + Ogre::Vector3(0, 100, 30));
         myLightNode->attachObject(myLight);
 
-        aSceneManager->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
+        aSceneManager->setAmbientLight(Ogre::ColourValue(1, 1, 1));
     }
 
     void App::setupCamera(Ogre::SceneManager *aSceneManager, Ogre::Vector3 &aCenterPos)

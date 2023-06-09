@@ -20,4 +20,5 @@ const constexpr std::string CAMERA_NAME = "ZappyCamera";
 const constexpr std::string SCENE_MAN_NAME = "ZappySceneMng";
 const constexpr std::string WINDOW_NAME = "UwU Zappy UwU";
 const constexpr std::string BUTTON_OVERLAY = "ButtonOverlay";
+const constexpr std::string FONT_NAME = "BttfFont";
 #endif /* !CONSTEXPR_HPP_ */
