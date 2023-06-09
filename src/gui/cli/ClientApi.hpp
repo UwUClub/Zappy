@@ -221,7 +221,7 @@ namespace Zappy::GUI {
              * @param aResponse
              */
             void receivePdi(const std::string &aResponse);
-      
+
             /**
              * @brief parse enw response
              * @param aResponse
