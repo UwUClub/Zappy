@@ -7,11 +7,11 @@
 
 #include "core.h"
 
-int is_player(data_t *data, const int i)
+int is_player(client_t **clients, const int i)
 {
-    if (data->clients[i]->fd != -1 && data->clients[i]->is_registered == 1 &&
-        data->clients[i]->player != NULL &&
-        data->clients[i]->player->team_name != NULL) {
+    if (clients[i]->fd != -1 && clients[i]->is_registered == 1 &&
+        clients[i]->player != NULL &&
+        clients[i]->player->team_name != NULL) {
         return 1;
     }
     return 0;

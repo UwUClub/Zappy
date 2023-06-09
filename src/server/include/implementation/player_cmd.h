@@ -20,17 +20,17 @@
     #define TAKE_DELAY 7
     #define SET_DELAY 7
     #define INCANTATION_DELAY 300
-    #define NB_LEVELS 8
 
     #include "core.h"
 
-    static const int level_incantation[7][8] = {{1, 1, 1, 0, 0, 0, 0, 0},
-                                            {2, 2, 1, 1, 1, 0, 0, 0},
-                                            {3, 2, 2, 0, 1, 0, 2, 0},
-                                            {4, 4, 1, 1, 2, 0, 1, 0},
-                                            {5, 4, 1, 2, 1, 3, 0, 0},
-                                            {6, 6, 1, 2, 3, 0, 1, 0},
-                                            {7, 6, 2, 2, 2, 2, 2, 1},
+    static const int elevation_secret[7][9] = {
+        {2, 1, 1, 1, 0, 0, 0, 0, 0},
+        {3, 2, 2, 1, 1, 1, 0, 0, 0},
+        {4, 2, 2, 2, 0, 1, 0, 2, 0},
+        {5, 4, 4, 1, 1, 2, 0, 1, 0},
+        {6, 4, 4, 1, 2, 1, 3, 0, 0},
+        {7, 6, 6, 1, 2, 3, 0, 1, 0},
+        {8, 6, 6, 2, 2, 2, 2, 2, 1}
     };
 
     /**
@@ -148,6 +148,16 @@
     int schedule_incantation(data_t *data, char **args);
 
     /**
+     * @brief Check if the incantation is possible (resources and players)
+     * @param data The current server data, clients and current client index
+     * @param pos The position of the player
+     * @param target_lvl The target level
+     * @return 1 if the incantation is possible, 0 otherwise
+     */
+    int check_tile_for_incantation(data_t *data, pos_t *pos,
+        const int target_lvl);
+
+    /**
      * @brief Schedule eject command
      * @param data The current server data, clients and current client index
      * @param args The arguments of the command
@@ -165,15 +175,6 @@
     */
     int get_tile_from_source(data_t *data, const unsigned int player_id,
         const unsigned int source_x, const unsigned int source_y);
-
-    /**
-     * @brief Check the resource asked of a tile
-     * @brief Check the ressource asked of a tile
-     * @param data The current server data, clients and current client index
-     * @param resource The resource to check
-     * @return return the quantity of the resource in the tile of the player
-     */
-    int check_tile(data_t *data, int resource);
 
     /**
      * @brief Remove all the resource consummed from a tile

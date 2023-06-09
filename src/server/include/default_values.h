@@ -17,6 +17,7 @@
     #define DEFAULT_FREQ 100
 
     #define LEVEL_START 1
+    #define MAX_LEVEL 8
 
     #define DEFAULT_CLI_PER_TEAM 2
     #define DEFAULT_TEAM_NAME "Team"

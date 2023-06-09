@@ -16,7 +16,7 @@ static void send_broadcast_to_players(data_t *data, const char *content)
     int origin_tile = 0;
 
     for (int i = 0; data->clients[i]; i++) {
-        if (is_player(data, i) && i != data->curr_cli_index) {
+        if (is_player(data->clients, i) && i != data->curr_cli_index) {
             origin_tile = get_tile_from_source(data, i, sender->pos->x,
                 sender->pos->y);
             asprintf(&msg, "message %d, %s\n", origin_tile, content);
