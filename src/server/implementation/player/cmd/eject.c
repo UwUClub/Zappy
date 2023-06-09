@@ -43,7 +43,7 @@ static void eject_player(data_t *data, const int player_index, player_t *kicker)
         send_to_client(data->clients, player_index, "ko\n");
     }
     if (player->is_freezed) {
-        player->is_freezed = 0;
+        data->clients[player_index]->player->is_freezed = 0;
     }
     send_to_client(data->clients, player_index, "eject\n");
     do_pex(data, player->id);
