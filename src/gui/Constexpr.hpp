@@ -12,7 +12,7 @@
 //---------------------------------Int Constexpr
 const constexpr int MAP_OFFSET = 5;
 const constexpr int BASE_ANGLE = 45;
-const constexpr int NEW_PLAYER_Y_POS = 15;
+const constexpr int PLAYER_Y_POS = 3;
 const constexpr int INVENTORY_SIZE = 7;
 
 //---------------------------------String Constexpr

@@ -38,6 +38,9 @@ static void find_egg_to_hatch(data_t *data, char *team_name)
     data->clients[data->curr_cli_index]->player->id = egg->id;
     data->clients[data->curr_cli_index]->player->pos->x = egg->pos->x;
     data->clients[data->curr_cli_index]->player->pos->y = egg->pos->y;
+    data->clients[data->curr_cli_index]->player->inventory[0] = egg->food;
+    data->clients[data->curr_cli_index]->player->remaining_digestion_ms =
+        egg->remaining_digestion_ms;
     hatch_egg(data, team_index, egg_index);
 }
 

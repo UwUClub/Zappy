@@ -1,6 +1,5 @@
 #pragma once
 
-#include <array>
 #include <functional>
 #include <iostream>
 #include <vector>
@@ -9,12 +8,12 @@
 #include <unordered_map>
 namespace Zappy::GUI {
 
-    enum class Orientation
+    enum class Orientation : int
     {
-        NORTH,
-        EAST,
-        SOUTH,
-        WEST
+        NORTH = 1,
+        EAST = 2,
+        SOUTH = 3,
+        WEST = 4
     };
 
     class PlayerData
@@ -23,7 +22,7 @@ namespace Zappy::GUI {
             /**
              * @brief Player constructor
              */
-            PlayerData(const std::string &aId);
+            PlayerData(std::string aId);
 
             /**
              * @brief Player destructor
@@ -60,6 +59,12 @@ namespace Zappy::GUI {
              * @param aInventory
              */
             void setInventory(ItemPacket &aInventory);
+
+            /**
+             * @brief Set the inventory of the player
+             * @param aSlot
+             */
+            void setInventory(int aSlot, int aQuantity);
 
             /**
              * @brief Set the team name of the player
@@ -118,6 +123,6 @@ namespace Zappy::GUI {
             int _level {1};
             ItemPacket _inventory;
             std::string _teamName;
-            const std::string _id;
+            std::string _id;
     };
 } // namespace Zappy::GUI

@@ -31,4 +31,7 @@
     #define PHIRAS_DENSITY 0.08
     #define THYSTAME_DENSITY 0.05
 
+    static const char *resource[NB_RESOURCES] = {"food", "linemate",
+        "deraumere", "sibur", "mendiane", "phiras", "thystame"};
+
 #endif /* ZAPPY_RESOURCES_H */
