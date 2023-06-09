@@ -20,8 +20,18 @@
     #define TAKE_DELAY 7
     #define SET_DELAY 7
     #define INCANTATION_DELAY 300
+    #define NB_LEVELS 8
 
     #include "core.h"
+
+    static const int level_incantation[7][8] = {{1, 1, 1, 0, 0, 0, 0, 0},
+                                            {2, 2, 1, 1, 1, 0, 0, 0},
+                                            {3, 2, 2, 0, 1, 0, 2, 0},
+                                            {4, 4, 1, 1, 2, 0, 1, 0},
+                                            {5, 4, 1, 2, 1, 3, 0, 0},
+                                            {6, 6, 1, 2, 3, 0, 1, 0},
+                                            {7, 6, 2, 2, 2, 2, 2, 1},
+    };
 
     /**
     * @brief Schedule a player command to be executed after a delay
@@ -41,6 +51,13 @@
     */
     void append_scheduler_to_queue(data_t *data, int (*func)(data_t *data,
     char **args), char **args, time_t delay);
+
+    /**
+    * @brief Eliminate the top command in the queue and shift the next commands
+    * @param data The current server data, clients and current client index
+    * @param player_index The index of the player
+    */
+    void shift_pending_cmd(data_t *data, const int player_index);
 
     /**
     * @brief Schedule forward command
@@ -91,14 +108,6 @@
     int schedule_inventory(data_t *data, char **args);
 
     /**
-    * @brief Schedule connect_nbr command
-    * @param data The current server data, clients and current client index
-    * @param args The arguments of the command
-    * @return Status of the schedule
-    */
-    int schedule_connect_nbr(data_t *data, char **args);
-
-    /**
      * @brief Schedule look command
      * @param data The current server data, clients and current client index
      * @param args The arguments of the command
@@ -107,12 +116,44 @@
     int schedule_look(data_t *data, char **args);
 
     /**
+     * @brief Schedule connect_nbr command
+     * @param data The current server data, clients and current client index
+     * @param args The arguments of the command
+     * @return Status of the schedule
+     */
+    int schedule_connect_nbr(data_t *data, char **args);
+
+    /**
+     * @brief Schedule fork command
+     * @param data The current server data, clients and current client index
+     * @param args The arguments of the command
+     * @return Status of the schedule
+     */
+    int schedule_fork(data_t *data, char **args);
+
+    /**
      * @brief Schedule broadcast command
      * @param data The current server data, clients and current client index
      * @param args The arguments of the command
      * @return Status of the schedule
      */
     int schedule_broadcast(data_t *data, char **args);
+
+    /**
+     * @brief Schedule incantation command
+     * @param data The current server data, clients and current client index
+     * @param args The arguments of the command
+     * @return Status of the schedule
+     */
+    int schedule_incantation(data_t *data, char **args);
+
+    /**
+     * @brief Schedule eject command
+     * @param data The current server data, clients and current client index
+     * @param args The arguments of the command
+     * @return Status of the schedule
+     */
+    int schedule_eject(data_t *data, char **args);
 
     /**
     * @brief Get tile number from source direction (used for broadcast)
@@ -124,5 +165,37 @@
     */
     int get_tile_from_source(data_t *data, const unsigned int player_id,
         const unsigned int source_x, const unsigned int source_y);
+
+    /**
+     * @brief Check the resource asked of a tile
+     * @brief Check the ressource asked of a tile
+     * @param data The current server data, clients and current client index
+     * @param resource The resource to check
+     * @return return the quantity of the resource in the tile of the player
+     */
+    int check_tile(data_t *data, int resource);
+
+    /**
+     * @brief Remove all the resource consummed from a tile
+     * @param data The current server data, clients and current client index
+     * @return return 0 if success, 1 if error
+     */
+    int remove_all_resources_from_tile(data_t *data);
+
+    static const cmd_t player_schedulers[] = {
+        {"Forward", &schedule_forward, FORWARD_DELAY},
+        {"Right", &schedule_right, RIGHT_DELAY},
+        {"Left", &schedule_left, LEFT_DELAY},
+        {"Take", &schedule_take, TAKE_DELAY},
+        {"Set", &schedule_set, SET_DELAY},
+        {"Inventory", &schedule_inventory, INVENTORY_DELAY},
+        {"Connect_nbr", &schedule_connect_nbr, CONNECT_NBR_DELAY},
+        {"Look", &schedule_look, LOOK_DELAY},
+        {"Fork", &schedule_fork, FORK_DELAY},
+        {"Broadcast", &schedule_broadcast, BROADCAST_DELAY},
+        {"Eject", &schedule_eject, EJECT_DELAY},
+        {"Incantation", &schedule_incantation, INCANTATION_DELAY},
+        {NULL, NULL}
+    };
 
 #endif /* ZAPPY_PLAYER_CMD_H */

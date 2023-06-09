@@ -10,6 +10,16 @@
 #include "utils.h"
 #include "ranges.h"
 
+void send_ppo_to_all_gui(data_t *data, player_t *player)
+{
+    char *msg = NULL;
+
+    asprintf(&msg, "ppo %d %d %d %d\n", player->id, player->pos->x,
+        player->pos->y, player->orientation);
+    send_to_all_gui(data->clients, msg);
+    free(msg);
+}
+
 int do_ppo(data_t *data, char **args)
 {
     player_t *player = NULL;
@@ -20,7 +30,7 @@ int do_ppo(data_t *data, char **args)
     player = get_player_by_id(data, atoi(args[0]));
     if (!player)
         return 1;
-    asprintf(&msg, "ppo %s %d %d %d\n", args[0], player->pos_x, player->pos_y,
+    asprintf(&msg, "ppo %s %d %d %d\n", args[0], player->pos->x, player->pos->y,
         player->orientation);
     send_to_client(data->clients, data->curr_cli_index, msg);
     free(msg);

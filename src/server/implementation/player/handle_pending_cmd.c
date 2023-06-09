@@ -9,9 +9,9 @@
 #include "implementation.h"
 #include "utils.h"
 
-static void shift_pending_cmd(data_t *data)
+void shift_pending_cmd(data_t *data, const int player_index)
 {
-    player_t *player = data->clients[data->curr_cli_index]->player;
+    player_t *player = data->clients[player_index]->player;
 
     free_word_array(player->pending_cmd_queue[0]->args);
     free(player->pending_cmd_queue[0]);
@@ -29,7 +29,7 @@ static void treat_pending_cmd(data_t *data)
     if (player->pending_cmd_queue[0]->remaining_ms <= 0) {
         player->pending_cmd_queue[0]->func(data,
             player->pending_cmd_queue[0]->args);
-        shift_pending_cmd(data);
+        shift_pending_cmd(data, data->curr_cli_index);
     }
 }
 

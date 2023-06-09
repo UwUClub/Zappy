@@ -12,11 +12,9 @@ player_t *get_player_by_id(data_t *data, const unsigned int id)
     player_t *player = NULL;
 
     for (int i = 0; data->clients[i]; i++) {
-        if (i == id && data->clients[i]->is_registered &&
-        data->clients[i]->player) {
+        if (data->clients[i]->is_registered &&
+        data->clients[i]->player && data->clients[i]->player->id == id) {
             player = data->clients[i]->player;
-        }
-        if (i == id) {
             break;
         }
     }

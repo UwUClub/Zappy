@@ -63,6 +63,7 @@ static void handle_clients(data_t *data, fd_set read_fd_set,
 
     elapsed_time_ms = get_ms_since_epoch() - data->last_select_ms;
     handle_resource_spawn(data, elapsed_time_ms);
+    handle_eggs_digestion(data, elapsed_time_ms);
     for (int i = 0; data->clients[i]; i++) {
         if (data->clients[i]->fd > 0) {
             data->curr_cli_index = i;

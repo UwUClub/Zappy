@@ -10,6 +10,15 @@
 #include "utils.h"
 #include "ranges.h"
 
+void send_plv_to_all_gui(data_t *data, player_t *player)
+{
+    char *msg = NULL;
+
+    asprintf(&msg, "plv %d %d\n", player->id, player->level);
+    send_to_all_gui(data->clients, msg);
+    free(msg);
+}
+
 int do_plv(data_t *data, char **args)
 {
     player_t *player = NULL;

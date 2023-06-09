@@ -5,18 +5,18 @@
 ** spawn_resources
 */
 
-#include <unistd.h>
 #include "core.h"
 #include "resources.h"
 #include "ranges.h"
+#include "gui_cmd.h"
 
 static int get_nb_laying_resources(data_t *data, int resource_id)
 {
     int total = 0;
 
-    for (int i = 0; i < data->map->width; i++) {
-        for (int j = 0; j < data->map->height; j++) {
-            total += data->map->tiles[i][j][resource_id];
+    for (int x = 0; x < data->map->width; x++) {
+        for (int y = 0; y < data->map->height; y++) {
+            total += data->map->tiles[x][y][resource_id];
         }
     }
     return total;
@@ -33,6 +33,7 @@ static void spawn_resource_type(data_t *data, int resource_id, float density)
         x = rand() % data->map->width;
         y = rand() % data->map->height;
         data->map->tiles[x][y][resource_id] += 1;
+        do_bct_to_all_gui(data, x, y);
     }
 }
 
