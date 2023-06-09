@@ -134,6 +134,13 @@
     void do_pnw(data_t *data);
 
     /**
+     * @brief Notify player existence to specific gui
+     * @param data The current server data, clients and current client index
+     * @param player The player to show
+    */
+    void do_single_pnw(data_t *data, player_t *player);
+
+    /**
      * @brief Notify to gui that a player was born and replaced an egg
      * @param data The current server data, clients and current client index
     */
