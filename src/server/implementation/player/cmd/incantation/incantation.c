@@ -41,18 +41,13 @@ static int do_incantation(data_t *data, char **args)
     client_t *client = NULL;
 
     client = data->clients[data->curr_cli_index];
-    if (client->player->level == NB_LEVELS) {
+    if (check_incantation(data) == 0) {
+        client->player->level += 1;
+        //send_plv_to_all_gui(data, client->player);
+        remove_all_resources_from_tile(data);
+    } else {
         send_to_client(data->clients, data->curr_cli_index, "ko\n");
         return 1;
-    } else {
-        if (check_incantation(data) == 0) {
-            client->player->level += 1;
-            send_plv_to_all_gui(data, client->player);
-            remove_all_resources_from_tile(data);
-        } else {
-            send_to_client(data->clients, data->curr_cli_index, "ko\n");
-            return 1;
-        }
     }
     return 0;
 }
