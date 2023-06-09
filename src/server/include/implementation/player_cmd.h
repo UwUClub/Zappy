@@ -152,10 +152,11 @@
      * @param data The current server data, clients and current client index
      * @param pos The position of the player
      * @param target_lvl The target level
+     * @param check_ongoing_cmd Check if players are running a cmd or not
      * @return 1 if the incantation is possible, 0 otherwise
      */
     int check_tile_for_incantation(data_t *data, pos_t *pos,
-        const int target_lvl);
+        const int target_lvl, const int check_ongoing_cmd);
 
     /**
      * @brief Check if a player is valid for incantation

@@ -48,7 +48,7 @@ static int do_incantation(data_t *data, char **args)
     const int target_lvl = author->level + 1;
 
     set_players_freeze_state(data, author->pos, target_lvl, 0);
-    if (!check_tile_for_incantation(data, author->pos, target_lvl)) {
+    if (!check_tile_for_incantation(data, author->pos, target_lvl, 0)) {
         send_to_client(data->clients, data->curr_cli_index, "ko\n");
         return 1;
     }
@@ -62,7 +62,7 @@ int schedule_incantation(data_t *data, char **args)
     player_t *author = data->clients[data->curr_cli_index]->player;
 
     if (args || !check_tile_for_incantation(data, author->pos,
-        author->level + 1)) {
+        author->level + 1, 1)) {
         return 1;
     }
     set_players_freeze_state(data, author->pos, author->level + 1, 1);

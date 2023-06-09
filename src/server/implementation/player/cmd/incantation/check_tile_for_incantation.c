@@ -30,14 +30,15 @@ int is_player_valid_for_incantation(client_t **clients, const int index,
 }
 
 static int check_players_on_tile(client_t **clients, pos_t *pos,
-    const int target_lvl)
+    const int target_lvl, const int check_ongoing_cmd)
 {
     int count = 0;
     int is_valid = 0;
 
     for (int i = 0; clients[i]; i++) {
         is_valid = is_player_valid_for_incantation(clients, i, pos, target_lvl);
-        if (is_valid && clients[i]->player->pending_cmd_queue[0]) {
+        if (check_ongoing_cmd && is_valid &&
+            clients[i]->player->pending_cmd_queue[0]) {
             return 0;
         }
         if (is_valid) {
@@ -47,8 +48,10 @@ static int check_players_on_tile(client_t **clients, pos_t *pos,
     return count == elevation_secret[target_lvl - 2][1];
 }
 
-int check_tile_for_incantation(data_t *data, pos_t *pos, const int target_lvl)
+int check_tile_for_incantation(data_t *data, pos_t *pos, const int target_lvl,
+    const int check_ongoing_cmd)
 {
     return check_resources_on_tile(data->map, pos, target_lvl) &&
-        check_players_on_tile(data->clients, pos, target_lvl);
+        check_players_on_tile(data->clients, pos, target_lvl,
+            check_ongoing_cmd);
 }
