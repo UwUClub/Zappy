@@ -11,7 +11,7 @@ namespace Zappy::GUI {
     class EggData
     {
         public:
-            EggData(int aId, std::pair<int, int> aPosition, std::string aTeamName);
+            EggData(int aId, std::pair<int, int> aPosition, const std::string &aTeamName);
             ~EggData() = default;
 
             /**

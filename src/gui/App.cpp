@@ -11,10 +11,12 @@
 #include <Ogre.h>
 #include <OgreCamera.h>
 #include <OgreInput.h>
+#include <OgreLight.h>
 #include <OgrePrerequisites.h>
 #include <OgreRenderWindow.h>
 #include <OgreResourceGroupManager.h>
 #include <OgreRoot.h>
+#include <OgreSceneNode.h>
 #include <algorithm>
 #include <functional>
 #include <memory>
@@ -44,9 +46,9 @@ namespace Zappy::GUI {
         Ogre::RTShader::ShaderGenerator *myShadergen = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
         _frameHandler = std::make_unique<FrameHandler>(myScnMgr, _client);
 
-        myShadergen->addSceneManager(myScnMgr);
-        this->setupLight(myScnMgr);
         auto nodeCenterPos = this->setupMap(myScnMgr);
+        this->setupLight(myScnMgr, nodeCenterPos);
+        myShadergen->addSceneManager(myScnMgr);
         this->setupCamera(myScnMgr, nodeCenterPos);
         this->setupPlayersAndEggs(myScnMgr);
         myRoot->addFrameListener(_frameHandler.get());
@@ -68,24 +70,25 @@ namespace Zappy::GUI {
             Ogre::ResourceGroupManager::getSingleton().loadResourceGroup("Zappy");
             myScnMgr->createEntity("Sinbad.mesh");
             myScnMgr->createEntity("Egg.mesh");
-
+            myScnMgr->createEntity("Rock.mesh");
         } catch (const Ogre::Exception &e) {
             throw AppException(e.what());
         }
     }
 
-    void App::setupLight(Ogre::SceneManager *aSceneManager)
+    void App::setupLight(Ogre::SceneManager *aSceneManager, Ogre::Vector3 &aCenter)
     {
-        const constexpr double myRGB = 1.0;
-        const constexpr int myLightX = 0;
-        const constexpr int myLightY = 50;
-        const constexpr int myLightZ = 15;
-        Ogre::Light *light = aSceneManager->createLight("MainLight");
-        Ogre::SceneNode *lightNode = aSceneManager->getRootSceneNode()->createChildSceneNode();
+        Ogre::Light *myLight = aSceneManager->createLight("MainLight");
+        myLight->setType(Ogre::Light::LT_DIRECTIONAL);
+        myLight->setDiffuseColour(Ogre::ColourValue(1.0, 1.0, 1.0));
+        myLight->setSpecularColour(Ogre::ColourValue(1.0, 1.0, 1.0));
 
-        aSceneManager->setAmbientLight(Ogre::ColourValue(myRGB, myRGB, myRGB));
-        lightNode->setPosition(myLightX, myLightY, myLightZ);
-        lightNode->attachObject(light);
+        Ogre::SceneNode *myLightNode = aSceneManager->getRootSceneNode()->createChildSceneNode();
+        myLightNode->setDirection(Ogre::Vector3(0, -1, 1));
+        myLightNode->setPosition(aCenter + Ogre::Vector3(0, 100, 30));
+        myLightNode->attachObject(myLight);
+
+        aSceneManager->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
     }
 
     void App::setupCamera(Ogre::SceneManager *aSceneManager, Ogre::Vector3 &aCenterPos)
@@ -157,20 +160,25 @@ namespace Zappy::GUI {
 
         for (const auto &myPlayer : myPlayerData) {
             const auto &myPlayerId = myPlayer.getId();
+            const constexpr double myPlayerScale = 0.5;
             Ogre::Entity *myEntity = aSceneManager->createEntity(myPlayerId, "Sinbad.mesh");
             Ogre::SceneNode *myNode = aSceneManager->getRootSceneNode()->createChildSceneNode(myPlayerId);
 
+            myNode->setScale(myPlayerScale, myPlayerScale, myPlayerScale);
             myNode->attachObject(myEntity);
             this->setPlayerPosAndOrientation(myPlayer);
         }
         for (const auto &myEgg : myEggData) {
             std::string myEggName = "egg_" + std::to_string(myEgg.getId());
+            const constexpr double myEggScale = 30;
             Ogre::Entity *myEntity = aSceneManager->createEntity("egg_" + myEggName, "Egg.mesh");
             Ogre::SceneNode *myNode = aSceneManager->getRootSceneNode()->createChildSceneNode(myEggName);
 
+            myNode->setScale(myEggScale, myEggScale, myEggScale);
+            myNode->setOrientation(Ogre::Quaternion(Ogre::Degree(-90), Ogre::Vector3::UNIT_X));
             myNode->attachObject(myEntity);
-            myNode->setPosition(static_cast<float>(myEgg.getPosition().first), PLAYER_Y_POS,
-                                static_cast<float>(myEgg.getPosition().second));
+            myNode->setPosition(static_cast<float>(myEgg.getPosition().first * MAP_OFFSET), 2,
+                                static_cast<float>(myEgg.getPosition().second * MAP_OFFSET));
         }
     }
 } // namespace Zappy::GUI

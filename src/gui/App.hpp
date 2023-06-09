@@ -72,7 +72,7 @@ namespace Zappy::GUI {
              * @brief Setup the light of the scene
              * @param aSceneManager the scene manager
              */
-            void setupLight(Ogre::SceneManager *aSceneManager);
+            void setupLight(Ogre::SceneManager *aSceneManager, Ogre::Vector3 &aCenter);
 
             /**
              * @brief Initialize the app
