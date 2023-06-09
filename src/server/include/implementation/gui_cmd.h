@@ -146,6 +146,12 @@
     void do_edi(data_t *data, const int egg_index);
 
     /**
+     * @brief Notify to gui that a player has been expulsed
+     * @param data The current server data, clients and current client index
+    */
+    int do_pex(data_t *data, const int player_id);
+
+    /**
      * @brief Notify to gui that a player took an object
      * @param data The current server data, clients and current client index
      * @param resource The id of the resource taken

@@ -11,6 +11,7 @@ target_sources(zappy_server PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}/spawn_resources.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/get_next_timeout.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/handle_client_quit.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/normalize_pos.c"
         )
 
 add_subdirectory(options)
