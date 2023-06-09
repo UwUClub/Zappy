@@ -13,6 +13,8 @@ add_executable(test_zappy
         ../src/gui/cli/PlayerData.hpp
         ../src/gui/cli/ParserData.cpp
         ../src/gui/cli/ParserData.hpp
+        ../src/gui/cli/EggData.cpp
+        ../src/gui/cli/EggData.hpp
         )
 
 target_include_directories(test_zappy

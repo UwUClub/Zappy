@@ -5,7 +5,7 @@
 #include "EggData.hpp"
 
 namespace Zappy::GUI {
-    EggData::EggData(int aId, std::pair<int, int> aPosition, std::string aTeamName)
+    EggData::EggData(int aId, std::pair<int, int> aPosition, const std::string &aTeamName)
         : _position(aPosition),
           _teamName(aTeamName),
           _id(aId)

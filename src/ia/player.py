@@ -15,10 +15,10 @@ class Player:
     def __init__(self):
         self._socket = None
         self._name = ""
-        self._inventory = [0, 0, 0, 0, 0, 0, 0]
-        self._lastLook = []
+        self._inventory = [10, 1, 0, 0, 0, 0, 0]
         self._functionIndex = 0
-        self._functionList = []
+        """self._functionList = [self.level2()]"""
+        self._lookTiles = []
 
     ## @brief Connect to the server
     ## @param info The connection information
@@ -128,7 +128,7 @@ class Player:
         myLook = self.receive()
         if myLook == "ko\n":
             print ("Error: Look")
-            return (None)
+            return ("")
         else:
             print ("Look:", myLook)
             return (myLook)
@@ -174,6 +174,33 @@ class Player:
             print ("Error: Fork")
         else:
             print ("Fork:", myFork)
+
+    ## @brief Parse the look command
+    ## @return the look tiles
+    def parseLook(self, aLook : str):
+        myLook = aLook.split(",")
+        for x in myLook:
+            # the resources on the tile are stored in a list : [nb_players, food, linemate, deraumere, sibur, mendiane, phiras, thystame]
+            myResoucesOnTile = []
+            x = str(x)
+            if x.find('[') != -1:
+                x = x.replace("[", "")
+            if x.find(']') != -1:
+                x = x.replace("]", "")
+            if x.find('\n') != -1:
+                x = x.replace("\n", "")
+            if x == '':
+                continue
+            myResoucesOnTile.append(x.count('player'))
+            myResoucesOnTile.append(x.count('food'))
+            myResoucesOnTile.append(x.count('linemate'))
+            myResoucesOnTile.append(x.count('deraumere'))
+            myResoucesOnTile.append(x.count('sibur'))
+            myResoucesOnTile.append(x.count('mendiane'))
+            myResoucesOnTile.append(x.count('phiras'))
+            myResoucesOnTile.append(x.count('thystame'))
+            self._lookTiles.append(myResoucesOnTile)
+        return (self._lookTiles)
     
     ## @brief Finds the shortest path to a tile
     ## @param aTile The tile to reach
@@ -201,13 +228,13 @@ class Player:
     ## @brief Finds the tile with most ressources
     ## @param aRessource The return of a look() parsed command
     ## @return The tile with most ressources
-    def findRessource(self, aRessource):
+    def findRessource(self):
         myNbMax = 0
         myTile = 0
-        for i in range(len(aRessource)):
+        for i in range(len(self._lookTiles)):
             myNb = 0
-            for j in range(len(aRessource[i])):
-                myNb += aRessource[i][j]
+            for j in range(1, len(self._lookTiles[i])):
+                myNb += self._lookTiles[i][j]
             if (myNb > myNbMax):
                 myNbMax = myNb
                 myTile = i
@@ -237,12 +264,9 @@ class Player:
         self.parseLook(self.look())
         myTile = self.findRessource()
         self.goTo(myTile)
-        self.takeAll(myTile)
+        self.takeAll(self._lookTiles[myTile])
         self.inventory()
         if (self.verifyIncantation()):
             self.set("linemate")
-            self.incantation()
-        else:
-
-
-
+            if (self.incantation() != None):
+                self._functionIndex += 1
