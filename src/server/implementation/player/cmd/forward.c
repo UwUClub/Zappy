@@ -20,10 +20,8 @@ static int move_forward(data_t *data, __attribute__((unused)) char **args)
         data->clients[data->curr_cli_index]->player->pos->x += 1;
     if (data->clients[data->curr_cli_index]->player->orientation == WEST)
         data->clients[data->curr_cli_index]->player->pos->x -= 1;
-    data->clients[data->curr_cli_index]->player->pos->x = calc_outbound(
-        data->clients[data->curr_cli_index]->player->pos->x, data->map->width);
-    data->clients[data->curr_cli_index]->player->pos->y = calc_outbound(
-        data->clients[data->curr_cli_index]->player->pos->y, data->map->height);
+    normalize_pos(data->clients[data->curr_cli_index]->player->pos,
+        data->map->width, data->map->height);
     send_to_client(data->clients, data->curr_cli_index, "ok\n");
     send_ppo_to_all_gui(data, data->clients[data->curr_cli_index]->player);
     return 0;
