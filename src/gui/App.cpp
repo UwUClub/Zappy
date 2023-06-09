@@ -11,7 +11,7 @@
 #include <Ogre.h>
 #include <OgreCamera.h>
 #include <OgreInput.h>
-#include <OgreLight.h>
+#include <OgreOverlayManager.h>
 #include <OgrePrerequisites.h>
 #include <OgreRenderWindow.h>
 #include <OgreResourceGroupManager.h>
@@ -52,6 +52,7 @@ namespace Zappy::GUI {
         this->setupCamera(myScnMgr, nodeCenterPos);
         this->setupPlayersAndEggs(myScnMgr);
         myRoot->addFrameListener(_frameHandler.get());
+        _buttons.emplace_back(std::make_unique<Button>("Connect"));
     }
 
     App::~App()
@@ -64,6 +65,7 @@ namespace Zappy::GUI {
     {
         try {
             auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
+            Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
 
             Ogre::ResourceGroupManager::getSingleton().addResourceLocation("./assets", "FileSystem", "Zappy");
             Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
@@ -71,6 +73,9 @@ namespace Zappy::GUI {
             myScnMgr->createEntity("Sinbad.mesh");
             myScnMgr->createEntity("Egg.mesh");
             myScnMgr->createEntity("Rock.mesh");
+
+            overlayManager.create(BUTTON_OVERLAY);
+
         } catch (const Ogre::Exception &e) {
             throw AppException(e.what());
         }

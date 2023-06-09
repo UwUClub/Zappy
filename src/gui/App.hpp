@@ -11,6 +11,7 @@
 #include <OgreRoot.h>
 #include <functional>
 #include <memory>
+#include "Button.hpp"
 #include "CameraHandler.hpp"
 #include "ClickHandler.hpp"
 #include "ClientApi.hpp"
@@ -144,6 +145,7 @@ namespace Zappy::GUI {
             std::unique_ptr<CameraHandler> _cameraHandler;
             std::unique_ptr<FrameHandler> _frameHandler;
             std::unique_ptr<ClickHandler> _clickHandler;
+            std::vector<std::unique_ptr<Button>> _buttons;
 
             static const inline std::unordered_map<std::string, std::function<void(App &, std::string &)>>
                 _notificationMap = {{"pnw", &App::addPlayer},
