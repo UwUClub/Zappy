@@ -21,7 +21,7 @@
     #define SET_DELAY 7
     #define INCANTATION_DELAY 300
 
-    #include "core.h"
+    #include "implementation.h"
 
     static const int elevation_secret[7][9] = {
         {2, 1, 1, 1, 0, 0, 0, 0, 0},
