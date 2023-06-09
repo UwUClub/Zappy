@@ -217,6 +217,12 @@ namespace Zappy::GUI {
             void receivePex(const std::string &aResponse);
 
             /**
+             * @brief parse pgt response
+             * @param aResponse
+             */
+            void receivePgt(const std::string &aResponse);
+
+            /**
              * @brief parse pdi response
              * @param aResponse
              */
