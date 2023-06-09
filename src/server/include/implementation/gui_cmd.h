@@ -38,10 +38,11 @@
     /**
      * @brief Sends a response to the bct command sent by the client to all gui
      * @param data The current server data, clients and current client index
-     * @param args The arguments of the command
+     * @param x The x position of the tile
+     * @param y The y position of the tile
      * @return Status of the parsing / command
     */
-    int do_bct_to_all_gui(data_t *data, char **args);
+    int do_bct_to_all_gui(data_t *data, const int x, const int y);
 
     /**
     * @brief Sends a response to the tna command sent by the client
@@ -93,10 +94,9 @@
     /**
      * @brief Sends player id and level to all gui
      * @param data The current server data, clients and current client index
-     * @param args The arguments of the command
-     * @return Status of the parsing / command
+     * @param player The player to show
     */
-    int do_plv_to_all_gui(data_t *data, char **args);
+    void send_plv_to_all_gui(data_t *data, player_t *player);
 
     /**
      * @brief Sends player id, position and orientation to gui
@@ -105,6 +105,13 @@
      * @return Status of the parsing / command
     */
     int do_ppo(data_t *data, char **args);
+
+    /**
+     * @brief Sends player id, position and orientation to all gui
+     * @param data The current server data, clients and current client index
+     * @param player The player to show
+    */
+    void send_ppo_to_all_gui(data_t *data, player_t *player);
 
     /**
      * @brief Sends egg progenitor to gui
@@ -137,6 +144,26 @@
      * @param data The current server data, clients and current client index
     */
     void do_edi(data_t *data, const int egg_index);
+
+    /**
+     * @brief Notify to gui that a player has been expulsed
+     * @param data The current server data, clients and current client index
+    */
+    int do_pex(data_t *data, const int player_id);
+
+    /**
+     * @brief Notify to gui that a player took an object
+     * @param data The current server data, clients and current client index
+     * @param resource The id of the resource taken
+    */
+    int do_pgt(data_t *data, int resource);
+
+    /**
+     * @brief Notify to gui that a player dropped an object
+     * @param data The current server data, clients and current client index
+     * @param resource The id of the resource dropped
+    */
+    int do_pdr(data_t *data, int resource);
 
     static const cmd_t gui_commands[] = {
         {"msz", &do_msz, 0},

@@ -53,6 +53,13 @@
     char **args), char **args, time_t delay);
 
     /**
+    * @brief Eliminate the top command in the queue and shift the next commands
+    * @param data The current server data, clients and current client index
+    * @param player_index The index of the player
+    */
+    void shift_pending_cmd(data_t *data, const int player_index);
+
+    /**
     * @brief Schedule forward command
     * @param data The current server data, clients and current client index
     * @param args The arguments of the command
@@ -160,19 +167,20 @@
         const unsigned int source_x, const unsigned int source_y);
 
     /**
+     * @brief Check the resource asked of a tile
      * @brief Check the ressource asked of a tile
      * @param data The current server data, clients and current client index
-     * @param ressource The ressource to check
-     * @return return the quantity of the ressource in the tile of the player
+     * @param resource The resource to check
+     * @return return the quantity of the resource in the tile of the player
      */
-    int check_tile(data_t *data, int ressource);
+    int check_tile(data_t *data, int resource);
 
     /**
-     * @brief Remove all the ressource consummed from a tile
+     * @brief Remove all the resource consummed from a tile
      * @param data The current server data, clients and current client index
      * @return return 0 if success, 1 if error
      */
-    int remove_all_ressources_from_tile(data_t *data);
+    int remove_all_resources_from_tile(data_t *data);
 
     static const cmd_t player_schedulers[] = {
         {"Forward", &schedule_forward, FORWARD_DELAY},
