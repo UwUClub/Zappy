@@ -171,6 +171,8 @@ class Player:
     def parseLook(self, aLook : str):
         myLook = aLook.split(",")
         for x in myLook:
+            # the resources on the tile are stored in a list : [nb_players, food, linemate, deraumere, sibur, mendiane, phiras, thystame]
+            resources_on_tile = []
             x = str(x)
             if x.find('[') != -1:
                 x = x.replace("[", "")
@@ -179,8 +181,16 @@ class Player:
             if x.find('\n') != -1:
                 x = x.replace("\n", "")
             if x == '':
-                myLook.remove(x)
                 continue
-            self._lookTiles.append(x)
+            resources_on_tile.append(x.count('player'))
+            resources_on_tile.append(x.count('food'))
+            resources_on_tile.append(x.count('linemate'))
+            resources_on_tile.append(x.count('deraumere'))
+            resources_on_tile.append(x.count('sibur'))
+            resources_on_tile.append(x.count('mendiane'))
+            resources_on_tile.append(x.count('phiras'))
+            resources_on_tile.append(x.count('thystame'))
+            self._lookTiles.append(resources_on_tile)
+            print(x)
         print(f"Look tiles = {self._lookTiles}")
-        return (myLook)
+        return (self._lookTiles)
