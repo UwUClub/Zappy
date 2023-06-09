@@ -9,6 +9,7 @@ class Player:
         self._name = ""
         self._mapWidth = 0
         self._mapHeight = 0
+        self._lookTiles = []
 
     ## @brief Connect to the server
     ## @param info The connection information
@@ -165,3 +166,31 @@ class Player:
         else:
             print ("Incantation:", myIncantation)
             return (myIncantation)
+    ## @brief Parse the look command
+    ## @return the look tiles
+    def parseLook(self, aLook : str):
+        myLook = aLook.split(",")
+        for x in myLook:
+            # the resources on the tile are stored in a list : [nb_players, food, linemate, deraumere, sibur, mendiane, phiras, thystame]
+            myResoucesOnTile = []
+            x = str(x)
+            if x.find('[') != -1:
+                x = x.replace("[", "")
+            if x.find(']') != -1:
+                x = x.replace("]", "")
+            if x.find('\n') != -1:
+                x = x.replace("\n", "")
+            if x == '':
+                continue
+            myResoucesOnTile.append(x.count('player'))
+            myResoucesOnTile.append(x.count('food'))
+            myResoucesOnTile.append(x.count('linemate'))
+            myResoucesOnTile.append(x.count('deraumere'))
+            myResoucesOnTile.append(x.count('sibur'))
+            myResoucesOnTile.append(x.count('mendiane'))
+            myResoucesOnTile.append(x.count('phiras'))
+            myResoucesOnTile.append(x.count('thystame'))
+            self._lookTiles.append(myResoucesOnTile)
+            print(x)
+        print(f"Look tiles = {self._lookTiles}")
+        return (self._lookTiles)

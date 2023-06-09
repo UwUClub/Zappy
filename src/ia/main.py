@@ -12,7 +12,7 @@ def main():
         exit(84)
     player.setTeamName(info._name)
     player.preliminaries()
-    player.look()
+    player.parseLook(player.look())
     player.forward()
     player.right()
     player.left()
