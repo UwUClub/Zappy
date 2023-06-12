@@ -52,12 +52,18 @@
     int do_tna(data_t *data, char **args);
 
     /**
-    * @brief Get frequency
+    * @brief Send frequency
     * @param data The current server data, clients and current client index
     * @param args The arguments of the command
-    * @return Frequency
+    * @return Status of the command
     */
     int do_sgt(data_t *data, char **args);
+
+    /**
+    * @brief Send frequency to all gui
+    * @param data The current server data, clients and current client index
+    */
+    void do_sgt_to_all_gui(data_t *data);
 
     /**
      * @brief Set the new frequency given

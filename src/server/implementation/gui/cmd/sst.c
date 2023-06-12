@@ -5,9 +5,9 @@
 ** sst
 */
 
-#include <stdio.h>
 #include "implementation.h"
 #include "utils.h"
+#include "gui_cmd.h"
 
 int do_sst(data_t *data, char **args)
 {
@@ -22,7 +22,8 @@ int do_sst(data_t *data, char **args)
         send_to_client(data->clients, data->curr_cli_index, "ko\n");
         return 1;
     }
-    send_to_client(data->clients, data->curr_cli_index, "ok\n");
     data->freq = freq;
+    send_to_client(data->clients, data->curr_cli_index, "ok\n");
+    do_sgt_to_all_gui(data);
     return 0;
 }
