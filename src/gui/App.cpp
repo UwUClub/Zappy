@@ -64,7 +64,7 @@ namespace Zappy::GUI {
         this->setupCamera(myScnMgr, nodeCenterPos);
         this->setupPlayersAndEggs(myScnMgr);
         myRoot->addFrameListener(_frameHandler.get());
-        _buttons.emplace_back(std::make_unique<Button>("Increase speed"));
+        _buttons.emplace_back(std::make_unique<Button>("Speed up", std::make_pair(300, 300)));
     }
 
     App::~App()
