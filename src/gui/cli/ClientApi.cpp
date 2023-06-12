@@ -15,7 +15,6 @@
 #include "EggData.hpp"
 #include "PlayerData.hpp"
 #include "ServerData.hpp"
-#include "Subscriber.hpp"
 #include <unordered_map>
 
 namespace Zappy::GUI {
@@ -176,18 +175,6 @@ namespace Zappy::GUI {
             }
             this->notifySubscribers(myResponse);
             _readBuffer = _readBuffer.substr(_readBuffer.find('\n') + 1);
-        }
-    }
-
-    void ClientApi::registerSubscriber(Zappy::GUI::Subscriber &aSubscriber)
-    {
-        _subscribers.emplace_back(aSubscriber);
-    }
-
-    void ClientApi::notifySubscribers(std::string &aNotification)
-    {
-        for (auto &mySubscriber : _subscribers) {
-            mySubscriber.get().getNotified(aNotification);
         }
     }
 

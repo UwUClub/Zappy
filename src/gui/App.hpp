@@ -17,9 +17,9 @@
 #include "Constexpr.hpp"
 #include "FrameHandler.hpp"
 #include "InputHandler.hpp"
+#include "Observer.hpp"
 #include "PlayerData.hpp"
 #include "ServerData.hpp"
-#include "Subscriber.hpp"
 #include <unordered_map>
 
 namespace Zappy::GUI {
@@ -29,7 +29,7 @@ namespace Zappy::GUI {
      * @details This class is the main class of the GUI, it is used to create the window and the scene, and to handle
      * the events using Ogre, it also implements the Subscriber interface to be notified by the ClientApi
      */
-    class App final : public OgreBites::ApplicationContext, public Subscriber
+    class App final : public OgreBites::ApplicationContext, public Observer
     {
         public:
             /**
