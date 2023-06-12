@@ -9,18 +9,23 @@
 #define BUTTON_HPP_
 
 #include <OgrePrerequisites.h>
+#include <functional>
 #include <string>
 
 namespace Zappy::GUI {
     class Button
     {
         public:
-            Button(const std::string &aButtonText, const std::pair<int, int> &aPosition);
+            Button(const std::string &aButtonText, const std::pair<int, int> &aPosition,
+                   std::function<void()> aCallback);
             ~Button();
 
             [[nodiscard]] const std::pair<int, int> &getPosition() const;
             [[nodiscard]] const std::pair<int, int> &getDimensions() const;
             [[nodiscard]] const std::string &getButtonText() const;
+
+            [[nodiscard]] bool isOnButton(const Ogre::Vector2 &mousePos) const;
+            void onClick();
 
         protected:
         private:
@@ -28,6 +33,7 @@ namespace Zappy::GUI {
             std::string _buttonText;
             std::pair<int, int> _position;
             std::pair<int, int> _dimensions;
+            std::function<void()> _callback;
     };
 } // namespace Zappy::GUI
 

@@ -16,6 +16,8 @@ const constexpr int PLAYER_Y_POS = 3;
 const constexpr int INVENTORY_SIZE = 7;
 const constexpr int EGG_Y_POS = 1;
 const constexpr int EGG_OFFSET_POS = 1;
+const constexpr int MY_TIME_INTERVAL = 10;
+const constexpr int CHAR_HEIGHT = 16;
 
 //---------------------------------String Constexpr
 const constexpr std::string CAMERA_NAME = "ZappyCamera";
