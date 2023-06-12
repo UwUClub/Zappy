@@ -47,11 +47,11 @@
 
     /**
      * @brief Check if the client is a player
-     * @param data The current server data, clients and current client index
+     * @param clients Client list of the server
      * @param i The index of the player
      * @return 1 if the player is a player, 0 otherwise
      */
-    int is_player(data_t *data, const int i);
+    int is_player(client_t **clients, const int i);
 
     /** @brief Calculate remaning time or execute pending commands
     * @param data The server data

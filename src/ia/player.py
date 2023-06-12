@@ -19,6 +19,15 @@ class Player:
         self._functionIndex = 0
         """self._functionList = [self.level2()]"""
         self._lookTiles = []
+        self._inventory = {
+            "food": 0,
+            "linemate": 0,
+            "deraumere": 0,
+            "sibur": 0,
+            "mendiane": 0,
+            "phiras": 0,
+            "thystame": 0
+        }
 
     ## @brief Connect to the server
     ## @param info The connection information
@@ -270,3 +279,25 @@ class Player:
             self.set("linemate")
             if (self.incantation() != None):
                 self._functionIndex += 1
+    ## @brief Parse the inventory command
+    ## @return the inventory
+
+    def parseInventory(self, aInventory : str):
+        myInventory = aInventory.split(",")
+        for x in myInventory:
+            x = str(x)
+            if x.find('[') != -1:
+                x = x.replace("[", "")
+            if x.find(']') != -1:
+                x = x.replace("]", "")
+            if x.find('\n') != -1:
+                x = x.replace("\n", "")
+            if x == '':
+                continue
+            myInventory = x.split(" ")
+            for y in myInventory:
+                y = str(y)
+                if y == '':
+                    myInventory.remove(y)
+            self._inventory[myInventory[0]] = int(myInventory[1])
+        return (self._inventory)

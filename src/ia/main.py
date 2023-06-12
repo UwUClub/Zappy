@@ -14,6 +14,7 @@ def main():
     player.preliminaries()
     player.parseLook(player.look())
     player.forward()
+    player.parseInventory(player.inventory())
     player.right()
     player.left()
     player.connectNbr()

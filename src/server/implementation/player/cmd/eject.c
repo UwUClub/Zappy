@@ -42,6 +42,9 @@ static void eject_player(data_t *data, const int player_index, player_t *kicker)
         shift_pending_cmd(data, player_index);
         send_to_client(data->clients, player_index, "ko\n");
     }
+    if (player->is_freezed) {
+        data->clients[player_index]->player->is_freezed = 0;
+    }
     send_to_client(data->clients, player_index, "eject\n");
     do_pex(data, player->id);
 }
@@ -51,7 +54,7 @@ static int eject_cmd(data_t *data, __attribute__((unused)) char **args)
     player_t *kicker = data->clients[data->curr_cli_index]->player;
 
     for (int i = 0; data->clients[i]; i++) {
-        if (is_player(data, i) && i != data->curr_cli_index) {
+        if (is_player(data->clients, i) && i != data->curr_cli_index) {
             eject_player(data, i, kicker);
         }
     }

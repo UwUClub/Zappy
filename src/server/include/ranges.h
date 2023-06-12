@@ -17,7 +17,7 @@
     #define MIN_FREQ 2
     #define MAX_FREQ 1000
 
-    #define MAX_PENDING_CMD 10
+    #define MAX_PENDING_CMD 11
 
     #define MS_FACTOR 1000
 

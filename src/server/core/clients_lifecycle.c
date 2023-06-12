@@ -36,6 +36,7 @@ void init_player(client_t **client, const char *team_name, map_t *map)
         (*client)->player->pending_cmd_queue[i] = NULL;
     }
     (*client)->player->remaining_digestion_ms = 0;
+    (*client)->player->is_freezed = 0;
 }
 
 static void close_single_player(client_t *client)
