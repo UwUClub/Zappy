@@ -13,6 +13,7 @@
 #include <unistd.h>
 #include <utility>
 #include "EggData.hpp"
+#include "Observer.hpp"
 #include "PlayerData.hpp"
 #include "ServerData.hpp"
 #include <unordered_map>
@@ -20,13 +21,16 @@
 namespace Zappy::GUI {
     ClientApi::ClientApi(std::string aAddress, unsigned int aPort, std::string aTeamName, Mediator &aMediator,
                          ServerData &aServerData)
-        : Observer(aMediator, aServerData),
+        : Observer(aMediator, ObserverType::CLIENT),
           _address(std::move(aAddress)),
           _port(aPort),
           _teamName(std::move(aTeamName)),
           _connectStatus(-1),
-          _serverFd(-1)
-    {}
+          _serverFd(-1),
+          _serverData(aServerData)
+    {
+        this->setReady(true);
+    }
 
     ClientApi::~ClientApi()
     {
@@ -153,5 +157,8 @@ namespace Zappy::GUI {
     void ClientApi::getNotified(const std::string &aNotification)
     {
         std::cout << "Notification received in client: " << aNotification << std::endl;
+        if (aNotification == "Disconnect") {
+            this->disconnect();
+        }
     }
 } // namespace Zappy::GUI

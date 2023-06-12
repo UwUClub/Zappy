@@ -25,7 +25,7 @@ namespace Zappy::GUI {
     {
         public:
             ClickHandler(Ogre::SceneNode *cameraNode, Ogre::RenderWindow *renderWindow,
-                         Ogre::SceneManager *sceneManager, App &aApp, std::vector<std::unique_ptr<Button>> &aButtons);
+                         Ogre::SceneManager *sceneManager, App &aApp);
             ~ClickHandler() override;
 
             bool mousePressed(const OgreBites::MouseButtonEvent &evt) override;

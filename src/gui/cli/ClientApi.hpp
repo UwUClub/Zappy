@@ -246,5 +246,6 @@ namespace Zappy::GUI {
             std::string _readBuffer;
             std::string _writeBuffer;
             int _serverFd;
+            ServerData &_serverData;
     };
 } // namespace Zappy::GUI

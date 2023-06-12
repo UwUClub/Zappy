@@ -9,12 +9,11 @@
 #define APP_HPP_
 #include <OGRE/Bites/OgreApplicationContext.h>
 #include <OgreRoot.h>
+#include <OgreSceneManager.h>
 #include <functional>
 #include <memory>
 #include <vector>
-#include "ClientApi.hpp"
 #include "Constexpr.hpp"
-#include "InputHandler.hpp"
 #include "Observer.hpp"
 #include "PlayerData.hpp"
 #include <unordered_map>
@@ -24,7 +23,9 @@ namespace Zappy::GUI {
     class CameraHandler;
     class ClickHandler;
     class Button;
+    class PlayerData;
     struct ServerData;
+
     /**
      * @brief Main class of the GUI
      *
@@ -62,6 +63,18 @@ namespace Zappy::GUI {
 
             void askDisconnection();
 
+            [[nodiscard]] const ServerData &getServerData() const;
+
+            std::vector<std::unique_ptr<Button>> &getButtons();
+
+            /**
+             * @brief Set the Player Pos And Orientation object
+             *
+             * @param aPlayer the playerData
+             * @param aSceneManager the scene manager
+             */
+            static void setPlayerPosAndOrientation(Ogre::SceneManager *aSceneManager, const PlayerData &aPlayer);
+
         private:
             class AppException : public std::exception
             {
@@ -79,11 +92,6 @@ namespace Zappy::GUI {
                 private:
                     std::string _message;
             };
-            /**
-             * @brief Setup the light of the scene
-             * @param aSceneManager the scene manager
-             */
-            void setupLight(Ogre::SceneManager *aSceneManager, Ogre::Vector3 &aCenter);
 
             /**
              * @brief Initialize the app
@@ -91,24 +99,12 @@ namespace Zappy::GUI {
             void instantiateApp();
 
             /**
-             * @brief Setup the camera of the scene
-             * @param aSceneManager the scene manager
-             */
-            void setupCamera(Ogre::SceneManager *aSceneManager, Ogre::Vector3 &aCenter);
-            /**
              * @brief Move the a player
              *
              * @param aNotification the notification
              * @param aSceneManager the scene manager
              */
             void movePlayer(const std::string &aNotification);
-            /**
-             * @brief Set the Player Pos And Orientation object
-             *
-             * @param aPlayer the playerData
-             * @param aSceneManager the scene manager
-             */
-            void setPlayerPosAndOrientation(const PlayerData &aPlayer);
             /**
              * @brief Display a message from the server
              *
@@ -126,28 +122,11 @@ namespace Zappy::GUI {
              */
             void decreaseTime();
             /**
-             * @brief Display the current time
-             *
-             */
-            void displayCurrentTime(const std::pair<int, int> &aPositio);
-            /**
              * @brief Update the displayed time
              *
              * @param aNotification the notification (not used)
              */
             void updateDisplayedTime(const std::string &aNotification);
-            /**
-             * @brief Setup the map of the scene
-             * @param aSceneManager the scene manager
-             * @return Ogre::Vector3f the center of the map
-             */
-            Ogre::Vector3f setupMap(Ogre::SceneManager *aSceneManager);
-            /**
-             * @brief Setup the players and eggs of the scene already on the map
-             *
-             * @param aSceneManager the scene manager
-             */
-            void setupPlayersAndEggs(Ogre::SceneManager *aSceneManager);
             /**
              * @brief Add a player to the scene
              * @param aPlayer the playerData of the player to add
@@ -164,6 +143,8 @@ namespace Zappy::GUI {
             std::unique_ptr<CameraHandler> _cameraHandler;
             std::unique_ptr<ClickHandler> _clickHandler;
             std::vector<std::unique_ptr<Button>> _buttons;
+            bool _isInitialized;
+            const ServerData &_serverData;
             static const inline std::unordered_map<std::string, std::function<void(App &, const std::string &)>>
                 _notificationMap = {
                     {"pnw", &App::addPlayer},           {"pdi", &App::removePlayer},

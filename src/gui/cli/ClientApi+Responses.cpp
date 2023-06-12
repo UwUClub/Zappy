@@ -28,6 +28,7 @@ namespace Zappy::GUI {
             if (myResponses.find(myCommand) != myResponses.end()) {
                 try {
                     myResponses.at(myCommand)(*this, myArgs);
+                    std::cout << "Received: " << myResponse << std::endl;
                 } catch (const std::exception &e) {
                     std::osyncstream(std::cout) << e.what() << std::endl;
                 }
@@ -318,6 +319,10 @@ namespace Zappy::GUI {
 
         myStream >> myEggId;
 
+        for (auto &myEgg : _serverData._eggs) {
+            std::cout << myEgg.getId() << std::endl;
+        }
+
         auto myEggData =
             std::find_if(_serverData._eggs.begin(), _serverData._eggs.end(), [&myEggId](const EggData &aEgg) {
                 return aEgg.getId() == myEggId;
@@ -325,7 +330,7 @@ namespace Zappy::GUI {
         if (myEggData != _serverData._eggs.end()) {
             _serverData._eggs.erase(myEggData);
         } else {
-            throw ClientException("Egg not found");
+            throw ClientException("Egg not found : " + std::to_string(myEggId));
         }
     }
 } // namespace Zappy::GUI

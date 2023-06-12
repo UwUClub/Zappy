@@ -16,7 +16,7 @@ namespace Zappy::GUI {
     class Button
     {
         public:
-            Button(const std::string &aButtonText, const std::pair<int, int> &aPosition,
+            Button(const std::string &aButtonText, const std::pair<float, float> &aPosition,
                    std::function<void()> aCallback);
             ~Button();
 
@@ -27,8 +27,8 @@ namespace Zappy::GUI {
         private:
             std::pair<int, int> calculateDimensions();
             std::string _buttonText;
-            std::pair<int, int> _position;
-            std::pair<int, int> _dimensions;
+            std::pair<float, float> _position;
+            std::pair<float, float> _dimensions;
             std::function<void()> _callback;
     };
 } // namespace Zappy::GUI

@@ -16,13 +16,12 @@
 
 namespace Zappy::GUI {
     ClickHandler::ClickHandler(Ogre::SceneNode *aCameraNode, Ogre::RenderWindow *aRenderWindow,
-                               Ogre::SceneManager *aSceneManager, App &aApp,
-                               std::vector<std::unique_ptr<Button>> &aButtons)
+                               Ogre::SceneManager *aSceneManager, App &aApp)
         : InputHandler(aApp),
           _cameraNode(aCameraNode),
           _renderWindow(aRenderWindow),
           _sceneManager(aSceneManager),
-          _buttons(aButtons)
+          _buttons(aApp.getButtons())
     {}
 
     ClickHandler::~ClickHandler() = default;

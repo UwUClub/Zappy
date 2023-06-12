@@ -10,11 +10,27 @@
 #include "ServerData.hpp"
 
 namespace Zappy::GUI {
-    Observer::Observer(Mediator &aMediator, ServerData &aServerData)
+    Observer::Observer(Mediator &aMediator, const ObserverType &aType)
         : _mediator(aMediator),
-          _serverData(aServerData)
+          _type(aType),
+          _isReady(false)
     {}
 
     Observer::~Observer() = default;
+
+    const ObserverType &Observer::getObserverType() const
+    {
+        return _type;
+    }
+
+    bool Observer::isReady() const
+    {
+        return _isReady;
+    }
+
+    void Observer::setReady(bool aIsReady)
+    {
+        _isReady = aIsReady;
+    }
 
 } // namespace Zappy::GUI

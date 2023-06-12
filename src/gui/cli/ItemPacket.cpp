@@ -24,31 +24,31 @@ namespace Zappy::GUI {
 
     void ItemPacket::addResources(int aA)
     {
-        static const std::unordered_map<int, std::function<void()>> myInventoryMap = {{0,
+        static const std::unordered_map<int, std::function<void()>> myInventoryMap = {{Ressources::FOOD,
                                                                                        [this]() {
                                                                                            _food++;
                                                                                        }},
-                                                                                      {1,
+                                                                                      {Ressources::LINEMATE,
                                                                                        [this]() {
                                                                                            _linemate++;
                                                                                        }},
-                                                                                      {2,
+                                                                                      {Ressources::DERAUMERE,
                                                                                        [this]() {
                                                                                            _deraumere++;
                                                                                        }},
-                                                                                      {3,
+                                                                                      {Ressources::SIBUR,
                                                                                        [this]() {
                                                                                            _sibur++;
                                                                                        }},
-                                                                                      {4,
+                                                                                      {Ressources::MENDIANE,
                                                                                        [this]() {
                                                                                            _mendiane++;
                                                                                        }},
-                                                                                      {5,
+                                                                                      {Ressources::PHIRAS,
                                                                                        [this]() {
                                                                                            _phiras++;
                                                                                        }},
-                                                                                      {6, [this]() {
+                                                                                      {Ressources::THYSTAME, [this]() {
                                                                                            _thystame++;
                                                                                        }}};
 
@@ -60,31 +60,31 @@ namespace Zappy::GUI {
 
     void ItemPacket::removeResources(int aA)
     {
-        static const std::unordered_map<int, std::function<void()>> myInventoryMap = {{0,
+        static const std::unordered_map<int, std::function<void()>> myInventoryMap = {{Ressources::FOOD,
                                                                                        [this]() {
                                                                                            _food--;
                                                                                        }},
-                                                                                      {1,
+                                                                                      {Ressources::LINEMATE,
                                                                                        [this]() {
                                                                                            _linemate--;
                                                                                        }},
-                                                                                      {2,
+                                                                                      {Ressources::DERAUMERE,
                                                                                        [this]() {
                                                                                            _deraumere--;
                                                                                        }},
-                                                                                      {3,
+                                                                                      {Ressources::SIBUR,
                                                                                        [this]() {
                                                                                            _sibur--;
                                                                                        }},
-                                                                                      {4,
+                                                                                      {Ressources::MENDIANE,
                                                                                        [this]() {
                                                                                            _mendiane--;
                                                                                        }},
-                                                                                      {5,
+                                                                                      {Ressources::PHIRAS,
                                                                                        [this]() {
                                                                                            _phiras--;
                                                                                        }},
-                                                                                      {6, [this]() {
+                                                                                      {Ressources::THYSTAME, [this]() {
                                                                                            _thystame--;
                                                                                        }}};
 

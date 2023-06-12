@@ -18,6 +18,7 @@
 #include <OgreTextAreaOverlayElement.h>
 #include <fstream>
 #include "App.hpp"
+#include "ServerData.hpp"
 
 namespace Zappy::GUI {
     void App::getNotified(const std::string &aNotification)
@@ -33,8 +34,7 @@ namespace Zappy::GUI {
     void App::addPlayer([[maybe_unused]] const std::string &aNotification)
     {
         auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
-        auto myServerData = _client.getServerData();
-        auto myPlayerData = myServerData._players.back();
+        auto myPlayerData = _serverData._players.back();
         const auto &myPlayerId = myPlayerData.getId();
         const constexpr double myScale = 0.5;
         Ogre::Entity *myEntity = myScnMgr->createEntity(myPlayerId, "Sinbad.mesh");
@@ -43,7 +43,7 @@ namespace Zappy::GUI {
         std::cout << "Adding player " << myPlayerId << std::endl;
         myNode->attachObject(myEntity);
         myNode->setScale(myScale, myScale, myScale);
-        this->setPlayerPosAndOrientation(myPlayerData);
+        this->setPlayerPosAndOrientation(myScnMgr, myPlayerData);
     }
 
     void App::removePlayer(const std::string &aNotification)
@@ -59,32 +59,31 @@ namespace Zappy::GUI {
     void App::movePlayer(const std::string &aNotification)
     {
         std::istringstream myStream(aNotification);
-        auto myServerData = _client.getServerData();
+        auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
         std::string myIndex;
 
         myStream >> myIndex;
-        auto myPlayerData = std::find_if(myServerData._players.begin(), myServerData._players.end(),
+        auto myPlayerData = std::find_if(_serverData._players.cbegin(), _serverData._players.cend(),
                                          [&myIndex](const PlayerData &aPlayer) {
                                              return aPlayer.getId() == myIndex;
                                          });
 
-        if (myPlayerData == myServerData._players.end()) {
+        if (myPlayerData == _serverData._players.cend()) {
             std::cerr << "Player " << myIndex << " not found" << std::endl;
             return;
         }
         std::cout << "Moving player " << myIndex << std::endl;
-        this->setPlayerPosAndOrientation(*myPlayerData);
+        this->setPlayerPosAndOrientation(myScnMgr, *myPlayerData);
     }
 
-    void App::setPlayerPosAndOrientation(const PlayerData &aPlayer)
+    void App::setPlayerPosAndOrientation(Ogre::SceneManager *aSceneManager, const PlayerData &aPlayer)
     {
-        auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
         const auto &myPlayerId = aPlayer.getId();
         static const std::unordered_map<Orientation, Ogre::Real> myOrientationMap = {{Orientation::NORTH, 180},
                                                                                      {Orientation::EAST, 90},
                                                                                      {Orientation::SOUTH, 0},
                                                                                      {Orientation::WEST, 270}};
-        Ogre::SceneNode *myNode = myScnMgr->getSceneNode(myPlayerId);
+        Ogre::SceneNode *myNode = aSceneManager->getSceneNode(myPlayerId);
 
         myNode->setPosition(static_cast<float>(aPlayer.getPosition().first * MAP_OFFSET), PLAYER_Y_POS,
                             static_cast<float>(aPlayer.getPosition().second * MAP_OFFSET));
@@ -99,10 +98,14 @@ namespace Zappy::GUI {
 
     void App::updateDisplayedTime([[maybe_unused]] const std::string &aNotification)
     {
-        auto *myTextArea = static_cast<Ogre::TextAreaOverlayElement *>(
-            Ogre::OverlayManager::getSingleton().getOverlayElement("Time_Text"));
-        std::string myTextString = "Current Time: " + std::to_string(_client.getServerData()._freq);
+        try {
+            auto *myTextArea = static_cast<Ogre::TextAreaOverlayElement *>(
+                Ogre::OverlayManager::getSingleton().getOverlayElement("Time_Text"));
+            std::string myTextString = "Current Time: " + std::to_string(_serverData._freq);
 
-        myTextArea->setCaption(myTextString);
+            myTextArea->setCaption(myTextString);
+        } catch (const std::exception &e) {
+            std::cerr << e.what() << std::endl;
+        }
     }
 } // namespace Zappy::GUI
