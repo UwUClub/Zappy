@@ -11,6 +11,8 @@
 #include <OgreRoot.h>
 #include <functional>
 #include <memory>
+#include <vector>
+#include "Button.hpp"
 #include "CameraHandler.hpp"
 #include "ClickHandler.hpp"
 #include "ClientApi.hpp"
@@ -49,7 +51,14 @@ namespace Zappy::GUI {
             /**
              * @brief Overriden method from Subscriber
              */
-            void getNotified(std::string &aNotification) final;
+            void getNotified(const std::string &aNotification) final;
+
+            /**
+             * @brief Overriden method from OgreBites::ApplicationContext
+             *
+             * @param aRw the render window
+             */
+            void windowClosed(Ogre::RenderWindow *aRw) final;
 
         private:
             class AppException : public std::exception
@@ -90,7 +99,7 @@ namespace Zappy::GUI {
              * @param aNotification the notification
              * @param aSceneManager the scene manager
              */
-            void movePlayer(std::string &aNotification);
+            void movePlayer(const std::string &aNotification);
             /**
              * @brief Set the Player Pos And Orientation object
              *
@@ -103,7 +112,28 @@ namespace Zappy::GUI {
              *
              * @param aNotification the notification
              */
-            void displayServerMessage(std::string &aNotification);
+            void displayServerMessage(const std::string &aNotification);
+            /**
+             * @brief Send a command to the server to set the time
+             *
+             */
+            void increaseTime();
+            /**
+             * @brief Send a command to the server to set the time
+             *
+             */
+            void decreaseTime();
+            /**
+             * @brief Display the current time
+             *
+             */
+            void displayCurrentTime(const std::pair<int, int> &aPositio);
+            /**
+             * @brief Update the displayed time
+             *
+             * @param aNotification the notification (not used)
+             */
+            void updateDisplayedTime(const std::string &aNotification);
             /**
              * @brief Setup the map of the scene
              * @param aSceneManager the scene manager
@@ -121,23 +151,25 @@ namespace Zappy::GUI {
              * @param aPlayer the playerData of the player to add
              * @param aSceneManager the scene manager
              */
-            void addPlayer(std::string &aNotification);
+            void addPlayer(const std::string &aNotification);
             /**
              * @brief Remove a player from the scene
              * @param aIndex the index of the player to remove
              * @param aSceneManager the scene manager
              */
-            void removePlayer(std::string &aNotification);
+            void removePlayer(const std::string &aNotification);
             Zappy::GUI::ClientApi &_client;
             std::unique_ptr<CameraHandler> _cameraHandler;
             std::unique_ptr<FrameHandler> _frameHandler;
             std::unique_ptr<ClickHandler> _clickHandler;
+            std::vector<std::unique_ptr<Button>> _buttons;
 
-            static const inline std::unordered_map<std::string, std::function<void(App &, std::string &)>>
-                _notificationMap = {{"pnw", &App::addPlayer},
-                                    {"pdi", &App::removePlayer},
-                                    {"ppo", &App::movePlayer},
-                                    {"smg", &App::displayServerMessage}};
+            static const inline std::unordered_map<std::string, std::function<void(App &, const std::string &)>>
+                _notificationMap = {
+                    {"pnw", &App::addPlayer},           {"pdi", &App::removePlayer},
+                    {"ppo", &App::movePlayer},          {"smg", &App::displayServerMessage},
+                    {"sgt", &App::updateDisplayedTime},
+                };
     };
 } // namespace Zappy::GUI
 

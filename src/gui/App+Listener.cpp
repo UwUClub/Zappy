@@ -7,6 +7,7 @@
 
 #include <OGRE/Bites/OgreApplicationContext.h>
 #include <OGRE/OgreSceneManager.h>
+#include <OGRE/Overlay/OgreOverlayManager.h>
 #include <Ogre.h>
 #include <OgreCamera.h>
 #include <OgreInput.h>
@@ -14,11 +15,12 @@
 #include <OgreRenderWindow.h>
 #include <OgreResourceGroupManager.h>
 #include <OgreRoot.h>
+#include <OgreTextAreaOverlayElement.h>
 #include <fstream>
 #include "App.hpp"
 
 namespace Zappy::GUI {
-    void App::getNotified(std::string &aNotification)
+    void App::getNotified(const std::string &aNotification)
     {
         auto myCommand = aNotification.substr(0, aNotification.find_first_of(' '));
         auto myArgs = aNotification.substr(aNotification.find_first_of(' ') + 1);
@@ -28,7 +30,7 @@ namespace Zappy::GUI {
         }
     }
 
-    void App::addPlayer([[maybe_unused]] std::string &aNotification)
+    void App::addPlayer([[maybe_unused]] const std::string &aNotification)
     {
         auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
         auto myServerData = _client.getServerData();
@@ -44,7 +46,7 @@ namespace Zappy::GUI {
         this->setPlayerPosAndOrientation(myPlayerData);
     }
 
-    void App::removePlayer(std::string &aNotification)
+    void App::removePlayer(const std::string &aNotification)
     {
         std::istringstream myStream(aNotification);
         std::string myIndex;
@@ -54,7 +56,7 @@ namespace Zappy::GUI {
         myScnMgr->destroyEntity(myIndex);
     }
 
-    void App::movePlayer(std::string &aNotification)
+    void App::movePlayer(const std::string &aNotification)
     {
         std::istringstream myStream(aNotification);
         auto myServerData = _client.getServerData();
@@ -90,8 +92,17 @@ namespace Zappy::GUI {
             Ogre::Quaternion(Ogre::Degree(myOrientationMap.at(aPlayer.getOrientation())), Ogre::Vector3::UNIT_Y));
     }
 
-    void App::displayServerMessage(std::string &aNotification)
+    void App::displayServerMessage(const std::string &aNotification)
     {
         std::cout << "Server message: " << aNotification << std::endl;
+    }
+
+    void App::updateDisplayedTime([[maybe_unused]] const std::string &aNotification)
+    {
+        auto *myTextArea = static_cast<Ogre::TextAreaOverlayElement *>(
+            Ogre::OverlayManager::getSingleton().getOverlayElement("Time_Text"));
+        std::string myTextString = "Current Time: " + std::to_string(_client.getServerData()._freq);
+
+        myTextArea->setCaption(myTextString);
     }
 } // namespace Zappy::GUI

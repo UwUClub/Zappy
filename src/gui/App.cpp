@@ -8,10 +8,18 @@
 #include "App.hpp"
 #include <OGRE/Bites/OgreApplicationContext.h>
 #include <OGRE/OgreSceneManager.h>
+#include <OGRE/Overlay/OgreFontManager.h>
+#include <OGRE/Overlay/OgreOverlayContainer.h>
+#include <OGRE/Overlay/OgreOverlayManager.h>
+#include <OGRE/Overlay/OgreOverlaySystem.h>
+#include <OGRE/Overlay/OgreTextAreaOverlayElement.h>
 #include <Ogre.h>
 #include <OgreCamera.h>
+#include <OgreFont.h>
 #include <OgreInput.h>
 #include <OgreLight.h>
+#include <OgreOverlay.h>
+#include <OgreOverlayManager.h>
 #include <OgrePrerequisites.h>
 #include <OgreRenderWindow.h>
 #include <OgreResourceGroupManager.h>
@@ -20,6 +28,8 @@
 #include <algorithm>
 #include <functional>
 #include <memory>
+#include <utility>
+#include "Button.hpp"
 #include "CameraHandler.hpp"
 #include "Constexpr.hpp"
 #include "FrameHandler.hpp"
@@ -40,7 +50,14 @@ namespace Zappy::GUI {
         auto *myRoot = this->getRoot();
         auto *myScnMgr = myRoot->createSceneManager("DefaultSceneManager", SCENE_MAN_NAME);
 
-        this->instantiateApp();
+        try {
+            this->instantiateApp();
+        } catch (const std::exception &e) {
+            std::cerr << e.what() << std::endl;
+            this->closeApp();
+            _client.disconnect();
+            throw AppException(e.what());
+        }
         _client.addObserver(this);
 
         Ogre::RTShader::ShaderGenerator *myShadergen = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
@@ -52,6 +69,13 @@ namespace Zappy::GUI {
         this->setupCamera(myScnMgr, nodeCenterPos);
         this->setupPlayersAndEggs(myScnMgr);
         myRoot->addFrameListener(_frameHandler.get());
+        _buttons.emplace_back(std::make_unique<Button>("Speed up", std::make_pair(50, 50), [this] {
+            increaseTime();
+        }));
+        _buttons.emplace_back(std::make_unique<Button>("Speed down", std::make_pair(50, 80), [this] {
+            decreaseTime();
+        }));
+        this->displayCurrentTime(std::make_pair(50, 140));
     }
 
     App::~App()
@@ -64,6 +88,8 @@ namespace Zappy::GUI {
     {
         try {
             auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
+            myScnMgr->addRenderQueueListener(mOverlaySystem);
+            Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
 
             Ogre::ResourceGroupManager::getSingleton().addResourceLocation("./assets", "FileSystem", "Zappy");
             Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
@@ -71,9 +97,26 @@ namespace Zappy::GUI {
             myScnMgr->createEntity("Sinbad.mesh");
             myScnMgr->createEntity("Egg.mesh");
             myScnMgr->createEntity("Rock.mesh");
+
+            overlayManager.create(BUTTON_OVERLAY);
+
+            Ogre::FontPtr font = Ogre::FontManager::getSingleton().create(FONT_NAME, "Zappy");
+            font->setType(Ogre::FontType::FT_TRUETYPE);
+            font->setSource("BTTF.ttf");
+            font->setTrueTypeSize(24);
+            font->setTrueTypeResolution(96);
+            font->load();
+
         } catch (const Ogre::Exception &e) {
             throw AppException(e.what());
         }
+    }
+
+    void App::windowClosed(Ogre::RenderWindow *aRw)
+    {
+        _client.disconnect();
+        aRw->destroy();
+        this->closeApp();
     }
 
     void App::setupLight(Ogre::SceneManager *aSceneManager, Ogre::Vector3 &aCenter)
@@ -88,7 +131,7 @@ namespace Zappy::GUI {
         myLightNode->setPosition(aCenter + Ogre::Vector3(0, 100, 30));
         myLightNode->attachObject(myLight);
 
-        aSceneManager->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
+        aSceneManager->setAmbientLight(Ogre::ColourValue(1, 1, 1));
     }
 
     void App::setupCamera(Ogre::SceneManager *aSceneManager, Ogre::Vector3 &aCenterPos)
@@ -113,7 +156,7 @@ namespace Zappy::GUI {
 
         if (myRenderWindow != nullptr) {
             _cameraHandler = std::make_unique<CameraHandler>(myCamNode, aCenterPos, myRadius, _client);
-            _clickHandler = std::make_unique<ClickHandler>(myCamNode, myRenderWindow, aSceneManager, _client);
+            _clickHandler = std::make_unique<ClickHandler>(myCamNode, myRenderWindow, aSceneManager, _client, _buttons);
             this->addInputListener(_cameraHandler.get());
             this->addInputListener(_clickHandler.get());
 
@@ -180,5 +223,64 @@ namespace Zappy::GUI {
             myNode->setPosition(static_cast<float>(myEgg.getPosition().first * MAP_OFFSET) + EGG_OFFSET_POS, EGG_Y_POS,
                                 static_cast<float>(myEgg.getPosition().second * MAP_OFFSET) + EGG_OFFSET_POS);
         }
+    }
+
+    void App::increaseTime()
+    {
+        auto myCurrentTime = _client.getServerData()._freq;
+        auto myNewTime = myCurrentTime + MY_TIME_INTERVAL;
+        std::string myCommand = "sst " + std::to_string(myNewTime);
+
+        std::cout << myCommand << std::endl;
+
+        _client.sendCommand(myCommand);
+    }
+
+    void App::decreaseTime()
+    {
+        auto myCurrentTime = _client.getServerData()._freq;
+        auto myNewTime = myCurrentTime - MY_TIME_INTERVAL;
+        std::string myCommand = "sst " + std::to_string(myNewTime);
+
+        std::cout << myCommand << std::endl;
+        _client.sendCommand(myCommand);
+    }
+
+    void App::displayCurrentTime(const std::pair<int, int> &aPosition)
+    {
+        Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
+        Ogre::Overlay *myOverlay = overlayManager.getByName(BUTTON_OVERLAY);
+
+        auto *myPanel = overlayManager.createOverlayElement("Panel", "Time_Panel");
+        auto *myContainer = static_cast<Ogre::OverlayContainer *>(myPanel);
+        auto *myText = overlayManager.createOverlayElement("TextArea", "Time_Text");
+        auto *myTextArea = static_cast<Ogre::TextAreaOverlayElement *>(myText);
+        Ogre::FontPtr myFont = Ogre::FontManager::getSingleton().getByName(FONT_NAME, "Zappy");
+        const float myCharHeight = myFont->getGlyphAspectRatio('A') * 17;
+        float myTextWidth = 0;
+        std::string myTextString = "Current Time: " + std::to_string(_client.getServerData()._freq);
+        const constexpr float myTextHeight = 1.5F;
+        const constexpr float myTextWidthOffset = 1.05F;
+
+        myTextWidth = myCharHeight * static_cast<Ogre::Real>(myTextString.size()) * myTextWidthOffset;
+        auto myDimensions = std::make_pair(myTextWidth, myCharHeight * myTextHeight);
+
+        myContainer->setMetricsMode(Ogre::GMM_PIXELS);
+        myContainer->setPosition(static_cast<Ogre::Real>(aPosition.first), static_cast<Ogre::Real>(aPosition.second));
+        myContainer->setDimensions(myDimensions.first, myDimensions.second);
+        myContainer->setMaterialName("BaseWhite");
+
+        myTextArea->setMetricsMode(Ogre::GMM_PIXELS);
+        myTextArea->setPosition(0, 0);
+        myTextArea->setCaption(myTextString);
+        myTextArea->setCharHeight(CHAR_HEIGHT);
+        myTextArea->setFontName(FONT_NAME, "Zappy");
+        myTextArea->setColourTop(Ogre::ColourValue(1, 0, 1));
+        myTextArea->setColourBottom(Ogre::ColourValue(0, 0, 0));
+
+        myContainer->addChild(myTextArea);
+
+        myOverlay->add2D(myContainer);
+        myOverlay->show();
     }
 } // namespace Zappy::GUI

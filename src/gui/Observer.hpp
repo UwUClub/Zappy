@@ -25,7 +25,7 @@ namespace Zappy::GUI {
              * @details This method is called by the Publisher to notify the Subscriber of a change
              * @param aNotification The notification sent by the Publisher
              */
-            virtual void getNotified(std::string &aNotification) = 0;
+            virtual void getNotified(const std::string &aNotification) = 0;
     };
 } // namespace Zappy::GUI
 
