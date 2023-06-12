@@ -52,10 +52,6 @@ namespace Zappy::GUI {
             myContainer->addChild(myTextArea);
 
             myOverlay->add2D(myContainer);
-            myPanel->show();
-            myContainer->show();
-            myText->show();
-            myTextArea->show();
             myOverlay->show();
         } catch (const std::exception &e) {
             std::cerr << "Button error : " << e.what() << std::endl;

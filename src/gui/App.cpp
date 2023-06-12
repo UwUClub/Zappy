@@ -9,23 +9,16 @@
 #include <OGRE/Bites/OgreApplicationContext.h>
 #include <OGRE/OgreSceneManager.h>
 #include <OGRE/Overlay/OgreFontManager.h>
-<<<<<<< HEAD
 #include <OGRE/Overlay/OgreOverlayContainer.h>
 #include <OGRE/Overlay/OgreOverlayManager.h>
 #include <OGRE/Overlay/OgreOverlaySystem.h>
 #include <OGRE/Overlay/OgreTextAreaOverlayElement.h>
-    == == == =
-#include <OGRE/Overlay/OgreOverlaySystem.h>
-    >>>>>>> 6b46641(Added basic overlay system, will need to refacto, add a second button)
 #include <Ogre.h>
 #include <OgreCamera.h>
 #include <OgreFont.h>
 #include <OgreInput.h>
-        < < < < < < < HEAD
 #include <OgreLight.h>
 #include <OgreOverlay.h>
-    == == == =
->>>>>>> ea36046 (Created button class)
 #include <OgreOverlayManager.h>
 #include <OgrePrerequisites.h>
 #include <OgreRenderWindow.h>
@@ -35,10 +28,7 @@
 #include <algorithm>
 #include <functional>
 #include <memory>
-        < < < < < < < HEAD
 #include <utility>
-        == == == =
->>>>>>> 6b46641 (Added basic overlay system, will need to refacto, add a second button)
 #include "Button.hpp"
 #include "CameraHandler.hpp"
 #include "Constexpr.hpp"
@@ -48,9 +38,8 @@
 #include "ServerData.hpp"
 #include <unordered_map>
 
-            namespace Zappy::GUI
-{
-    App::App(Zappy::GUI::ClientApi & client, const std::string &aWindowName)
+namespace Zappy::GUI {
+    App::App(Zappy::GUI::ClientApi &client, const std::string &aWindowName)
         : OgreBites::ApplicationContext(aWindowName),
           _client(client),
           _cameraHandler(nullptr),
@@ -123,14 +112,14 @@
         }
     }
 
-    void App::windowClosed(Ogre::RenderWindow * aRw)
+    void App::windowClosed(Ogre::RenderWindow *aRw)
     {
         _client.disconnect();
         aRw->destroy();
         this->closeApp();
     }
 
-    void App::setupLight(Ogre::SceneManager * aSceneManager, Ogre::Vector3 & aCenter)
+    void App::setupLight(Ogre::SceneManager *aSceneManager, Ogre::Vector3 &aCenter)
     {
         Ogre::Light *myLight = aSceneManager->createLight("MainLight");
         myLight->setType(Ogre::Light::LT_DIRECTIONAL);
@@ -145,7 +134,7 @@
         aSceneManager->setAmbientLight(Ogre::ColourValue(1, 1, 1));
     }
 
-    void App::setupCamera(Ogre::SceneManager * aSceneManager, Ogre::Vector3 & aCenterPos)
+    void App::setupCamera(Ogre::SceneManager *aSceneManager, Ogre::Vector3 &aCenterPos)
     {
         auto myServerData = _client.getServerData();
         const auto myMapSize = myServerData._mapSize;
@@ -175,7 +164,7 @@
         }
     }
 
-    Ogre::Vector3f App::setupMap(Ogre::SceneManager * aSceneManager)
+    Ogre::Vector3f App::setupMap(Ogre::SceneManager *aSceneManager)
     {
         auto myServerData = _client.getServerData();
         const auto myMapSize = myServerData._mapSize;
@@ -206,7 +195,7 @@
         return myCenterPos;
     }
 
-    void App::setupPlayersAndEggs(Ogre::SceneManager * aSceneManager)
+    void App::setupPlayersAndEggs(Ogre::SceneManager *aSceneManager)
     {
         auto myServerData = _client.getServerData();
         auto myPlayerData = myServerData._players;
