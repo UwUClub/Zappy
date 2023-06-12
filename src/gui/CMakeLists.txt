@@ -6,7 +6,6 @@ add_executable(zappy_gui
         main.cpp
         App.cpp
         App+Listener.cpp
-        Subscriber.hpp
         )
 
 find_package(OGRE QUIET)

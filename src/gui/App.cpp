@@ -41,7 +41,7 @@ namespace Zappy::GUI {
         auto *myScnMgr = myRoot->createSceneManager("DefaultSceneManager", SCENE_MAN_NAME);
 
         this->instantiateApp();
-        _client.registerSubscriber(*this);
+        _client.addObserver(this);
 
         Ogre::RTShader::ShaderGenerator *myShadergen = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
         _frameHandler = std::make_unique<FrameHandler>(myScnMgr, _client);
@@ -170,15 +170,15 @@ namespace Zappy::GUI {
         }
         for (const auto &myEgg : myEggData) {
             std::string myEggName = "egg_" + std::to_string(myEgg.getId());
-            const constexpr double myEggScale = 30;
+            const constexpr double myEggScale = 0.5;
             Ogre::Entity *myEntity = aSceneManager->createEntity("egg_" + myEggName, "Egg.mesh");
             Ogre::SceneNode *myNode = aSceneManager->getRootSceneNode()->createChildSceneNode(myEggName);
 
             myNode->setScale(myEggScale, myEggScale, myEggScale);
             myNode->setOrientation(Ogre::Quaternion(Ogre::Degree(-90), Ogre::Vector3::UNIT_X));
             myNode->attachObject(myEntity);
-            myNode->setPosition(static_cast<float>(myEgg.getPosition().first * MAP_OFFSET), 2,
-                                static_cast<float>(myEgg.getPosition().second * MAP_OFFSET));
+            myNode->setPosition(static_cast<float>(myEgg.getPosition().first * MAP_OFFSET) + EGG_OFFSET_POS, EGG_Y_POS,
+                                static_cast<float>(myEgg.getPosition().second * MAP_OFFSET) + EGG_OFFSET_POS);
         }
     }
 } // namespace Zappy::GUI
