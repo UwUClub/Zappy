@@ -53,6 +53,11 @@ namespace Zappy::GUI {
              */
             void getNotified(const std::string &aNotification) final;
 
+            /**
+             * @brief Overriden method from OgreBites::ApplicationContext
+             *
+             * @param aRw the render window
+             */
             void windowClosed(Ogre::RenderWindow *aRw) final;
 
         private:
