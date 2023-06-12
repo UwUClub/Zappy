@@ -15,19 +15,10 @@ class Player:
     def __init__(self):
         self._socket = None
         self._name = ""
-        self._inventory = [10, 1, 0, 0, 0, 0, 0]
         self._functionIndex = 0
         """self._functionList = [self.level2()]"""
         self._lookTiles = []
-        self._inventory = {
-            "food": 0,
-            "linemate": 0,
-            "deraumere": 0,
-            "sibur": 0,
-            "mendiane": 0,
-            "phiras": 0,
-            "thystame": 0
-        }
+        self._inventory = [10, 1, 0, 0, 0, 0, 0]
 
     ## @brief Connect to the server
     ## @param info The connection information
@@ -198,8 +189,6 @@ class Player:
                 x = x.replace("]", "")
             if x.find('\n') != -1:
                 x = x.replace("\n", "")
-            if x == '':
-                continue
             myResoucesOnTile.append(x.count('player'))
             myResoucesOnTile.append(x.count('food'))
             myResoucesOnTile.append(x.count('linemate'))
@@ -209,6 +198,7 @@ class Player:
             myResoucesOnTile.append(x.count('phiras'))
             myResoucesOnTile.append(x.count('thystame'))
             self._lookTiles.append(myResoucesOnTile)
+            print (myResoucesOnTile)
         return (self._lookTiles)
     
     ## @brief Finds the shortest path to a tile
@@ -248,7 +238,7 @@ class Player:
                 myNbMax = myNb
                 myTile = i
         return (myTile)
-    
+
     ## @brief Take all the ressources on the tile
     ## @param aTile The tile to take the ressources from
     ## @return None
@@ -274,15 +264,16 @@ class Player:
         myTile = self.findRessource()
         self.goTo(myTile)
         self.takeAll(self._lookTiles[myTile])
-        self.inventory()
+        self.parseInventory(self.inventory())
         if (self.verifyIncantation()):
             self.set("linemate")
             if (self.incantation() != None):
                 self._functionIndex += 1
+
     ## @brief Parse the inventory command
     ## @return the inventory
-
     def parseInventory(self, aInventory : str):
+        idx = 0
         myInventory = aInventory.split(",")
         for x in myInventory:
             x = str(x)
@@ -299,5 +290,6 @@ class Player:
                 y = str(y)
                 if y == '':
                     myInventory.remove(y)
-            self._inventory[myInventory[0]] = int(myInventory[1])
+            self._inventory[idx] = int(myInventory[1])
+            idx+=1
         return (self._inventory)
