@@ -123,6 +123,11 @@ namespace Zappy::GUI {
              *
              */
             void displayCurrentTime(const std::pair<int, int> &aPositio);
+            /**
+             * @brief Update the displayed time
+             *
+             * @param aNotification the notification (not used)
+             */
             void updateDisplayedTime(const std::string &aNotification);
             /**
              * @brief Setup the map of the scene
