@@ -54,7 +54,9 @@ static int check_cmd_status(data_t *data, int (*func)(data_t *data,
 
 int schedule_player_cmd(data_t *data, char *name, char **args)
 {
-    if (is_pending_queue_full(data)) {
+    int is_freezed = data->clients[data->curr_cli_index]->player->is_freezed;
+
+    if (is_pending_queue_full(data) || is_freezed) {
         return 84;
     }
     for (int i = 0; player_schedulers[i].name != NULL; i++) {

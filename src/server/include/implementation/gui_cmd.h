@@ -172,6 +172,21 @@
     */
     int do_pdr(data_t *data, int resource);
 
+    /**
+     * @brief Notify to gui that an incantation is beginning
+     * @param data The current server data, clients and current client index
+     * @param author The player who started the incantation
+    */
+    void do_pic(data_t *data, player_t *author);
+
+    /**
+     * @brief Notify to gui that an incantation is done
+     * @param data The current server data, clients and current client index
+     * @param pos The position of the incantation
+     * @param result_lvl The level obtained by players in the incantation
+    */
+    void do_pie(data_t *data, pos_t *pos, const int result_lvl);
+
     static const cmd_t gui_commands[] = {
         {"msz", &do_msz, 0},
         {"bct", &do_bct, 0},
