@@ -21,9 +21,10 @@ namespace Zappy::GUI {
     void App::getNotified(std::string &aNotification)
     {
         auto myCommand = aNotification.substr(0, aNotification.find_first_of(' '));
+        auto myArgs = aNotification.substr(aNotification.find_first_of(' ') + 1);
 
         if (_notificationMap.find(myCommand) != _notificationMap.end()) {
-            _notificationMap.at(myCommand)(*this, aNotification);
+            _notificationMap.at(myCommand)(*this, myArgs);
         }
     }
 
@@ -45,10 +46,12 @@ namespace Zappy::GUI {
 
     void App::removePlayer(std::string &aNotification)
     {
-        int myIndex = std::stoi(aNotification.substr(4));
+        std::istringstream myStream(aNotification);
+        std::string myIndex;
         auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
 
-        myScnMgr->destroyEntity(std::to_string(myIndex));
+        myStream >> myIndex;
+        myScnMgr->destroyEntity(myIndex);
     }
 
     void App::movePlayer(std::string &aNotification)
