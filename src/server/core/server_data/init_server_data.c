@@ -26,6 +26,7 @@ static void set_data_default_values(data_t *data)
     data->last_select_ms = 0;
     data->remaining_rsrc_spawn_ms = 0;
     data->nb_slots = 0;
+    data->nb_clients = 0;
 }
 
 static saved_opt_t *get_default_saved_opt(void)

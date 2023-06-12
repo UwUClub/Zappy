@@ -25,5 +25,10 @@ void handle_client_quit(data_t *data)
         send_pdi(data);
     }
     close_single_client(cli);
-    init_single_client(&cli);
+    free(cli);
+    for (int i = data->curr_cli_index; data->clients[i]; i++) {
+        data->clients[i] = data->clients[i + 1];
+    }
+    data->nb_clients--;
+    data->curr_cli_index--;
 }
