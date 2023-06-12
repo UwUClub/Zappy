@@ -178,6 +178,7 @@ class Player:
     ## @brief Parse the look command
     ## @return the look tiles
     def parseLook(self, aLook : str):
+        self._lookTiles = []
         myLook = aLook.split(",")
         for x in myLook:
             # the resources on the tile are stored in a list : [nb_players, food, linemate, deraumere, sibur, mendiane, phiras, thystame]
