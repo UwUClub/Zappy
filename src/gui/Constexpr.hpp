@@ -14,6 +14,8 @@ const constexpr int MAP_OFFSET = 5;
 const constexpr int BASE_ANGLE = 45;
 const constexpr int PLAYER_Y_POS = 3;
 const constexpr int INVENTORY_SIZE = 7;
+const constexpr int EGG_Y_POS = 1;
+const constexpr int EGG_OFFSET_POS = 1;
 
 //---------------------------------String Constexpr
 const constexpr std::string CAMERA_NAME = "ZappyCamera";

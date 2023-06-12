@@ -5,12 +5,13 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include "Observable.hpp"
+#include "Observer.hpp"
 #include "ServerData.hpp"
-#include "Subscriber.hpp"
 #include <unordered_map>
 
 namespace Zappy::GUI {
-    class ClientApi
+    class ClientApi final : public Observable
     {
         public:
             /**
@@ -71,17 +72,6 @@ namespace Zappy::GUI {
             [[nodiscard]] const ServerData &getServerData() const;
 
             /**
-             * @brief register a subscriber
-             * @param aSubscriber
-             */
-            void registerSubscriber(Subscriber &aSubscriber);
-
-            /**
-             * @brief parse information from server
-             */
-            void parseServerResponses();
-
-            /**
              * @brief ClientException class
              */
             class ClientException : public std::exception
@@ -123,10 +113,9 @@ namespace Zappy::GUI {
             static struct sockaddr_in getSockaddr(in_addr_t aAddress, unsigned int aPort);
 
             /**
-             * @brief notify subscribers
-             * @param aNotification
+             * @brief parse information from server
              */
-            void notifySubscribers(std::string &aNotification);
+            void parseServerResponses();
 
             /**
              * @brief reading information from server
@@ -255,6 +244,5 @@ namespace Zappy::GUI {
             std::string _writeBuffer;
             int _serverFd;
             ServerData _serverData;
-            std::vector<std::reference_wrapper<Subscriber>> _subscribers;
     };
 } // namespace Zappy::GUI

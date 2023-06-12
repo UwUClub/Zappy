@@ -14,6 +14,7 @@
 #include <OgreCamera.h>
 #include <OgreFont.h>
 #include <OgreInput.h>
+#include <OgreLight.h>
 #include <OgreOverlayManager.h>
 #include <OgrePrerequisites.h>
 #include <OgreRenderWindow.h>
@@ -52,7 +53,7 @@ namespace Zappy::GUI {
             _client.disconnect();
             throw AppException(e.what());
         }
-        _client.registerSubscriber(*this);
+        _client.addObserver(this);
 
         Ogre::RTShader::ShaderGenerator *myShadergen = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
         _frameHandler = std::make_unique<FrameHandler>(myScnMgr, _client);
@@ -99,6 +100,7 @@ namespace Zappy::GUI {
             throw AppException(e.what());
         }
     }
+
     void App::setupLight(Ogre::SceneManager *aSceneManager, Ogre::Vector3 &aCenter)
     {
         Ogre::Light *myLight = aSceneManager->createLight("MainLight");
@@ -182,7 +184,6 @@ namespace Zappy::GUI {
         auto myEggData = myServerData._eggs;
 
         for (const auto &myPlayer : myPlayerData) {
-            std::cout << "Player: " << myPlayer.getId() << std::endl;
             const auto &myPlayerId = myPlayer.getId();
             const constexpr double myPlayerScale = 0.5;
             Ogre::Entity *myEntity = aSceneManager->createEntity(myPlayerId, "Sinbad.mesh");
@@ -194,15 +195,15 @@ namespace Zappy::GUI {
         }
         for (const auto &myEgg : myEggData) {
             std::string myEggName = "egg_" + std::to_string(myEgg.getId());
-            const constexpr double myEggScale = 30;
+            const constexpr double myEggScale = 0.5;
             Ogre::Entity *myEntity = aSceneManager->createEntity("egg_" + myEggName, "Egg.mesh");
             Ogre::SceneNode *myNode = aSceneManager->getRootSceneNode()->createChildSceneNode(myEggName);
 
             myNode->setScale(myEggScale, myEggScale, myEggScale);
             myNode->setOrientation(Ogre::Quaternion(Ogre::Degree(-90), Ogre::Vector3::UNIT_X));
             myNode->attachObject(myEntity);
-            myNode->setPosition(static_cast<float>(myEgg.getPosition().first * MAP_OFFSET), 2,
-                                static_cast<float>(myEgg.getPosition().second * MAP_OFFSET));
+            myNode->setPosition(static_cast<float>(myEgg.getPosition().first * MAP_OFFSET) + EGG_OFFSET_POS, EGG_Y_POS,
+                                static_cast<float>(myEgg.getPosition().second * MAP_OFFSET) + EGG_OFFSET_POS);
         }
     }
 

@@ -17,6 +17,8 @@ target_sources(zappy_server PRIVATE
         "${CMAKE_CURRENT_SOURCE_DIR}/edi.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/pex.c"
         "${CMAKE_CURRENT_SOURCE_DIR}/pdr.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/pic.c"
+        "${CMAKE_CURRENT_SOURCE_DIR}/pie.c"
         )
 
 set_target_properties(zappy_server
