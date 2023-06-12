@@ -31,19 +31,19 @@
 #include <utility>
 #include "Button.hpp"
 #include "CameraHandler.hpp"
+#include "ClickHandler.hpp"
+#include "ClientApi.hpp"
 #include "Constexpr.hpp"
-#include "FrameHandler.hpp"
 #include "InputHandler.hpp"
 #include "PlayerData.hpp"
 #include "ServerData.hpp"
 #include <unordered_map>
 
 namespace Zappy::GUI {
-    App::App(Zappy::GUI::ClientApi &client, const std::string &aWindowName)
+    App::App(Mediator &aMediator, ServerData &aServerData, const std::string &aWindowName)
         : OgreBites::ApplicationContext(aWindowName),
-          _client(client),
+          Observer(aMediator, aServerData),
           _cameraHandler(nullptr),
-          _frameHandler(nullptr),
           _clickHandler(nullptr)
     {
         this->initApp();
@@ -55,20 +55,17 @@ namespace Zappy::GUI {
         } catch (const std::exception &e) {
             std::cerr << e.what() << std::endl;
             this->closeApp();
-            _client.disconnect();
+            this->askDisconnection();
             throw AppException(e.what());
         }
-        _client.addObserver(this);
 
         Ogre::RTShader::ShaderGenerator *myShadergen = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
-        _frameHandler = std::make_unique<FrameHandler>(myScnMgr, _client);
 
         auto nodeCenterPos = this->setupMap(myScnMgr);
         this->setupLight(myScnMgr, nodeCenterPos);
         myShadergen->addSceneManager(myScnMgr);
         this->setupCamera(myScnMgr, nodeCenterPos);
         this->setupPlayersAndEggs(myScnMgr);
-        myRoot->addFrameListener(_frameHandler.get());
         _buttons.emplace_back(std::make_unique<Button>("Speed up", std::make_pair(50, 50), [this] {
             increaseTime();
         }));
@@ -81,7 +78,7 @@ namespace Zappy::GUI {
     App::~App()
     {
         this->closeApp();
-        _client.disconnect();
+        this->askDisconnection();
     }
 
     void App::instantiateApp()
@@ -114,9 +111,14 @@ namespace Zappy::GUI {
 
     void App::windowClosed(Ogre::RenderWindow *aRw)
     {
-        _client.disconnect();
+        this->askDisconnection();
         aRw->destroy();
         this->closeApp();
+    }
+
+    void App::askDisconnection()
+    {
+        _mediator.alert(this, "Disconnect");
     }
 
     void App::setupLight(Ogre::SceneManager *aSceneManager, Ogre::Vector3 &aCenter)
@@ -136,7 +138,7 @@ namespace Zappy::GUI {
 
     void App::setupCamera(Ogre::SceneManager *aSceneManager, Ogre::Vector3 &aCenterPos)
     {
-        auto myServerData = _client.getServerData();
+        auto myServerData = _serverData;
         const auto myMapSize = myServerData._mapSize;
         const constexpr float myBaseRadius = 15;
         const constexpr int myClipDistance = 5;
@@ -155,8 +157,8 @@ namespace Zappy::GUI {
         myCamNode->lookAt(aCenterPos, Ogre::Node::TS_WORLD);
 
         if (myRenderWindow != nullptr) {
-            _cameraHandler = std::make_unique<CameraHandler>(myCamNode, aCenterPos, myRadius, _client);
-            _clickHandler = std::make_unique<ClickHandler>(myCamNode, myRenderWindow, aSceneManager, _client, _buttons);
+            _cameraHandler = std::make_unique<CameraHandler>(myCamNode, aCenterPos, myRadius, *this);
+            _clickHandler = std::make_unique<ClickHandler>(myCamNode, myRenderWindow, aSceneManager, *this, _buttons);
             this->addInputListener(_cameraHandler.get());
             this->addInputListener(_clickHandler.get());
 
@@ -166,7 +168,7 @@ namespace Zappy::GUI {
 
     Ogre::Vector3f App::setupMap(Ogre::SceneManager *aSceneManager)
     {
-        auto myServerData = _client.getServerData();
+        auto myServerData = _serverData;
         const auto myMapSize = myServerData._mapSize;
         const constexpr int myTileSize = 1;
         const constexpr Ogre::Real myScale = 0.05F;
@@ -197,7 +199,7 @@ namespace Zappy::GUI {
 
     void App::setupPlayersAndEggs(Ogre::SceneManager *aSceneManager)
     {
-        auto myServerData = _client.getServerData();
+        auto myServerData = _serverData;
         auto myPlayerData = myServerData._players;
         auto myEggData = myServerData._eggs;
 
@@ -227,23 +229,23 @@ namespace Zappy::GUI {
 
     void App::increaseTime()
     {
-        auto myCurrentTime = _client.getServerData()._freq;
+        auto myCurrentTime = _serverData._freq;
         auto myNewTime = myCurrentTime + MY_TIME_INTERVAL;
         std::string myCommand = "sst " + std::to_string(myNewTime);
 
         std::cout << myCommand << std::endl;
 
-        _client.sendCommand(myCommand);
+        _mediator.alert(this, myCommand);
     }
 
     void App::decreaseTime()
     {
-        auto myCurrentTime = _client.getServerData()._freq;
+        auto myCurrentTime = _serverData._freq;
         auto myNewTime = myCurrentTime - MY_TIME_INTERVAL;
         std::string myCommand = "sst " + std::to_string(myNewTime);
 
         std::cout << myCommand << std::endl;
-        _client.sendCommand(myCommand);
+        _mediator.alert(this, myCommand);
     }
 
     void App::displayCurrentTime(const std::pair<int, int> &aPosition)
@@ -258,7 +260,7 @@ namespace Zappy::GUI {
         Ogre::FontPtr myFont = Ogre::FontManager::getSingleton().getByName(FONT_NAME, "Zappy");
         const float myCharHeight = myFont->getGlyphAspectRatio('A') * 17;
         float myTextWidth = 0;
-        std::string myTextString = "Current Time: " + std::to_string(_client.getServerData()._freq);
+        std::string myTextString = "Current Time: " + std::to_string(_serverData._freq);
         const constexpr float myTextHeight = 1.5F;
         const constexpr float myTextWidthOffset = 1.05F;
 

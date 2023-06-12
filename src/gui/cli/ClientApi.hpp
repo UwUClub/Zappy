@@ -5,13 +5,13 @@
 #include <string>
 #include <utility>
 #include <vector>
-#include "Observable.hpp"
 #include "Observer.hpp"
 #include "ServerData.hpp"
 #include <unordered_map>
 
 namespace Zappy::GUI {
-    class ClientApi final : public Observable
+    class Mediator;
+    class ClientApi final : public Observer
     {
         public:
             /**
@@ -20,12 +20,13 @@ namespace Zappy::GUI {
              * @param aPort
              * @param aTeamName
              */
-            ClientApi(std::string aAddress, unsigned int aPort, std::string aTeamName);
+            ClientApi(std::string aAddress, unsigned int aPort, std::string aTeamName, Mediator &aMediator,
+                      ServerData &aServerData);
 
             /**
              * @brief ClientApi destructor
              */
-            ~ClientApi();
+            ~ClientApi() final;
 
             /**
              * @brief run the client, update the server data, must be called in another thread, use disconnect to stop
@@ -70,6 +71,8 @@ namespace Zappy::GUI {
              * @return serverData
              */
             [[nodiscard]] const ServerData &getServerData() const;
+
+            void getNotified(const std::string &aNotification) final;
 
             /**
              * @brief ClientException class
@@ -243,6 +246,5 @@ namespace Zappy::GUI {
             std::string _readBuffer;
             std::string _writeBuffer;
             int _serverFd;
-            ServerData _serverData;
     };
 } // namespace Zappy::GUI

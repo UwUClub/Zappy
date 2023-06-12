@@ -12,19 +12,19 @@
 #include <functional>
 #include <memory>
 #include <vector>
-#include "Button.hpp"
-#include "CameraHandler.hpp"
-#include "ClickHandler.hpp"
 #include "ClientApi.hpp"
 #include "Constexpr.hpp"
-#include "FrameHandler.hpp"
 #include "InputHandler.hpp"
 #include "Observer.hpp"
 #include "PlayerData.hpp"
-#include "ServerData.hpp"
 #include <unordered_map>
 
 namespace Zappy::GUI {
+    class Mediator;
+    class CameraHandler;
+    class ClickHandler;
+    class Button;
+    struct ServerData;
     /**
      * @brief Main class of the GUI
      *
@@ -40,7 +40,7 @@ namespace Zappy::GUI {
              * @param aClient the client api (network)
              * @param aWindowName the name of the window, default value is "UwU Zappy UwU"
              */
-            explicit App(Zappy::GUI::ClientApi &aClient, const std::string &aWindowName = WINDOW_NAME);
+            explicit App(Mediator &aMediator, ServerData &aServerData, const std::string &aWindowName = WINDOW_NAME);
             ~App() final;
 
             App(const App &) = delete;
@@ -59,6 +59,8 @@ namespace Zappy::GUI {
              * @param aRw the render window
              */
             void windowClosed(Ogre::RenderWindow *aRw) final;
+
+            void askDisconnection();
 
         private:
             class AppException : public std::exception
@@ -158,12 +160,10 @@ namespace Zappy::GUI {
              * @param aSceneManager the scene manager
              */
             void removePlayer(const std::string &aNotification);
-            Zappy::GUI::ClientApi &_client;
+
             std::unique_ptr<CameraHandler> _cameraHandler;
-            std::unique_ptr<FrameHandler> _frameHandler;
             std::unique_ptr<ClickHandler> _clickHandler;
             std::vector<std::unique_ptr<Button>> _buttons;
-
             static const inline std::unordered_map<std::string, std::function<void(App &, const std::string &)>>
                 _notificationMap = {
                     {"pnw", &App::addPlayer},           {"pdi", &App::removePlayer},

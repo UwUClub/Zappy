@@ -20,10 +20,6 @@ namespace Zappy::GUI {
                    std::function<void()> aCallback);
             ~Button();
 
-            [[nodiscard]] const std::pair<int, int> &getPosition() const;
-            [[nodiscard]] const std::pair<int, int> &getDimensions() const;
-            [[nodiscard]] const std::string &getButtonText() const;
-
             [[nodiscard]] bool isOnButton(const Ogre::Vector2 &mousePos) const;
             void onClick();
 

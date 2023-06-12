@@ -12,6 +12,7 @@
 #include "ClientApi.hpp"
 
 namespace Zappy::GUI {
+    class App;
     /**
      * @brief Class used to handle the mouse events
      * @details Refer to the Ogre documentation
@@ -19,7 +20,7 @@ namespace Zappy::GUI {
     class InputHandler : public OgreBites::InputListener
     {
         public:
-            explicit InputHandler(ClientApi &aClient);
+            explicit InputHandler(App &aApp);
             ~InputHandler() override;
 
             bool mousePressed(const OgreBites::MouseButtonEvent &evt) override;
@@ -31,7 +32,8 @@ namespace Zappy::GUI {
             bool _isLeftClickPressed;
             bool _isRightClickPressed;
             bool _isShiftPressed;
-            ClientApi &_client;
+
+            App &_app;
     };
 } // namespace Zappy::GUI
 

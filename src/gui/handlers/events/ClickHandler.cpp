@@ -10,14 +10,15 @@
 #include <iostream>
 #include <memory>
 #include <vector>
+#include "App.hpp"
 #include "Button.hpp"
 #include "Constexpr.hpp"
 
 namespace Zappy::GUI {
     ClickHandler::ClickHandler(Ogre::SceneNode *aCameraNode, Ogre::RenderWindow *aRenderWindow,
-                               Ogre::SceneManager *aSceneManager, ClientApi &aClient,
+                               Ogre::SceneManager *aSceneManager, App &aApp,
                                std::vector<std::unique_ptr<Button>> &aButtons)
-        : InputHandler(aClient),
+        : InputHandler(aApp),
           _cameraNode(aCameraNode),
           _renderWindow(aRenderWindow),
           _sceneManager(aSceneManager),

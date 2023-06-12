@@ -13,11 +13,11 @@
 #include <OgreMath.h>
 #include <OgrePrerequisites.h>
 #include <OgreRenderWindow.h>
-#include "ClientApi.hpp"
 #include "Constexpr.hpp"
 #include "InputHandler.hpp"
 
 namespace Zappy::GUI {
+    class App;
     /**
      * @brief Class used to handle the camera
      * @details This class is used to handle the camera, it is used to move the camera in the scene, refer to the Ogre
@@ -26,7 +26,7 @@ namespace Zappy::GUI {
     class CameraHandler final : public InputHandler
     {
         public:
-            CameraHandler(Ogre::SceneNode *cameraNode, Ogre::Vector3 center, Ogre::Real radius, ClientApi &aClient);
+            CameraHandler(Ogre::SceneNode *cameraNode, Ogre::Vector3 center, Ogre::Real radius, App &aApp);
             ~CameraHandler() final;
 
             bool mouseMoved(const OgreBites::MouseMotionEvent &evt) final;

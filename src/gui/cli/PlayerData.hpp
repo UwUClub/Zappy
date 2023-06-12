@@ -7,6 +7,7 @@
 #include "ItemPacket.hpp"
 #include <unordered_map>
 namespace Zappy::GUI {
+    class ItemPacket;
 
     enum class Orientation : int
     {

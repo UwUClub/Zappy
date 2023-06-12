@@ -11,11 +11,11 @@
 #include <OgreRenderWindow.h>
 #include <OgreSceneManager.h>
 #include <OgreSceneNode.h>
-#include "Button.hpp"
-#include "ClientApi.hpp"
 #include "InputHandler.hpp"
 
 namespace Zappy::GUI {
+    class App;
+    class Button;
     /**
      * @brief Class used to handle the mouse clicks
      * @details This class is used to handle the mouse clicks, it is used to select a node in the scene, refer to the
@@ -25,8 +25,7 @@ namespace Zappy::GUI {
     {
         public:
             ClickHandler(Ogre::SceneNode *cameraNode, Ogre::RenderWindow *renderWindow,
-                         Ogre::SceneManager *sceneManager, ClientApi &client,
-                         std::vector<std::unique_ptr<Button>> &aButtons);
+                         Ogre::SceneManager *sceneManager, App &aApp, std::vector<std::unique_ptr<Button>> &aButtons);
             ~ClickHandler() override;
 
             bool mousePressed(const OgreBites::MouseButtonEvent &evt) override;

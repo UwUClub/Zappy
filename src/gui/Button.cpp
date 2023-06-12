@@ -72,21 +72,6 @@ namespace Zappy::GUI {
         return {myTextWidth, static_cast<int>(myCharHeight * myPaddingY)};
     }
 
-    const std::pair<int, int> &Button::getPosition() const
-    {
-        return _position;
-    }
-
-    const std::pair<int, int> &Button::getDimensions() const
-    {
-        return _dimensions;
-    }
-
-    const std::string &Button::getButtonText() const
-    {
-        return _buttonText;
-    }
-
     bool Button::isOnButton(const Ogre::Vector2 &mousePos) const
     {
         return mousePos.x >= static_cast<Ogre::Real>(_position.first)
