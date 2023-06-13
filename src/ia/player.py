@@ -19,13 +19,16 @@ class Player:
         """self._functionList = [self.level2()]"""
         self._lookTiles = []
         self._inventory = [10, 1, 0, 0, 0, 0, 0]
+        self._lastReceivedMessage = ""
+        self._direction = 0
+        self._parsedMessage = ""
 
     ## @brief Connect to the server
     ## @param info The connection information
     def connect(self, aInfo):
         self._socket = Connection(aInfo._host, int(aInfo._port))
         return self._socket.connect()
-
+    
     ## @brief Send data to the server
     ## @param data The data to send
     def send(self, aData):
@@ -34,7 +37,14 @@ class Player:
     ## @brief Receive data from the server
     ## @return The data received
     def receive(self):
-        return self._socket.receive()
+        message = self._socket.receive()
+        if (message == "dead\n"):
+            print("Dead")
+            exit(0)
+        if (message[0:7] == "message"):
+            self._lastReceivedMessage = message
+            return self._socket.receive()
+        return message
 
     ## @brief Disconnect from the server
     ## @return None
@@ -83,7 +93,7 @@ class Player:
         self.send("Take " + aRessource)
         myTake = self.receive()
         if myTake == "ko\n":
-            print ("Object not found")
+            print ("Object not found", aRessource)
         elif myTake == "ok\n":
             print ("Object", aRessource, "taken")
         
@@ -133,10 +143,28 @@ class Player:
             print ("Look:", myLook)
             return (myLook)
 
+    ## @brief Crypt the message
+    ## @return the crypted message
+    def cryptMessage(self, aMessage):
+        myCryptedMessage = ""
+        for i in range(len(aMessage)):
+            myCryptedMessage += chr(ord(aMessage[i]) + 5)
+        return (myCryptedMessage)
+
+    ## @brief Decrypt the message
+    ## @return the decrypted message
+    def decryptMessage(self, aMessage):
+        myDecryptedMessage = ""
+        for i in range(len(aMessage)):
+            myDecryptedMessage += chr(ord(aMessage[i]) - 5)
+        return (myDecryptedMessage)
+
     ## @brief Send broadcast command
     ## @return None
     def broadcast(self, aMessage):
-        self.send("Broadcast " + aMessage)
+        myMessage = self.cryptMessage(aMessage)
+        print ("Broadcast:", myMessage)
+        self.send("Broadcast " + myMessage)
         myBroadcast = self.receive()
         if myBroadcast == "ko\n":
             print ("Error: Broadcast")
@@ -258,19 +286,6 @@ class Player:
                 return (False)
         return (True)
 
-    ## @brief Try to evolve to level 2
-    ## @return None
-    def level2(self):
-        self.parseLook(self.look())
-        myTile = self.findRessource()
-        self.goTo(myTile)
-        self.takeAll(self._lookTiles[myTile])
-        self.parseInventory(self.inventory())
-        if (self.verifyIncantation()):
-            self.set("linemate")
-            if (self.incantation() != None):
-                self._functionIndex += 1
-
     ## @brief Parse the inventory command
     ## @return the inventory
     def parseInventory(self, aInventory : str):
@@ -294,3 +309,29 @@ class Player:
             self._inventory[idx] = int(myInventory[1])
             idx+=1
         return (self._inventory)
+    
+    ## @brief Receive broadcast message
+    ## @return The broadcast message
+    def parseReceiveBroadcast(self):
+        if (self._lastReceivedMessage == ""):
+            return (None)
+        self._direction = int(self._lastReceivedMessage[8])
+        myMessage = self._lastReceivedMessage[10:]
+        self._parsedMessage = self.decryptMessage(myMessage)
+        print ("Message received:", self._parsedMessage)
+        self._lastReceivedMessage = ""
+        
+    ## @brief Try to evolve to level 2
+    ## @return None
+    def level2(self):
+        print(self.parseReceiveBroadcast())
+        self.parseLook(self.look())
+        myTile = self.findRessource()
+        self.goTo(myTile)
+        self.takeAll(self._lookTiles[myTile])
+        self.parseInventory(self.inventory())
+        if (self.verifyIncantation()):
+            self.set("linemate")
+            self.broadcast("Level 2")
+            if (self.incantation() != None):
+                self._functionIndex += 1
