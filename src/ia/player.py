@@ -16,9 +16,9 @@ class Player:
         self._socket = None
         self._name = ""
         self._functionIndex = 0
-        """self._functionList = [self.level2()]"""
+        self._functionList = [self.goToLevel2, self.goToLevel3, self.goToLevel4, self.goToLevel5, self.goToLevel6, self.goToLevel7, self.goToLevel8]
         self._lookTiles = []
-        self._inventory = [10, 1, 0, 0, 0, 0, 0]
+        self._inventory = [0, 0, 0, 0, 0, 0, 0]
         self._lastReceivedMessage = ""
         self._direction = 0
         self._parsedMessage = ""
@@ -129,7 +129,7 @@ class Player:
             return (None)
         else:
             print ("Free slots:", myConnectNbr)
-            return (int(myConnectNbr))
+            return (int(myConnectNbr[-2]))
         
     ## @brief Send look command and receive the map content
     ## @return the map content
@@ -227,7 +227,6 @@ class Player:
             myResoucesOnTile.append(x.count('phiras'))
             myResoucesOnTile.append(x.count('thystame'))
             self._lookTiles.append(myResoucesOnTile)
-            print (myResoucesOnTile)
         return (self._lookTiles)
     
     ## @brief Finds the shortest path to a tile
@@ -275,6 +274,13 @@ class Player:
         for i in range(1, len(aTile)):
             for j in range(aTile[i]):
                 self.take(myListObject[i])
+    
+    ## @brief Set the ressources on the tile for the incantation
+    ## @return None
+    def setElevationRessources(self):
+        for i in range(2, len(myListObject)):
+            for j in range(myLevelCondition[self._functionIndex][i]):
+                self.set(myListObject[i])
 
     ## @brief Verify if the incantation is possible
     ## @return True if the incantation is possible, False otherwise
@@ -323,7 +329,7 @@ class Player:
         
     ## @brief Try to evolve to level 2
     ## @return None
-    def level2(self):
+    def goToLevel2(self):
         print(self.parseReceiveBroadcast())
         self.parseLook(self.look())
         myTile = self.findRessource()
@@ -331,7 +337,104 @@ class Player:
         self.takeAll(self._lookTiles[myTile])
         self.parseInventory(self.inventory())
         if (self.verifyIncantation()):
-            self.set("linemate")
-            self.broadcast("Level 2")
+            self.setElevationRessources()
             if (self.incantation() != None):
                 self._functionIndex += 1
+                if (self.connectNbr() == 0):
+                    self.fork()
+
+    ## @brief Try to evolve to level 3
+    ## @return None
+    def goToLevel3(self):
+        self.parseReceiveBroadcast()
+        self.parseLook(self.look())
+        myTile = self.findRessource()
+        self.goTo(myTile)
+        self.takeAll(self._lookTiles[myTile])
+        self.parseInventory(self.inventory())
+        if (self.verifyIncantation()):
+            self.setElevationRessources()
+            if (self.incantation() != None):
+                self._functionIndex += 1
+                if (self.connectNbr() == 0):
+                    self.fork()
+    
+    ## @brief Try to evolve to level 4
+    ## @return None
+    def goToLevel4(self):
+        self.parseReceiveBroadcast()
+        self.parseLook(self.look())
+        myTile = self.findRessource()
+        self.goTo(myTile)
+        self.takeAll(self._lookTiles[myTile])
+        self.parseInventory(self.inventory())
+        if (self.verifyIncantation()):
+            self.setElevationRessources()
+            if (self.incantation() != None):
+                self._functionIndex += 1
+                if (self.connectNbr() == 0):
+                    self.fork()
+
+    ## @brief Try to evolve to level 5
+    ## @return None
+    def goToLevel5(self):
+        self.parseReceiveBroadcast()
+        self.parseLook(self.look())
+        myTile = self.findRessource()
+        self.goTo(myTile)
+        self.takeAll(self._lookTiles[myTile])
+        self.parseInventory(self.inventory())
+        if (self.verifyIncantation()):
+            self.setElevationRessources()
+            if (self.incantation() != None):
+                self._functionIndex += 1
+                if (self.connectNbr() == 0):
+                    self.fork()
+    
+    ## @brief Try to evolve to level 6
+    ## @return None
+    def goToLevel6(self):
+        self.parseReceiveBroadcast()
+        self.parseLook(self.look())
+        myTile = self.findRessource()
+        self.goTo(myTile)
+        self.takeAll(self._lookTiles[myTile])
+        self.parseInventory(self.inventory())
+        if (self.verifyIncantation()):
+            self.setElevationRessources()
+            if (self.incantation() != None):
+                self._functionIndex += 1
+                if (self.connectNbr() == 0):
+                    self.fork()
+    
+    ## @brief Try to evolve to level 7
+    ## @return None
+    def goToLevel7(self):
+        self.parseReceiveBroadcast()
+        self.parseLook(self.look())
+        myTile = self.findRessource()
+        self.goTo(myTile)
+        self.takeAll(self._lookTiles[myTile])
+        self.parseInventory(self.inventory())
+        if (self.verifyIncantation()):
+            self.setElevationRessources()
+            if (self.incantation() != None):
+                self._functionIndex += 1
+                if (self.connectNbr() == 0):
+                    self.fork()
+    
+    ## @brief Try to evolve to level 8
+    ## @return None
+    def goToLevel8(self):
+        self.parseReceiveBroadcast()
+        self.parseLook(self.look())
+        myTile = self.findRessource()
+        self.goTo(myTile)
+        self.takeAll(self._lookTiles[myTile])
+        self.parseInventory(self.inventory())
+        if (self.verifyIncantation()):
+            self.setElevationRessources()
+            if (self.incantation() != None):
+                self._functionIndex += 1
+                if (self.connectNbr() == 0):
+                    self.fork()

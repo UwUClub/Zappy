@@ -12,6 +12,6 @@ def main():
         exit(84)
     player.setTeamName(info._name)
     player.preliminaries()
-    while player._functionIndex < 1:
-        player.level2()
+    while player._functionIndex < 7:
+        player._functionList[player._functionIndex]()
     player.disconnect()
