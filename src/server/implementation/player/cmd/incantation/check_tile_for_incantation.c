@@ -11,9 +11,11 @@
 static int check_resources_on_tile(map_t *map, pos_t *pos,
     const int target_lvl)
 {
+    // Here : the debug shows that the elevation checking is not good and maybe the elevation_secret is not fine
     for (int rsrc = 0; rsrc < TILE_SIZE; rsrc++) {
         if (map->tiles[pos->x][pos->y][rsrc] <
             elevation_secret[target_lvl - 2][rsrc + 2]) {
+            printf("Ressource %d : not enough\n", rsrc);
             return 0;
         }
     }

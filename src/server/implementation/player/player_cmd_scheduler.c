@@ -61,6 +61,8 @@ int schedule_player_cmd(data_t *data, char *name, char **args)
     }
     for (int i = 0; player_schedulers[i].name != NULL; i++) {
         if (!strcmp(name, player_schedulers[i].name)) {
+            // Here : the debug shows the name of the command being checked
+            printf("Scheduling command: %s\n", name);
             return check_cmd_status(data, player_schedulers[i].func, args,
             player_schedulers[i].delay);
         }

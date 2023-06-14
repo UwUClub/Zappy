@@ -65,6 +65,8 @@ int schedule_incantation(data_t *data, char **args)
 
     if (args || !check_tile_for_incantation(data, author->pos,
         author->level + 1, 1)) {
+        // Here : the debug shows that the check tile is not working and sending 1 so the incantation is not scheduled creating infinite loop
+        printf("INCANTATION FAILED 1st check\n");
         return 1;
     }
     set_players_freeze_state(data, author->pos, author->level + 1, 1);
