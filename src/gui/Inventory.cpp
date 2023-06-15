@@ -2,15 +2,15 @@
 // Created by beafowl on 12/06/23.
 //
 
+#include "Inventory.hpp"
+#include <OGRE/OgreMaterialManager.h>
+#include <OGRE/OgreTechnique.h>
+#include <OGRE/OgreTextureManager.h>
 #include <OGRE/Overlay/OgreFont.h>
 #include <OGRE/Overlay/OgreOverlayContainer.h>
 #include <OGRE/Overlay/OgreOverlayManager.h>
 #include <OGRE/Overlay/OgreTextAreaOverlayElement.h>
 #include <OgreOverlay.h>
-#include <OGRE/OgreMaterialManager.h>
-#include <OGRE/OgreTechnique.h>
-#include <OGRE/OgreTextureManager.h>
-#include "Inventory.hpp"
 #include "Constexpr.hpp"
 
 namespace Zappy::GUI {
@@ -40,14 +40,22 @@ namespace Zappy::GUI {
         Ogre::OverlayManager &myOverlayManager = Ogre::OverlayManager::getSingleton();
         Ogre::Overlay *myOverlay = myOverlayManager.getByName(INVENTORY_OVERLAY);
 
-        Ogre::OverlayContainer *myPanel = static_cast<Ogre::OverlayContainer *>(myOverlayManager.createOverlayElement("Panel", "Inventory_Panel"));
-        Ogre::TextAreaOverlayElement *myFoodText = static_cast<Ogre::TextAreaOverlayElement *>(myOverlayManager.createOverlayElement("TextArea", "Food_Text"));
-        Ogre::TextAreaOverlayElement *myLinemateText = static_cast<Ogre::TextAreaOverlayElement *>(myOverlayManager.createOverlayElement("TextArea", "Linemate_Text"));
-        Ogre::TextAreaOverlayElement *myDeraumereText = static_cast<Ogre::TextAreaOverlayElement *>(myOverlayManager.createOverlayElement("TextArea", "Deraumere_Text"));
-        Ogre::TextAreaOverlayElement *mySiburText = static_cast<Ogre::TextAreaOverlayElement *>(myOverlayManager.createOverlayElement("TextArea", "Sibur_Text"));
-        Ogre::TextAreaOverlayElement *myMendianeText = static_cast<Ogre::TextAreaOverlayElement *>(myOverlayManager.createOverlayElement("TextArea", "Mendiane_Text"));
-        Ogre::TextAreaOverlayElement *myPhirasText = static_cast<Ogre::TextAreaOverlayElement *>(myOverlayManager.createOverlayElement("TextArea", "Phiras_Text"));
-        Ogre::TextAreaOverlayElement *myThystameText = static_cast<Ogre::TextAreaOverlayElement *>(myOverlayManager.createOverlayElement("TextArea", "Thystame_Text"));
+        Ogre::OverlayContainer *myPanel =
+            static_cast<Ogre::OverlayContainer *>(myOverlayManager.createOverlayElement("Panel", "Inventory_Panel"));
+        Ogre::TextAreaOverlayElement *myFoodText =
+            static_cast<Ogre::TextAreaOverlayElement *>(myOverlayManager.createOverlayElement("TextArea", "Food_Text"));
+        Ogre::TextAreaOverlayElement *myLinemateText = static_cast<Ogre::TextAreaOverlayElement *>(
+            myOverlayManager.createOverlayElement("TextArea", "Linemate_Text"));
+        Ogre::TextAreaOverlayElement *myDeraumereText = static_cast<Ogre::TextAreaOverlayElement *>(
+            myOverlayManager.createOverlayElement("TextArea", "Deraumere_Text"));
+        Ogre::TextAreaOverlayElement *mySiburText = static_cast<Ogre::TextAreaOverlayElement *>(
+            myOverlayManager.createOverlayElement("TextArea", "Sibur_Text"));
+        Ogre::TextAreaOverlayElement *myMendianeText = static_cast<Ogre::TextAreaOverlayElement *>(
+            myOverlayManager.createOverlayElement("TextArea", "Mendiane_Text"));
+        Ogre::TextAreaOverlayElement *myPhirasText = static_cast<Ogre::TextAreaOverlayElement *>(
+            myOverlayManager.createOverlayElement("TextArea", "Phiras_Text"));
+        Ogre::TextAreaOverlayElement *myThystameText = static_cast<Ogre::TextAreaOverlayElement *>(
+            myOverlayManager.createOverlayElement("TextArea", "Thystame_Text"));
 
         myTexts.push_back(myFoodText);
         myTexts.push_back(myLinemateText);
@@ -75,8 +83,8 @@ namespace Zappy::GUI {
         }
 
         ItemPacket myInventory = this->getInventoryPlayer(aId, aClientApi);
-        //myTexts[0]->setCaption(static_cast<Ogre::DisplayString>(myInventory._food));
-        //myTexts[1]->setCaption(myInventory._deraumere);
+        // myTexts[0]->setCaption(static_cast<Ogre::DisplayString>(myInventory._food));
+        // myTexts[1]->setCaption(myInventory._deraumere);
         myTexts[2]->setCaption("Deraumere:");
         myTexts[3]->setCaption("Sibur:");
         myTexts[4]->setCaption("Mendiane:");
@@ -99,10 +107,10 @@ namespace Zappy::GUI {
         ItemPacket myPacket;
         ServerData myData = aClientApi.getServerData();
 
-        auto myPlayerData = std::find_if(myData._players.begin(), myData._players.end(),
-                                         [&aId](const PlayerData &aPlayer) {
-                                             return std::stoi(aPlayer.getId()) == aId;
-                                         });
+        auto myPlayerData =
+            std::find_if(myData._players.begin(), myData._players.end(), [&aId](const PlayerData &aPlayer) {
+                return std::stoi(aPlayer.getId()) == aId;
+            });
 
         if (myPlayerData != myData._players.end()) {
             myPacket._food = myPlayerData->getInventory(0);
@@ -118,23 +126,25 @@ namespace Zappy::GUI {
 
     void Inventory::CreateMaterial(const std::string &aPath)
     {
-        Ogre::TextureManager* myTextureManager = Ogre::TextureManager::getSingletonPtr();
+        Ogre::TextureManager *myTextureManager = Ogre::TextureManager::getSingletonPtr();
         Ogre::MaterialPtr myMaterial = Ogre::MaterialManager::getSingleton().create(aPath, "Zappy");
         Ogre::TexturePtr myTexture = myTextureManager->load(aPath, "Zappy");
 
-        Ogre::Technique* myTechnique = myMaterial->getTechnique(0);
-        Ogre::Pass* pass = myTechnique->getPass(0);
+        Ogre::Technique *myTechnique = myMaterial->getTechnique(0);
+        Ogre::Pass *pass = myTechnique->getPass(0);
         pass->createTextureUnitState(myTexture->getName());
     }
 
-    Ogre::OverlayContainer *Inventory::CreateMaterial(const std::string &aName, const std::string &aPath, Ogre::OverlayContainer *aContainer, Ogre::Vector2 aPosition, Ogre::Vector2 aDimensions)
+    Ogre::OverlayContainer *Inventory::CreateMaterial(const std::string &aName, const std::string &aPath,
+                                                      Ogre::OverlayContainer *aContainer, Ogre::Vector2 aPosition,
+                                                      Ogre::Vector2 aDimensions)
     {
-        Ogre::TextureManager* myTextureManager = Ogre::TextureManager::getSingletonPtr();
+        Ogre::TextureManager *myTextureManager = Ogre::TextureManager::getSingletonPtr();
         Ogre::MaterialPtr myMaterial = Ogre::MaterialManager::getSingleton().create(aName, "Zappy");
         Ogre::TexturePtr myTexture = myTextureManager->load(aPath, "Zappy");
 
-        Ogre::Technique* myTechnique = myMaterial->getTechnique(0);
-        Ogre::Pass* pass = myTechnique->getPass(0);
+        Ogre::Technique *myTechnique = myMaterial->getTechnique(0);
+        Ogre::Pass *pass = myTechnique->getPass(0);
         pass->createTextureUnitState(myTexture->getName());
 
         aContainer->setMaterialName(aName);

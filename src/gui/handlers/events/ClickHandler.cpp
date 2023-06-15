@@ -32,7 +32,6 @@ namespace Zappy::GUI {
     {
         InputHandler::mousePressed(aEvt);
 
-
         if (_isLeftClickPressed && !_isShiftPressed) {
             if (execButton(Ogre::Vector2(static_cast<float>(aEvt.x), static_cast<float>(aEvt.y)))) {
                 return true;
@@ -48,8 +47,7 @@ namespace Zappy::GUI {
                     myInventory.parsePlayer(myNode->getName());
                     myInventory.displayPlayerInventory(stoi(myNode->getName()), _client);
                     return true;
-                }
-                else {
+                } else {
                     std::cout << "Node not found" << std::endl;
                 }
             }
