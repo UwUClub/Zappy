@@ -55,6 +55,7 @@ static int do_incantation(data_t *data, char **args)
     rm_resources_from_tile(data, author->pos, target_lvl);
     increment_players_level(data, author->pos, target_lvl);
     do_pie(data, author->pos, target_lvl);
+    send_to_client(data->clients, data->curr_cli_index, "ok\n");
     return 0;
 }
 
