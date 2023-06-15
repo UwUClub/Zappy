@@ -12,10 +12,9 @@
 static void rm_resources_from_tile(data_t *data, pos_t *pos,
     const int target_lvl)
 {
-    int *tile = data->map->tiles[pos->y][pos->x];
-
-    for (int rsrc = 0; rsrc < TILE_SIZE; rsrc++) {
-        tile[rsrc] -= elevation_secret[target_lvl - 2][rsrc + 2];
+    for (int rsrc = 1; rsrc < TILE_SIZE; rsrc++) {
+        data->map->tiles[pos->x][pos->y][rsrc] -=
+        elevation_secret[target_lvl - 2][rsrc + 1];
     }
     do_bct_to_all_gui(data, pos->x, pos->y);
 }
@@ -50,6 +49,7 @@ static int do_incantation(data_t *data, char **args)
 
     set_players_freeze_state(data, author->pos, target_lvl, 0);
     if (!check_tile_for_incantation(data, author->pos, target_lvl, 0)) {
+        printf("INCANTATION FAILED 2nd check\n");
         send_to_client(data->clients, data->curr_cli_index, "ko\n");
         return 1;
     }
