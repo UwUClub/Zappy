@@ -19,14 +19,10 @@
 #include <OgreInput.h>
 #include <OgreLight.h>
 #include <OgreOverlay.h>
-#include <OgreOverlayManager.h>
-#include <OgrePrerequisites.h>
 #include <OgreRenderWindow.h>
 #include <OgreResourceGroupManager.h>
-#include <OgreRoot.h>
 #include <OgreSceneNode.h>
 #include <algorithm>
-#include <functional>
 #include <memory>
 #include <utility>
 #include "Button.hpp"
@@ -35,8 +31,6 @@
 #include "FrameHandler.hpp"
 #include "InputHandler.hpp"
 #include "PlayerData.hpp"
-#include "ServerData.hpp"
-#include <unordered_map>
 
 namespace Zappy::GUI {
     App::App(Zappy::GUI::ClientApi &client, const std::string &aWindowName)
@@ -99,6 +93,7 @@ namespace Zappy::GUI {
             myScnMgr->createEntity("Rock.mesh");
 
             overlayManager.create(BUTTON_OVERLAY);
+            overlayManager.create(INVENTORY_OVERLAY);
 
             Ogre::FontPtr font = Ogre::FontManager::getSingleton().create(FONT_NAME, "Zappy");
             font->setType(Ogre::FontType::FT_TRUETYPE);

@@ -38,6 +38,7 @@ namespace Zappy::GUI {
             Ogre::RenderWindow *_renderWindow;
             Ogre::SceneManager *_sceneManager;
             std::vector<std::unique_ptr<Button>> &_buttons;
+            ClientApi &_client;
     };
 } // namespace Zappy::GUI
 

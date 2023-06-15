@@ -6,6 +6,7 @@
 #include "Constexpr.hpp"
 #include "ItemPacket.hpp"
 #include <unordered_map>
+
 namespace Zappy::GUI {
 
     enum class Orientation : int
