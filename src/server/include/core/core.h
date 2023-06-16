@@ -97,6 +97,7 @@
         unsigned long long last_select_ms;
         char *ip;
         unsigned long long remaining_rsrc_spawn_ms;
+        int nb_clients;
         int nb_slots;
     } data_t;
 
@@ -188,10 +189,10 @@
     * WELCOME message and initializing his data
     * @param addr the client address
     * @param server_fd the server file descriptor
-    * @param clients Client list of the server
+    * @param data The server data
     */
     void welcome_selected_client(struct sockaddr *addr, int server_fd,
-    client_t ***clients);
+    data_t *data);
 
     /**
     * @brief Read the client input and append it to his read buffer

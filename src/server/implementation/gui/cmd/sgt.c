@@ -9,19 +9,23 @@
 #include "implementation.h"
 #include "utils.h"
 
+void do_sgt_to_all_gui(data_t *data)
+{
+    char *result = NULL;
+
+    asprintf(&result, "sgt %d\n", data->freq);
+    send_to_all_gui(data->clients, result);
+    free(result);
+}
+
 int do_sgt(data_t *data, char **args)
 {
     char *result = NULL;
-    char *freq_str = NULL;
 
     if (args)
         return 1;
-    result = strdup("sgt ");
-    freq_str = int_to_s(data->freq);
-    result = concat_str(result, freq_str);
-    result = concat_str(result, "\n");
+    asprintf(&result, "sgt %d\n", data->freq);
     send_to_client(data->clients, data->curr_cli_index, result);
-    free(freq_str);
     free(result);
     return 0;
 }
