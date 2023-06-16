@@ -6,23 +6,15 @@
 */
 
 #include "core.h"
-
-static void send_pdi(data_t *data)
-{
-    char *msg = NULL;
-
-    asprintf(&msg, "pdi %d\n", data->curr_cli_index);
-    send_to_all_gui(data->clients, msg);
-    free(msg);
-}
-
+#include "gui_cmd.h"
+ 
 void handle_client_quit(data_t *data)
 {
     client_t *cli = data->clients[data->curr_cli_index];
     char *msg = NULL;
 
     if (cli->player != NULL) {
-        send_pdi(data);
+        do_pdi(data, cli->player->id);
     }
     close_single_client(cli);
     free(cli);
