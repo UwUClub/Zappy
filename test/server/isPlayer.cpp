@@ -1,6 +1,6 @@
 #include <iostream>
-#include "/usr/src/project/vcpkg/installed/x64-linux/include/catch.hpp"
 #include "../../src/server/implementation/player/is_player.c"
+#include "/usr/src/project/vcpkg/installed/x64-linux/include/catch.hpp"
 
 TEST_CASE("testingIsPlayer1", "[testingIsPlayer2]")
 {
