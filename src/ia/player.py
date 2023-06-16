@@ -1,13 +1,14 @@
 from .connection import Connection
+import time
 
 myListObject = ["player", "food", "linemate", "deraumere", "sibur", "mendiane", "phiras", "thystame"]
-myLevelCondition = [[1, 5, 1, 0, 0, 0, 0, 0],
-                    [2, 5, 1, 1, 1, 0, 0, 0],
-                    [2, 5, 2, 0, 1, 0, 2, 0],
-                    [4, 5, 1, 1, 2, 0, 1, 0],
-                    [4, 5, 1, 2, 1, 3, 0, 0],
-                    [6, 5, 1, 2, 3, 0, 1, 0],
-                    [6, 5, 2, 2, 2, 2, 2, 1]]
+myLevelCondition = [[1, 7, 1, 0, 0, 0, 0, 0],
+                    [2, 7, 1, 1, 1, 0, 0, 0],
+                    [2, 7, 2, 0, 1, 0, 2, 0],
+                    [4, 7, 1, 1, 2, 0, 1, 0],
+                    [4, 7, 1, 2, 1, 3, 0, 0],
+                    [6, 7, 1, 2, 3, 0, 1, 0],
+                    [6, 7, 2, 2, 2, 2, 2, 1]]
 
 ## @brief Class that contains the player information
 class Player:
@@ -155,7 +156,7 @@ class Player:
     ## @return the decrypted message
     def decryptMessage(self, aMessage):
         myDecryptedMessage = ""
-        for i in range(len(aMessage)):
+        for i in range(len(aMessage) - 1):
             myDecryptedMessage += chr(ord(aMessage[i]) - 5)
         return (myDecryptedMessage)
 
@@ -285,8 +286,6 @@ class Player:
     ## @brief Verify if the incantation is possible
     ## @return True if the incantation is possible, False otherwise
     def verifyIncantation(self):
-        if self.parseLook(self.look())[0][0] != myLevelCondition[self._functionIndex][0]:
-            return (False)
         for i in range(1, len(self._inventory)):
             if (self._inventory[i - 1] < myLevelCondition[self._functionIndex][i]):
                 return (False)
@@ -321,12 +320,40 @@ class Player:
     def parseReceiveBroadcast(self):
         if (self._lastReceivedMessage == ""):
             return (None)
-        self._direction = int(self._lastReceivedMessage[8])
-        myMessage = self._lastReceivedMessage[10:]
+        myMessage = self._lastReceivedMessage[11:]
+        print ("Message received:", myMessage)
         self._parsedMessage = self.decryptMessage(myMessage)
+        if (int(self._parsedMessage[8]) == self._functionIndex + 1):
+            self._direction = int(self._lastReceivedMessage[8])
         print ("Message received:", self._parsedMessage)
         self._lastReceivedMessage = ""
         
+    ## @brief Try to found the player who sent the broadcast message
+    ## @return None
+    def findPlayer(self):
+        while (self._direction != 0 and self.parseLook(self.look())[0][0] == 1):
+            print("Direction1:", self._direction)
+            if (self._direction == 1):
+                self.forward()
+            elif (self._direction == 2 or self._direction == 3):
+                self.left()
+                self.forward()
+                self._direction -= 2
+            elif (self._direction == 4 or self._direction == 5):
+                self.left()
+                self.left()
+                self.forward()
+                self._direction -= 4
+            else:
+                self.right()
+                self.forward()
+                self._direction -= 6
+            if (self._direction == 0):
+                self._direction = 8
+            self.take("food")
+            print("Direction2:", self._direction)
+            self.parseReceiveBroadcast()
+
     ## @brief Try to evolve to level 2
     ## @return None
     def goToLevel2(self):
@@ -337,11 +364,12 @@ class Player:
         self.takeAll(self._lookTiles[myTile])
         self.parseInventory(self.inventory())
         if (self.verifyIncantation()):
-            self.setElevationRessources()
-            if (self.incantation() != None):
-                self._functionIndex += 1
-                if (self.connectNbr() == 0):
-                    self.fork()
+            if self.parseLook(self.look())[0][0] == myLevelCondition[self._functionIndex][0]:
+                self.setElevationRessources()
+                if (self.incantation() != None):
+                    self._functionIndex += 1
+                    if (self.connectNbr() == 0):
+                        self.fork()
 
     ## @brief Try to evolve to level 3
     ## @return None
@@ -352,12 +380,25 @@ class Player:
         self.goTo(myTile)
         self.takeAll(self._lookTiles[myTile])
         self.parseInventory(self.inventory())
-        if (self.verifyIncantation()):
+        if (self._parsedMessage == "regroup 2"):
+            self.findPlayer()
+            print("Found")
+            if (self.receive() == "Current level: 3"):
+                self._functionIndex += 1
+                self.fork()
+                return
+        if (self.verifyIncantation() and self._parsedMessage != "regroup 2"):
+            self.broadcast("regroup 2")
+            mySelfTile = self.parseLook(self.look())[0][0]
+            while mySelfTile != myLevelCondition[self._functionIndex][0]:
+                mySelfTile = self.parseLook(self.look())[0][0]
+                time.sleep(1)
+                self.broadcast("regroup 2")
             self.setElevationRessources()
             if (self.incantation() != None):
                 self._functionIndex += 1
-                if (self.connectNbr() == 0):
-                    self.fork()
+                self.fork()
+                print("OUIIIIIIIIIIIIIIIIIIIII")
     
     ## @brief Try to evolve to level 4
     ## @return None
