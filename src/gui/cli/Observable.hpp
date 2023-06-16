@@ -33,7 +33,7 @@ namespace Zappy::GUI {
              * @brief notify all the observers
              * @param aNotification the notification to send
              */
-            void notifySubscribers(std::string &aNotification);
+            void notifySubscribers(const std::string &aNotification);
 
         private:
             std::vector<std::reference_wrapper<Observer>> _subscribers;

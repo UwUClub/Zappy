@@ -30,7 +30,7 @@ namespace Zappy::GUI {
         }
     }
 
-    void Observable::notifySubscribers(std::string &aNotification)
+    void Observable::notifySubscribers(const std::string &aNotification)
     {
         for (auto &subscriber : _subscribers) {
             subscriber.get().getNotified(aNotification);

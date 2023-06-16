@@ -164,7 +164,6 @@ namespace Zappy::GUI {
             std::string myResponse = _readBuffer.substr(0, _readBuffer.find('\n'));
             std::string const myCommand = myResponse.substr(0, myResponse.find(' '));
             std::string const myArgs = myResponse.substr(myResponse.find(' ') + 1);
-            std::cout << "@command: " << myCommand << std::endl;
 
             if (myResponses.find(myCommand) != myResponses.end()) {
                 try {
