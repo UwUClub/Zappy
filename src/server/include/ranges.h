@@ -8,9 +8,10 @@
 #ifndef ZAPPY_RANGES_H
     #define ZAPPY_RANGES_H
 
-    #define MAX_CLIENTS 42
-
     #define MAX_TEAMS 4
+    #define MAX_CLI_PER_TEAM 10
+
+    #define MAX_CLIENTS (MAX_TEAMS * MAX_CLI_PER_TEAM + MAX_TEAMS)
 
     #define READ_BUFFER_SIZE 1024
 
