@@ -15,7 +15,7 @@
 #include <iostream>
 #include <utility>
 #include "Constexpr.hpp"
-#include "ElementFactory.hpp"
+#include "SceneBuilder.hpp"
 
 namespace Zappy::GUI {
     Button::Button(const std::string &aButtonText, const std::pair<float, float> &aPosition,
@@ -26,8 +26,8 @@ namespace Zappy::GUI {
           _callback(std::move(aCallback))
     {
         try {
-            _dimensions = ElementFactory::createText(BUTTON_OVERLAY, _buttonText, _buttonText,
-                                                     Ogre::Vector2(_position.first, _position.second));
+            _dimensions = SceneBuilder::createText(BUTTON_OVERLAY, _buttonText, _buttonText,
+                                                   Ogre::Vector2(_position.first, _position.second));
         } catch (const std::exception &e) {
             std::cerr << "Button error : " << e.what() << std::endl;
         }

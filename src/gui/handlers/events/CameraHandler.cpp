@@ -16,6 +16,7 @@
 #include <OgreSceneManager.h>
 #include <iostream>
 #include <memory>
+#include "Constexpr.hpp"
 #include "InputHandler.hpp"
 
 namespace Zappy::GUI {
@@ -91,12 +92,12 @@ namespace Zappy::GUI {
         Ogre::Real mySinAzimuth = Ogre::Math::Sin(_azimuth);
         Ogre::Real myCosAzimuth = Ogre::Math::Cos(_azimuth);
 
-        Ogre::Vector3 position =
+        Ogre::Vector3 myPosition =
             _center
             + _radius
                   * Ogre::Vector3(mySinInclination * myCosAzimuth, myCosInclination, mySinInclination * mySinAzimuth);
 
-        _cameraNode->setPosition(position);
+        _cameraNode->setPosition(myPosition);
         _cameraNode->lookAt(_center, Ogre::Node::TS_PARENT);
     }
 } // namespace Zappy::GUI

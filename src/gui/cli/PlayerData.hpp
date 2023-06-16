@@ -22,7 +22,7 @@ namespace Zappy::GUI {
             /**
              * @brief Player constructor
              */
-            PlayerData(std::string aId);
+            explicit PlayerData(std::string aId);
 
             /**
              * @brief Player destructor

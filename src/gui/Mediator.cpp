@@ -11,6 +11,7 @@
 #include "ClientApi.hpp"
 #include "Observer.hpp"
 #include "ParserData.hpp"
+#include "ServerData.hpp"
 
 namespace Zappy::GUI {
     Mediator::Mediator(ParserData &parserData)
@@ -32,12 +33,12 @@ namespace Zappy::GUI {
 
         if (myType == ObserverType::APP && _client->isReady()) {
             _client->getNotified(aNotification);
-            std::cout << "Client notified" << std::endl;
+            std::cout << "Client notified " << aNotification << std::endl;
             return;
         }
         if (myType == ObserverType::CLIENT && _app->isReady()) {
             _app->getNotified(aNotification);
-            std::cout << "App notified" << std::endl;
+            std::cout << "App notified " << aNotification << std::endl;
             return;
         }
     }

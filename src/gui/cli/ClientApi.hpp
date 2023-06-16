@@ -6,11 +6,12 @@
 #include <utility>
 #include <vector>
 #include "Observer.hpp"
-#include "ServerData.hpp"
 #include <unordered_map>
 
 namespace Zappy::GUI {
     class Mediator;
+    struct ServerData;
+
     class ClientApi final : public Observer
     {
         public:

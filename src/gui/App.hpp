@@ -15,7 +15,6 @@
 #include <vector>
 #include "Constexpr.hpp"
 #include "Observer.hpp"
-#include "PlayerData.hpp"
 #include <unordered_map>
 
 namespace Zappy::GUI {
@@ -61,21 +60,32 @@ namespace Zappy::GUI {
              */
             void windowClosed(Ogre::RenderWindow *aRw) final;
 
+            /**
+             * @brief Ask the client to disconnect
+             */
             void askDisconnection();
 
+            /**
+             * @brief Get the Server Data object
+             *
+             * @return const ServerData&
+             */
             [[nodiscard]] const ServerData &getServerData() const;
 
+            /**
+             * @brief Get the Buttons object
+             *
+             * @return std::vector<std::unique_ptr<Button>>&
+             */
             std::vector<std::unique_ptr<Button>> &getButtons();
 
-            /**
-             * @brief Set the Player Pos And Orientation object
-             *
-             * @param aPlayer the playerData
-             * @param aSceneManager the scene manager
-             */
-            static void setPlayerPosAndOrientation(Ogre::SceneManager *aSceneManager, const PlayerData &aPlayer);
-
         private:
+            /**
+             * @brief Create the buttons
+             *
+             */
+            void createButtons();
+
             class AppException : public std::exception
             {
                 public:
@@ -105,34 +115,40 @@ namespace Zappy::GUI {
              * @param aSceneManager the scene manager
              */
             void movePlayer(const std::string &aNotification);
+
             /**
              * @brief Display a message from the server
              *
              * @param aNotification the notification
              */
             void displayServerMessage(const std::string &aNotification);
+
             /**
              * @brief Send a command to the server to set the time
              *
              */
             void increaseTime();
+
             /**
              * @brief Send a command to the server to set the time
              *
              */
             void decreaseTime();
+
             /**
              * @brief Update the displayed time
              *
              * @param aNotification the notification (not used)
              */
             void updateDisplayedTime(const std::string &aNotification);
+
             /**
              * @brief Add a player to the scene
              * @param aPlayer the playerData of the player to add
              * @param aSceneManager the scene manager
              */
             void addPlayer(const std::string &aNotification);
+
             /**
              * @brief Remove a player from the scene
              * @param aIndex the index of the player to remove
@@ -140,17 +156,27 @@ namespace Zappy::GUI {
              */
             void removePlayer(const std::string &aNotification);
 
+            /**
+             * @brief Add an egg to the scene
+             * @param aNotification the notification
+             */
+            void addEgg(const std::string &aNotification);
+
+            /**
+             * @brief Remove an egg from the scene
+             * @param aNotification the notification
+             */
+            void removeEgg(const std::string &aNotification);
+
             std::unique_ptr<CameraHandler> _cameraHandler;
             std::unique_ptr<ClickHandler> _clickHandler;
             std::vector<std::unique_ptr<Button>> _buttons;
-            bool _isInitialized;
             const ServerData &_serverData;
             static const inline std::unordered_map<std::string, std::function<void(App &, const std::string &)>>
-                _notificationMap = {
-                    {"pnw", &App::addPlayer},           {"pdi", &App::removePlayer},
-                    {"ppo", &App::movePlayer},          {"smg", &App::displayServerMessage},
-                    {"sgt", &App::updateDisplayedTime},
-                };
+                _notificationMap = {{"pnw", &App::addPlayer},           {"pdi", &App::removePlayer},
+                                    {"ppo", &App::movePlayer},          {"smg", &App::displayServerMessage},
+                                    {"sgt", &App::updateDisplayedTime}, {"enw", &App::addEgg},
+                                    {"edi", &App::removeEgg},           {"ebo", &App::removeEgg}};
     };
 } // namespace Zappy::GUI
 

@@ -7,6 +7,7 @@
 
 #include <syncstream>
 #include "ClientApi.hpp"
+#include "ServerData.hpp"
 
 namespace Zappy::GUI {
     void ClientApi::parseServerResponses()
@@ -28,7 +29,6 @@ namespace Zappy::GUI {
             if (myResponses.find(myCommand) != myResponses.end()) {
                 try {
                     myResponses.at(myCommand)(*this, myArgs);
-                    std::cout << "Received: " << myResponse << std::endl;
                 } catch (const std::exception &e) {
                     std::osyncstream(std::cout) << e.what() << std::endl;
                 }
@@ -45,7 +45,7 @@ namespace Zappy::GUI {
 
     void ClientApi::receiveError(const std::string &aResponse)
     {
-        std::cout << "Server error: " << aResponse << std::endl;
+        std::cerr << "Server error: " << aResponse << std::endl;
     }
 
     void ClientApi::receiveMsz(const std::string &aResponse)
@@ -63,19 +63,20 @@ namespace Zappy::GUI {
         std::istringstream myStream(aResponse);
         unsigned int myX = 0;
         unsigned int myY = 0;
-        int food = 0;
-        int linemate = 0;
-        int deraumere = 0;
-        int sibur = 0;
-        int mendiane = 0;
-        int phiras = 0;
-        int thystame = 0;
-        std::vector<int> myResource;
+        int myFood = 0;
+        int myLinemate = 0;
+        int myDeraumere = 0;
+        int mySibur = 0;
+        int myMendiane = 0;
+        int myPhiras = 0;
+        int myThystame = 0;
+        std::vector<int> myResources;
         ItemPacket myItemPacket = {};
 
-        myStream >> myX >> myY >> food >> linemate >> deraumere >> sibur >> mendiane >> phiras >> thystame;
-        myResource = {food, linemate, deraumere, sibur, mendiane, phiras, thystame};
-        myItemPacket.fillItemPacket(myResource);
+        myStream >> myX >> myY >> myFood >> myLinemate >> myDeraumere >> mySibur >> myMendiane >> myPhiras
+            >> myThystame;
+        myResources = {myFood, myLinemate, myDeraumere, mySibur, myMendiane, myPhiras, myThystame};
+        myItemPacket.fillItemPacket(myResources);
         _serverData._mapTiles.push_back(TileContent(myX, myY, myItemPacket));
     }
 
@@ -131,20 +132,20 @@ namespace Zappy::GUI {
         std::string myPlayerId;
         unsigned int myX = 0;
         unsigned int myY = 0;
-        int food = 0;
-        int linemate = 0;
-        int deraumere = 0;
-        int sibur = 0;
-        int mendiane = 0;
-        int phiras = 0;
-        int thystame = 0;
-        std::vector<int> myResource;
+        int myFood = 0;
+        int mylinemate = 0;
+        int myDeraumere = 0;
+        int mySibur = 0;
+        int myMendiane = 0;
+        int myPhiras = 0;
+        int myThystame = 0;
+        std::vector<int> myResources;
         ItemPacket myItemPacket = {};
 
-        myStream >> myPlayerId >> myX >> myY >> food >> linemate >> deraumere >> sibur >> mendiane >> phiras
-            >> thystame;
-        myResource = {food, linemate, deraumere, sibur, mendiane, phiras, thystame};
-        myItemPacket.fillItemPacket(myResource);
+        myStream >> myPlayerId >> myX >> myY >> myFood >> mylinemate >> myDeraumere >> mySibur >> myMendiane >> myPhiras
+            >> myThystame;
+        myResources = {myFood, mylinemate, myDeraumere, mySibur, myMendiane, myPhiras, myThystame};
+        myItemPacket.fillItemPacket(myResources);
 
         auto myPlayerData = std::find_if(_serverData._players.begin(), _serverData._players.end(),
                                          [&myPlayerId](const PlayerData &aPlayer) {
@@ -318,10 +319,6 @@ namespace Zappy::GUI {
         int myEggId = 0;
 
         myStream >> myEggId;
-
-        for (auto &myEgg : _serverData._eggs) {
-            std::cout << myEgg.getId() << std::endl;
-        }
 
         auto myEggData =
             std::find_if(_serverData._eggs.begin(), _serverData._eggs.end(), [&myEggId](const EggData &aEgg) {

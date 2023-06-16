@@ -68,6 +68,7 @@ namespace Zappy::GUI {
             {Ressources::THYSTAME, [](ItemPacket &aInventory, int aQuant) {
                  aInventory._thystame = aQuant;
              }}};
+
         if (myInventoryMap.find(aSlot) == myInventoryMap.end()) {
             return;
         }
@@ -124,6 +125,7 @@ namespace Zappy::GUI {
             {Ressources::THYSTAME, [](ItemPacket aInventory) {
                  return aInventory._thystame;
              }}};
+
         if (myInventoryMap.find(aSlot) == myInventoryMap.end()) {
             return -1;
         }

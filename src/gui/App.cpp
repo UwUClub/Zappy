@@ -33,8 +33,6 @@
 #include "CameraHandler.hpp"
 #include "ClickHandler.hpp"
 #include "ClientApi.hpp"
-#include "Constexpr.hpp"
-#include "ElementFactory.hpp"
 #include "InputHandler.hpp"
 #include "Observer.hpp"
 #include "PlayerData.hpp"
@@ -64,14 +62,28 @@ namespace Zappy::GUI {
         Ogre::RTShader::ShaderGenerator *myShadergen = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
         myShadergen->addSceneManager(myScnMgr);
 
-        auto nodeCenterPos = SceneBuilder::buildMap(myScnMgr, _serverData);
-        cameraReturn myHandlers = SceneBuilder::buildCamera(myScnMgr, nodeCenterPos, this->getRenderWindow(), *this);
-        SceneBuilder::buildLights(myScnMgr, nodeCenterPos);
+        auto myNodeCenterPos = SceneBuilder::buildMap(myScnMgr, _serverData);
+        cameraReturn myHandlers = SceneBuilder::buildCamera(myScnMgr, myNodeCenterPos, this->getRenderWindow(), *this);
+        SceneBuilder::buildLights(myScnMgr, myNodeCenterPos);
         SceneBuilder::buildConnectedPlayersAndEggs(myScnMgr, _serverData);
 
         _cameraHandler.reset(myHandlers.first);
         _clickHandler.reset(myHandlers.second);
 
+        this->createButtons();
+        SceneBuilder::createText(BUTTON_OVERLAY, "Current Time: " + std::to_string(_serverData._freq), "Time",
+                                 Ogre::Vector2(OFFSET_OVERLAY_TIME_X, OFFSET_OVERLAY_DISPLAY_TIME_Y));
+        this->setReady(true);
+    }
+
+    App::~App()
+    {
+        this->closeApp();
+        this->askDisconnection();
+    }
+
+    void App::createButtons()
+    {
         _buttons.emplace_back(std::make_unique<Button>(
             "Speed up", std::make_pair(OFFSET_OVERLAY_TIME_X, OFFSET_OVERLAY_BUTTON_1_TIME_Y), [this] {
                 increaseTime();
@@ -80,15 +92,6 @@ namespace Zappy::GUI {
             "Speed down", std::make_pair(OFFSET_OVERLAY_TIME_X, OFFSET_OVERLAY_BUTTON_2_TIME_Y), [this] {
                 decreaseTime();
             }));
-        ElementFactory::createText(BUTTON_OVERLAY, "Current Time: " + std::to_string(_serverData._freq), "Time",
-                                   Ogre::Vector2(OFFSET_OVERLAY_TIME_X, OFFSET_OVERLAY_DISPLAY_TIME_Y));
-        this->setReady(true);
-    }
-
-    App::~App()
-    {
-        this->closeApp();
-        this->askDisconnection();
     }
 
     void App::instantiateApp()
@@ -99,7 +102,7 @@ namespace Zappy::GUI {
         try {
             auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
             myScnMgr->addRenderQueueListener(mOverlaySystem);
-            Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
+            Ogre::OverlayManager &myOverlayManager = Ogre::OverlayManager::getSingleton();
 
             Ogre::ResourceGroupManager::getSingleton().addResourceLocation("./assets", "FileSystem",
                                                                            RESSOURCE_GROUP_NAME);
@@ -109,14 +112,15 @@ namespace Zappy::GUI {
             myScnMgr->createEntity(EGG_MODEL_NAME);
             myScnMgr->createEntity(TILE_MODEL_NAME);
 
-            overlayManager.create(BUTTON_OVERLAY);
+            myOverlayManager.create(BUTTON_OVERLAY);
 
-            Ogre::FontPtr font = Ogre::FontManager::getSingleton().create(FONT_NAME, RESSOURCE_GROUP_NAME);
-            font->setType(Ogre::FontType::FT_TRUETYPE);
-            font->setSource("BTTF.ttf");
-            font->setTrueTypeSize(myTrueSize);
-            font->setTrueTypeResolution(myTrueResolution);
-            font->load();
+            Ogre::FontPtr myFont = Ogre::FontManager::getSingleton().create(FONT_NAME, RESSOURCE_GROUP_NAME);
+
+            myFont->setType(Ogre::FontType::FT_TRUETYPE);
+            myFont->setSource(FONT_NAME_SRC);
+            myFont->setTrueTypeSize(myTrueSize);
+            myFont->setTrueTypeResolution(myTrueResolution);
+            myFont->load();
         } catch (const Ogre::Exception &e) {
             throw AppException(e.what());
         }
@@ -150,8 +154,6 @@ namespace Zappy::GUI {
         auto myNewTime = myCurrentTime + MY_TIME_INTERVAL;
         std::string myCommand = "sst " + std::to_string(myNewTime);
 
-        std::cout << myCommand << std::endl;
-
         _mediator.alert(this, myCommand);
     }
 
@@ -161,8 +163,6 @@ namespace Zappy::GUI {
         auto myNewTime = myCurrentTime - MY_TIME_INTERVAL;
         std::string myCommand = "sst " + std::to_string(myNewTime);
 
-        std::cout << myCommand << std::endl;
         _mediator.alert(this, myCommand);
     }
-
 } // namespace Zappy::GUI

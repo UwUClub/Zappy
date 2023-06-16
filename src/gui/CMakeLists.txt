@@ -10,7 +10,6 @@ add_executable(zappy_gui
         Mediator.cpp
         Observer.cpp
         SceneBuilder.cpp
-        ElementFactory.cpp
         )
 
 find_package(OGRE QUIET)

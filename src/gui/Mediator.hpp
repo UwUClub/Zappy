@@ -20,11 +20,26 @@ namespace Zappy::GUI {
     class Mediator
     {
         public:
+            /**
+             * @brief Construct a new Mediator object
+             *
+             * @param parserData The parser data received from the CLI
+             */
             explicit Mediator(ParserData &parserData);
             ~Mediator();
 
+            /**
+             * @brief Alert the observer of an object
+             *
+             * @param aObserver the observer that is alerting
+             * @param aNotification the notification
+             */
             void alert(Observer *aObserver, const std::string &aNotification);
 
+            /**
+             * @brief Start the game loop
+             *
+             */
             void start();
 
             Mediator(const Mediator &) = delete;

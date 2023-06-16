@@ -16,11 +16,30 @@ namespace Zappy::GUI {
     class Button
     {
         public:
+            /**
+             * @brief Construct a new Button object
+             *
+             * @param aButtonText  The text to display on the button
+             * @param aPosition  The position of the button
+             * @param aCallback  The callback to call when the button is clicked
+             */
             Button(const std::string &aButtonText, const std::pair<float, float> &aPosition,
                    std::function<void()> aCallback);
             ~Button();
 
+            /**
+             * @brief Check if the mouse is on the button
+             *
+             * @param mousePos The position of the mouse
+             * @return true if the mouse is on the button
+             * @return false  if the mouse is not on the button
+             */
             [[nodiscard]] bool isOnButton(const Ogre::Vector2 &mousePos) const;
+
+            /**
+             * @brief Call the callback of the button
+             *
+             */
             void onClick();
 
         protected:

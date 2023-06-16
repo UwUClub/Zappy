@@ -94,7 +94,6 @@ namespace Zappy::GUI {
         shutdown(_serverFd, SHUT_RDWR);
         close(_serverFd);
         _serverFd = -1;
-        std::cout << "Disconnected from server" << std::endl;
     }
 
     void ClientApi::sendCommand(const std::string &aCommand)
@@ -156,7 +155,6 @@ namespace Zappy::GUI {
 
     void ClientApi::getNotified(const std::string &aNotification)
     {
-        std::cout << "Notification received in client: " << aNotification << std::endl;
         if (aNotification == "Disconnect") {
             this->disconnect();
         }

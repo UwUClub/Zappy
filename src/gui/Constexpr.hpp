@@ -30,7 +30,9 @@ const constexpr std::string WINDOW_NAME = "UwU Zappy UwU";
 const constexpr std::string RESSOURCE_GROUP_NAME = "Zappy";
 const constexpr std::string BUTTON_OVERLAY = "ButtonOverlay";
 const constexpr std::string FONT_NAME = "BttfFont";
+const constexpr std::string FONT_NAME_SRC = "BTTF.ttf";
 const constexpr std::string TILE_MODEL_NAME = "Rock.mesh";
 const constexpr std::string PLAYER_MODEL_NAME = "Sinbad.mesh";
 const constexpr std::string EGG_MODEL_NAME = "Egg.mesh";
+const constexpr std::string EGG_PREFIX_NAME = "Egg_";
 #endif /* !CONSTEXPR_HPP_ */

@@ -60,16 +60,18 @@ namespace Zappy::GUI {
     {
         auto *myCamera = reinterpret_cast<Ogre::Camera *>(_cameraNode->getAttachedObject(CAMERA_NAME));
         if (myCamera == nullptr) {
-            std::cout << "Camera not found" << std::endl;
+            std::cerr << "Camera not found" << std::endl;
             return nullptr;
         }
+
         Ogre::Ray myMouseRay =
             myCamera->getCameraToViewportRay(aMousePos.x / static_cast<float>(_renderWindow->getWidth()),
                                              aMousePos.y / static_cast<float>(_renderWindow->getHeight()));
-        Ogre::RaySceneQuery *raySceneQuery = _sceneManager->createRayQuery(myMouseRay);
-        raySceneQuery->setSortByDistance(true);
+        Ogre::RaySceneQuery *myRaySceneQuery = _sceneManager->createRayQuery(myMouseRay);
 
-        Ogre::RaySceneQueryResult &myResult = raySceneQuery->execute();
+        myRaySceneQuery->setSortByDistance(true);
+
+        Ogre::RaySceneQueryResult &myResult = myRaySceneQuery->execute();
         Ogre::RaySceneQueryResult::iterator myItr;
 
         for (myItr = myResult.begin(); myItr != myResult.end(); myItr++) {
