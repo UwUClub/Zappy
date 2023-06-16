@@ -1,7 +1,7 @@
 #include <iostream>
-#include "/usr/src/project/vcpkg/installed/x64-linux/include/catch.hpp"
-#include "../../src/server/utils/calc_outbound.c"
 #include "../../src/server/implementation/normalize_pos.c"
+#include "../../src/server/utils/calc_outbound.c"
+#include "/usr/src/project/vcpkg/installed/x64-linux/include/catch.hpp"
 
 TEST_CASE("testingPosNormalization1", "[testingPosNormalization1]")
 {
