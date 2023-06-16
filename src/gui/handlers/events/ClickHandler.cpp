@@ -72,11 +72,10 @@ namespace Zappy::GUI {
         myRaySceneQuery->setSortByDistance(true);
 
         Ogre::RaySceneQueryResult &myResult = myRaySceneQuery->execute();
-        Ogre::RaySceneQueryResult::iterator myItr;
 
-        for (myItr = myResult.begin(); myItr != myResult.end(); myItr++) {
-            if ((myItr->movable != nullptr) && (myItr->movable->getParentSceneNode() != nullptr)) {
-                Ogre::SceneNode *node = myItr->movable->getParentSceneNode();
+        for (const auto &myItr : myResult) {
+            if ((myItr.movable != nullptr) && (myItr.movable->getParentSceneNode() != nullptr)) {
+                Ogre::SceneNode *node = myItr.movable->getParentSceneNode();
                 return node;
             }
         }
