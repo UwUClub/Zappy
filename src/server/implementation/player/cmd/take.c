@@ -14,7 +14,7 @@
 static int is_resource_on_tile(data_t *data, const int resource, pos_t *pos)
 {
     return data->map->tiles[pos->x][pos->y][resource] > 0;
-} 
+}
 
 static int take(data_t *data, char **args)
 {
@@ -41,7 +41,7 @@ int schedule_take(data_t *data, char **args)
         return 1;
     }
     for (int i = 0; i < NB_RESOURCES; i++) {
-        if (strcmp(args[0], resource[i]) == 0 && 
+        if (strcmp(args[0], resource[i]) == 0 &&
         is_resource_on_tile(data, i, player_pos)) {
             append_scheduler_to_queue(data, &take, args, TAKE_DELAY);
             return 0;

@@ -1,5 +1,13 @@
 from .connection import Connection
 
+myListObject = ["player", "food", "linemate", "deraumere", "sibur", "mendiane", "phiras", "thystame"]
+myLevelCondition = [[1, 5, 1, 0, 0, 0, 0, 0],
+                    [2, 5, 1, 1, 1, 0, 0, 0],
+                    [2, 5, 2, 0, 1, 0, 2, 0],
+                    [4, 5, 1, 1, 2, 0, 1, 0],
+                    [4, 5, 1, 2, 1, 3, 0, 0],
+                    [6, 5, 1, 2, 3, 0, 1, 0],
+                    [6, 5, 2, 2, 2, 2, 2, 1]]
 
 ## @brief Class that contains the player information
 class Player:
@@ -7,25 +15,20 @@ class Player:
     def __init__(self):
         self._socket = None
         self._name = ""
-        self._mapWidth = 0
-        self._mapHeight = 0
+        self._functionIndex = 0
+        self._functionList = [self.goToLevel2, self.goToLevel3, self.goToLevel4, self.goToLevel5, self.goToLevel6, self.goToLevel7, self.goToLevel8]
         self._lookTiles = []
-        self._inventory = {
-            "food": 0,
-            "linemate": 0,
-            "deraumere": 0,
-            "sibur": 0,
-            "mendiane": 0,
-            "phiras": 0,
-            "thystame": 0
-        }
+        self._inventory = [0, 0, 0, 0, 0, 0, 0]
+        self._lastReceivedMessage = ""
+        self._direction = 0
+        self._parsedMessage = ""
 
     ## @brief Connect to the server
     ## @param info The connection information
     def connect(self, aInfo):
         self._socket = Connection(aInfo._host, int(aInfo._port))
         return self._socket.connect()
-
+    
     ## @brief Send data to the server
     ## @param data The data to send
     def send(self, aData):
@@ -34,7 +37,14 @@ class Player:
     ## @brief Receive data from the server
     ## @return The data received
     def receive(self):
-        return self._socket.receive()
+        message = self._socket.receive()
+        if (message == "dead\n"):
+            print("Dead")
+            exit(0)
+        if (message[0:7] == "message"):
+            self._lastReceivedMessage = message
+            return self._socket.receive()
+        return message
 
     ## @brief Disconnect from the server
     ## @return None
@@ -52,17 +62,6 @@ class Player:
     ## @param name The team name
     def setTeamName(self, aName):
         self._name = aName
-
-    ## @brief Get the map size
-    ## @return None
-    def msz(self):
-        self.send("msz")
-        myMsz = self.receive()
-        myMsz = myMsz.split(" ")
-        if myMsz[0] == "msz":
-            my_msz = myMsz[1:]
-        self._mapWidth = int(myMsz[0])
-        self._mapHeight = int(myMsz[1])
 
     ## @brief Send forward command
     ## @return None
@@ -94,7 +93,7 @@ class Player:
         self.send("Take " + aRessource)
         myTake = self.receive()
         if myTake == "ko\n":
-            print ("Object not found")
+            print ("Object not found", aRessource)
         elif myTake == "ok\n":
             print ("Object", aRessource, "taken")
         
@@ -130,7 +129,7 @@ class Player:
             return (None)
         else:
             print ("Free slots:", myConnectNbr)
-            return (int(myConnectNbr))
+            return (int(myConnectNbr[-2]))
         
     ## @brief Send look command and receive the map content
     ## @return the map content
@@ -139,15 +138,33 @@ class Player:
         myLook = self.receive()
         if myLook == "ko\n":
             print ("Error: Look")
-            return (None)
+            return ("")
         else:
             print ("Look:", myLook)
             return (myLook)
 
+    ## @brief Crypt the message
+    ## @return the crypted message
+    def cryptMessage(self, aMessage):
+        myCryptedMessage = ""
+        for i in range(len(aMessage)):
+            myCryptedMessage += chr(ord(aMessage[i]) + 5)
+        return (myCryptedMessage)
+
+    ## @brief Decrypt the message
+    ## @return the decrypted message
+    def decryptMessage(self, aMessage):
+        myDecryptedMessage = ""
+        for i in range(len(aMessage)):
+            myDecryptedMessage += chr(ord(aMessage[i]) - 5)
+        return (myDecryptedMessage)
+
     ## @brief Send broadcast command
     ## @return None
     def broadcast(self, aMessage):
-        self.send("Broadcast " + aMessage)
+        myMessage = self.cryptMessage(aMessage)
+        print ("Broadcast:", myMessage)
+        self.send("Broadcast " + myMessage)
         myBroadcast = self.receive()
         if myBroadcast == "ko\n":
             print ("Error: Broadcast")
@@ -175,9 +192,21 @@ class Player:
         else:
             print ("Incantation:", myIncantation)
             return (myIncantation)
+
+    ## @brief Send Fork command
+    ## @return None
+    def fork(self):
+        self.send("Fork")
+        myFork = self.receive()
+        if myFork == "ko\n":
+            print ("Error: Fork")
+        else:
+            print ("Fork:", myFork)
+
     ## @brief Parse the look command
     ## @return the look tiles
     def parseLook(self, aLook : str):
+        self._lookTiles = []
         myLook = aLook.split(",")
         for x in myLook:
             # the resources on the tile are stored in a list : [nb_players, food, linemate, deraumere, sibur, mendiane, phiras, thystame]
@@ -189,8 +218,6 @@ class Player:
                 x = x.replace("]", "")
             if x.find('\n') != -1:
                 x = x.replace("\n", "")
-            if x == '':
-                continue
             myResoucesOnTile.append(x.count('player'))
             myResoucesOnTile.append(x.count('food'))
             myResoucesOnTile.append(x.count('linemate'))
@@ -202,9 +229,73 @@ class Player:
             self._lookTiles.append(myResoucesOnTile)
         return (self._lookTiles)
     
+    ## @brief Finds the shortest path to a tile
+    ## @param aTile The tile to reach
+    ## @return None
+    def goTo(self, aTile):
+        myMinTile = 1
+        myNbToAdd = 1
+        myMiddleTile = 0
+        myNbMiddleToAdd = 2
+        while (aTile > myMinTile):
+            self.forward()
+            myNbToAdd += 2
+            myMinTile += myNbToAdd
+            myMiddleTile += myNbMiddleToAdd
+            myNbMiddleToAdd += 2
+        myNbOfForward = aTile - myMiddleTile
+        if (myNbOfForward < 0):
+            self.left()
+            myNbOfForward = -myNbOfForward
+        elif (myNbOfForward > 0):
+            self.right()
+        for i in range(myNbOfForward):
+            self.forward()
+
+    ## @brief Finds the tile with most ressources
+    ## @param aRessource The return of a look() parsed command
+    ## @return The tile with most ressources
+    def findRessource(self):
+        myNbMax = 0
+        myTile = 0
+        for i in range(len(self._lookTiles)):
+            myNb = 0
+            for j in range(1, len(self._lookTiles[i])):
+                myNb += self._lookTiles[i][j]
+            if (myNb > myNbMax):
+                myNbMax = myNb
+                myTile = i
+        return (myTile)
+
+    ## @brief Take all the ressources on the tile
+    ## @param aTile The tile to take the ressources from
+    ## @return None
+    def takeAll(self, aTile):
+        for i in range(1, len(aTile)):
+            for j in range(aTile[i]):
+                self.take(myListObject[i])
+    
+    ## @brief Set the ressources on the tile for the incantation
+    ## @return None
+    def setElevationRessources(self):
+        for i in range(2, len(myListObject)):
+            for j in range(myLevelCondition[self._functionIndex][i]):
+                self.set(myListObject[i])
+
+    ## @brief Verify if the incantation is possible
+    ## @return True if the incantation is possible, False otherwise
+    def verifyIncantation(self):
+        if self.parseLook(self.look())[0][0] != myLevelCondition[self._functionIndex][0]:
+            return (False)
+        for i in range(1, len(self._inventory)):
+            if (self._inventory[i - 1] < myLevelCondition[self._functionIndex][i]):
+                return (False)
+        return (True)
+
     ## @brief Parse the inventory command
     ## @return the inventory
     def parseInventory(self, aInventory : str):
+        idx = 0
         myInventory = aInventory.split(",")
         for x in myInventory:
             x = str(x)
@@ -221,5 +312,129 @@ class Player:
                 y = str(y)
                 if y == '':
                     myInventory.remove(y)
-            self._inventory[myInventory[0]] = int(myInventory[1])
+            self._inventory[idx] = int(myInventory[1])
+            idx+=1
         return (self._inventory)
+    
+    ## @brief Receive broadcast message
+    ## @return The broadcast message
+    def parseReceiveBroadcast(self):
+        if (self._lastReceivedMessage == ""):
+            return (None)
+        self._direction = int(self._lastReceivedMessage[8])
+        myMessage = self._lastReceivedMessage[10:]
+        self._parsedMessage = self.decryptMessage(myMessage)
+        print ("Message received:", self._parsedMessage)
+        self._lastReceivedMessage = ""
+        
+    ## @brief Try to evolve to level 2
+    ## @return None
+    def goToLevel2(self):
+        print(self.parseReceiveBroadcast())
+        self.parseLook(self.look())
+        myTile = self.findRessource()
+        self.goTo(myTile)
+        self.takeAll(self._lookTiles[myTile])
+        self.parseInventory(self.inventory())
+        if (self.verifyIncantation()):
+            self.setElevationRessources()
+            if (self.incantation() != None):
+                self._functionIndex += 1
+                if (self.connectNbr() == 0):
+                    self.fork()
+
+    ## @brief Try to evolve to level 3
+    ## @return None
+    def goToLevel3(self):
+        self.parseReceiveBroadcast()
+        self.parseLook(self.look())
+        myTile = self.findRessource()
+        self.goTo(myTile)
+        self.takeAll(self._lookTiles[myTile])
+        self.parseInventory(self.inventory())
+        if (self.verifyIncantation()):
+            self.setElevationRessources()
+            if (self.incantation() != None):
+                self._functionIndex += 1
+                if (self.connectNbr() == 0):
+                    self.fork()
+    
+    ## @brief Try to evolve to level 4
+    ## @return None
+    def goToLevel4(self):
+        self.parseReceiveBroadcast()
+        self.parseLook(self.look())
+        myTile = self.findRessource()
+        self.goTo(myTile)
+        self.takeAll(self._lookTiles[myTile])
+        self.parseInventory(self.inventory())
+        if (self.verifyIncantation()):
+            self.setElevationRessources()
+            if (self.incantation() != None):
+                self._functionIndex += 1
+                if (self.connectNbr() == 0):
+                    self.fork()
+
+    ## @brief Try to evolve to level 5
+    ## @return None
+    def goToLevel5(self):
+        self.parseReceiveBroadcast()
+        self.parseLook(self.look())
+        myTile = self.findRessource()
+        self.goTo(myTile)
+        self.takeAll(self._lookTiles[myTile])
+        self.parseInventory(self.inventory())
+        if (self.verifyIncantation()):
+            self.setElevationRessources()
+            if (self.incantation() != None):
+                self._functionIndex += 1
+                if (self.connectNbr() == 0):
+                    self.fork()
+    
+    ## @brief Try to evolve to level 6
+    ## @return None
+    def goToLevel6(self):
+        self.parseReceiveBroadcast()
+        self.parseLook(self.look())
+        myTile = self.findRessource()
+        self.goTo(myTile)
+        self.takeAll(self._lookTiles[myTile])
+        self.parseInventory(self.inventory())
+        if (self.verifyIncantation()):
+            self.setElevationRessources()
+            if (self.incantation() != None):
+                self._functionIndex += 1
+                if (self.connectNbr() == 0):
+                    self.fork()
+    
+    ## @brief Try to evolve to level 7
+    ## @return None
+    def goToLevel7(self):
+        self.parseReceiveBroadcast()
+        self.parseLook(self.look())
+        myTile = self.findRessource()
+        self.goTo(myTile)
+        self.takeAll(self._lookTiles[myTile])
+        self.parseInventory(self.inventory())
+        if (self.verifyIncantation()):
+            self.setElevationRessources()
+            if (self.incantation() != None):
+                self._functionIndex += 1
+                if (self.connectNbr() == 0):
+                    self.fork()
+    
+    ## @brief Try to evolve to level 8
+    ## @return None
+    def goToLevel8(self):
+        self.parseReceiveBroadcast()
+        self.parseLook(self.look())
+        myTile = self.findRessource()
+        self.goTo(myTile)
+        self.takeAll(self._lookTiles[myTile])
+        self.parseInventory(self.inventory())
+        if (self.verifyIncantation()):
+            self.setElevationRessources()
+            if (self.incantation() != None):
+                self._functionIndex += 1
+                if (self.connectNbr() == 0):
+                    self.fork()

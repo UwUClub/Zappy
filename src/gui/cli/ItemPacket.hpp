@@ -5,94 +5,28 @@
 #include <functional>
 
 namespace Zappy::GUI {
+    enum Ressources : int
+    {
+        FOOD = 0,
+        LINEMATE = 1,
+        DERAUMERE = 2,
+        SIBUR = 3,
+        MENDIANE = 4,
+        PHIRAS = 5,
+        THYSTAME = 6
+    };
+
     class ItemPacket
     {
         public:
             ItemPacket() = default;
             ~ItemPacket() = default;
 
-            void fillItemPacket(std::vector<int> &aItemPacketData)
-            {
-                _food = aItemPacketData[0];
-                _linemate = aItemPacketData[1];
-                _deraumere = aItemPacketData[2];
-                _sibur = aItemPacketData[3];
-                _mendiane = aItemPacketData[4];
-                _phiras = aItemPacketData[5];
-                _thystame = aItemPacketData[6];
-            };
+            void fillItemPacket(std::vector<int> &aItemPacketData);
 
-            void addResources(int a)
-            {
-                static const std::unordered_map<int, std::function<void()>> myInventoryMap = {{0,
-                                                                                               [this]() {
-                                                                                                   _food++;
-                                                                                               }},
-                                                                                              {1,
-                                                                                               [this]() {
-                                                                                                   _linemate++;
-                                                                                               }},
-                                                                                              {2,
-                                                                                               [this]() {
-                                                                                                   _deraumere++;
-                                                                                               }},
-                                                                                              {3,
-                                                                                               [this]() {
-                                                                                                   _sibur++;
-                                                                                               }},
-                                                                                              {4,
-                                                                                               [this]() {
-                                                                                                   _mendiane++;
-                                                                                               }},
-                                                                                              {5,
-                                                                                               [this]() {
-                                                                                                   _phiras++;
-                                                                                               }},
-                                                                                              {6, [this]() {
-                                                                                                   _thystame++;
-                                                                                               }}};
+            void addResources(int aA);
 
-                if (myInventoryMap.find(a) == myInventoryMap.end()) {
-                    return;
-                }
-                myInventoryMap.at(a)();
-            }
-
-            void removeResources(int a)
-            {
-                static const std::unordered_map<int, std::function<void()>> myInventoryMap = {{0,
-                                                                                               [this]() {
-                                                                                                   _food--;
-                                                                                               }},
-                                                                                              {1,
-                                                                                               [this]() {
-                                                                                                   _linemate--;
-                                                                                               }},
-                                                                                              {2,
-                                                                                               [this]() {
-                                                                                                   _deraumere--;
-                                                                                               }},
-                                                                                              {3,
-                                                                                               [this]() {
-                                                                                                   _sibur--;
-                                                                                               }},
-                                                                                              {4,
-                                                                                               [this]() {
-                                                                                                   _mendiane--;
-                                                                                               }},
-                                                                                              {5,
-                                                                                               [this]() {
-                                                                                                   _phiras--;
-                                                                                               }},
-                                                                                              {6, [this]() {
-                                                                                                   _thystame--;
-                                                                                               }}};
-
-                if (myInventoryMap.find(a) == myInventoryMap.end()) {
-                    return;
-                }
-                myInventoryMap.at(a)();
-            }
+            void removeResources(int aA);
 
             int _food {0};
             int _linemate {0};

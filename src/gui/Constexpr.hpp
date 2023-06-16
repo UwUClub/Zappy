@@ -18,13 +18,23 @@ const constexpr int EGG_Y_POS = 1;
 const constexpr int EGG_OFFSET_POS = 1;
 const constexpr int MY_TIME_INTERVAL = 10;
 const constexpr int CHAR_HEIGHT = 16;
+const constexpr int OFFSET_OVERLAY_TIME_X = 50;
+const constexpr int OFFSET_OVERLAY_BUTTON_1_TIME_Y = 50;
+const constexpr int OFFSET_OVERLAY_BUTTON_2_TIME_Y = 80;
+const constexpr int OFFSET_OVERLAY_DISPLAY_TIME_Y = 140;
 
 //---------------------------------String Constexpr
 const constexpr std::string CAMERA_NAME = "ZappyCamera";
 const constexpr std::string SCENE_MAN_NAME = "ZappySceneMng";
 const constexpr std::string WINDOW_NAME = "UwU Zappy UwU";
+const constexpr std::string RESSOURCE_GROUP_NAME = "Zappy";
 const constexpr std::string BUTTON_OVERLAY = "ButtonOverlay";
 const constexpr std::string FONT_NAME = "BttfFont";
 const constexpr std::string INVENTORY_OVERLAY = "InventoryOver";
-
+const constexpr std::string FONT_NAME_SRC = "BTTF.ttf";
+const constexpr std::string TILE_MODEL_NAME = "Rock.mesh";
+const constexpr std::string PLAYER_MODEL_NAME = "Sinbad.mesh";
+const constexpr std::string EGG_MODEL_NAME = "Egg.mesh";
+const constexpr std::string EGG_PREFIX_NAME = "Egg_";
+const constexpr std::string PLAYER_PREFIX_NAME = "Player_";
 #endif /* !CONSTEXPR_HPP_ */

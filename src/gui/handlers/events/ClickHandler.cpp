@@ -10,20 +10,19 @@
 #include <iostream>
 #include <memory>
 #include <vector>
+#include "App.hpp"
 #include "Button.hpp"
 #include "Constexpr.hpp"
 #include "Inventory.hpp"
 
 namespace Zappy::GUI {
     ClickHandler::ClickHandler(Ogre::SceneNode *aCameraNode, Ogre::RenderWindow *aRenderWindow,
-                               Ogre::SceneManager *aSceneManager, ClientApi &aClient,
-                               std::vector<std::unique_ptr<Button>> &aButtons)
-        : InputHandler(aClient),
+                               Ogre::SceneManager *aSceneManager, App &aApp)
+        : InputHandler(aApp),
           _cameraNode(aCameraNode),
           _renderWindow(aRenderWindow),
           _sceneManager(aSceneManager),
-          _buttons(aButtons),
-          _client(aClient)
+          _buttons(aApp.getButtons())
     {}
 
     ClickHandler::~ClickHandler() = default;
@@ -73,21 +72,22 @@ namespace Zappy::GUI {
     {
         auto *myCamera = reinterpret_cast<Ogre::Camera *>(_cameraNode->getAttachedObject(CAMERA_NAME));
         if (myCamera == nullptr) {
-            std::cout << "Camera not found" << std::endl;
+            std::cerr << "Camera not found" << std::endl;
             return nullptr;
         }
+
         Ogre::Ray myMouseRay =
             myCamera->getCameraToViewportRay(aMousePos.x / static_cast<float>(_renderWindow->getWidth()),
                                              aMousePos.y / static_cast<float>(_renderWindow->getHeight()));
-        Ogre::RaySceneQuery *raySceneQuery = _sceneManager->createRayQuery(myMouseRay);
-        raySceneQuery->setSortByDistance(true);
+        Ogre::RaySceneQuery *myRaySceneQuery = _sceneManager->createRayQuery(myMouseRay);
 
-        Ogre::RaySceneQueryResult &myResult = raySceneQuery->execute();
-        Ogre::RaySceneQueryResult::iterator myItr;
+        myRaySceneQuery->setSortByDistance(true);
 
-        for (myItr = myResult.begin(); myItr != myResult.end(); myItr++) {
-            if ((myItr->movable != nullptr) && (myItr->movable->getParentSceneNode() != nullptr)) {
-                Ogre::SceneNode *node = myItr->movable->getParentSceneNode();
+        Ogre::RaySceneQueryResult &myResult = myRaySceneQuery->execute();
+
+        for (const auto &myItr : myResult) {
+            if ((myItr.movable != nullptr) && (myItr.movable->getParentSceneNode() != nullptr)) {
+                Ogre::SceneNode *node = myItr.movable->getParentSceneNode();
                 return node;
             }
         }

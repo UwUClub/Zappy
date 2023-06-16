@@ -1,6 +1,7 @@
 #include <iostream>
 #include "../src/gui/cli/ClientApi.hpp"
 #include "../src/gui/cli/ParserData.hpp"
+#include "Mediator.hpp"
 #include <catch2/catch_test_macros.hpp>
 
 constexpr auto SERVER_IP = "127.0.0.1";
@@ -8,8 +9,11 @@ constexpr auto SERVER_PORT = 4242;
 
 TEST_CASE("testingBct", "[testingBct]")
 {
-    Zappy::GUI::ParserData const parserData(SERVER_IP, SERVER_PORT, "");
-    Zappy::GUI::ClientApi myClientApi(parserData.getAddress(), parserData.getPort(), "GRAPHIC");
+    Zappy::GUI::ParserData parserData(SERVER_IP, SERVER_PORT, "");
+    Zappy::GUI::Mediator myMediator(parserData);
+    Zappy::GUI::ServerData myServerData;
+    Zappy::GUI::ClientApi myClientApi(parserData.getAddress(), parserData.getPort(), "GRAPHIC", myMediator,
+                                      myServerData);
     myClientApi.joinGame();
     while (true) {
         if (myClientApi.update() >= 1) {
@@ -25,8 +29,11 @@ TEST_CASE("testingBct", "[testingBct]")
 
 TEST_CASE("testingMsz", "[testingMsz]")
 {
-    Zappy::GUI::ParserData const parserData(SERVER_IP, SERVER_PORT, "");
-    Zappy::GUI::ClientApi myClientApi(parserData.getAddress(), parserData.getPort(), "GRAPHIC");
+    Zappy::GUI::ParserData parserData(SERVER_IP, SERVER_PORT, "");
+    Zappy::GUI::Mediator myMediator(parserData);
+    Zappy::GUI::ServerData myServerData;
+    Zappy::GUI::ClientApi myClientApi(parserData.getAddress(), parserData.getPort(), "GRAPHIC", myMediator,
+                                      myServerData);
     myClientApi.joinGame();
     while (true) {
         if (myClientApi.update() >= 1) {
@@ -43,8 +50,11 @@ TEST_CASE("testingMsz", "[testingMsz]")
 
 TEST_CASE("testingTna", "[testingTna]")
 {
-    Zappy::GUI::ParserData const parserData(SERVER_IP, SERVER_PORT, "");
-    Zappy::GUI::ClientApi myClientApi(parserData.getAddress(), parserData.getPort(), "GRAPHIC");
+    Zappy::GUI::ParserData parserData(SERVER_IP, SERVER_PORT, "");
+    Zappy::GUI::Mediator myMediator(parserData);
+    Zappy::GUI::ServerData myServerData;
+    Zappy::GUI::ClientApi myClientApi(parserData.getAddress(), parserData.getPort(), "GRAPHIC", myMediator,
+                                      myServerData);
     myClientApi.joinGame();
     while (true) {
         if (myClientApi.update() >= 1) {
@@ -60,8 +70,11 @@ TEST_CASE("testingTna", "[testingTna]")
 
 TEST_CASE("testingPpo", "[testingPpo]")
 {
-    Zappy::GUI::ParserData const parserData(SERVER_IP, SERVER_PORT, "");
-    Zappy::GUI::ClientApi myClientApi(parserData.getAddress(), parserData.getPort(), "GRAPHIC");
+    Zappy::GUI::ParserData parserData(SERVER_IP, SERVER_PORT, "");
+    Zappy::GUI::Mediator myMediator(parserData);
+    Zappy::GUI::ServerData myServerData;
+    Zappy::GUI::ClientApi myClientApi(parserData.getAddress(), parserData.getPort(), "GRAPHIC", myMediator,
+                                      myServerData);
     myClientApi.joinGame();
     while (true) {
         if (myClientApi.update() >= 1) {
@@ -85,8 +98,11 @@ TEST_CASE("testingPpo", "[testingPpo]")
 
 TEST_CASE("testingPlv", "[testingPlv]")
 {
-    Zappy::GUI::ParserData const parserData(SERVER_IP, SERVER_PORT, "");
-    Zappy::GUI::ClientApi myClientApi(parserData.getAddress(), parserData.getPort(), "GRAPHIC");
+    Zappy::GUI::ParserData parserData(SERVER_IP, SERVER_PORT, "");
+    Zappy::GUI::Mediator myMediator(parserData);
+    Zappy::GUI::ServerData myServerData;
+    Zappy::GUI::ClientApi myClientApi(parserData.getAddress(), parserData.getPort(), "GRAPHIC", myMediator,
+                                      myServerData);
     myClientApi.joinGame();
     while (true) {
         if (myClientApi.update() >= 1) {
