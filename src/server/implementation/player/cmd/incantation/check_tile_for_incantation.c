@@ -11,9 +11,9 @@
 static int check_resources_on_tile(map_t *map, pos_t *pos,
     const int target_lvl)
 {
-    for (int rsrc = 0; rsrc < TILE_SIZE; rsrc++) {
+    for (int rsrc = 1; rsrc < TILE_SIZE; rsrc++) {
         if (map->tiles[pos->x][pos->y][rsrc] <
-            elevation_secret[target_lvl - 2][rsrc + 2]) {
+            elevation_secret[target_lvl - 2][rsrc + 1]) {
             return 0;
         }
     }
