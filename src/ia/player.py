@@ -252,6 +252,22 @@ class Player:
         for i in range(myNbOfForward):
             self.forward()
 
+    ## @brief Finds the best tile to go to
+    ## @param aTile The tile to reach
+    ## @return The tile with most ressources useful to level up
+    def findBestTile(self):
+        myTilesToGo = []
+        myNbRessources = 0
+        mytile = 0
+        for i in range(len(self._lookTiles)):
+            for j in range(len(self._lookTiles[i])):
+                if (self._lookTiles[i][j] > myLevelCondition[self._functionIndex][j]):
+                    myNbRessources += 1
+            myTilesToGo.append(myNbRessources)
+            myNbRessources = 0
+        myTile = myTilesToGo.index(max(myTilesToGo))
+        return (myTile)
+
     ## @brief Finds the tile with most ressources
     ## @param aRessource The return of a look() parsed command
     ## @return The tile with most ressources
@@ -332,7 +348,7 @@ class Player:
     def goToLevel2(self):
         print(self.parseReceiveBroadcast())
         self.parseLook(self.look())
-        myTile = self.findRessource()
+        myTile = self.findBestTile()
         self.goTo(myTile)
         self.takeAll(self._lookTiles[myTile])
         self.parseInventory(self.inventory())
