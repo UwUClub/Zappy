@@ -1,8 +1,8 @@
 #pragma once
 
+#include <functional>
 #include <iostream>
 #include <vector>
-#include <functional>
 
 namespace Zappy::GUI {
     enum Ressources : int
