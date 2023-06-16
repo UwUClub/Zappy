@@ -12,11 +12,6 @@ def main():
         exit(84)
     player.setTeamName(info._name)
     player.preliminaries()
-    player.parseLook(player.look())
-    player.forward()
-    player.parseInventory(player.inventory())
-    player.right()
-    player.left()
-    player.connectNbr()
-    player.look()
+    while player._functionIndex < 7:
+        player._functionList[player._functionIndex]()
     player.disconnect()

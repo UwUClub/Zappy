@@ -12,10 +12,9 @@
 static void rm_resources_from_tile(data_t *data, pos_t *pos,
     const int target_lvl)
 {
-    int *tile = data->map->tiles[pos->y][pos->x];
-
-    for (int rsrc = 0; rsrc < TILE_SIZE; rsrc++) {
-        tile[rsrc] -= elevation_secret[target_lvl - 2][rsrc + 2];
+    for (int rsrc = 1; rsrc < TILE_SIZE; rsrc++) {
+        data->map->tiles[pos->x][pos->y][rsrc] -=
+        elevation_secret[target_lvl - 2][rsrc + 1];
     }
     do_bct_to_all_gui(data, pos->x, pos->y);
 }
@@ -56,6 +55,7 @@ static int do_incantation(data_t *data, char **args)
     rm_resources_from_tile(data, author->pos, target_lvl);
     increment_players_level(data, author->pos, target_lvl);
     do_pie(data, author->pos, target_lvl);
+    send_to_client(data->clients, data->curr_cli_index, "ok\n");
     return 0;
 }
 
