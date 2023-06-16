@@ -8,10 +8,18 @@
 #include "App.hpp"
 #include <OGRE/Bites/OgreApplicationContext.h>
 #include <OGRE/OgreSceneManager.h>
+#include <OGRE/Overlay/OgreFontManager.h>
+#include <OGRE/Overlay/OgreOverlayContainer.h>
+#include <OGRE/Overlay/OgreOverlayManager.h>
+#include <OGRE/Overlay/OgreOverlaySystem.h>
+#include <OGRE/Overlay/OgreTextAreaOverlayElement.h>
 #include <Ogre.h>
 #include <OgreCamera.h>
+#include <OgreFont.h>
 #include <OgreInput.h>
 #include <OgreLight.h>
+#include <OgreOverlay.h>
+#include <OgreOverlayManager.h>
 #include <OgrePrerequisites.h>
 #include <OgreRenderWindow.h>
 #include <OgreResourceGroupManager.h>
@@ -20,165 +28,141 @@
 #include <algorithm>
 #include <functional>
 #include <memory>
+#include <utility>
+#include "Button.hpp"
 #include "CameraHandler.hpp"
-#include "Constexpr.hpp"
-#include "FrameHandler.hpp"
+#include "ClickHandler.hpp"
+#include "ClientApi.hpp"
 #include "InputHandler.hpp"
+#include "Observer.hpp"
 #include "PlayerData.hpp"
+#include "SceneBuilder.hpp"
 #include "ServerData.hpp"
 #include <unordered_map>
 
 namespace Zappy::GUI {
-    App::App(Zappy::GUI::ClientApi &client, const std::string &aWindowName)
+    App::App(Mediator &aMediator, ServerData &aServerData, const std::string &aWindowName)
         : OgreBites::ApplicationContext(aWindowName),
-          _client(client),
+          Observer(aMediator, ObserverType::APP),
           _cameraHandler(nullptr),
-          _frameHandler(nullptr),
-          _clickHandler(nullptr)
+          _clickHandler(nullptr),
+          _serverData(aServerData)
     {
         this->initApp();
-        auto *myRoot = this->getRoot();
-        auto *myScnMgr = myRoot->createSceneManager("DefaultSceneManager", SCENE_MAN_NAME);
+        auto *myScnMgr = this->getRoot()->createSceneManager("DefaultSceneManager", SCENE_MAN_NAME);
 
-        this->instantiateApp();
-        _client.registerSubscriber(*this);
-
+        try {
+            this->instantiateApp();
+        } catch (const std::exception &e) {
+            std::cerr << e.what() << std::endl;
+            this->closeApp();
+            this->askDisconnection();
+            throw AppException(e.what());
+        }
         Ogre::RTShader::ShaderGenerator *myShadergen = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
-        _frameHandler = std::make_unique<FrameHandler>(myScnMgr, _client);
-
-        auto nodeCenterPos = this->setupMap(myScnMgr);
-        this->setupLight(myScnMgr, nodeCenterPos);
         myShadergen->addSceneManager(myScnMgr);
-        this->setupCamera(myScnMgr, nodeCenterPos);
-        this->setupPlayersAndEggs(myScnMgr);
-        myRoot->addFrameListener(_frameHandler.get());
+
+        auto myNodeCenterPos = SceneBuilder::buildMap(myScnMgr, _serverData);
+        cameraReturn myHandlers = SceneBuilder::buildCamera(myScnMgr, myNodeCenterPos, this->getRenderWindow(), *this);
+        SceneBuilder::buildLights(myScnMgr, myNodeCenterPos);
+        SceneBuilder::buildConnectedPlayersAndEggs(myScnMgr, _serverData);
+
+        _cameraHandler.reset(myHandlers.first);
+        _clickHandler.reset(myHandlers.second);
+
+        this->createButtons();
+        SceneBuilder::createText(BUTTON_OVERLAY, "Current Time: " + std::to_string(_serverData._freq), "Time",
+                                 Ogre::Vector2(OFFSET_OVERLAY_TIME_X, OFFSET_OVERLAY_DISPLAY_TIME_Y));
+        this->setReady(true);
     }
 
     App::~App()
     {
         this->closeApp();
-        _client.disconnect();
+        this->askDisconnection();
+    }
+
+    void App::createButtons()
+    {
+        _buttons.emplace_back(std::make_unique<Button>(
+            "Speed up", std::make_pair(OFFSET_OVERLAY_TIME_X, OFFSET_OVERLAY_BUTTON_1_TIME_Y), [this] {
+                increaseTime();
+            }));
+        _buttons.emplace_back(std::make_unique<Button>(
+            "Speed down", std::make_pair(OFFSET_OVERLAY_TIME_X, OFFSET_OVERLAY_BUTTON_2_TIME_Y), [this] {
+                decreaseTime();
+            }));
     }
 
     void App::instantiateApp()
     {
+        const constexpr int myTrueSize = 24;
+        const constexpr int myTrueResolution = 96;
+
         try {
             auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
+            myScnMgr->addRenderQueueListener(mOverlaySystem);
+            Ogre::OverlayManager &myOverlayManager = Ogre::OverlayManager::getSingleton();
 
-            Ogre::ResourceGroupManager::getSingleton().addResourceLocation("./assets", "FileSystem", "Zappy");
+            Ogre::ResourceGroupManager::getSingleton().addResourceLocation("./assets", "FileSystem",
+                                                                           RESSOURCE_GROUP_NAME);
             Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
-            Ogre::ResourceGroupManager::getSingleton().loadResourceGroup("Zappy");
-            myScnMgr->createEntity("Sinbad.mesh");
-            myScnMgr->createEntity("Egg.mesh");
-            myScnMgr->createEntity("Rock.mesh");
+            Ogre::ResourceGroupManager::getSingleton().loadResourceGroup(RESSOURCE_GROUP_NAME);
+            myScnMgr->createEntity(PLAYER_MODEL_NAME);
+            myScnMgr->createEntity(EGG_MODEL_NAME);
+            myScnMgr->createEntity(TILE_MODEL_NAME);
+
+            myOverlayManager.create(BUTTON_OVERLAY);
+
+            Ogre::FontPtr myFont = Ogre::FontManager::getSingleton().create(FONT_NAME, RESSOURCE_GROUP_NAME);
+
+            myFont->setType(Ogre::FontType::FT_TRUETYPE);
+            myFont->setSource(FONT_NAME_SRC);
+            myFont->setTrueTypeSize(myTrueSize);
+            myFont->setTrueTypeResolution(myTrueResolution);
+            myFont->load();
         } catch (const Ogre::Exception &e) {
             throw AppException(e.what());
         }
     }
 
-    void App::setupLight(Ogre::SceneManager *aSceneManager, Ogre::Vector3 &aCenter)
+    void App::windowClosed(Ogre::RenderWindow *aRw)
     {
-        Ogre::Light *myLight = aSceneManager->createLight("MainLight");
-        myLight->setType(Ogre::Light::LT_DIRECTIONAL);
-        myLight->setDiffuseColour(Ogre::ColourValue(1.0, 1.0, 1.0));
-        myLight->setSpecularColour(Ogre::ColourValue(1.0, 1.0, 1.0));
-
-        Ogre::SceneNode *myLightNode = aSceneManager->getRootSceneNode()->createChildSceneNode();
-        myLightNode->setDirection(Ogre::Vector3(0, -1, 1));
-        myLightNode->setPosition(aCenter + Ogre::Vector3(0, 100, 30));
-        myLightNode->attachObject(myLight);
-
-        aSceneManager->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
+        this->askDisconnection();
+        aRw->destroy();
+        this->closeApp();
     }
 
-    void App::setupCamera(Ogre::SceneManager *aSceneManager, Ogre::Vector3 &aCenterPos)
+    const ServerData &App::getServerData() const
     {
-        auto myServerData = _client.getServerData();
-        const auto myMapSize = myServerData._mapSize;
-        const constexpr float myBaseRadius = 15;
-        const constexpr int myClipDistance = 5;
-        const float myRadius = myBaseRadius * (static_cast<float>(std::max(myMapSize.first, myMapSize.second)) / 3);
-        Ogre::Vector3 myCamPos(aCenterPos.x, aCenterPos.y + myRadius + myClipDistance, aCenterPos.z + myRadius);
-        auto *myRenderWindow = this->getRenderWindow();
-
-        Ogre::SceneNode *myCamNode = aSceneManager->getRootSceneNode()->createChildSceneNode();
-        myCamNode->setPosition(myCamPos);
-
-        Ogre::Camera *myCam = aSceneManager->createCamera(CAMERA_NAME);
-        myCam->setNearClipDistance(myClipDistance);
-        myCam->setAutoAspectRatio(true);
-
-        myCamNode->attachObject(myCam);
-        myCamNode->lookAt(aCenterPos, Ogre::Node::TS_WORLD);
-
-        if (myRenderWindow != nullptr) {
-            _cameraHandler = std::make_unique<CameraHandler>(myCamNode, aCenterPos, myRadius, _client);
-            _clickHandler = std::make_unique<ClickHandler>(myCamNode, myRenderWindow, aSceneManager, _client);
-            this->addInputListener(_cameraHandler.get());
-            this->addInputListener(_clickHandler.get());
-
-            myRenderWindow->addViewport(myCam);
-        }
+        return _serverData;
     }
 
-    Ogre::Vector3f App::setupMap(Ogre::SceneManager *aSceneManager)
+    std::vector<std::unique_ptr<Button>> &App::getButtons()
     {
-        auto myServerData = _client.getServerData();
-        const auto myMapSize = myServerData._mapSize;
-        const constexpr int myTileSize = 1;
-        const constexpr Ogre::Real myScale = 0.05F;
-        Ogre::Vector3f myCenterPos(0, 0, 0);
-
-        for (unsigned int i = 0; i < myMapSize.first; i++) {
-            for (unsigned int j = 0; j < myMapSize.second; j++) {
-                std::string myName = std::to_string(i) + " " + std::to_string(j);
-
-                try {
-                    Ogre::Entity *myEntity = aSceneManager->createEntity(myName, "Rock.mesh");
-                    Ogre::SceneNode *myNode = aSceneManager->getRootSceneNode()->createChildSceneNode(myName);
-
-                    myNode->attachObject(myEntity);
-                    myNode->setPosition(static_cast<float>(i) * (myTileSize * MAP_OFFSET), 0,
-                                        static_cast<float>(j) * (myTileSize * MAP_OFFSET));
-                    myNode->setScale(myScale, myScale, myScale);
-                } catch (Ogre::Exception &e) {
-                    std::cerr << e.what() << std::endl;
-                    return myCenterPos;
-                }
-            }
-        }
-        myCenterPos.x = (static_cast<float>(myMapSize.first) / 2) * (myTileSize * MAP_OFFSET);
-        myCenterPos.z = (static_cast<float>(myMapSize.second) / 2) * (myTileSize * MAP_OFFSET);
-        return myCenterPos;
+        return _buttons;
     }
 
-    void App::setupPlayersAndEggs(Ogre::SceneManager *aSceneManager)
+    void App::askDisconnection()
     {
-        auto myServerData = _client.getServerData();
-        auto myPlayerData = myServerData._players;
-        auto myEggData = myServerData._eggs;
+        _mediator.alert(this, "Disconnect");
+    }
 
-        for (const auto &myPlayer : myPlayerData) {
-            const auto &myPlayerId = myPlayer.getId();
-            const constexpr double myPlayerScale = 0.5;
-            Ogre::Entity *myEntity = aSceneManager->createEntity(myPlayerId, "Sinbad.mesh");
-            Ogre::SceneNode *myNode = aSceneManager->getRootSceneNode()->createChildSceneNode(myPlayerId);
+    void App::increaseTime()
+    {
+        auto myCurrentTime = _serverData._freq;
+        auto myNewTime = myCurrentTime + MY_TIME_INTERVAL;
+        std::string myCommand = "sst " + std::to_string(myNewTime);
 
-            myNode->setScale(myPlayerScale, myPlayerScale, myPlayerScale);
-            myNode->attachObject(myEntity);
-            this->setPlayerPosAndOrientation(myPlayer);
-        }
-        for (const auto &myEgg : myEggData) {
-            std::string myEggName = "egg_" + std::to_string(myEgg.getId());
-            const constexpr double myEggScale = 30;
-            Ogre::Entity *myEntity = aSceneManager->createEntity("egg_" + myEggName, "Egg.mesh");
-            Ogre::SceneNode *myNode = aSceneManager->getRootSceneNode()->createChildSceneNode(myEggName);
+        _mediator.alert(this, myCommand);
+    }
 
-            myNode->setScale(myEggScale, myEggScale, myEggScale);
-            myNode->setOrientation(Ogre::Quaternion(Ogre::Degree(-90), Ogre::Vector3::UNIT_X));
-            myNode->attachObject(myEntity);
-            myNode->setPosition(static_cast<float>(myEgg.getPosition().first * MAP_OFFSET), 2,
-                                static_cast<float>(myEgg.getPosition().second * MAP_OFFSET));
-        }
+    void App::decreaseTime()
+    {
+        auto myCurrentTime = _serverData._freq;
+        auto myNewTime = myCurrentTime - MY_TIME_INTERVAL;
+        std::string myCommand = "sst " + std::to_string(myNewTime);
+
+        _mediator.alert(this, myCommand);
     }
 } // namespace Zappy::GUI

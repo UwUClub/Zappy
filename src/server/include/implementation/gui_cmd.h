@@ -52,12 +52,18 @@
     int do_tna(data_t *data, char **args);
 
     /**
-    * @brief Get frequency
+    * @brief Send frequency
     * @param data The current server data, clients and current client index
     * @param args The arguments of the command
-    * @return Frequency
+    * @return Status of the command
     */
     int do_sgt(data_t *data, char **args);
+
+    /**
+    * @brief Send frequency to all gui
+    * @param data The current server data, clients and current client index
+    */
+    void do_sgt_to_all_gui(data_t *data);
 
     /**
      * @brief Set the new frequency given
@@ -186,6 +192,13 @@
      * @param result_lvl The level obtained by players in the incantation
     */
     void do_pie(data_t *data, pos_t *pos, const int result_lvl);
+
+    /**
+     * @brief Notify to gui that a player died
+     * @param data The current server data, clients and current client index
+     * @param player_id The id of the player who died
+    */
+    void do_pdi(data_t *data, const int player_id);
 
     static const cmd_t gui_commands[] = {
         {"msz", &do_msz, 0},

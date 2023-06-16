@@ -7,6 +7,7 @@
 
 #include <OGRE/Bites/OgreApplicationContext.h>
 #include <OGRE/OgreSceneManager.h>
+#include <OGRE/Overlay/OgreOverlayManager.h>
 #include <Ogre.h>
 #include <OgreCamera.h>
 #include <OgreInput.h>
@@ -14,81 +15,103 @@
 #include <OgreRenderWindow.h>
 #include <OgreResourceGroupManager.h>
 #include <OgreRoot.h>
+#include <OgreTextAreaOverlayElement.h>
 #include <fstream>
+#include <string>
 #include "App.hpp"
+#include "Constexpr.hpp"
+#include "SceneBuilder.hpp"
+#include "ServerData.hpp"
 
 namespace Zappy::GUI {
-    void App::getNotified(std::string &aNotification)
+    void App::getNotified(const std::string &aNotification)
     {
         auto myCommand = aNotification.substr(0, aNotification.find_first_of(' '));
+        auto myArgs = aNotification.substr(aNotification.find_first_of(' ') + 1);
 
         if (_notificationMap.find(myCommand) != _notificationMap.end()) {
-            _notificationMap.at(myCommand)(*this, aNotification);
+            _notificationMap.at(myCommand)(*this, myArgs);
         }
     }
 
-    void App::addPlayer([[maybe_unused]] std::string &aNotification)
+    void App::addPlayer([[maybe_unused]] const std::string &aNotification)
     {
         auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
-        auto myServerData = _client.getServerData();
-        auto myPlayerData = myServerData._players.back();
-        const auto &myPlayerId = myPlayerData.getId();
-        const constexpr double myScale = 0.5;
-        Ogre::Entity *myEntity = myScnMgr->createEntity(myPlayerId, "Sinbad.mesh");
-        Ogre::SceneNode *myNode = myScnMgr->getRootSceneNode()->createChildSceneNode(myPlayerId);
+        auto myPlayerData = _serverData._players.back();
 
-        std::cout << "Adding player " << myPlayerId << std::endl;
-        myNode->attachObject(myEntity);
-        myNode->setScale(myScale, myScale, myScale);
-        this->setPlayerPosAndOrientation(myPlayerData);
+        SceneBuilder::createPlayer(myScnMgr, myPlayerData);
     }
 
-    void App::removePlayer(std::string &aNotification)
-    {
-        int myIndex = std::stoi(aNotification.substr(4));
-        auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
-
-        myScnMgr->destroyEntity(std::to_string(myIndex));
-    }
-
-    void App::movePlayer(std::string &aNotification)
+    void App::removePlayer(const std::string &aNotification)
     {
         std::istringstream myStream(aNotification);
-        auto myServerData = _client.getServerData();
+        std::string myIndex;
+        auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
+
+        myStream >> myIndex;
+        myScnMgr->destroyEntity(PLAYER_PREFIX_NAME + myIndex);
+    }
+
+    void App::movePlayer(const std::string &aNotification)
+    {
+        std::istringstream myStream(aNotification);
+        auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
         std::string myIndex;
 
         myStream >> myIndex;
-        auto myPlayerData = std::find_if(myServerData._players.begin(), myServerData._players.end(),
+        auto myPlayerData = std::find_if(_serverData._players.cbegin(), _serverData._players.cend(),
                                          [&myIndex](const PlayerData &aPlayer) {
                                              return aPlayer.getId() == myIndex;
                                          });
 
-        if (myPlayerData == myServerData._players.end()) {
-            std::cerr << "Player " << myIndex << " not found" << std::endl;
+        if (myPlayerData == _serverData._players.cend()) {
             return;
         }
-        std::cout << "Moving player " << myIndex << std::endl;
-        this->setPlayerPosAndOrientation(*myPlayerData);
+        SceneBuilder::setPlayerPosAndOrientation(myScnMgr, *myPlayerData);
     }
 
-    void App::setPlayerPosAndOrientation(const PlayerData &aPlayer)
-    {
-        auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
-        const auto &myPlayerId = aPlayer.getId();
-        static const std::unordered_map<Orientation, Ogre::Real> myOrientationMap = {{Orientation::NORTH, 180},
-                                                                                     {Orientation::EAST, 90},
-                                                                                     {Orientation::SOUTH, 0},
-                                                                                     {Orientation::WEST, 270}};
-        Ogre::SceneNode *myNode = myScnMgr->getSceneNode(myPlayerId);
-
-        myNode->setPosition(static_cast<float>(aPlayer.getPosition().first * MAP_OFFSET), PLAYER_Y_POS,
-                            static_cast<float>(aPlayer.getPosition().second * MAP_OFFSET));
-        myNode->setOrientation(
-            Ogre::Quaternion(Ogre::Degree(myOrientationMap.at(aPlayer.getOrientation())), Ogre::Vector3::UNIT_Y));
-    }
-
-    void App::displayServerMessage(std::string &aNotification)
+    void App::displayServerMessage(const std::string &aNotification)
     {
         std::cout << "Server message: " << aNotification << std::endl;
+    }
+
+    void App::updateDisplayedTime([[maybe_unused]] const std::string &aNotification)
+    {
+        try {
+            auto *myTextArea = static_cast<Ogre::TextAreaOverlayElement *>(
+                Ogre::OverlayManager::getSingleton().getOverlayElement("Time_Text"));
+            std::string myTextString = "Current Time: " + std::to_string(_serverData._freq);
+
+            myTextArea->setCaption(myTextString);
+        } catch (const std::exception &e) {
+            std::cerr << e.what() << std::endl;
+        }
+    }
+
+    void App::addEgg(const std::string &aNotification)
+    {
+        auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
+        std::istringstream myStream(aNotification);
+        int myIndex = 0;
+
+        myStream >> myIndex;
+        auto myEggData =
+            std::find_if(_serverData._eggs.cbegin(), _serverData._eggs.cend(), [&myIndex](const EggData &aEgg) {
+                return aEgg.getId() == myIndex;
+            });
+        if (myEggData == _serverData._eggs.cend()) {
+            return;
+        }
+        SceneBuilder::createEgg(myScnMgr, *myEggData);
+    }
+
+    void App::removeEgg(const std::string &aNotification)
+    {
+        auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
+        std::istringstream myStream(aNotification);
+        std::string myIndex;
+
+        myStream >> myIndex;
+        myScnMgr->destroyEntity(EGG_PREFIX_NAME + myIndex);
     }
 } // namespace Zappy::GUI

@@ -5,12 +5,14 @@
 #include <string>
 #include <utility>
 #include <vector>
-#include "ServerData.hpp"
-#include "Subscriber.hpp"
+#include "Observer.hpp"
 #include <unordered_map>
 
 namespace Zappy::GUI {
-    class ClientApi
+    class Mediator;
+    struct ServerData;
+
+    class ClientApi final : public Observer
     {
         public:
             /**
@@ -19,12 +21,13 @@ namespace Zappy::GUI {
              * @param aPort
              * @param aTeamName
              */
-            ClientApi(std::string aAddress, unsigned int aPort, std::string aTeamName);
+            ClientApi(std::string aAddress, unsigned int aPort, std::string aTeamName, Mediator &aMediator,
+                      ServerData &aServerData);
 
             /**
              * @brief ClientApi destructor
              */
-            ~ClientApi();
+            ~ClientApi() final;
 
             /**
              * @brief run the client, update the server data, must be called in another thread, use disconnect to stop
@@ -70,16 +73,7 @@ namespace Zappy::GUI {
              */
             [[nodiscard]] const ServerData &getServerData() const;
 
-            /**
-             * @brief register a subscriber
-             * @param aSubscriber
-             */
-            void registerSubscriber(Subscriber &aSubscriber);
-
-            /**
-             * @brief parse information from server
-             */
-            void parseServerResponses();
+            void getNotified(const std::string &aNotification) final;
 
             /**
              * @brief ClientException class
@@ -123,10 +117,9 @@ namespace Zappy::GUI {
             static struct sockaddr_in getSockaddr(in_addr_t aAddress, unsigned int aPort);
 
             /**
-             * @brief notify subscribers
-             * @param aNotification
+             * @brief parse information from server
              */
-            void notifySubscribers(std::string &aNotification);
+            void parseServerResponses();
 
             /**
              * @brief reading information from server
@@ -254,7 +247,6 @@ namespace Zappy::GUI {
             std::string _readBuffer;
             std::string _writeBuffer;
             int _serverFd;
-            ServerData _serverData;
-            std::vector<std::reference_wrapper<Subscriber>> _subscribers;
+            ServerData &_serverData;
     };
 } // namespace Zappy::GUI

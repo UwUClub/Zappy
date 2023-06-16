@@ -6,7 +6,10 @@ add_executable(zappy_gui
         main.cpp
         App.cpp
         App+Listener.cpp
-        Subscriber.hpp
+        Button.cpp
+        Mediator.cpp
+        Observer.cpp
+        SceneBuilder.cpp
         )
 
 find_package(OGRE QUIET)
@@ -14,8 +17,7 @@ find_package(OGRE QUIET)
 target_link_libraries(zappy_gui
     PRIVATE myproject::myproject_options
         myproject::myproject_warnings
-        OgreBites
-        OgreRTShaderSystem
+        ${OGRE_LIBRARIES}
 )
 
 target_include_directories(zappy_gui PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/cli")

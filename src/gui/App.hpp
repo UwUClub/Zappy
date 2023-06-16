@@ -9,27 +9,29 @@
 #define APP_HPP_
 #include <OGRE/Bites/OgreApplicationContext.h>
 #include <OgreRoot.h>
+#include <OgreSceneManager.h>
 #include <functional>
 #include <memory>
-#include "CameraHandler.hpp"
-#include "ClickHandler.hpp"
-#include "ClientApi.hpp"
+#include <vector>
 #include "Constexpr.hpp"
-#include "FrameHandler.hpp"
-#include "InputHandler.hpp"
-#include "PlayerData.hpp"
-#include "ServerData.hpp"
-#include "Subscriber.hpp"
+#include "Observer.hpp"
 #include <unordered_map>
 
 namespace Zappy::GUI {
+    class Mediator;
+    class CameraHandler;
+    class ClickHandler;
+    class Button;
+    class PlayerData;
+    struct ServerData;
+
     /**
      * @brief Main class of the GUI
      *
      * @details This class is the main class of the GUI, it is used to create the window and the scene, and to handle
      * the events using Ogre, it also implements the Subscriber interface to be notified by the ClientApi
      */
-    class App final : public OgreBites::ApplicationContext, public Subscriber
+    class App final : public OgreBites::ApplicationContext, public Observer
     {
         public:
             /**
@@ -38,7 +40,7 @@ namespace Zappy::GUI {
              * @param aClient the client api (network)
              * @param aWindowName the name of the window, default value is "UwU Zappy UwU"
              */
-            explicit App(Zappy::GUI::ClientApi &aClient, const std::string &aWindowName = WINDOW_NAME);
+            explicit App(Mediator &aMediator, ServerData &aServerData, const std::string &aWindowName = WINDOW_NAME);
             ~App() final;
 
             App(const App &) = delete;
@@ -49,9 +51,41 @@ namespace Zappy::GUI {
             /**
              * @brief Overriden method from Subscriber
              */
-            void getNotified(std::string &aNotification) final;
+            void getNotified(const std::string &aNotification) final;
+
+            /**
+             * @brief Overriden method from OgreBites::ApplicationContext
+             *
+             * @param aRw the render window
+             */
+            void windowClosed(Ogre::RenderWindow *aRw) final;
+
+            /**
+             * @brief Ask the client to disconnect
+             */
+            void askDisconnection();
+
+            /**
+             * @brief Get the Server Data object
+             *
+             * @return const ServerData&
+             */
+            [[nodiscard]] const ServerData &getServerData() const;
+
+            /**
+             * @brief Get the Buttons object
+             *
+             * @return std::vector<std::unique_ptr<Button>>&
+             */
+            std::vector<std::unique_ptr<Button>> &getButtons();
 
         private:
+            /**
+             * @brief Create the buttons
+             *
+             */
+            void createButtons();
+
             class AppException : public std::exception
             {
                 public:
@@ -68,11 +102,6 @@ namespace Zappy::GUI {
                 private:
                     std::string _message;
             };
-            /**
-             * @brief Setup the light of the scene
-             * @param aSceneManager the scene manager
-             */
-            void setupLight(Ogre::SceneManager *aSceneManager, Ogre::Vector3 &aCenter);
 
             /**
              * @brief Initialize the app
@@ -80,64 +109,74 @@ namespace Zappy::GUI {
             void instantiateApp();
 
             /**
-             * @brief Setup the camera of the scene
-             * @param aSceneManager the scene manager
-             */
-            void setupCamera(Ogre::SceneManager *aSceneManager, Ogre::Vector3 &aCenter);
-            /**
              * @brief Move the a player
              *
              * @param aNotification the notification
              * @param aSceneManager the scene manager
              */
-            void movePlayer(std::string &aNotification);
-            /**
-             * @brief Set the Player Pos And Orientation object
-             *
-             * @param aPlayer the playerData
-             * @param aSceneManager the scene manager
-             */
-            void setPlayerPosAndOrientation(const PlayerData &aPlayer);
+            void movePlayer(const std::string &aNotification);
+
             /**
              * @brief Display a message from the server
              *
              * @param aNotification the notification
              */
-            void displayServerMessage(std::string &aNotification);
+            void displayServerMessage(const std::string &aNotification);
+
             /**
-             * @brief Setup the map of the scene
-             * @param aSceneManager the scene manager
-             * @return Ogre::Vector3f the center of the map
-             */
-            Ogre::Vector3f setupMap(Ogre::SceneManager *aSceneManager);
-            /**
-             * @brief Setup the players and eggs of the scene already on the map
+             * @brief Send a command to the server to set the time
              *
-             * @param aSceneManager the scene manager
              */
-            void setupPlayersAndEggs(Ogre::SceneManager *aSceneManager);
+            void increaseTime();
+
+            /**
+             * @brief Send a command to the server to set the time
+             *
+             */
+            void decreaseTime();
+
+            /**
+             * @brief Update the displayed time
+             *
+             * @param aNotification the notification (not used)
+             */
+            void updateDisplayedTime(const std::string &aNotification);
+
             /**
              * @brief Add a player to the scene
              * @param aPlayer the playerData of the player to add
              * @param aSceneManager the scene manager
              */
-            void addPlayer(std::string &aNotification);
+            void addPlayer(const std::string &aNotification);
+
             /**
              * @brief Remove a player from the scene
              * @param aIndex the index of the player to remove
              * @param aSceneManager the scene manager
              */
-            void removePlayer(std::string &aNotification);
-            Zappy::GUI::ClientApi &_client;
-            std::unique_ptr<CameraHandler> _cameraHandler;
-            std::unique_ptr<FrameHandler> _frameHandler;
-            std::unique_ptr<ClickHandler> _clickHandler;
+            void removePlayer(const std::string &aNotification);
 
-            static const inline std::unordered_map<std::string, std::function<void(App &, std::string &)>>
-                _notificationMap = {{"pnw", &App::addPlayer},
-                                    {"pdi", &App::removePlayer},
-                                    {"ppo", &App::movePlayer},
-                                    {"smg", &App::displayServerMessage}};
+            /**
+             * @brief Add an egg to the scene
+             * @param aNotification the notification
+             */
+            void addEgg(const std::string &aNotification);
+
+            /**
+             * @brief Remove an egg from the scene
+             * @param aNotification the notification
+             */
+            void removeEgg(const std::string &aNotification);
+
+            std::unique_ptr<CameraHandler> _cameraHandler;
+            std::unique_ptr<ClickHandler> _clickHandler;
+            std::vector<std::unique_ptr<Button>> _buttons;
+            const ServerData &_serverData;
+            static const inline std::unordered_map<std::string, std::function<void(App &, const std::string &)>>
+                _notificationMap = {{"pnw", &App::addPlayer},           {"pdi", &App::removePlayer},
+                                    {"ppo", &App::movePlayer},          {"smg", &App::displayServerMessage},
+                                    {"sgt", &App::updateDisplayedTime}, {"enw", &App::addEgg},
+                                    {"edi", &App::removeEgg},           {"ebo", &App::removeEgg}};
     };
 } // namespace Zappy::GUI
 

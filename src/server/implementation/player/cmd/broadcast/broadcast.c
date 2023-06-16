@@ -43,6 +43,7 @@ static int broadcast(data_t *data, char **args)
     content = concat_word_array(args);
     send_broadcast_to_gui(data, content);
     send_broadcast_to_players(data, content);
+    send_to_client(data->clients, data->curr_cli_index, "ok\n");
     free(content);
     return 0;
 }
