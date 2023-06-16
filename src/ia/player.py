@@ -252,6 +252,21 @@ class Player:
         for i in range(myNbOfForward):
             self.forward()
 
+    ## @brief Finds the tile with the most ressources to evolve to next level
+    ## @return The tile with the most ressources to evolve to next level
+    def findTileToEvolve(self):
+        bestTilesToGo = []
+        myNbOfUsefulRessources = 0
+        myTile = 0
+        for i in range(len(self._lookTiles)):
+            for y in range(1, len(self._lookTiles[i])):
+                if (self._lookTiles[i][y] > 0):
+                    myNbOfUsefulRessources += 1
+            bestTilesToGo.append(myNbOfUsefulRessources)
+            myNbOfUsefulRessources = 0
+        myTile = bestTilesToGo.index(max(bestTilesToGo))
+        return (myTile)
+
     ## @brief Finds the tile with most ressources
     ## @param aRessource The return of a look() parsed command
     ## @return The tile with most ressources
@@ -332,7 +347,8 @@ class Player:
     def goToLevel2(self):
         print(self.parseReceiveBroadcast())
         self.parseLook(self.look())
-        myTile = self.findRessource()
+        #myTile = self.findRessource()
+        myTile = self.findTileToEvolve()
         self.goTo(myTile)
         self.takeAll(self._lookTiles[myTile])
         self.parseInventory(self.inventory())
@@ -348,7 +364,7 @@ class Player:
     def goToLevel3(self):
         self.parseReceiveBroadcast()
         self.parseLook(self.look())
-        myTile = self.findRessource()
+        myTile = self.findTileToEvolve()
         self.goTo(myTile)
         self.takeAll(self._lookTiles[myTile])
         self.parseInventory(self.inventory())
@@ -364,7 +380,7 @@ class Player:
     def goToLevel4(self):
         self.parseReceiveBroadcast()
         self.parseLook(self.look())
-        myTile = self.findRessource()
+        myTile = self.findTileToEvolve()
         self.goTo(myTile)
         self.takeAll(self._lookTiles[myTile])
         self.parseInventory(self.inventory())
@@ -380,7 +396,7 @@ class Player:
     def goToLevel5(self):
         self.parseReceiveBroadcast()
         self.parseLook(self.look())
-        myTile = self.findRessource()
+        myTile = self.findTileToEvolve()
         self.goTo(myTile)
         self.takeAll(self._lookTiles[myTile])
         self.parseInventory(self.inventory())
@@ -396,7 +412,7 @@ class Player:
     def goToLevel6(self):
         self.parseReceiveBroadcast()
         self.parseLook(self.look())
-        myTile = self.findRessource()
+        myTile = self.findTileToEvolve()
         self.goTo(myTile)
         self.takeAll(self._lookTiles[myTile])
         self.parseInventory(self.inventory())
@@ -412,7 +428,7 @@ class Player:
     def goToLevel7(self):
         self.parseReceiveBroadcast()
         self.parseLook(self.look())
-        myTile = self.findRessource()
+        myTile = self.findTileToEvolve()
         self.goTo(myTile)
         self.takeAll(self._lookTiles[myTile])
         self.parseInventory(self.inventory())
@@ -428,7 +444,7 @@ class Player:
     def goToLevel8(self):
         self.parseReceiveBroadcast()
         self.parseLook(self.look())
-        myTile = self.findRessource()
+        myTile = self.findTileToEvolve()
         self.goTo(myTile)
         self.takeAll(self._lookTiles[myTile])
         self.parseInventory(self.inventory())
