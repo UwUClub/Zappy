@@ -130,4 +130,12 @@
     */
     int get_team_index_by_name(team_t **teams, const char *name);
 
+    /**
+     * @brief Normalize a position to fit the map
+     * @param pos The position to normalize
+     * @param width The width of the map
+     * @param height The height of the map
+     */
+    void normalize_pos(pos_t *pos, const int width, const int height);
+
 #endif /* ZAPPY_IMPLEMENTATION_H */
