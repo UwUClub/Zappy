@@ -35,4 +35,5 @@ const constexpr std::string TILE_MODEL_NAME = "Rock.mesh";
 const constexpr std::string PLAYER_MODEL_NAME = "Sinbad.mesh";
 const constexpr std::string EGG_MODEL_NAME = "Egg.mesh";
 const constexpr std::string EGG_PREFIX_NAME = "Egg_";
+const constexpr std::string PLAYER_PREFIX_NAME = "Player_";
 #endif /* !CONSTEXPR_HPP_ */

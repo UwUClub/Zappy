@@ -19,6 +19,7 @@
 #include <fstream>
 #include <string>
 #include "App.hpp"
+#include "Constexpr.hpp"
 #include "SceneBuilder.hpp"
 #include "ServerData.hpp"
 
@@ -48,7 +49,7 @@ namespace Zappy::GUI {
         auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
 
         myStream >> myIndex;
-        myScnMgr->destroyEntity(myIndex);
+        myScnMgr->destroyEntity(PLAYER_PREFIX_NAME + myIndex);
     }
 
     void App::movePlayer(const std::string &aNotification)

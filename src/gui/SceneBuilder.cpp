@@ -130,10 +130,11 @@ namespace Zappy::GUI {
     void SceneBuilder::createPlayer(Ogre::SceneManager *aSceneManager, const PlayerData &aPlayerData)
     {
         static const constexpr Ogre::Real myScale = 0.5F;
+        const std::string myPlayerName = PLAYER_PREFIX_NAME + aPlayerData.getId();
 
         try {
-            Ogre::Entity *myEntity = aSceneManager->createEntity(aPlayerData.getId(), PLAYER_MODEL_NAME);
-            Ogre::SceneNode *myNode = aSceneManager->getRootSceneNode()->createChildSceneNode(aPlayerData.getId());
+            Ogre::Entity *myEntity = aSceneManager->createEntity(myPlayerName, PLAYER_MODEL_NAME);
+            Ogre::SceneNode *myNode = aSceneManager->getRootSceneNode()->createChildSceneNode(myPlayerName);
 
             myNode->attachObject(myEntity);
             myNode->setScale(myScale, myScale, myScale);
@@ -214,7 +215,7 @@ namespace Zappy::GUI {
 
     void SceneBuilder::setPlayerPosAndOrientation(Ogre::SceneManager *aSceneManager, const PlayerData &aPlayer)
     {
-        const auto &myPlayerId = aPlayer.getId();
+        const auto &myPlayerId = PLAYER_PREFIX_NAME + aPlayer.getId();
         static const std::unordered_map<Orientation, Ogre::Real> myOrientationMap = {{Orientation::NORTH, 180},
                                                                                      {Orientation::EAST, 90},
                                                                                      {Orientation::SOUTH, 0},
