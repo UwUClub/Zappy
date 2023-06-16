@@ -1,6 +1,6 @@
 #include <iostream>
-#include "../src/gui/cli/ClientApi.hpp"
-#include "../src/gui/cli/ParserData.hpp"
+#include "../../src/gui/cli/ClientApi.hpp"
+#include "../../src/gui/cli/ParserData.hpp"
 #include <catch2/catch_test_macros.hpp>
 
 constexpr auto SERVER_IP = "127.0.0.1";
