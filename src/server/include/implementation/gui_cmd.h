@@ -193,6 +193,13 @@
     */
     void do_pie(data_t *data, pos_t *pos, const int result_lvl);
 
+    /**
+     * @brief Notify to gui that a player died
+     * @param data The current server data, clients and current client index
+     * @param player_id The id of the player who died
+    */
+    void do_pdi(data_t *data, const int player_id);
+
     static const cmd_t gui_commands[] = {
         {"msz", &do_msz, 0},
         {"bct", &do_bct, 0},
