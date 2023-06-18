@@ -46,6 +46,7 @@ static int do_incantation(data_t *data, char **args)
 {
     player_t *author = data->clients[data->curr_cli_index]->player;
     const int target_lvl = author->level + 1;
+    char *msg = NULL;
 
     set_players_freeze_state(data, author->pos, target_lvl, 0);
     if (!check_tile_for_incantation(data, author->pos, target_lvl, 0)) {
@@ -55,7 +56,9 @@ static int do_incantation(data_t *data, char **args)
     rm_resources_from_tile(data, author->pos, target_lvl);
     increment_players_level(data, author->pos, target_lvl);
     do_pie(data, author->pos, target_lvl);
-    send_to_client(data->clients, data->curr_cli_index, "ok\n");
+    asprintf(&msg, "Current level: %d\n", target_lvl);
+    send_to_client(data->clients, data->curr_cli_index, msg);
+    free(msg);
     return 0;
 }
 
