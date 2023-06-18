@@ -41,6 +41,7 @@ class Player:
         message = self._socket.receive()
         if (message == "dead\n"):
             print("Dead")
+            self.disconnect()
             exit(0)
         if (message[0:7] == "message"):
             self._lastReceivedMessage = message
@@ -188,11 +189,16 @@ class Player:
         self.send("Incantation")
         myIncantation = self.receive()
         if myIncantation == "ko\n":
-            print ("Error: Incantation")
-            return (None)
-        else:
-            print ("Incantation:", myIncantation)
-            return (myIncantation)
+            print("Error: Incantation")
+            return (False)
+        elif (myIncantation == "Elevation underway\n"):
+            myIncantation = self.receive()
+            if myIncantation == "ko\n":
+                print("Error: Incantation")
+                return (False)
+            else:
+                print ("Incantation:", myIncantation)
+                return (True)
 
     ## @brief Send Fork command
     ## @return None
@@ -366,7 +372,7 @@ class Player:
         if (self.verifyIncantation()):
             if self.parseLook(self.look())[0][0] == myLevelCondition[self._functionIndex][0]:
                 self.setElevationRessources()
-                if (self.incantation() != None):
+                if (self.incantation()):
                     self._functionIndex += 1
                     if (self.connectNbr() == 0):
                         self.fork()
@@ -383,10 +389,13 @@ class Player:
         if (self._parsedMessage == "regroup 2"):
             self.findPlayer()
             print("Found")
-            if (self.receive() == "Current level: 3"):
-                self._functionIndex += 1
-                self.fork()
-                return
+            myReceivedMessage = ""
+            while (myReceivedMessage != "Current level: 3\n" and myReceivedMessage != "ko\n"):
+                myReceivedMessage = self.receive()
+                if (myReceivedMessage == "Current level: 3\n"):
+                    self._functionIndex += 1
+                    self.fork()
+                    return
         if (self.verifyIncantation() and self._parsedMessage != "regroup 2"):
             self.broadcast("regroup 2")
             mySelfTile = self.parseLook(self.look())[0][0]
@@ -395,10 +404,9 @@ class Player:
                 time.sleep(1)
                 self.broadcast("regroup 2")
             self.setElevationRessources()
-            if (self.incantation() != None):
+            if (self.incantation()):
                 self._functionIndex += 1
                 self.fork()
-                print("OUIIIIIIIIIIIIIIIIIIIII")
     
     ## @brief Try to evolve to level 4
     ## @return None
@@ -409,12 +417,27 @@ class Player:
         self.goTo(myTile)
         self.takeAll(self._lookTiles[myTile])
         self.parseInventory(self.inventory())
-        if (self.verifyIncantation()):
-            self.setElevationRessources()
-            if (self.incantation() != None):
-                self._functionIndex += 1
-                if (self.connectNbr() == 0):
+        if (self._parsedMessage == "regroup 3"):
+            self.findPlayer()
+            print("Found")
+            myReceivedMessage = ""
+            while (myReceivedMessage != "Current level: 4\n" and myReceivedMessage != "ko\n"):
+                myReceivedMessage = self.receive()
+                if (myReceivedMessage == "Current level: 4\n"):
+                    self._functionIndex += 1
                     self.fork()
+                    return
+        if (self.verifyIncantation() and self._parsedMessage != "regroup 3"):
+            self.broadcast("regroup 3")
+            mySelfTile = self.parseLook(self.look())[0][0]
+            while mySelfTile != myLevelCondition[self._functionIndex][0]:
+                mySelfTile = self.parseLook(self.look())[0][0]
+                time.sleep(1)
+                self.broadcast("regroup 3")
+            self.setElevationRessources()
+            if (self.incantation()):
+                self._functionIndex += 1
+                self.fork()
 
     ## @brief Try to evolve to level 5
     ## @return None
@@ -425,12 +448,27 @@ class Player:
         self.goTo(myTile)
         self.takeAll(self._lookTiles[myTile])
         self.parseInventory(self.inventory())
-        if (self.verifyIncantation()):
-            self.setElevationRessources()
-            if (self.incantation() != None):
-                self._functionIndex += 1
-                if (self.connectNbr() == 0):
+        if (self._parsedMessage == "regroup 4"):
+            self.findPlayer()
+            print("Found")
+            myReceivedMessage = ""
+            while (myReceivedMessage != "Current level: 5\n" and myReceivedMessage != "ko\n"):
+                myReceivedMessage = self.receive()
+                if (myReceivedMessage == "Current level: 5\n"):
+                    self._functionIndex += 1
                     self.fork()
+                    return
+        if (self.verifyIncantation() and self._parsedMessage != "regroup 4"):
+            self.broadcast("regroup 4")
+            mySelfTile = self.parseLook(self.look())[0][0]
+            while mySelfTile != myLevelCondition[self._functionIndex][0]:
+                mySelfTile = self.parseLook(self.look())[0][0]
+                time.sleep(1)
+                self.broadcast("regroup 4")
+            self.setElevationRessources()
+            if (self.incantation()):
+                self._functionIndex += 1
+                self.fork()
     
     ## @brief Try to evolve to level 6
     ## @return None
@@ -441,12 +479,27 @@ class Player:
         self.goTo(myTile)
         self.takeAll(self._lookTiles[myTile])
         self.parseInventory(self.inventory())
-        if (self.verifyIncantation()):
-            self.setElevationRessources()
-            if (self.incantation() != None):
-                self._functionIndex += 1
-                if (self.connectNbr() == 0):
+        if (self._parsedMessage == "regroup 5"):
+            self.findPlayer()
+            print("Found")
+            myReceivedMessage = ""
+            while (myReceivedMessage != "Current level: 6\n" and myReceivedMessage != "ko\n"):
+                myReceivedMessage = self.receive()
+                if (myReceivedMessage == "Current level: 6\n"):
+                    self._functionIndex += 1
                     self.fork()
+                    return
+        if (self.verifyIncantation() and self._parsedMessage != "regroup 5"):
+            self.broadcast("regroup 5")
+            mySelfTile = self.parseLook(self.look())[0][0]
+            while mySelfTile != myLevelCondition[self._functionIndex][0]:
+                mySelfTile = self.parseLook(self.look())[0][0]
+                time.sleep(1)
+                self.broadcast("regroup 5")
+            self.setElevationRessources()
+            if (self.incantation()):
+                self._functionIndex += 1
+                self.fork()
     
     ## @brief Try to evolve to level 7
     ## @return None
@@ -457,12 +510,27 @@ class Player:
         self.goTo(myTile)
         self.takeAll(self._lookTiles[myTile])
         self.parseInventory(self.inventory())
-        if (self.verifyIncantation()):
-            self.setElevationRessources()
-            if (self.incantation() != None):
-                self._functionIndex += 1
-                if (self.connectNbr() == 0):
+        if (self._parsedMessage == "regroup 6"):
+            self.findPlayer()
+            print("Found")
+            myReceivedMessage = ""
+            while (myReceivedMessage != "Current level: 7\n" and myReceivedMessage != "ko\n"):
+                myReceivedMessage = self.receive()
+                if (myReceivedMessage == "Current level: 7\n"):
+                    self._functionIndex += 1
                     self.fork()
+                    return
+        if (self.verifyIncantation() and self._parsedMessage != "regroup 6"):
+            self.broadcast("regroup 6")
+            mySelfTile = self.parseLook(self.look())[0][0]
+            while mySelfTile != myLevelCondition[self._functionIndex][0]:
+                mySelfTile = self.parseLook(self.look())[0][0]
+                time.sleep(1)
+                self.broadcast("regroup 6")
+            self.setElevationRessources()
+            if (self.incantation()):
+                self._functionIndex += 1
+                self.fork()
     
     ## @brief Try to evolve to level 8
     ## @return None
@@ -473,9 +541,24 @@ class Player:
         self.goTo(myTile)
         self.takeAll(self._lookTiles[myTile])
         self.parseInventory(self.inventory())
-        if (self.verifyIncantation()):
-            self.setElevationRessources()
-            if (self.incantation() != None):
-                self._functionIndex += 1
-                if (self.connectNbr() == 0):
+        if (self._parsedMessage == "regroup 7"):
+            self.findPlayer()
+            print("Found")
+            myReceivedMessage = ""
+            while (myReceivedMessage != "Current level: 8\n" and myReceivedMessage != "ko\n"):
+                myReceivedMessage = self.receive()
+                if (myReceivedMessage == "Current level: 8\n"):
+                    self._functionIndex += 1
                     self.fork()
+                    return
+        if (self.verifyIncantation() and self._parsedMessage != "regroup 7"):
+            self.broadcast("regroup 7")
+            mySelfTile = self.parseLook(self.look())[0][0]
+            while mySelfTile != myLevelCondition[self._functionIndex][0]:
+                mySelfTile = self.parseLook(self.look())[0][0]
+                time.sleep(1)
+                self.broadcast("regroup 7")
+            self.setElevationRessources()
+            if (self.incantation()):
+                self._functionIndex += 1
+                self.fork()
