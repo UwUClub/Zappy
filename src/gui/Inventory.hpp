@@ -14,11 +14,11 @@
 #include <OGRE/Overlay/OgreOverlayManager.h>
 #include <OGRE/Overlay/OgreTextAreaOverlayElement.h>
 #include <OgreOverlay.h>
+#include "App.hpp"
 #include "ClientApi.hpp"
 #include "Constexpr.hpp"
 #include "Inventory.hpp"
 #include "ItemPacket.hpp"
-#include "App.hpp"
 
 namespace Zappy::GUI {
     class Inventory

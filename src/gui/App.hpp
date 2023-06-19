@@ -178,7 +178,7 @@ namespace Zappy::GUI {
              * @param aPath the path of the material
              * @return Ogre::MaterialPtr the material
              */
-             void CreateMaterial(const std::string &aPath);
+            void CreateMaterial(const std::string &aPath);
 
             std::unique_ptr<CameraHandler> _cameraHandler;
             std::unique_ptr<ClickHandler> _clickHandler;
