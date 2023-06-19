@@ -8,8 +8,10 @@
 #include "Button.hpp"
 #include <OGRE/Overlay/OgreFont.h>
 #include <OGRE/Overlay/OgreFontManager.h>
+#include <OGRE/Overlay/OgreOverlay.h>
 #include <OGRE/Overlay/OgreOverlayContainer.h>
 #include <OGRE/Overlay/OgreOverlayManager.h>
+#include <OGRE/Overlay/OgreOverlaySystem.h>
 #include <OGRE/Overlay/OgreTextAreaOverlayElement.h>
 #include <OgreOverlay.h>
 #include <iostream>
@@ -23,6 +25,7 @@ namespace Zappy::GUI {
         : _buttonText(aButtonText),
           _position(aPosition),
           _dimensions(aDimension),
+          _isDisplayed(true),
           _callback(std::move(aCallback))
     {
         try {
@@ -38,6 +41,8 @@ namespace Zappy::GUI {
 
     bool Button::isOnButton(const Ogre::Vector2 &mousePos) const
     {
+        if (!_isDisplayed)
+            return false;
         return mousePos.x >= static_cast<Ogre::Real>(_position.first)
                && mousePos.x <= static_cast<Ogre::Real>(_position.first) + static_cast<Ogre::Real>(_dimensions.first)
                && mousePos.y >= static_cast<Ogre::Real>(_position.second)
@@ -47,5 +52,19 @@ namespace Zappy::GUI {
     void Button::onClick()
     {
         _callback();
+    }
+
+    void Button::setDisplayed(bool displayed)
+    {
+        Ogre::OverlayManager &myOverlayManager = Ogre::OverlayManager::getSingleton();
+
+        _isDisplayed = displayed;
+        if (displayed) {
+            myOverlayManager.getOverlayElement(_buttonText + "_Panel")->show();
+            myOverlayManager.getOverlayElement(_buttonText + "_Text")->show();
+            return;
+        }
+        myOverlayManager.getOverlayElement(_buttonText + "_Panel")->hide();
+        myOverlayManager.getOverlayElement(_buttonText + "_Text")->hide();
     }
 } // namespace Zappy::GUI

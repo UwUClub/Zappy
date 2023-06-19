@@ -7,6 +7,7 @@ add_executable(zappy_gui
         App.cpp
         App+Listener.cpp
         Button.cpp
+        Inventory.cpp
         Mediator.cpp
         Observer.cpp
         SceneBuilder.cpp

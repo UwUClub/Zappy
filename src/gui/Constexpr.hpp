@@ -38,6 +38,7 @@ const constexpr std::string BUTTON_OVERLAY = "ButtonOverlay";
 const constexpr std::string HELP_CONTROLS_OVERLAY = "HelpContOverlay";
 const constexpr std::string HELP_CONTROLS_OVERLAY_PREFIX = "Help";
 const constexpr std::string FONT_NAME = "BttfFont";
+const constexpr std::string INVENTORY_OVERLAY = "InventoryOver";
 const constexpr std::string FONT_NAME_SRC = "BTTF.ttf";
 const constexpr std::string TILE_MODEL_NAME = "Rock.mesh";
 const constexpr std::string PLAYER_MODEL_NAME = "Sinbad.mesh";
