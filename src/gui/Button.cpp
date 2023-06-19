@@ -19,15 +19,16 @@
 
 namespace Zappy::GUI {
     Button::Button(const std::string &aButtonText, const std::pair<float, float> &aPosition,
-                   std::function<void()> aCallback)
+                   const std::pair<float, float> &aDimension, std::function<void()> aCallback)
         : _buttonText(aButtonText),
           _position(aPosition),
-          _dimensions(0, 0),
+          _dimensions(aDimension),
           _callback(std::move(aCallback))
     {
         try {
-            _dimensions = SceneBuilder::createText(BUTTON_OVERLAY, _buttonText, _buttonText,
-                                                   Ogre::Vector2(_position.first, _position.second));
+            SceneBuilder::createText(BUTTON_OVERLAY, _buttonText, _buttonText,
+                                     Ogre::Vector2(_position.first, _position.second),
+                                     Ogre::Vector2(_dimensions.first, _dimensions.second));
         } catch (const std::exception &e) {
             std::cerr << "Button error : " << e.what() << std::endl;
         }
