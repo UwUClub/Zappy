@@ -16,6 +16,7 @@
 #include <OgrePrerequisites.h>
 #include <OgreSceneManager.h>
 #include <OgreSceneNode.h>
+#include <algorithm>
 #include <iostream>
 #include "App.hpp"
 #include "CameraHandler.hpp"
@@ -167,9 +168,9 @@ namespace Zappy::GUI {
         }
     }
 
-    std::pair<float, float> SceneBuilder::createText(const std::string &aOverlayName, const std::string &aText,
-                                                     const std::string &aPrefix, const Ogre::Vector2 &aPosition,
-                                                     const std::string &aMaterialName)
+    void SceneBuilder::createText(const std::string &aOverlayName, const std::string &aText, const std::string &aPrefix,
+                                  const Ogre::Vector2 &aPosition, const Ogre::Vector2 &aDimension,
+                                  const std::string &aMaterialName, const std::string &aGroupName, const Ogre::Vector2 &offset)
     {
         Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
         Ogre::Overlay *myOverlay = overlayManager.getByName(aOverlayName);
@@ -179,38 +180,24 @@ namespace Zappy::GUI {
         auto *myTextArea = static_cast<Ogre::TextAreaOverlayElement *>(
             overlayManager.createOverlayElement("TextArea", aPrefix + "_Text"));
         Ogre::FontPtr myFont = Ogre::FontManager::getSingleton().getByName(FONT_NAME, RESSOURCE_GROUP_NAME);
-        auto myDimensions = calculateDimensions(aText);
 
         myContainer->setMetricsMode(Ogre::GMM_PIXELS);
         myContainer->setPosition(aPosition.x, aPosition.y);
-        myContainer->setDimensions(myDimensions.first, myDimensions.second);
-        myContainer->setMaterialName(aMaterialName);
+        myContainer->setMaterialName(aMaterialName, aGroupName);
+        myContainer->setDimensions(aDimension.x, aDimension.y);
 
         myTextArea->setMetricsMode(Ogre::GMM_PIXELS);
-        myTextArea->setPosition(0, 0);
+        myTextArea->setPosition(offset.x, offset.y);
         myTextArea->setCaption(aText);
         myTextArea->setCharHeight(CHAR_HEIGHT);
         myTextArea->setFontName(FONT_NAME, RESSOURCE_GROUP_NAME);
-        myTextArea->setColourTop(Ogre::ColourValue(1, 0, 1));
+        myTextArea->setColourTop(Ogre::ColourValue(1, 1, 0));
         myTextArea->setColourBottom(Ogre::ColourValue(0, 0, 0));
 
         myContainer->addChild(myTextArea);
 
         myOverlay->add2D(myContainer);
         myOverlay->show();
-        return myDimensions;
-    }
-
-    std::pair<float, float> SceneBuilder::calculateDimensions(const std::string &aButtonText)
-    {
-        Ogre::FontPtr myFont = Ogre::FontManager::getSingleton().getByName(FONT_NAME, RESSOURCE_GROUP_NAME);
-        const float myCharHeight = myFont->getGlyphAspectRatio('A') * 17;
-        float myTextWidth = 0;
-        const constexpr float myPaddingX = 1.05F;
-        const constexpr float myPaddingY = 1.5F;
-
-        myTextWidth = myCharHeight * static_cast<float>(aButtonText.size()) * myPaddingX;
-        return {myTextWidth, static_cast<int>(myCharHeight * myPaddingY)};
     }
 
     void SceneBuilder::setPlayerPosAndOrientation(Ogre::SceneManager *aSceneManager, const PlayerData &aPlayer)

@@ -39,6 +39,6 @@ namespace Zappy::GUI {
 
         std::string InventoryOverlay = "Inventory of the player " + std::to_string(aId) + "\nFood: " + std::to_string(myInventory._food) + "\nLinemate: " + std::to_string(myInventory._linemate) + "\nDeraumere: " + std::to_string(myInventory._deraumere) + "\nSibur: " + std::to_string(myInventory._sibur) + "\nMendiane: " + std::to_string(myInventory._mendiane) + "\nPhiras: " + std::to_string(myInventory._phiras) + "\nThystame: " + std::to_string(myInventory._thystame);
 
-        SceneBuilder::createText(INVENTORY_OVERLAY, InventoryOverlay, "Inventory", Ogre::Vector2(1000, 0), "Inventory.png");
+        SceneBuilder::createText(INVENTORY_OVERLAY, InventoryOverlay, "Inventory", Ogre::Vector2(1000, 0), Ogre::Vector2(500, 195),"Inventory.png", RESSOURCE_GROUP_NAME, Ogre::Vector2(45, 15));
     }
 } // namespace Zappy::GUI

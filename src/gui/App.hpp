@@ -109,6 +109,11 @@ namespace Zappy::GUI {
             void instantiateApp();
 
             /**
+             * @brief Add a how to play menu displaying the controls
+             */
+            void displayHowToPlayMenu();
+
+            /**
              * @brief Move the a player
              *
              * @param aNotification the notification
