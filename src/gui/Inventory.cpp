@@ -71,17 +71,13 @@ namespace Zappy::GUI {
 
     void Inventory::switchDisplayedPlayer()
     {
-        std::cout << "Switching player" << std::endl;
         auto myPlayer = std::find_if(_app.getServerData()._players.cbegin(), _app.getServerData()._players.cend(),
                                      [this](const PlayerData &aPlayer) {
                                          return std::stoi(aPlayer.getId()) != _id && aPlayer.getPosition() == _pos;
                                      });
-        std::cout << "Player found" << std::endl;
 
         if (myPlayer != _app.getServerData()._players.cend()) {
-            std::cout << "Player found" << std::endl;
             displayPlayerInventory(std::stoi(myPlayer->getId()), const_cast<App &>(_app));
-            std::cout << "Inventory displayed" << std::endl;
         }
     }
 
