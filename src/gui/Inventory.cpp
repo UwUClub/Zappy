@@ -50,7 +50,7 @@ namespace Zappy::GUI {
             + "\nThystame: " + std::to_string(myInventory._thystame);
 
 
-        SceneBuilder::createText(INVENTORY_OVERLAY, InventoryOverlay, "Inventory", Ogre::Vector2(1000, 0), Ogre::Vector2(500, 195),"Inventory.png", RESSOURCE_GROUP_NAME, Ogre::Vector2(45, 15));
+        SceneBuilder::createText(INVENTORY_OVERLAY, InventoryOverlay, "Inventory", Ogre::Vector2(1400, 20), Ogre::Vector2(500, 195),"Inventory.png", RESSOURCE_GROUP_NAME, Ogre::Vector2(45, 15));
     }
 
     void Inventory::displayTilesInventory(std::pair<int, int> aPos, App &aApp)
@@ -68,7 +68,7 @@ namespace Zappy::GUI {
             + "\nMendiane: " + std::to_string(myInventory._mendiane) + "\nPhiras: " + std::to_string(myInventory._phiras)
             + "\nThystame: " + std::to_string(myInventory._thystame);
 
-        SceneBuilder::createText(INVENTORY_OVERLAY, InventoryOverlay, "Inventory", Ogre::Vector2(1000, 0), Ogre::Vector2(500, 195),"Inventory.png", RESSOURCE_GROUP_NAME, Ogre::Vector2(45, 15));
+        SceneBuilder::createText(INVENTORY_OVERLAY, InventoryOverlay, "Inventory", Ogre::Vector2(1400, 20), Ogre::Vector2(500, 195),"Inventory.png", RESSOURCE_GROUP_NAME, Ogre::Vector2(45, 15));
     }
 
     void Inventory::switchDisplayedPlayer()

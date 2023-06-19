@@ -87,7 +87,7 @@ namespace Zappy::GUI {
                 decreaseTime();
             }));
         _buttons.emplace_back(std::make_unique<Button>(
-            "Next", std::make_pair(0, 0), std::make_pair(150, 35), [this] {
+            "Next", std::make_pair(1800, 540), std::make_pair(150, 35), [this] {
                 _inventory->switchDisplayedPlayer();
             }));
         _buttons.back()->setDisplayed(false);
