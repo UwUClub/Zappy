@@ -23,6 +23,8 @@ class Player:
         self._lastReceivedMessage = ""
         self._direction = 0
         self._parsedMessage = ""
+        self._nbFunctInList = 0
+
 
     ## @brief Connect to the server
     ## @param info The connection information
@@ -33,19 +35,41 @@ class Player:
     ## @brief Send data to the server
     ## @param data The data to send
     def send(self, aData):
+        self._nbFunctInList += 1
+        if (self._nbFunctInList == 10):
+            time.sleep(1)
         self._socket.send(aData)
 
     ## @brief Receive data from the server
     ## @return The data received
     def receive(self):
+        nbMessage = 0
         message = self._socket.receive()
+        for i in range(len(message)):
+            if (message[i] == '\n'):
+                nbMessage += 1
+        if (nbMessage > 1):
+            message = message.split('\n')
+            message.remove('')
+            print(message)
+            for i in range(nbMessage):
+                if (message[i] == "dead\n"):
+                    print("Dead")
+                    self.disconnect()
+                    exit(0)
+                if (message[i][0:7] == "message"):
+                    self._lastReceivedMessage = message[i]
+                    message.remove(message[i])
+                    self._nbFunctInList -= 1
+                    print (message[0].join("\n"))
+                    return message[0].join("\n")
         if (message == "dead\n"):
             print("Dead")
             self.disconnect()
             exit(0)
         if (message[0:7] == "message"):
             self._lastReceivedMessage = message
-            return self._socket.receive()
+            return self.receive()
         return message
 
     ## @brief Disconnect from the server
@@ -191,14 +215,8 @@ class Player:
         if myIncantation == "ko\n":
             print("Error: Incantation")
             return (False)
-        elif (myIncantation == "Elevation underway\n"):
-            myIncantation = self.receive()
-            if myIncantation == "ko\n":
-                print("Error: Incantation")
-                return (False)
-            else:
-                print ("Incantation:", myIncantation)
-                return (True)
+        else:
+            return (True)
 
     ## @brief Send Fork command
     ## @return None
@@ -325,10 +343,12 @@ class Player:
     ## @return The broadcast message
     def parseReceiveBroadcast(self):
         if (self._lastReceivedMessage == ""):
-            return (None)
+            return
         myMessage = self._lastReceivedMessage[11:]
         print ("Message received:", myMessage)
         self._parsedMessage = self.decryptMessage(myMessage)
+        if (len(self._parsedMessage) != 9):
+            return
         if (int(self._parsedMessage[8]) == self._functionIndex + 1):
             self._direction = int(self._lastReceivedMessage[8])
         print ("Message received:", self._parsedMessage)
