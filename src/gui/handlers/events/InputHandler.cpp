@@ -8,7 +8,12 @@
 #include "InputHandler.hpp"
 #include <OGRE/Bites/OgreInput.h>
 #include <OGRE/OgreRoot.h>
+#include <OGRE/Overlay/OgreOverlay.h>
+#include <OGRE/Overlay/OgreOverlayManager.h>
+#include <OgreOverlay.h>
+#include <OgreTextAreaOverlayElement.h>
 #include "App.hpp"
+#include "Constexpr.hpp"
 
 namespace Zappy::GUI {
     InputHandler::InputHandler(App &aApp)
@@ -48,6 +53,9 @@ namespace Zappy::GUI {
 
     bool InputHandler::keyPressed(const OgreBites::KeyboardEvent &aEvt)
     {
+        auto *myOverlayHelp = Ogre::OverlayManager::getSingleton().getByName(HELP_CONTROLS_OVERLAY);
+
+        myOverlayHelp->hide();
         if (aEvt.keysym.sym == OgreBites::SDLK_LSHIFT) {
             _isShiftPressed = true;
             return true;
