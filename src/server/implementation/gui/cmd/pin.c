@@ -5,6 +5,7 @@
 ** pin
 */
 
+#define _GNU_SOURCE
 #include <stdio.h>
 #include "implementation.h"
 #include "utils.h"

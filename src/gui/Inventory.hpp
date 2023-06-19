@@ -19,26 +19,26 @@
 #include "Constexpr.hpp"
 #include "Inventory.hpp"
 #include "ItemPacket.hpp"
+#include "Button.hpp"
 
 namespace Zappy::GUI {
     class Inventory
     {
         public:
-            Inventory();
+            explicit Inventory(App &aApp);
             ~Inventory() = default;
 
-            int parsePlayer(const std::string &aString);
+            static int parsePlayer(const std::string &aString);
+            static std::pair<int, int> parseTile(const std::string &aString);
             void displayPlayerInventory(int aId, App &aApp);
-            ItemPacket getInventoryPlayer(std::vector<PlayerData>::iterator aPlayerData);
+            void displayTilesInventory(std::pair<int, int> aPos, App &aApp);
+            void switchDisplayedPlayer();
 
         private:
-            int _food;
-            int _linemate;
-            int _deraumere;
-            int _sibur;
-            int _mendiane;
-            int _phiras;
-            int _thystame;
+            int _id;
+            std::unique_ptr<Button> _button;
+            std::pair<unsigned int, unsigned int> _pos;
+            const App &_app;
     };
 } // namespace Zappy::GUI
 

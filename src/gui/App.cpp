@@ -9,28 +9,24 @@
 #include <OGRE/Bites/OgreApplicationContext.h>
 #include <OGRE/OgreSceneManager.h>
 #include <OGRE/Overlay/OgreFontManager.h>
-#include <OGRE/Overlay/OgreOverlayContainer.h>
 #include <OGRE/Overlay/OgreOverlayManager.h>
 #include <OGRE/Overlay/OgreOverlaySystem.h>
-#include <Ogre.h>
 #include <OgreFont.h>
 #include <OgreInput.h>
-#include <OgreOverlay.h>
 #include <OgreRenderWindow.h>
 #include <OgreResourceGroupManager.h>
 #include <memory>
 #include <utility>
-#include <unordered_map>
 #include "Button.hpp"
 #include "CameraHandler.hpp"
 #include "ClickHandler.hpp"
-#include "ClientApi.hpp"
 #include "Constexpr.hpp"
 #include "InputHandler.hpp"
 #include "Observer.hpp"
 #include "PlayerData.hpp"
 #include "SceneBuilder.hpp"
 #include "ServerData.hpp"
+#include "Inventory.hpp"
 
 namespace Zappy::GUI {
     App::App(Mediator &aMediator, ServerData &aServerData, const std::string &aWindowName)
@@ -62,6 +58,7 @@ namespace Zappy::GUI {
         _cameraHandler.reset(myHandlers.first);
         _clickHandler.reset(myHandlers.second);
         myScnMgr->setSkyBox(true, "Examples/SpaceSkyBox", 5000);
+        _inventory = std::make_unique<Inventory>(*this);
 
         this->createButtons();
         this->displayHowToPlayMenu();
@@ -89,6 +86,11 @@ namespace Zappy::GUI {
             std::make_pair(DIMENSION_OVERLAY_BUTTON_2_TIME_X, DIMENSION_OVERLAY_BUTTON_2_TIME_Y), [this] {
                 decreaseTime();
             }));
+        _buttons.emplace_back(std::make_unique<Button>(
+            "Next", std::make_pair(0, 0), std::make_pair(150, 35), [this] {
+                _inventory->switchDisplayedPlayer();
+            }));
+        _buttons.back()->setDisplayed(false);
     }
 
     void App::CreateMaterial(const std::string &aPath)
@@ -198,5 +200,10 @@ namespace Zappy::GUI {
         std::string myCommand = "sst " + std::to_string(myNewTime);
 
         _mediator.alert(this, myCommand);
+    }
+
+    std::unique_ptr<Inventory> &App::getInventory()
+    {
+        return _inventory;
     }
 } // namespace Zappy::GUI

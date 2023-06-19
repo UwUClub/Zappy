@@ -11,11 +11,11 @@
 #include <OgreRoot.h>
 #include <OgreSceneManager.h>
 #include <functional>
+#include <unordered_map>
 #include <memory>
 #include <vector>
 #include "Constexpr.hpp"
 #include "Observer.hpp"
-#include <unordered_map>
 
 namespace Zappy::GUI {
     class Mediator;
@@ -23,6 +23,7 @@ namespace Zappy::GUI {
     class ClickHandler;
     class Button;
     class PlayerData;
+    class Inventory;
     struct ServerData;
 
     /**
@@ -78,6 +79,12 @@ namespace Zappy::GUI {
              * @return std::vector<std::unique_ptr<Button>>&
              */
             std::vector<std::unique_ptr<Button>> &getButtons();
+
+            /**
+             * @brief Get the Inventory objectry
+             * @return  std::unique_ptr<Inventory>&
+             */
+            [[nodiscard]] std::unique_ptr<Inventory> &getInventory();
 
         private:
             /**
@@ -183,6 +190,7 @@ namespace Zappy::GUI {
             std::unique_ptr<CameraHandler> _cameraHandler;
             std::unique_ptr<ClickHandler> _clickHandler;
             std::vector<std::unique_ptr<Button>> _buttons;
+            std::unique_ptr<Inventory> _inventory;
             const ServerData &_serverData;
             static const inline std::unordered_map<std::string, std::function<void(App &, const std::string &)>>
                 _notificationMap = {{"pnw", &App::addPlayer},           {"pdi", &App::removePlayer},
