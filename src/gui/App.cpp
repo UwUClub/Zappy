@@ -15,7 +15,6 @@
 #include <OgreInput.h>
 #include <OgreRenderWindow.h>
 #include <OgreResourceGroupManager.h>
-#include <unordered_map>
 #include <memory>
 #include <utility>
 #include "Button.hpp"
@@ -23,11 +22,12 @@
 #include "ClickHandler.hpp"
 #include "Constexpr.hpp"
 #include "InputHandler.hpp"
+#include "Inventory.hpp"
 #include "Observer.hpp"
 #include "PlayerData.hpp"
 #include "SceneBuilder.hpp"
 #include "ServerData.hpp"
-#include "Inventory.hpp"
+#include <unordered_map>
 
 namespace Zappy::GUI {
     App::App(Mediator &aMediator, ServerData &aServerData, const std::string &aWindowName)
@@ -87,8 +87,8 @@ namespace Zappy::GUI {
             std::make_pair(DIMENSION_OVERLAY_BUTTON_2_TIME_X, DIMENSION_OVERLAY_BUTTON_2_TIME_Y), [this] {
                 decreaseTime();
             }));
-        _buttons.emplace_back(std::make_unique<Button>(
-            "Next", std::make_pair(1800, 540), std::make_pair(150, 35), [this] {
+        _buttons.emplace_back(
+            std::make_unique<Button>("Next", std::make_pair(1800, 540), std::make_pair(150, 35), [this] {
                 _inventory->switchDisplayedPlayer();
             }));
         _buttons.back()->setDisplayed(false);

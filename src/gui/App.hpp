@@ -11,11 +11,11 @@
 #include <OgreRoot.h>
 #include <OgreSceneManager.h>
 #include <functional>
-#include <unordered_map>
 #include <memory>
 #include <vector>
 #include "Constexpr.hpp"
 #include "Observer.hpp"
+#include <unordered_map>
 
 namespace Zappy::GUI {
     class Mediator;

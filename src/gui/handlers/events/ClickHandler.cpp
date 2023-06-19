@@ -32,7 +32,6 @@ namespace Zappy::GUI {
     {
         InputHandler::mousePressed(aEvt);
 
-
         if (_isLeftClickPressed && !_isShiftPressed) {
             if (execButton(Ogre::Vector2(static_cast<float>(aEvt.x), static_cast<float>(aEvt.y)))) {
                 return true;

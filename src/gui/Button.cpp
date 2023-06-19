@@ -8,12 +8,10 @@
 #include "Button.hpp"
 #include <OGRE/Overlay/OgreFont.h>
 #include <OGRE/Overlay/OgreFontManager.h>
+#include <OGRE/Overlay/OgreOverlay.h>
 #include <OGRE/Overlay/OgreOverlayContainer.h>
 #include <OGRE/Overlay/OgreOverlayManager.h>
-#include <OGRE/Overlay/OgreFontManager.h>
 #include <OGRE/Overlay/OgreOverlaySystem.h>
-#include <OGRE/Overlay/OgreTextAreaOverlayElement.h>
-#include <OGRE/Overlay/OgreOverlay.h>
 #include <OGRE/Overlay/OgreTextAreaOverlayElement.h>
 #include <OgreOverlay.h>
 #include <iostream>

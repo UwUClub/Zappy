@@ -2,14 +2,15 @@
 // Created by beafowl on 12/06/23.
 //
 
-#include <OGRE/Overlay/OgreFont.h>
 #include "Inventory.hpp"
+#include <OGRE/Overlay/OgreFont.h>
 #include "Constexpr.hpp"
 #include "SceneBuilder.hpp"
 #include "ServerData.hpp"
 
 namespace Zappy::GUI {
-    Inventory::Inventory(App &aApp) : _app(aApp)
+    Inventory::Inventory(App &aApp)
+        : _app(aApp)
     {}
 
     int Inventory::parsePlayer(const std::string &aString)
@@ -48,25 +49,28 @@ namespace Zappy::GUI {
             + std::to_string(myInventory._mendiane) + "\nPhiras: " + std::to_string(myInventory._phiras)
             + "\nThystame: " + std::to_string(myInventory._thystame);
 
-        SceneBuilder::createText(INVENTORY_OVERLAY, InventoryOverlay, "Inventory", Ogre::Vector2(1400, 20), Ogre::Vector2(500, 195),"Inventory.png", RESSOURCE_GROUP_NAME, Ogre::Vector2(45, 15));
+        SceneBuilder::createText(INVENTORY_OVERLAY, InventoryOverlay, "Inventory", Ogre::Vector2(1400, 20),
+                                 Ogre::Vector2(500, 195), "Inventory.png", RESSOURCE_GROUP_NAME, Ogre::Vector2(45, 15));
     }
 
     void Inventory::displayTilesInventory(std::pair<int, int> aPos, App &aApp)
     {
         auto myTileData = std::find_if(aApp.getServerData()._mapTiles.cbegin(), aApp.getServerData()._mapTiles.cend(),
                                        [&aPos](const TileContent &aTile) {
-                                           return aTile._x == static_cast<unsigned int>(aPos.first) && aTile._y == static_cast<unsigned int>(aPos.second);
+                                           return aTile._x == static_cast<unsigned int>(aPos.first)
+                                                  && aTile._y == static_cast<unsigned int>(aPos.second);
                                        });
         auto myInventory = myTileData->_items;
 
         std::string InventoryOverlay =
-            "Inventory of the tile " + std::to_string(aPos.first) + ", " + std::to_string(aPos.second) + "\nFood: "
-            + std::to_string(myInventory._food) + "\nLinemate: " + std::to_string(myInventory._linemate)
-            + "\nDeraumere: " + std::to_string(myInventory._deraumere) + "\nSibur: " + std::to_string(myInventory._sibur)
-            + "\nMendiane: " + std::to_string(myInventory._mendiane) + "\nPhiras: " + std::to_string(myInventory._phiras)
-            + "\nThystame: " + std::to_string(myInventory._thystame);
+            "Inventory of the tile " + std::to_string(aPos.first) + ", " + std::to_string(aPos.second)
+            + "\nFood: " + std::to_string(myInventory._food) + "\nLinemate: " + std::to_string(myInventory._linemate)
+            + "\nDeraumere: " + std::to_string(myInventory._deraumere) + "\nSibur: "
+            + std::to_string(myInventory._sibur) + "\nMendiane: " + std::to_string(myInventory._mendiane) + "\nPhiras: "
+            + std::to_string(myInventory._phiras) + "\nThystame: " + std::to_string(myInventory._thystame);
 
-        SceneBuilder::createText(INVENTORY_OVERLAY, InventoryOverlay, "Inventory", Ogre::Vector2(1400, 20), Ogre::Vector2(500, 195),"Inventory.png", RESSOURCE_GROUP_NAME, Ogre::Vector2(45, 15));
+        SceneBuilder::createText(INVENTORY_OVERLAY, InventoryOverlay, "Inventory", Ogre::Vector2(1400, 20),
+                                 Ogre::Vector2(500, 195), "Inventory.png", RESSOURCE_GROUP_NAME, Ogre::Vector2(45, 15));
     }
 
     void Inventory::switchDisplayedPlayer()
