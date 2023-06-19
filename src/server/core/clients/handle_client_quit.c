@@ -7,7 +7,7 @@
 
 #include "core.h"
 #include "gui_cmd.h"
- 
+
 void handle_client_quit(data_t *data)
 {
     client_t *cli = data->clients[data->curr_cli_index];

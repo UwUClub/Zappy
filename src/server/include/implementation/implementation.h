@@ -100,11 +100,11 @@
 
     /**
     * @brief Get the player by his id
-    * @param data The current server data, clients and current client index
+    * @param clients The client list of the server
     * @param id The id of the player
     * @return The player if found, NULL otherwise
     */
-    player_t *get_player_by_id(data_t *data, const unsigned int id);
+    player_t *get_player_by_id(client_t **clients, const unsigned int id);
 
     /**
     * @brief Get the number of eggs in a team

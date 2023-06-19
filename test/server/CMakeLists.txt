@@ -2,11 +2,10 @@ cmake_minimum_required(VERSION 3.15...3.23)
 
 project(CmakeConfigPackageTests LANGUAGES CXX)
 
-include(/usr/src/project/vcpkg/installed/x64-linux/share/Catch2/Catch.cmake)
-
 add_executable(test_zappy
         normalizePos.cpp
         isPlayer.cpp
+        getPlayerById.cpp
         )
 
 target_include_directories(test_zappy PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../../src/server")
