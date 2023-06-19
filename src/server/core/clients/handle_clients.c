@@ -68,7 +68,6 @@ static void handle_clients(data_t *data, fd_set read_fd_set,
     handle_eggs_digestion(data, elapsed_time_ms);
     data->curr_cli_index = 0;
     while (data->clients[data->curr_cli_index]) {
-        // printf("running %i %i\n", data->curr_cli_index);
         if (data->clients[data->curr_cli_index]->fd > 0) {
             run_client_flow(data, elapsed_time_ms, read_fd_set, write_fd_set);
         }
