@@ -1,4 +1,4 @@
-from .connection import Connection
+from connection import Connection
 
 myListObject = ["player", "food", "linemate", "deraumere", "sibur", "mendiane", "phiras", "thystame"]
 myLevelCondition = [[1, 5, 1, 0, 0, 0, 0, 0],
@@ -28,7 +28,7 @@ class Player:
     def connect(self, aInfo):
         self._socket = Connection(aInfo._host, int(aInfo._port))
         return self._socket.connect()
-    
+
     ## @brief Send data to the server
     ## @param data The data to send
     def send(self, aData):
@@ -70,6 +70,8 @@ class Player:
         myForward = self.receive()
         if myForward != "ok\n":
             print("Error: Forward")
+            return ("Error: Forward")
+        return (myForward)
 
     ## @brief Send left command
     ## @return None
@@ -78,7 +80,9 @@ class Player:
         myLeft = self.receive()
         if myLeft != "ok\n":
             print ("Error: Left rotation")
-    
+            return ("Error: Left rotation")
+        return (myLeft)
+
     ## @brief Send right command
     ## @return None
     def right(self):
@@ -86,6 +90,8 @@ class Player:
         myRight = self.receive()
         if myRight != "ok\n":
             print ("Error: Right rotation")
+            return ("Error: Right rotation")
+        return (myRight)
 
     ## @brief Send take command
     ## @return None
@@ -94,9 +100,11 @@ class Player:
         myTake = self.receive()
         if myTake == "ko\n":
             print ("Object not found", aRessource)
+            return ("Object not found " + aRessource)
         elif myTake == "ok\n":
             print ("Object", aRessource, "taken")
-        
+            return ("Object " + aRessource + " taken")
+
     ## @brief Send set command
     ## @return None
     def set(self, aRessource):
@@ -104,8 +112,10 @@ class Player:
         mySet = self.receive()
         if mySet == "ko\n":
             print ("Error: Set", aRessource)
+            return ("Error: Set " + aRessource)
         elif mySet == "ok\n":
             print ("Object", aRessource, "set")
+            return ("Object " + aRessource + " set")
 
     ## @brief Send inventory command and receive the inventory
     ## @return the inventory
@@ -168,9 +178,11 @@ class Player:
         myBroadcast = self.receive()
         if myBroadcast == "ko\n":
             print ("Error: Broadcast")
+            return ("Error: Broadcast")
         else:
             print ("Broadcast:", myBroadcast)
-    
+            return ("Broadcast: " + self.decryptMessage(myBroadcast))
+
     ## @brief Send Eject command
     ## @return None
     def eject(self):
@@ -180,7 +192,7 @@ class Player:
             print ("Error: Eject")
         else:
             print ("Eject:", myEject)
-  
+
     ## @brief Send Incantation command
     ## @return Incantation status
     def incantation(self):
@@ -200,8 +212,10 @@ class Player:
         myFork = self.receive()
         if myFork == "ko\n":
             print ("Error: Fork")
+            return ("Error: Fork")
         else:
             print ("Fork:", myFork)
+            return ("Fork: " + myFork)
 
     ## @brief Parse the look command
     ## @return the look tiles
@@ -228,7 +242,7 @@ class Player:
             myResoucesOnTile.append(x.count('thystame'))
             self._lookTiles.append(myResoucesOnTile)
         return (self._lookTiles)
-    
+
     ## @brief Finds the shortest path to a tile
     ## @param aTile The tile to reach
     ## @return None
@@ -290,7 +304,7 @@ class Player:
         for i in range(1, len(aTile)):
             for j in range(aTile[i]):
                 self.take(myListObject[i])
-    
+
     ## @brief Set the ressources on the tile for the incantation
     ## @return None
     def setElevationRessources(self):
@@ -331,7 +345,7 @@ class Player:
             self._inventory[idx] = int(myInventory[1])
             idx+=1
         return (self._inventory)
-    
+
     ## @brief Receive broadcast message
     ## @return The broadcast message
     def parseReceiveBroadcast(self):
@@ -342,7 +356,7 @@ class Player:
         self._parsedMessage = self.decryptMessage(myMessage)
         print ("Message received:", self._parsedMessage)
         self._lastReceivedMessage = ""
-        
+
     ## @brief Try to evolve to level 2
     ## @return None
     def goToLevel2(self):
@@ -374,7 +388,7 @@ class Player:
                 self._functionIndex += 1
                 if (self.connectNbr() == 0):
                     self.fork()
-    
+
     ## @brief Try to evolve to level 4
     ## @return None
     def goToLevel4(self):
@@ -406,7 +420,7 @@ class Player:
                 self._functionIndex += 1
                 if (self.connectNbr() == 0):
                     self.fork()
-    
+
     ## @brief Try to evolve to level 6
     ## @return None
     def goToLevel6(self):
@@ -422,7 +436,7 @@ class Player:
                 self._functionIndex += 1
                 if (self.connectNbr() == 0):
                     self.fork()
-    
+
     ## @brief Try to evolve to level 7
     ## @return None
     def goToLevel7(self):
@@ -438,7 +452,7 @@ class Player:
                 self._functionIndex += 1
                 if (self.connectNbr() == 0):
                     self.fork()
-    
+
     ## @brief Try to evolve to level 8
     ## @return None
     def goToLevel8(self):
