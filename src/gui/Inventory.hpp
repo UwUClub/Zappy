@@ -18,6 +18,7 @@
 #include "Constexpr.hpp"
 #include "Inventory.hpp"
 #include "ItemPacket.hpp"
+#include "App.hpp"
 
 namespace Zappy::GUI {
     class Inventory
@@ -26,13 +27,9 @@ namespace Zappy::GUI {
             Inventory();
             ~Inventory() = default;
 
-            void CreateMaterial(const std::string &aPath);
-            Ogre::OverlayContainer *CreateMaterial(const std::string &aName, const std::string &aPath,
-                                                   Ogre::OverlayContainer *aContainer, Ogre::Vector2 aPosition,
-                                                   Ogre::Vector2 aDimensions);
             int parsePlayer(const std::string &aString);
-            void displayPlayerInventory(int aId, ClientApi &aClientApi);
-            ItemPacket getInventoryPlayer(int aId, ClientApi &aClientApi);
+            void displayPlayerInventory(int aId, App &aApp);
+            ItemPacket getInventoryPlayer(std::vector<PlayerData>::iterator aPlayerData);
 
         private:
             int _food;

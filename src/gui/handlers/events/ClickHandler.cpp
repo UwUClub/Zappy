@@ -8,7 +8,6 @@
 #include "ClickHandler.hpp"
 #include <OgreScriptCompiler.h>
 #include <iostream>
-#include <memory>
 #include <vector>
 #include "App.hpp"
 #include "Button.hpp"
@@ -22,7 +21,8 @@ namespace Zappy::GUI {
           _cameraNode(aCameraNode),
           _renderWindow(aRenderWindow),
           _sceneManager(aSceneManager),
-          _buttons(aApp.getButtons())
+          _buttons(aApp.getButtons()),
+            _app(aApp)
     {}
 
     ClickHandler::~ClickHandler() = default;
@@ -37,18 +37,18 @@ namespace Zappy::GUI {
             }
 
             auto *myNode = getNodeUnderMouse(Ogre::Vector2(static_cast<float>(aEvt.x), static_cast<float>(aEvt.y)));
-            std::cout << myNode->getName() << std::endl;
-            if (myNode != nullptr) {
-                if (myNode->getName().find("player") != std::string::npos) {
-                    std::cout << "Player found" << std::endl;
-                    myNode->showBoundingBox(!myNode->getShowBoundingBox());
+            if (myNode->getName().find("Player_") != std::string::npos) {
+                myNode->showBoundingBox(!myNode->getShowBoundingBox());
+                try {
                     Inventory myInventory;
-                    myInventory.parsePlayer(myNode->getName());
-                    myInventory.displayPlayerInventory(stoi(myNode->getName()), _client);
-                    return true;
-                } else {
-                    std::cout << "Node not found" << std::endl;
+                    int myId = myInventory.parsePlayer(myNode->getName());
+                    myInventory.displayPlayerInventory(myId, _app);
+                } catch (const std::exception &e) {
+                    std::cerr << e.what() << std::endl;
                 }
+                return true;
+            } else {
+                std::cout << "Node not found" << std::endl;
             }
             return true;
         }

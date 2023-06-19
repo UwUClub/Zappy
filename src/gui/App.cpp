@@ -90,6 +90,17 @@ namespace Zappy::GUI {
             }));
     }
 
+    void App::CreateMaterial(const std::string &aPath)
+    {
+        Ogre::TextureManager *myTextureManager = Ogre::TextureManager::getSingletonPtr();
+        Ogre::MaterialPtr myMaterial = Ogre::MaterialManager::getSingleton().create(aPath, RESSOURCE_GROUP_NAME);
+        Ogre::TexturePtr myTexture = myTextureManager->load(aPath, RESSOURCE_GROUP_NAME);
+
+        Ogre::Technique *myTechnique = myMaterial->getTechnique(0);
+        Ogre::Pass *pass = myTechnique->getPass(0);
+        pass->createTextureUnitState(myTexture->getName());
+    }
+
     void App::instantiateApp()
     {
         const constexpr int myTrueSize = 24;
@@ -104,16 +115,12 @@ namespace Zappy::GUI {
                                                                            RESSOURCE_GROUP_NAME);
             Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
             Ogre::ResourceGroupManager::getSingleton().loadResourceGroup(RESSOURCE_GROUP_NAME);
+            this->CreateMaterial("Inventory.png");
             myScnMgr->createEntity(PLAYER_MODEL_NAME);
             myScnMgr->createEntity(EGG_MODEL_NAME);
             myScnMgr->createEntity(TILE_MODEL_NAME);
-
-<<<<<<< HEAD
-            overlayManager.create(BUTTON_OVERLAY);
-            overlayManager.create(INVENTORY_OVERLAY);
-=======
             myOverlayManager.create(BUTTON_OVERLAY);
->>>>>>> 2e217d2c2be700c791ab64961cdae67b2e35ef4e
+            myOverlayManager.create(INVENTORY_OVERLAY);
 
             Ogre::FontPtr myFont = Ogre::FontManager::getSingleton().create(FONT_NAME, RESSOURCE_GROUP_NAME);
 
