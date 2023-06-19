@@ -22,7 +22,7 @@ namespace Zappy::GUI {
           _renderWindow(aRenderWindow),
           _sceneManager(aSceneManager),
           _buttons(aApp.getButtons()),
-            _app(aApp)
+          _app(aApp)
     {}
 
     ClickHandler::~ClickHandler() = default;
