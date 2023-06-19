@@ -61,6 +61,7 @@ namespace Zappy::GUI {
 
         _cameraHandler.reset(myHandlers.first);
         _clickHandler.reset(myHandlers.second);
+        myScnMgr->setSkyBox(true, "Examples/SpaceSkyBox", 5000);
 
         this->createButtons();
         this->displayHowToPlayMenu();
