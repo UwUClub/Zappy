@@ -18,8 +18,7 @@ player_t *init_player(const int id, char *team_name, orientation_t orientation)
     return player;
 }
 
-client_t *init_player_client(const int id, char *team_name,
-    orientation_t orientation)
+client_t *init_player_client(const int id, char *team_name, orientation_t orientation)
 {
     client_t *client = (client_t *) malloc(sizeof(client_t));
 
