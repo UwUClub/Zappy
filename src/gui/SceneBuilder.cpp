@@ -180,18 +180,18 @@ namespace Zappy::GUI {
         if (myOverlayManager.hasOverlayElement(aPrefix + "_Panel")) {
             myContainer = static_cast<Ogre::OverlayContainer *>(myOverlayManager.getOverlayElement(aPrefix + "_Panel"));
         } else {
-            myContainer =
-                static_cast<Ogre::OverlayContainer *>(myOverlayManager.createOverlayElement("Panel", aPrefix + "_Panel"));
+            myContainer = static_cast<Ogre::OverlayContainer *>(
+                myOverlayManager.createOverlayElement("Panel", aPrefix + "_Panel"));
         }
         Ogre::TextAreaOverlayElement *myTextArea = nullptr;
 
         if (myOverlayManager.hasOverlayElement(aPrefix + "_Text")) {
-            myTextArea = static_cast<Ogre::TextAreaOverlayElement *>(myOverlayManager.getOverlayElement(aPrefix + "_Text"));
+            myTextArea =
+                static_cast<Ogre::TextAreaOverlayElement *>(myOverlayManager.getOverlayElement(aPrefix + "_Text"));
         } else {
             myTextArea = static_cast<Ogre::TextAreaOverlayElement *>(
                 myOverlayManager.createOverlayElement("TextArea", aPrefix + "_Text"));
             myContainer->addChild(myTextArea);
-
         }
         Ogre::FontPtr myFont = Ogre::FontManager::getSingleton().getByName(FONT_NAME, RESSOURCE_GROUP_NAME);
 
@@ -207,7 +207,6 @@ namespace Zappy::GUI {
         myTextArea->setFontName(FONT_NAME, RESSOURCE_GROUP_NAME);
         myTextArea->setColourTop(Ogre::ColourValue(1, 1, 0));
         myTextArea->setColourBottom(Ogre::ColourValue(0, 0, 0));
-
 
         myOverlay->add2D(myContainer);
         myOverlay->show();
