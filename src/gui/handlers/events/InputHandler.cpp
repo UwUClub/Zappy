@@ -8,13 +8,14 @@
 #include "InputHandler.hpp"
 #include <OGRE/Bites/OgreInput.h>
 #include <OGRE/OgreRoot.h>
+#include "App.hpp"
 
 namespace Zappy::GUI {
-    InputHandler::InputHandler(ClientApi &client)
+    InputHandler::InputHandler(App &aApp)
         : _isLeftClickPressed(false),
           _isRightClickPressed(false),
           _isShiftPressed(false),
-          _client(client)
+          _app(aApp)
     {}
 
     InputHandler::~InputHandler() = default;
@@ -53,7 +54,7 @@ namespace Zappy::GUI {
         }
         if (aEvt.keysym.sym == OgreBites::SDLK_ESCAPE) {
             Ogre::Root::getSingleton().queueEndRendering();
-            _client.disconnect();
+            _app.askDisconnection();
         }
         return true;
     }

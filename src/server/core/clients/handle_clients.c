@@ -7,11 +7,11 @@
 
 #include <errno.h>
 #include <signal.h>
-#include <string.h>
 #include <sys/time.h>
 #include <sys/select.h>
 #include "implementation.h"
 #include "utils.h"
+#include "ranges.h"
 
 static int keep_running = 1;
 
@@ -83,9 +83,8 @@ int select_clients(struct sockaddr_in *addr, int server_fd, data_t *data,
     select(FD_SETSIZE, &read_fd_set, &write_fd_set, NULL, timeout);
     if (!keep_running)
         return 1;
-    if (FD_ISSET(server_fd, &read_fd_set)) {
-        welcome_selected_client((struct sockaddr *) addr, server_fd,
-        &(data->clients));
+    if (FD_ISSET(server_fd, &read_fd_set) && data->nb_clients < MAX_CLIENTS) {
+        welcome_selected_client((struct sockaddr *) addr, server_fd, data);
     }
     handle_clients(data, read_fd_set, write_fd_set);
     return 0;

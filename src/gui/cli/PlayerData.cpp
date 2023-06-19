@@ -1,5 +1,6 @@
 #include "PlayerData.hpp"
 #include <utility>
+#include "ItemPacket.hpp"
 
 namespace Zappy::GUI {
     PlayerData::PlayerData(std::string aId)
@@ -40,33 +41,34 @@ namespace Zappy::GUI {
     void PlayerData::setInventory(int aSlot, int aQuantity)
     {
         static const std::unordered_map<int, std::function<void(ItemPacket &, int)>> myInventoryMap = {
-            {0,
+            {Ressources::FOOD,
              [](ItemPacket &aInventory, int aQuant) {
                  aInventory._food = aQuant;
              }},
-            {1,
+            {Ressources::LINEMATE,
              [](ItemPacket &aInventory, int aQuant) {
                  aInventory._linemate = aQuant;
              }},
-            {2,
+            {Ressources::DERAUMERE,
              [](ItemPacket &aInventory, int aQuant) {
                  aInventory._deraumere = aQuant;
              }},
-            {3,
+            {Ressources::SIBUR,
              [](ItemPacket &aInventory, int aQuant) {
                  aInventory._sibur = aQuant;
              }},
-            {4,
+            {Ressources::MENDIANE,
              [](ItemPacket &aInventory, int aQuant) {
                  aInventory._mendiane = aQuant;
              }},
-            {5,
+            {Ressources::PHIRAS,
              [](ItemPacket &aInventory, int aQuant) {
                  aInventory._phiras = aQuant;
              }},
-            {6, [](ItemPacket &aInventory, int aQuant) {
+            {Ressources::THYSTAME, [](ItemPacket &aInventory, int aQuant) {
                  aInventory._thystame = aQuant;
              }}};
+
         if (myInventoryMap.find(aSlot) == myInventoryMap.end()) {
             return;
         }
@@ -96,33 +98,34 @@ namespace Zappy::GUI {
     int PlayerData::getInventory(int aSlot) const
     {
         static const std::unordered_map<int, std::function<int(ItemPacket)>> myInventoryMap = {
-            {0,
+            {Ressources::FOOD,
              [](ItemPacket aInventory) {
                  return aInventory._food;
              }},
-            {1,
+            {Ressources::LINEMATE,
              [](ItemPacket aInventory) {
                  return aInventory._linemate;
              }},
-            {2,
+            {Ressources::DERAUMERE,
              [](ItemPacket aInventory) {
                  return aInventory._deraumere;
              }},
-            {3,
+            {Ressources::SIBUR,
              [](ItemPacket aInventory) {
                  return aInventory._sibur;
              }},
-            {4,
+            {Ressources::MENDIANE,
              [](ItemPacket aInventory) {
                  return aInventory._mendiane;
              }},
-            {5,
+            {Ressources::PHIRAS,
              [](ItemPacket aInventory) {
                  return aInventory._phiras;
              }},
-            {6, [](ItemPacket aInventory) {
+            {Ressources::THYSTAME, [](ItemPacket aInventory) {
                  return aInventory._thystame;
              }}};
+
         if (myInventoryMap.find(aSlot) == myInventoryMap.end()) {
             return -1;
         }

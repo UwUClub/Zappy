@@ -6,10 +6,10 @@
 */
 
 #include <errno.h>
-#include <stdio.h>
 #include "core.h"
 #include "implementation.h"
 #include "utils.h"
+#include "ranges.h"
 
 static void bufferize_cmd(client_t **client, char *cmd,
 const unsigned int size)
@@ -31,11 +31,11 @@ const unsigned int size)
 
 void read_selected_client(data_t *data)
 {
-    char buffer[1024];
+    char buffer[READ_BUFFER_SIZE];
     ssize_t size = 0;
     client_t *cli = data->clients[data->curr_cli_index];
 
-    size = read(cli->fd, buffer, 1024);
+    size = read(cli->fd, buffer, READ_BUFFER_SIZE);
     if (size > 0 && buffer[0] != '\n') {
         buffer[size] = '\0';
         bufferize_cmd(&cli, buffer, (unsigned int) size);

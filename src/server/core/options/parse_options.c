@@ -5,10 +5,10 @@
 ** parse_options
 */
 
-#include <unistd.h>
 #include "core.h"
 #include "utils.h"
 #include "server_options.h"
+#include "ranges.h"
 
 static void parse_team_names(data_t *data, saved_opt_t *saved,
     int ac, char **av)
@@ -28,9 +28,10 @@ static void parse_team_names(data_t *data, saved_opt_t *saved,
 int parse_cli_per_team(data_t *data, saved_opt_t *saved,
     char *value)
 {
-    if (!value || !is_int(value) || atoi(value) < 1) {
+    if (!value || !is_int(value) || atoi(value) < 1 ||
+    atoi(value) > MAX_CLI_PER_TEAM) {
         dprintf(2, "\n-c option only accepts integer values ");
-        dprintf(2, "greater or equal to 1\n");
+        dprintf(2, "between 1 and %i\n", MAX_CLI_PER_TEAM);
         print_help(data, NULL);
         return 84;
     }
@@ -60,8 +61,8 @@ int parse_data_options(data_t *data, saved_opt_t *saved, int ac, char **av)
         if (option == 'n') {
             parse_team_names(data, saved, ac, av);
         }
-        if (option == 'c') {
-            parse_cli_per_team(data, saved, optarg);
+        if (option == 'c' && parse_cli_per_team(data, saved, optarg) == 84) {
+            return 1;
         }
         if (parse_single_option(option, data, ac, av)) {
             return 1;

@@ -3,10 +3,10 @@
 #include <functional>
 #include <iostream>
 #include <vector>
-#include "Constexpr.hpp"
 #include "ItemPacket.hpp"
 #include <unordered_map>
 namespace Zappy::GUI {
+    class ItemPacket;
 
     enum class Orientation : int
     {
@@ -22,7 +22,7 @@ namespace Zappy::GUI {
             /**
              * @brief Player constructor
              */
-            PlayerData(std::string aId);
+            explicit PlayerData(std::string aId);
 
             /**
              * @brief Player destructor
