@@ -15,6 +15,7 @@
 #include <OgreInput.h>
 #include <OgreRenderWindow.h>
 #include <OgreResourceGroupManager.h>
+#include <unordered_map>
 #include <memory>
 #include <utility>
 #include "Button.hpp"

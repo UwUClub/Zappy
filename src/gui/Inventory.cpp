@@ -4,7 +4,6 @@
 
 #include <OGRE/Overlay/OgreFont.h>
 #include "Inventory.hpp"
-#include "Button.hpp"
 #include "Constexpr.hpp"
 #include "SceneBuilder.hpp"
 #include "ServerData.hpp"
@@ -48,7 +47,6 @@ namespace Zappy::GUI {
             + std::to_string(myInventory._deraumere) + "\nSibur: " + std::to_string(myInventory._sibur) + "\nMendiane: "
             + std::to_string(myInventory._mendiane) + "\nPhiras: " + std::to_string(myInventory._phiras)
             + "\nThystame: " + std::to_string(myInventory._thystame);
-
 
         SceneBuilder::createText(INVENTORY_OVERLAY, InventoryOverlay, "Inventory", Ogre::Vector2(1400, 20), Ogre::Vector2(500, 195),"Inventory.png", RESSOURCE_GROUP_NAME, Ogre::Vector2(45, 15));
     }

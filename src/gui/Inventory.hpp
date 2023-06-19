@@ -35,7 +35,7 @@ namespace Zappy::GUI {
             void switchDisplayedPlayer();
 
         private:
-            int _id;
+            int _id{};
             std::unique_ptr<Button> _button;
             std::pair<unsigned int, unsigned int> _pos;
             const App &_app;
