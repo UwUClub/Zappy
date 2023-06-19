@@ -41,6 +41,7 @@ static void run_client_flow(data_t *data, unsigned long long elapsed_time_ms,
     fd_set read_fd_set, fd_set write_fd_set)
 {
     client_t *cli = data->clients[data->curr_cli_index];
+    int player_left = 0;
 
     if (cli->player && cli->is_registered) {
         if (cli->player->pending_cmd_queue[0]) {
@@ -49,9 +50,10 @@ static void run_client_flow(data_t *data, unsigned long long elapsed_time_ms,
         handle_player_digestion(data, elapsed_time_ms);
     }
     if (FD_ISSET(cli->fd, &write_fd_set)) {
-        write_to_selected_client(data, &(data->clients)[data->curr_cli_index]);
+        player_left = write_to_selected_client(data,
+            &(data->clients)[data->curr_cli_index]);
     }
-    if (FD_ISSET(cli->fd, &read_fd_set)) {
+    if (!player_left && FD_ISSET(cli->fd, &read_fd_set)) {
         read_selected_client(data);
     }
 }
@@ -64,11 +66,12 @@ static void handle_clients(data_t *data, fd_set read_fd_set,
     elapsed_time_ms = get_ms_since_epoch() - data->last_select_ms;
     handle_resource_spawn(data, elapsed_time_ms);
     handle_eggs_digestion(data, elapsed_time_ms);
-    for (int i = 0; data->clients[i]; i++) {
-        if (data->clients[i]->fd > 0) {
-            data->curr_cli_index = i;
+    data->curr_cli_index = 0;
+    while (data->clients[data->curr_cli_index]) {
+        if (data->clients[data->curr_cli_index]->fd > 0) {
             run_client_flow(data, elapsed_time_ms, read_fd_set, write_fd_set);
         }
+        data->curr_cli_index++;
     }
 }
 
