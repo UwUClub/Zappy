@@ -10,31 +10,31 @@
 static int get_tile_if_x_negative(int dir_y)
 {
     if (dir_y < 0)
-        return 4;
+        return 2;
     if (dir_y == 0)
         return 3;
     if (dir_y > 0)
-        return 2;
+        return 4;
     return -1;
 }
 
 static int get_tile_if_x_0(int dir_y)
 {
     if (dir_y < 0)
-        return 5;
-    if (dir_y > 0)
         return 1;
+    if (dir_y > 0)
+        return 5;
     return -1;
 }
 
 static int get_tile_if_x_positive(int dir_y)
 {
     if (dir_y < 0)
-        return 6;
+        return 8;
     if (dir_y == 0)
         return 7;
     if (dir_y > 0)
-        return 8;
+        return 6;
     return -1;
 }
 
