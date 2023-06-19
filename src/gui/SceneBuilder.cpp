@@ -170,7 +170,8 @@ namespace Zappy::GUI {
 
     void SceneBuilder::createText(const std::string &aOverlayName, const std::string &aText, const std::string &aPrefix,
                                   const Ogre::Vector2 &aPosition, const Ogre::Vector2 &aDimension,
-                                  const std::string &aMaterialName, const std::string &aGroupName, const Ogre::Vector2 &offset)
+                                  const std::string &aMaterialName, const std::string &aGroupName,
+                                  const Ogre::Vector2 &offset)
     {
         Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
         Ogre::Overlay *myOverlay = overlayManager.getByName(aOverlayName);

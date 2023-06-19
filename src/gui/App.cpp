@@ -20,7 +20,6 @@
 #include <OgreResourceGroupManager.h>
 #include <memory>
 #include <utility>
-#include <unordered_map>
 #include "Button.hpp"
 #include "CameraHandler.hpp"
 #include "ClickHandler.hpp"
@@ -31,6 +30,7 @@
 #include "PlayerData.hpp"
 #include "SceneBuilder.hpp"
 #include "ServerData.hpp"
+#include <unordered_map>
 
 namespace Zappy::GUI {
     App::App(Mediator &aMediator, ServerData &aServerData, const std::string &aWindowName)
