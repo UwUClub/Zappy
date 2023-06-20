@@ -9,6 +9,10 @@ add_executable(test_zappy
         calcOutbound.cpp
         intToS.cpp
         revStr.cpp
+        concatStr.cpp
+        concatWordArray.cpp
+        isInt.cpp
+        isIp.cpp
         )
 
 target_include_directories(test_zappy PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../../src/server")
