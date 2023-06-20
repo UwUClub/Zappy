@@ -30,12 +30,12 @@ int do_msz(data_t *data, __attribute__((unused)) char **args)
     char *world_dimensions = NULL;
 
     if (args)
-        return 1;
+        return ERROR_STATUS;
     world_dimensions = get_world_dimensions(data);
     msg = strdup("msz ");
     msg = concat_str(msg, world_dimensions);
     free(world_dimensions);
     send_to_client(data->clients, data->curr_cli_index, msg);
     free(msg);
-    return 0;
+    return SUCCESS_STATUS;
 }

@@ -90,5 +90,5 @@ int select_clients(struct sockaddr_in *addr, int server_fd, data_t *data,
         welcome_selected_client((struct sockaddr *) addr, server_fd, data);
     }
     handle_clients(data, read_fd_set, write_fd_set);
-    return 0;
+    return SUCCESS_STATUS;
 }

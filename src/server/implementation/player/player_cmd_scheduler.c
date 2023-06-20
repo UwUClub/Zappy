@@ -36,7 +36,7 @@ static int is_pending_queue_full(data_t *data)
 static int send_ko(data_t *data, char **args)
 {
     send_to_client(data->clients, data->curr_cli_index, "ko\n");
-    return 0;
+    return SUCCESS_STATUS;
 }
 
 static int check_cmd_status(data_t *data, int (*func)(data_t *data,
@@ -45,7 +45,7 @@ static int check_cmd_status(data_t *data, int (*func)(data_t *data,
     int status = 0;
 
     status = func(data, args);
-    if (status == 1) {
+    if (status == ERROR_STATUS) {
         append_scheduler_to_queue(data, &send_ko, NULL, delay);
         free_word_array(args);
     }
@@ -57,7 +57,7 @@ int schedule_player_cmd(data_t *data, char *name, char **args)
     int is_freezed = data->clients[data->curr_cli_index]->player->is_freezed;
 
     if (is_pending_queue_full(data) || is_freezed) {
-        return 84;
+        return ERROR_STATUS;
     }
     for (int i = 0; player_schedulers[i].name != NULL; i++) {
         if (!strcmp(name, player_schedulers[i].name)) {
@@ -67,5 +67,5 @@ int schedule_player_cmd(data_t *data, char *name, char **args)
     }
     append_scheduler_to_queue(data, &send_ko, NULL, 0);
     free_word_array(args);
-    return 84;
+    return ERROR_STATUS;
 }

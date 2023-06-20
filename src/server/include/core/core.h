@@ -10,6 +10,9 @@
 
     #define _GNU_SOURCE
 
+    #define SUCCESS_STATUS 0
+    #define ERROR_STATUS 84
+
     #include <stdio.h>
     #include <stdlib.h>
     #include <string.h>

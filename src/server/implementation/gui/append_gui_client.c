@@ -53,5 +53,5 @@ int append_gui_client(data_t *data)
     do_tna(data, NULL);
     run_enw_through_eggs(data);
     run_pnw_through_players(data);
-    return 0;
+    return SUCCESS_STATUS;
 }

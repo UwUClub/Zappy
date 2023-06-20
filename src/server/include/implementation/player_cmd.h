@@ -187,13 +187,6 @@
     int get_tile_from_source(data_t *data, const unsigned int player_id,
         const unsigned int source_x, const unsigned int source_y);
 
-    /**
-     * @brief Remove all the resource consummed from a tile
-     * @param data The current server data, clients and current client index
-     * @return return 0 if success, 1 if error
-     */
-    int remove_all_resources_from_tile(data_t *data);
-
     static const cmd_t player_schedulers[] = {
         {"Forward", &schedule_forward, FORWARD_DELAY},
         {"Right", &schedule_right, RIGHT_DELAY},

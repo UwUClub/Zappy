@@ -15,7 +15,7 @@ static int check_cmd_status(data_t *data, int (*func)(data_t *data,
     int status = 0;
 
     status = func(data, args);
-    if (status == 1) {
+    if (status == ERROR_STATUS) {
         send_to_client(data->clients, data->curr_cli_index, "sbp\n");
     }
     free_word_array(args);
@@ -31,5 +31,5 @@ int execute_gui_cmd(data_t *data, char *cmd_name, char **args)
     }
     send_to_client(data->clients, data->curr_cli_index, "suc\n");
     free_word_array(args);
-    return 84;
+    return ERROR_STATUS;
 }
