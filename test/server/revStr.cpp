@@ -1,5 +1,5 @@
-#include <string.h>
 #include "../../src/server/utils/revstr.c"
+#include <string.h>
 #include <catch2/catch_test_macros.hpp>
 
 TEST_CASE("testingRevStr1", "[testingRevStr1]")
