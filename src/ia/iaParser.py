@@ -1,6 +1,5 @@
 import getopt
 
-
 ## @brief Class that contains the configuration of the program
 class Config:
     ## @brief Constructor
