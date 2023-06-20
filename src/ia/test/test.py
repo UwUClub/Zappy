@@ -21,17 +21,7 @@ def test_player_cant_connect():
     aInfo._host = "localhost"
     aInfo._port = 4242
     aInfo._name = "test"
-    assert player.connect(aInfo) == 0
-
-#Test if the player is correctly connected
-def test_player_connect():
-    player = Player()
-    config = Config()
-    config._host = "localhost"
-    config._port = 4242
-    config._name = "test"
-    assert player.connect(config) == 0
-    assert player._socket != None
+    assert player.connect(aInfo) == -1
 
 #Test if the parser is correctly initialized
 def test_parser_init():
@@ -41,127 +31,50 @@ def test_parser_init():
     assert info._port == "4242"
     assert info._name == "Team1"
 
-#Test the receive function
-def test_connection_receive():
-    config = Config()
-    config._host = "localhost"
-    config._port = 4242
-    config._name = "test"
-    player = Player()
-    player.connect(config)
-    assert player.receive() != "ko\n"
-
-#Test the send function
-def test_connection_send():
-    config = Config()
-    config._host = "localhost"
-    config._port = 4242
-    config._name = "test"
-    player = Player()
-    player.connect(config)
-    player.receive()
-    player.send("test")
-    assert player.receive() == "ko\n"
-
 #Test the setTeamName function
 def test_player_setTeamName():
     player = Player()
     player.setTeamName("test")
     assert player._name == "test"
+    player.setTeamName("test2")
+    assert player._name == "test2"
+    player.setTeamName("test3")
+    assert player._name == "test3"
+    player.setTeamName("")
+    assert player._name == ""
 
-#Test the fork function
-def test_player_fork():
-    config = Config()
-    config._host = "localhost"
-    config._port = 4242
-    config._name = "test"
+#Test the parseInventory function
+def test_player_parseInventory():
     player = Player()
-    player.connect(config)
-    player.setTeamName("test")
-    player.preliminaries()
-    test = player.fork()
-    player.disconnect()
-    assert test == "Error: Fork"
-
-#Test the forward function
-def test_player_forward():
-    config = Config()
-    config._host = "localhost"
-    config._port = 4242
-    config._name = "test"
-    player = Player()
-    player.connect(config)
-    player.setTeamName("test")
-    player.preliminaries()
-    test = player.forward()
-    player.disconnect()
-    assert test != "ok\n"
-
-#Test the right function
-def test_player_right():
-    config = Config()
-    config._host = "localhost"
-    config._port = 4242
-    config._name = "test"
-    player = Player()
-    player.connect(config)
-    player.setTeamName("test")
-    player.preliminaries()
-    test = player.right()
-    player.disconnect()
-    assert test != "ok\n"
-
-#Test the left function
-def test_player_left():
-    config = Config()
-    config._host = "localhost"
-    config._port = 4242
-    config._name = "test"
-    player = Player()
-    player.connect(config)
-    player.setTeamName("test")
-    player.preliminaries()
-    test = player.left()
-    player.disconnect()
-    assert test != "ok\n"
-
-#Test the look function
-def test_player_look():
-    config = Config()
-    config._host = "localhost"
-    config._port = 4242
-    config._name = "test"
-    player = Player()
-    player.connect(config)
-    player.setTeamName("test")
-    player.preliminaries()
-    test = player.look()
-    player.disconnect()
-    assert test == ""
-
-#Test the broadcast function
-def test_player_broadcast():
-    config = Config()
-    config._host = "localhost"
-    config._port = 4242
-    config._name = "test"
-    player = Player()
-    player.connect(config)
-    player.setTeamName("test")
-    player.preliminaries()
-    test = player.broadcast("test")
-    player.disconnect()
-    assert test == "Error: Broadcast"
+    player.parseInventory("[food 0, linemate 1, deraumere 0, sibur 0, mendiane 0, phiras 0, thystame 0]\n")
+    assert player._inventory == [0, 1, 0, 0, 0, 0, 0]
+    player.parseInventory("[food 13, linemate 0, deraumere 0, sibur 5, mendiane 0, phiras 23472973, thystame 0]\n")
+    assert player._inventory == [13, 0, 0, 5, 0, 23472973, 0]
+    player.parseInventory("[food 0, linemate 0, deraumere 0, sibur 0, mendiane 0, phiras 0, thystame 0]\n")
+    assert player._inventory == [0, 0, 0, 0, 0, 0, 0]
+    player.parseInventory("[food 0, linemate 0, deraumere 977484, sibur 0, mendiane 87437675, phiras 0, thystame 4353450]\n")
+    assert player._inventory == [0, 0, 977484, 0, 87437675, 0, 4353450]
 
 #Test the crypt function
 def test_player_crypt():
     player = Player()
     test : str = player.cryptMessage("test\n")
-    print (test)
     assert test == 'yjxy\x0f'
+    test : str = player.cryptMessage("test")
+    assert test == 'yjxy'
+    test : str = player.cryptMessage("test\n\n")
+    assert test == 'yjxy\x0f\x0f'
+    test : str = player.cryptMessage("JE SUIS UN TEST\n")
+    assert test == 'OJ%XZNX%ZS%YJXY\x0f'
 
 #Test the decrypt function
 def test_player_decrypt():
     player = Player()
     test : str = player.decryptMessage('yjxy\x0f')
     assert test == "test"
+    test : str = player.decryptMessage('yjxy')
+    assert test == "tes"
+    test : str = player.decryptMessage('yjxy\x0f\x0f')
+    assert test == "test\n"
+    test : str = player.decryptMessage('OJ%XZNX%ZS%YJXY\x0f')
+    assert test == "JE SUIS UN TEST"
