@@ -11,12 +11,17 @@
 #include <OGRE/Overlay/OgreFontManager.h>
 #include <OGRE/Overlay/OgreOverlayManager.h>
 #include <OGRE/Overlay/OgreOverlaySystem.h>
+#include <OGRE/Overlay/OgreTextAreaOverlayElement.h>
+#include <Ogre.h>
+#include <OgreCamera.h>
+#include <OgreCommon.h>
 #include <OgreFont.h>
 #include <OgreInput.h>
 #include <OgreRenderWindow.h>
 #include <OgreResourceGroupManager.h>
 #include <memory>
 #include <utility>
+#include "AnimationHandler.hpp"
 #include "Button.hpp"
 #include "CameraHandler.hpp"
 #include "ClickHandler.hpp"
@@ -50,6 +55,7 @@ namespace Zappy::GUI {
         }
         Ogre::RTShader::ShaderGenerator *myShadergen = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
         myShadergen->addSceneManager(myScnMgr);
+        myScnMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
 
         auto myNodeCenterPos = SceneBuilder::buildMap(myScnMgr, _serverData);
         cameraReturn myHandlers = SceneBuilder::buildCamera(myScnMgr, myNodeCenterPos, this->getRenderWindow(), *this);
@@ -108,22 +114,22 @@ namespace Zappy::GUI {
     void App::displayHowToPlayMenu()
     {
         static const std::string HOW_TO_PLAY_HELP_MESSAGE =
-            "How to play:\n\nRight click + moving mouse to move camera\n\n Zoom in and out with the mouse wheel.\n\n "
+            "How to play:\nRight click + moving mouse to move camera\n Zoom in and out with the mouse wheel.\n\n "
             "Press "
             "left "
-            "shift and left click to rotate the camera around a central point (can be moved, see above)\n\n Press the "
+            "shift and left click to rotate the camera around a central point\n Press the "
             "space bar "
             "to reset the camera.\n\n Left click on a tile to display its content\n\n Left click on a player to "
             "display "
             "its "
-            "inventory\n\n Left click on an egg to display its inventory\n\n Left click on a button to interact with "
-            "it\n\n "
-            "Press 'ESC' to quit the game\n\n"
+            "inventory\n Left click on an egg to display its inventory\n Left click on a button to interact with "
+            "it\n "
+            "Press 'ESC' to quit the game\n"
             "Press any key to dismiss this message\n";
         const auto myWindowHeight = static_cast<float>(this->getRenderWindow()->getHeight());
         const auto myWindowWidth = static_cast<float>(this->getRenderWindow()->getWidth());
-        const Ogre::Vector2 myPos = {myWindowWidth / 2.0F / 2.0F, myWindowHeight / 2.0F / 2.0F};
-        const Ogre::Vector2 myDimension = {1500, 700};
+        const Ogre::Vector2 myPos = {myWindowWidth / 6, myWindowHeight / 2.0F / 2.0F};
+        const Ogre::Vector2 myDimension = {1800, 700};
 
         SceneBuilder::createText(HELP_CONTROLS_OVERLAY, HOW_TO_PLAY_HELP_MESSAGE, HELP_CONTROLS_OVERLAY_PREFIX, myPos,
                                  myDimension);
@@ -206,5 +212,12 @@ namespace Zappy::GUI {
     std::unique_ptr<Inventory> &App::getInventory()
     {
         return _inventory;
+    }
+    bool App::frameRenderingQueued(const Ogre::FrameEvent &aEvent)
+    {
+        for (auto &mySet : _animatedEntities) {
+            mySet.second->updateAnimation(aEvent.timeSinceLastFrame);
+        }
+        return true;
     }
 } // namespace Zappy::GUI

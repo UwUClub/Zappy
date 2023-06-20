@@ -1,8 +1,10 @@
 #pragma once
 
 #include <functional>
+#include <mutex>
 #include <netinet/in.h>
 #include <string>
+#include <thread>
 #include <utility>
 #include <vector>
 #include "Observer.hpp"
@@ -248,5 +250,6 @@ namespace Zappy::GUI {
             std::string _writeBuffer;
             int _serverFd;
             ServerData &_serverData;
+            pthread_t _threadId;
     };
 } // namespace Zappy::GUI
