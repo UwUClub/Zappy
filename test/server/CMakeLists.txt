@@ -6,6 +6,9 @@ add_executable(test_zappy
         normalizePos.cpp
         isPlayer.cpp
         getPlayerById.cpp
+        calcOutbound.cpp
+        intToS.cpp
+        revStr.cpp
         )
 
 target_include_directories(test_zappy PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../../src/server")

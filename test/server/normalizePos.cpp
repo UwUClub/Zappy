@@ -1,6 +1,4 @@
-#include <iostream>
 #include "../../src/server/implementation/normalize_pos.c"
-#include "../../src/server/utils/calc_outbound.c"
 #include <catch2/catch_test_macros.hpp>
 
 TEST_CASE("testingPosNormalization1", "[testingPosNormalization1]")
