@@ -1,7 +1,7 @@
 #include "../src/gui/cli/ClientApi.hpp"
 #include "../src/gui/cli/ParserData.hpp"
-#include "Mediator.hpp"
 #include "App.hpp"
+#include "Mediator.hpp"
 #include "ServerData.hpp"
 #include <catch2/catch_test_macros.hpp>
 
