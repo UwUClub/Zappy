@@ -33,6 +33,7 @@ namespace Zappy::GUI {
                     std::osyncstream(std::cout) << e.what() << std::endl;
                 }
             }
+            std::cout << "Response received: " << myResponse << std::endl;
             _mediator.alert(this, myResponse);
             _readBuffer = _readBuffer.substr(_readBuffer.find('\n') + 1);
         }

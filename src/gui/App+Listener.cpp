@@ -17,7 +17,9 @@
 #include <OgreRoot.h>
 #include <OgreTextAreaOverlayElement.h>
 #include <fstream>
+#include <sstream>
 #include <string>
+#include "AnimationHandler.hpp"
 #include "App.hpp"
 #include "Constexpr.hpp"
 #include "SceneBuilder.hpp"
@@ -28,6 +30,8 @@ namespace Zappy::GUI {
     {
         auto myCommand = aNotification.substr(0, aNotification.find_first_of(' '));
         auto myArgs = aNotification.substr(aNotification.find_first_of(' ') + 1);
+
+        std::cout << "Notification received: " << aNotification << std::endl;
 
         if (_notificationMap.find(myCommand) != _notificationMap.end()) {
             _notificationMap.at(myCommand)(*this, myArgs);
@@ -49,6 +53,7 @@ namespace Zappy::GUI {
         auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
 
         myStream >> myIndex;
+        _animatedEntities.erase(myScnMgr->getEntity(PLAYER_PREFIX_NAME + myIndex));
         myScnMgr->destroyEntity(PLAYER_PREFIX_NAME + myIndex);
     }
 
@@ -113,5 +118,41 @@ namespace Zappy::GUI {
 
         myStream >> myIndex;
         myScnMgr->destroyEntity(EGG_PREFIX_NAME + myIndex);
+    }
+
+    void App::startedIncantation(const std::string &aNotification)
+    {
+        auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
+        std::istringstream myStream(aNotification);
+        int myX = 0;
+        int myY = 0;
+        int myLevel = 0;
+        std::string myIndex;
+
+        myStream >> myX >> myY >> myLevel;
+        while (myStream >> myIndex) {
+            auto *myPlayer = myScnMgr->getEntity(PLAYER_PREFIX_NAME + myIndex);
+
+            if (_animatedEntities[myPlayer] == nullptr) {
+                _animatedEntities[myPlayer] = std::make_unique<AnimationHandler>(myPlayer);
+            }
+
+            _animatedEntities[myPlayer]->addAnimation("Dance");
+        }
+    }
+
+    void App::stoppedIncantation(const std::string &aNotification)
+    {
+        std::istringstream myStream(aNotification);
+        int myX = 0;
+        int myY = 0;
+
+        myStream >> myX >> myY;
+        for (auto &myPlayer : _animatedEntities) {
+            if (myPlayer.second == nullptr) {
+                myPlayer.second = std::make_unique<AnimationHandler>(myPlayer.first);
+            }
+            myPlayer.second->removeAnimation("Dance");
+        }
     }
 } // namespace Zappy::GUI
