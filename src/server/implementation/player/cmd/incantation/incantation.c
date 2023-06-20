@@ -33,11 +33,16 @@ static void set_players_freeze_state(data_t *data, pos_t *pos,
 static void increment_players_level(data_t *data, pos_t *pos,
     const int target_lvl)
 {
+    char *msg = NULL;
+
     for (int i = 0; data->clients[i]; i++) {
         if (is_player_valid_for_incantation(data->clients, i, pos,
         target_lvl)){
             data->clients[i]->player->level = target_lvl;
             send_plv_to_all_gui(data, data->clients[i]->player);
+            asprintf(&msg, "Current level: %d\n", target_lvl);
+            send_to_client(data->clients, i, msg);
+            free(msg);
         }
     }
 }
@@ -55,7 +60,6 @@ static int do_incantation(data_t *data, char **args)
     rm_resources_from_tile(data, author->pos, target_lvl);
     increment_players_level(data, author->pos, target_lvl);
     do_pie(data, author->pos, target_lvl);
-    send_to_client(data->clients, data->curr_cli_index, "ok\n");
     return 0;
 }
 

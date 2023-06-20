@@ -71,7 +71,7 @@ static int look(data_t *data, char **args)
         look_front_tiles(1, 0, data, &look);
     if (data->clients[data->curr_cli_index]->player->orientation == WEST)
         look_front_tiles(-1, 0, data, &look);
-    strcat(look, "]\n\0");
+    strcat(look, " ]\n\0");
     send_to_client(data->clients, data->curr_cli_index, look);
     free(look);
     return 0;
