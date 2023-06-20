@@ -69,14 +69,14 @@ if(NOT PROJECT_IS_TOP_LEVEL)
 endif()
 
 # Adding the tests:
-# if (NO_CONNECTION EQUAL 0)
-#     include(CTest)
+if (NO_CONNECTION EQUAL 0)
+    include(CTest)
 
-#     if(BUILD_TESTING)
-#       message(AUTHOR_WARNING "Building Tests.")
-#       add_subdirectory(test)
-#     endif()
-# endif()
+    if(BUILD_TESTING)
+        message(WARNING "Building Tests.")
+        add_subdirectory(test)
+    endif()
+endif()
 
 if(CMAKE_SKIP_INSTALL_RULES)
   return()
