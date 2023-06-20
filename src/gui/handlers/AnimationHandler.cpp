@@ -20,7 +20,7 @@ namespace Zappy::GUI {
             try {
                 auto *myAnim = _entity->getAnimationState(animationState);
 
-                if (myAnim == nullptr) {
+                if (myAnim == nullptr || !myAnim->getEnabled()) {
                     continue;
                 }
 
@@ -68,6 +68,19 @@ namespace Zappy::GUI {
             }
 
             myAnim->addTime(aTimeSinceLastFrame);
+        }
+    }
+
+    void AnimationHandler::stopAnimation(const std::string &aAnimationName)
+    {
+        try {
+            auto *myAnim = _entity->getAnimationState(aAnimationName);
+
+            myAnim->setEnabled(false);
+            myAnim->setTimePosition(0);
+            myAnim->setLoop(false);
+        } catch (const std::exception &e) {
+            std::cerr << e.what() << std::endl;
         }
     }
 } // namespace Zappy::GUI

@@ -42,6 +42,14 @@ namespace Zappy::GUI {
         auto myPlayerData = _serverData._players.back();
 
         SceneBuilder::createPlayer(myScnMgr, myPlayerData);
+
+        auto *myPlayer = myScnMgr->getEntity(PLAYER_PREFIX_NAME + myPlayerData.getId());
+
+        if (_animatedEntities[myPlayer] == nullptr) {
+            _animatedEntities[myPlayer] = std::make_unique<AnimationHandler>(myPlayer);
+        }
+        _animatedEntities[myPlayer]->addAnimation("IdleBase");
+        _animatedEntities[myPlayer]->addAnimation("IdleTop");
     }
 
     void App::removePlayer(const std::string &aNotification)
@@ -135,6 +143,8 @@ namespace Zappy::GUI {
                 _animatedEntities[myPlayer] = std::make_unique<AnimationHandler>(myPlayer);
             }
 
+            _animatedEntities[myPlayer]->removeAnimation("IdleBase");
+            _animatedEntities[myPlayer]->removeAnimation("IdleTop");
             _animatedEntities[myPlayer]->addAnimation("Dance");
         }
     }
@@ -151,6 +161,8 @@ namespace Zappy::GUI {
                 myPlayer.second = std::make_unique<AnimationHandler>(myPlayer.first);
             }
             myPlayer.second->removeAnimation("Dance");
+            myPlayer.second->addAnimation("IdleBase");
+            myPlayer.second->addAnimation("IdleTop");
         }
     }
 } // namespace Zappy::GUI

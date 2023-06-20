@@ -45,6 +45,13 @@ namespace Zappy::GUI {
             void removeAnimation(const std::string &aAnimationName);
 
             /**
+             * @brief Stop an animation
+             *
+             * @param aAnimationName the name of the animation to stop
+             */
+            void stopAnimation(const std::string &aAnimationName);
+
+            /**
              * @brief Update the time
              *
              * @param aTimeSinceLastFrame the time since the last frame

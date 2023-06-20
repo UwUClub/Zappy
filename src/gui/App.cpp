@@ -62,6 +62,8 @@ namespace Zappy::GUI {
         SceneBuilder::buildLights(myScnMgr, myNodeCenterPos);
         SceneBuilder::buildConnectedPlayersAndEggs(myScnMgr, _serverData);
 
+        this->addIdleAnimationToPlayers(myScnMgr);
+
         _cameraHandler.reset(myHandlers.first);
         _clickHandler.reset(myHandlers.second);
         myScnMgr->setSkyBox(true, "Examples/SpaceSkyBox", 5000);
@@ -213,11 +215,28 @@ namespace Zappy::GUI {
     {
         return _inventory;
     }
+
     bool App::frameRenderingQueued(const Ogre::FrameEvent &aEvent)
     {
         for (auto &mySet : _animatedEntities) {
             mySet.second->updateAnimation(aEvent.timeSinceLastFrame);
         }
         return true;
+    }
+
+    void App::addIdleAnimationToPlayers(Ogre::SceneManager *aSceneManager)
+    {
+        const auto &myPlayers = _serverData._players;
+
+        for (const auto &myPlayer : myPlayers) {
+            auto *myEntity = aSceneManager->getEntity(PLAYER_PREFIX_NAME + myPlayer.getId());
+
+            if (_animatedEntities[myEntity] == nullptr) {
+                _animatedEntities[myEntity] = std::make_unique<AnimationHandler>(myEntity);
+            }
+
+            _animatedEntities[myEntity]->addAnimation("IdleBase");
+            _animatedEntities[myEntity]->addAnimation("IdleTop");
+        }
     }
 } // namespace Zappy::GUI
