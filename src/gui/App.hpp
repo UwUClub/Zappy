@@ -211,6 +211,12 @@ namespace Zappy::GUI {
              */
             bool frameRenderingQueued(const Ogre::FrameEvent &aEvent) final;
 
+            /**
+             * @brief Add the idle animation to the players
+             *
+             */
+            void addIdleAnimationToPlayers(Ogre::SceneManager *aSceneManager);
+
             std::unique_ptr<CameraHandler> _cameraHandler;
             std::unique_ptr<ClickHandler> _clickHandler;
             std::unordered_map<Ogre::Entity *, std::unique_ptr<AnimationHandler>> _animatedEntities;
