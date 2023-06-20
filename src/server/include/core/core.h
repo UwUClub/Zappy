@@ -248,12 +248,4 @@
      */
     void handle_client_quit(data_t *data);
 
-    /**
-     * @brief Normalize a position to fit the map
-     * @param pos The position to normalize
-     * @param width The width of the map
-     * @param height The height of the map
-     */
-    void normalize_pos(pos_t *pos, const int width, const int height);
-
 #endif /* ZAPPY_SERVER_CORE_H */

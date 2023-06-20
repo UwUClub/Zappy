@@ -35,7 +35,7 @@ static void increment_players_level(data_t *data, pos_t *pos,
 {
     for (int i = 0; data->clients[i]; i++) {
         if (is_player_valid_for_incantation(data->clients, i, pos,
-        target_lvl)){
+        target_lvl)) {
             data->clients[i]->player->level = target_lvl;
             send_plv_to_all_gui(data, data->clients[i]->player);
         }

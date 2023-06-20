@@ -26,7 +26,7 @@ int do_plv(data_t *data, char **args)
 
     if (!args || word_array_len(args) != 1 || !is_int(args[0]))
         return 1;
-    player = get_player_by_id(data, atoi(args[0]));
+    player = get_player_by_id(data->clients, atoi(args[0]));
     if (!player)
         return 1;
     asprintf(&msg, "plv %s %d\n", args[0], player->level);
