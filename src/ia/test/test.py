@@ -1,6 +1,5 @@
-from player import Player
-from iaParser import parse, Config
-from connection import Connection
+from ..player import Player
+from ..iaParser import parse, Config
 
 #Test if the player is correctly initialized
 def test_player_init():
@@ -153,3 +152,16 @@ def test_player_broadcast():
     test = player.broadcast("test")
     player.disconnect()
     assert test == "Error: Broadcast"
+
+#Test the crypt function
+def test_player_crypt():
+    player = Player()
+    test : str = player.cryptMessage("test\n")
+    print (test)
+    assert test == 'yjxy\x0f'
+
+#Test the decrypt function
+def test_player_decrypt():
+    player = Player()
+    test : str = player.decryptMessage('yjxy\x0f')
+    assert test == "test"
