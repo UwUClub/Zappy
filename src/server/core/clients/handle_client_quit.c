@@ -7,7 +7,7 @@
 
 #include "core.h"
 #include "gui_cmd.h"
- 
+
 void handle_client_quit(data_t *data)
 {
     client_t *cli = data->clients[data->curr_cli_index];
@@ -18,6 +18,7 @@ void handle_client_quit(data_t *data)
     }
     close_single_client(cli);
     free(cli);
+    data->clients[data->curr_cli_index] = NULL;
     for (int i = data->curr_cli_index; data->clients[i]; i++) {
         data->clients[i] = data->clients[i + 1];
     }

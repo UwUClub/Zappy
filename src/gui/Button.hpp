@@ -21,10 +21,11 @@ namespace Zappy::GUI {
              *
              * @param aButtonText  The text to display on the button
              * @param aPosition  The position of the button
+             * @param aDimension The dimension of the background
              * @param aCallback  The callback to call when the button is clicked
              */
             Button(const std::string &aButtonText, const std::pair<float, float> &aPosition,
-                   std::function<void()> aCallback);
+                   const std::pair<float, float> &aDimension, std::function<void()> aCallback);
             ~Button();
 
             /**
@@ -42,12 +43,19 @@ namespace Zappy::GUI {
              */
             void onClick();
 
+            /**
+             * @brief Set the displayed state of the button
+             * @param displayed The new displayed state
+             */
+            void setDisplayed(bool displayed);
+
         protected:
         private:
             std::pair<int, int> calculateDimensions();
             std::string _buttonText;
             std::pair<float, float> _position;
             std::pair<float, float> _dimensions;
+            bool _isDisplayed;
             std::function<void()> _callback;
     };
 } // namespace Zappy::GUI

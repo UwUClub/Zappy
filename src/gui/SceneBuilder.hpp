@@ -8,6 +8,7 @@
 #ifndef SCENEBUILDER_HPP_
 #define SCENEBUILDER_HPP_
 
+#include <OGRE/Ogre.h>
 #include <OgrePrerequisites.h>
 
 namespace Ogre {
@@ -111,12 +112,14 @@ namespace Zappy::GUI {
              * @param aPrefix The prefix to use (will be used to create the overlays elements, ex: "Time" will create
              * "Time_Panel" : overlayArea, "Time_Text" : TextArea)
              * @param aPosition The position of the text
+             * @param aDimension The dimension of the background
              * @param aMaterialName The material to use if any
-             * @return std::pair<float, float> The dimensions of the text
              */
-            static std::pair<float, float> createText(const std::string &aOverlayName, const std::string &aText,
-                                                      const std::string &aPrefix, const Ogre::Vector2 &aPosition,
-                                                      const std::string &aMaterialName = "BaseWhite");
+            static void createText(const std::string &aOverlayName, const std::string &aText,
+                                   const std::string &aPrefix, const Ogre::Vector2 &aPosition,
+                                   const Ogre::Vector2 &aDimension, const std::string &aMaterialName = "BaseWhite",
+                                   const std::string &aGroupName = "General",
+                                   const Ogre::Vector2 &aOffset = Ogre::Vector2(10, 10));
 
             /**
              * @brief Set the Player Pos And Orientation object
@@ -127,13 +130,6 @@ namespace Zappy::GUI {
             static void setPlayerPosAndOrientation(Ogre::SceneManager *aSceneManager, const PlayerData &aPlayer);
 
         private:
-            /**
-             * @brief Calculate the dimensions of a text
-             *
-             * @param aButtonText The text to calculate the dimensions
-             * @return std::pair<float, float> The dimensions of the text
-             */
-            static std::pair<float, float> calculateDimensions(const std::string &aButtonText);
     };
 } // namespace Zappy::GUI
 

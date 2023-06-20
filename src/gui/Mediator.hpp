@@ -9,13 +9,13 @@
 #define MEDIATOR_HPP_
 
 #include <memory>
+#include "ClientApi.hpp"
 
 namespace Zappy::GUI {
     class Observer;
     class ParserData;
     struct ServerData;
     class App;
-    class ClientApi;
 
     class Mediator
     {
@@ -50,7 +50,7 @@ namespace Zappy::GUI {
         private:
             std::unique_ptr<ServerData> _serverData;
             std::unique_ptr<App> _app;
-            std::unique_ptr<ClientApi> _client;
+            ClientApi _client;
     };
 } // namespace Zappy::GUI
 

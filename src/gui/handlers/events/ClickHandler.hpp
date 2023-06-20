@@ -64,6 +64,8 @@ namespace Zappy::GUI {
             Ogre::RenderWindow *_renderWindow;
             Ogre::SceneManager *_sceneManager;
             std::vector<std::unique_ptr<Button>> &_buttons;
+            Ogre::SceneNode *_selectedNode;
+            App &_app;
     };
 } // namespace Zappy::GUI
 

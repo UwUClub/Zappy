@@ -205,8 +205,9 @@
     * @param data The structure that includes server data,
     * clients and current client index
     * @param clients Client to write to
+    * @return 1 if the client quits, 0 otherwise
     */
-    void write_to_selected_client(data_t *data, client_t **client);
+    int write_to_selected_client(data_t *data, client_t **client);
 
     /**
     * @brief Update remaining time before next resurce spawn. If remaining time
@@ -246,13 +247,5 @@
      * @return The list of player on the tile
      */
     void handle_client_quit(data_t *data);
-
-    /**
-     * @brief Normalize a position to fit the map
-     * @param pos The position to normalize
-     * @param width The width of the map
-     * @param height The height of the map
-     */
-    void normalize_pos(pos_t *pos, const int width, const int height);
 
 #endif /* ZAPPY_SERVER_CORE_H */

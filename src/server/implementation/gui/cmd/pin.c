@@ -5,6 +5,7 @@
 ** pin
 */
 
+#define _GNU_SOURCE
 #include <stdio.h>
 #include "implementation.h"
 #include "utils.h"
@@ -18,7 +19,7 @@ int do_pin(data_t *data, char **args)
 
     if (!args || word_array_len(args) != 1 || !is_int(args[0]))
         return 1;
-    player = get_player_by_id(data, atoi(args[0]));
+    player = get_player_by_id(data->clients, atoi(args[0]));
     if (!player)
         return 1;
     asprintf(&msg, "pin %s %d %d", args[0], player->pos->x, player->pos->y);
