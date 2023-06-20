@@ -9,32 +9,20 @@
 #include <OGRE/Bites/OgreApplicationContext.h>
 #include <OGRE/OgreSceneManager.h>
 #include <OGRE/Overlay/OgreFontManager.h>
-#include <OGRE/Overlay/OgreOverlayContainer.h>
 #include <OGRE/Overlay/OgreOverlayManager.h>
 #include <OGRE/Overlay/OgreOverlaySystem.h>
-#include <OGRE/Overlay/OgreTextAreaOverlayElement.h>
-#include <Ogre.h>
-#include <OgreCamera.h>
 #include <OgreFont.h>
 #include <OgreInput.h>
-#include <OgreLight.h>
-#include <OgreOverlay.h>
-#include <OgreOverlayManager.h>
-#include <OgrePrerequisites.h>
 #include <OgreRenderWindow.h>
 #include <OgreResourceGroupManager.h>
-#include <OgreRoot.h>
-#include <OgreSceneNode.h>
-#include <algorithm>
-#include <functional>
 #include <memory>
 #include <utility>
 #include "Button.hpp"
 #include "CameraHandler.hpp"
 #include "ClickHandler.hpp"
-#include "ClientApi.hpp"
 #include "Constexpr.hpp"
 #include "InputHandler.hpp"
+#include "Inventory.hpp"
 #include "Observer.hpp"
 #include "PlayerData.hpp"
 #include "SceneBuilder.hpp"
@@ -71,6 +59,7 @@ namespace Zappy::GUI {
         _cameraHandler.reset(myHandlers.first);
         _clickHandler.reset(myHandlers.second);
         myScnMgr->setSkyBox(true, "Examples/SpaceSkyBox", 5000);
+        _inventory = std::make_unique<Inventory>(*this);
 
         this->createButtons();
         this->displayHowToPlayMenu();
@@ -98,6 +87,22 @@ namespace Zappy::GUI {
             std::make_pair(DIMENSION_OVERLAY_BUTTON_2_TIME_X, DIMENSION_OVERLAY_BUTTON_2_TIME_Y), [this] {
                 decreaseTime();
             }));
+        _buttons.emplace_back(
+            std::make_unique<Button>("Next", std::make_pair(1800, 540), std::make_pair(150, 35), [this] {
+                _inventory->switchDisplayedPlayer();
+            }));
+        _buttons.back()->setDisplayed(false);
+    }
+
+    void App::CreateMaterial(const std::string &aPath)
+    {
+        Ogre::TextureManager *myTextureManager = Ogre::TextureManager::getSingletonPtr();
+        Ogre::MaterialPtr myMaterial = Ogre::MaterialManager::getSingleton().create(aPath, RESSOURCE_GROUP_NAME);
+        Ogre::TexturePtr myTexture = myTextureManager->load(aPath, RESSOURCE_GROUP_NAME);
+
+        Ogre::Technique *myTechnique = myMaterial->getTechnique(0);
+        Ogre::Pass *pass = myTechnique->getPass(0);
+        pass->createTextureUnitState(myTexture->getName());
     }
 
     void App::displayHowToPlayMenu()
@@ -138,11 +143,12 @@ namespace Zappy::GUI {
                                                                            RESSOURCE_GROUP_NAME);
             Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
             Ogre::ResourceGroupManager::getSingleton().loadResourceGroup(RESSOURCE_GROUP_NAME);
+            this->CreateMaterial("Inventory.png");
             myScnMgr->createEntity(PLAYER_MODEL_NAME);
             myScnMgr->createEntity(EGG_MODEL_NAME);
             myScnMgr->createEntity(TILE_MODEL_NAME);
-
             myOverlayManager.create(BUTTON_OVERLAY);
+            myOverlayManager.create(INVENTORY_OVERLAY);
             myOverlayManager.create(HELP_CONTROLS_OVERLAY);
 
             Ogre::FontPtr myFont = Ogre::FontManager::getSingleton().create(FONT_NAME, RESSOURCE_GROUP_NAME);
@@ -195,5 +201,10 @@ namespace Zappy::GUI {
         std::string myCommand = "sst " + std::to_string(myNewTime);
 
         _mediator.alert(this, myCommand);
+    }
+
+    std::unique_ptr<Inventory> &App::getInventory()
+    {
+        return _inventory;
     }
 } // namespace Zappy::GUI

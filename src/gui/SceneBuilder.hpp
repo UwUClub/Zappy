@@ -8,6 +8,7 @@
 #ifndef SCENEBUILDER_HPP_
 #define SCENEBUILDER_HPP_
 
+#include <OGRE/Ogre.h>
 #include <OgrePrerequisites.h>
 
 namespace Ogre {
@@ -117,7 +118,8 @@ namespace Zappy::GUI {
             static void createText(const std::string &aOverlayName, const std::string &aText,
                                    const std::string &aPrefix, const Ogre::Vector2 &aPosition,
                                    const Ogre::Vector2 &aDimension, const std::string &aMaterialName = "BaseWhite",
-                                   const std::string &aGroupName = "General");
+                                   const std::string &aGroupName = "General",
+                                   const Ogre::Vector2 &aOffset = Ogre::Vector2(10, 10));
 
             /**
              * @brief Set the Player Pos And Orientation object

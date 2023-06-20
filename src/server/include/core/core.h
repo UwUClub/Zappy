@@ -205,8 +205,9 @@
     * @param data The structure that includes server data,
     * clients and current client index
     * @param clients Client to write to
+    * @return 1 if the client quits, 0 otherwise
     */
-    void write_to_selected_client(data_t *data, client_t **client);
+    int write_to_selected_client(data_t *data, client_t **client);
 
     /**
     * @brief Update remaining time before next resurce spawn. If remaining time

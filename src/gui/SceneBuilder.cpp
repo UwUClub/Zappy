@@ -13,7 +13,6 @@
 #include <OGRE/Overlay/OgreTextAreaOverlayElement.h>
 #include <OgreEntity.h>
 #include <OgreOverlay.h>
-#include <OgrePrerequisites.h>
 #include <OgreSceneManager.h>
 #include <OgreSceneNode.h>
 #include <algorithm>
@@ -170,15 +169,30 @@ namespace Zappy::GUI {
 
     void SceneBuilder::createText(const std::string &aOverlayName, const std::string &aText, const std::string &aPrefix,
                                   const Ogre::Vector2 &aPosition, const Ogre::Vector2 &aDimension,
-                                  const std::string &aMaterialName, const std::string &aGroupName)
+                                  const std::string &aMaterialName, const std::string &aGroupName,
+                                  const Ogre::Vector2 &offset)
     {
-        Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
-        Ogre::Overlay *myOverlay = overlayManager.getByName(aOverlayName);
+        Ogre::OverlayManager &myOverlayManager = Ogre::OverlayManager::getSingleton();
+        Ogre::Overlay *myOverlay = myOverlayManager.getByName(aOverlayName);
 
-        auto *myContainer =
-            static_cast<Ogre::OverlayContainer *>(overlayManager.createOverlayElement("Panel", aPrefix + "_Panel"));
-        auto *myTextArea = static_cast<Ogre::TextAreaOverlayElement *>(
-            overlayManager.createOverlayElement("TextArea", aPrefix + "_Text"));
+        Ogre::OverlayContainer *myContainer = nullptr;
+
+        if (myOverlayManager.hasOverlayElement(aPrefix + "_Panel")) {
+            myContainer = static_cast<Ogre::OverlayContainer *>(myOverlayManager.getOverlayElement(aPrefix + "_Panel"));
+        } else {
+            myContainer = static_cast<Ogre::OverlayContainer *>(
+                myOverlayManager.createOverlayElement("Panel", aPrefix + "_Panel"));
+        }
+        Ogre::TextAreaOverlayElement *myTextArea = nullptr;
+
+        if (myOverlayManager.hasOverlayElement(aPrefix + "_Text")) {
+            myTextArea =
+                static_cast<Ogre::TextAreaOverlayElement *>(myOverlayManager.getOverlayElement(aPrefix + "_Text"));
+        } else {
+            myTextArea = static_cast<Ogre::TextAreaOverlayElement *>(
+                myOverlayManager.createOverlayElement("TextArea", aPrefix + "_Text"));
+            myContainer->addChild(myTextArea);
+        }
         Ogre::FontPtr myFont = Ogre::FontManager::getSingleton().getByName(FONT_NAME, RESSOURCE_GROUP_NAME);
 
         myContainer->setMetricsMode(Ogre::GMM_PIXELS);
@@ -187,14 +201,12 @@ namespace Zappy::GUI {
         myContainer->setDimensions(aDimension.x, aDimension.y);
 
         myTextArea->setMetricsMode(Ogre::GMM_PIXELS);
-        myTextArea->setPosition(10, 10);
+        myTextArea->setPosition(offset.x, offset.y);
         myTextArea->setCaption(aText);
         myTextArea->setCharHeight(CHAR_HEIGHT);
         myTextArea->setFontName(FONT_NAME, RESSOURCE_GROUP_NAME);
         myTextArea->setColourTop(Ogre::ColourValue(1, 1, 0));
         myTextArea->setColourBottom(Ogre::ColourValue(0, 0, 0));
-
-        myContainer->addChild(myTextArea);
 
         myOverlay->add2D(myContainer);
         myOverlay->show();

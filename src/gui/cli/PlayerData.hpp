@@ -5,6 +5,7 @@
 #include <vector>
 #include "ItemPacket.hpp"
 #include <unordered_map>
+
 namespace Zappy::GUI {
     class ItemPacket;
 
@@ -108,7 +109,7 @@ namespace Zappy::GUI {
              * @brief Get the inventory of the player
              * @return Tile
              */
-            ItemPacket getAllInventory();
+            ItemPacket getAllInventory() const;
 
             /**
              * @brief Get the team name of the player

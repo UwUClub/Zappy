@@ -5,10 +5,10 @@
 ** plv
 */
 
+#define _GNU_SOURCE
 #include <stdio.h>
 #include "implementation.h"
 #include "utils.h"
-#include "ranges.h"
 
 void send_plv_to_all_gui(data_t *data, player_t *player)
 {

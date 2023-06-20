@@ -43,12 +43,19 @@ namespace Zappy::GUI {
              */
             void onClick();
 
+            /**
+             * @brief Set the displayed state of the button
+             * @param displayed The new displayed state
+             */
+            void setDisplayed(bool displayed);
+
         protected:
         private:
             std::pair<int, int> calculateDimensions();
             std::string _buttonText;
             std::pair<float, float> _position;
             std::pair<float, float> _dimensions;
+            bool _isDisplayed;
             std::function<void()> _callback;
     };
 } // namespace Zappy::GUI
