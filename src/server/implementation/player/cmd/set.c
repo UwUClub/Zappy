@@ -14,7 +14,7 @@
 static int set(data_t *data, char **args)
 {
     for (int i = 0; i < NB_RESOURCES; i++) {
-        if (strcmp(args[0], resource[i]) == 0
+        if (strcmp(args[0], resource_names[i]) == 0
             && data->clients[data->curr_cli_index]->player->inventory[i] > 0) {
             data->clients[data->curr_cli_index]->player->inventory[i] -= 1;
             data->map->tiles[data->clients[data->curr_cli_index]->player->
@@ -34,7 +34,7 @@ int schedule_set(data_t *data, char **args)
         return ERROR_STATUS;
     }
     for (int i = 0; i < NB_RESOURCES; i++) {
-        if (strcmp(args[0], resource[i]) == 0 &&
+        if (strcmp(args[0], resource_names[i]) == 0 &&
         data->clients[data->curr_cli_index]->player->inventory[i] > 0) {
             append_scheduler_to_queue(data, &set, args, SET_DELAY);
             return SUCCESS_STATUS;
