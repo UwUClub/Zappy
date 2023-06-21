@@ -25,11 +25,10 @@ namespace Zappy::GUI {
           _callback(std::move(aCallback))
     {
         try {
-            SceneBuilder::createText(BUTTON_OVERLAY, _buttonText, _buttonText,
-                                     Ogre::Vector2(_position.first, _position.second),
-                                     Ogre::Vector2(_dimensions.first, _dimensions.second),
-                                     "Textbox", RESSOURCE_GROUP_NAME,
-                                     Ogre::Vector2(_dimensions.first - 325, OFFSET_OVERLAY_BUTTON_TIME_Y));
+            SceneBuilder::createText(
+                BUTTON_OVERLAY, _buttonText, _buttonText, Ogre::Vector2(_position.first, _position.second),
+                Ogre::Vector2(_dimensions.first, _dimensions.second), "Textbox", RESSOURCE_GROUP_NAME,
+                Ogre::Vector2(_dimensions.first - 325, OFFSET_OVERLAY_BUTTON_TIME_Y));
         } catch (const std::exception &e) {
             std::cerr << "Button error : " << e.what() << std::endl;
         }
