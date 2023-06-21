@@ -28,12 +28,19 @@
     int do_msz(data_t *data, char **args);
 
     /**
+     * @brief Send map content to gui
+     * @param data The current server data, clients and current client index
+     * @param args The arguments of the command
+    */
+    int do_mct(data_t *data, char **args);
+
+    /**
     * @brief Sends a response to the bct command sent by the client
     * @param data The current server data, clients and current client index
     * @param args The arguments of the command
     * @return Status of the parsing / command
     */
-    int do_bct(data_t *data, char **args);
+    int send_bct_to_current_cli(data_t *data, char **args);
 
     /**
      * @brief Sends a response to the bct command sent by the client to all gui
@@ -42,7 +49,7 @@
      * @param y The y position of the tile
      * @return Status of the parsing / command
     */
-    int do_bct_to_all_gui(data_t *data, const int x, const int y);
+    int send_bct_to_all_gui(data_t *data, const int x, const int y);
 
     /**
     * @brief Sends a response to the tna command sent by the client
@@ -202,7 +209,8 @@
 
     static const cmd_t gui_commands[] = {
         {"msz", &do_msz, 0},
-        {"bct", &do_bct, 0},
+        {"bct", &send_bct_to_current_cli, 0},
+        {"mct", &do_mct, 0},
         {"tna", &do_tna, 0},
         {"sgt", &do_sgt, 0},
         {"sst", &do_sst, 0},
