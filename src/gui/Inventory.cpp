@@ -43,14 +43,14 @@ namespace Zappy::GUI {
         ItemPacket myInventory = myPlayerData->getAllInventory();
 
         std::string InventoryOverlay =
-            "Inventory of the player " + std::to_string(aId) + "\nFood: " + std::to_string(myInventory._food)
-            + "\nLinemate: " + std::to_string(myInventory._linemate) + "\nDeraumere: "
-            + std::to_string(myInventory._deraumere) + "\nSibur: " + std::to_string(myInventory._sibur) + "\nMendiane: "
-            + std::to_string(myInventory._mendiane) + "\nPhiras: " + std::to_string(myInventory._phiras)
+            "Inventory of the player " + std::to_string(aId) + "\nPlayer level: " + std::to_string(myPlayerData->getLevel())
+            + "\nFood: " + std::to_string(myInventory._food) + "\nLinemate: " + std::to_string(myInventory._linemate)
+            + "\nDeraumere: " + std::to_string(myInventory._deraumere) + "\nSibur: " + std::to_string(myInventory._sibur)
+            + "\nMendiane: " + std::to_string(myInventory._mendiane) + "\nPhiras: " + std::to_string(myInventory._phiras)
             + "\nThystame: " + std::to_string(myInventory._thystame);
 
         SceneBuilder::createText(INVENTORY_OVERLAY, InventoryOverlay, "Inventory", Ogre::Vector2(1400, 20),
-                                 Ogre::Vector2(500, 195), "Inventory.png", RESSOURCE_GROUP_NAME, Ogre::Vector2(45, 15));
+                                 Ogre::Vector2(500, 300), "Inventory.png", RESSOURCE_GROUP_NAME, Ogre::Vector2(45, 15));
     }
 
     void Inventory::displayTilesInventory(std::pair<int, int> aPos, App &aApp)
@@ -70,7 +70,7 @@ namespace Zappy::GUI {
             + std::to_string(myInventory._phiras) + "\nThystame: " + std::to_string(myInventory._thystame);
 
         SceneBuilder::createText(INVENTORY_OVERLAY, InventoryOverlay, "Inventory", Ogre::Vector2(1400, 20),
-                                 Ogre::Vector2(500, 195), "Inventory.png", RESSOURCE_GROUP_NAME, Ogre::Vector2(45, 15));
+                                 Ogre::Vector2(400, 500), "Inventory.png", RESSOURCE_GROUP_NAME, Ogre::Vector2(30, 100));
     }
 
     void Inventory::switchDisplayedPlayer()

@@ -19,15 +19,13 @@ const constexpr int EGG_OFFSET_POS = 1;
 const constexpr int MY_TIME_INTERVAL = 10;
 const constexpr int CHAR_HEIGHT = 30;
 const constexpr int OFFSET_OVERLAY_TIME_X = 50;
-const constexpr int OFFSET_OVERLAY_BUTTON_1_TIME_Y = 50;
-const constexpr int DIMENSION_OVERLAY_BUTTON_1_TIME_X = 170;
-const constexpr int DIMENSION_OVERLAY_BUTTON_1_TIME_Y = 35;
+const constexpr int OFFSET_OVERLAY_BUTTON_1_TIME_Y = 0;
 const constexpr int OFFSET_OVERLAY_BUTTON_2_TIME_Y = 100;
-const constexpr int DIMENSION_OVERLAY_BUTTON_2_TIME_X = 170;
-const constexpr int DIMENSION_OVERLAY_BUTTON_2_TIME_Y = 35;
-const constexpr int OFFSET_OVERLAY_DISPLAY_TIME_Y = 160;
-const constexpr int DIMENSION_OVERLAY_DISPLAY_TIME_X = 300;
-const constexpr int DIMENSION_OVERLAY_DISPLAY_TIME_Y = 35;
+const constexpr int OFFSET_OVERLAY_DISPLAY_TIME_Y = 200;
+const constexpr int DIMENSION_OVERLAY_DISPLAY_TIME_X = 500;
+const constexpr int DIMENSION_OVERLAY_DISPLAY_TIME_Y = 100;
+const constexpr int OFFSET_OVERLAY_BUTTON_TIME_X = 125;
+const constexpr int OFFSET_OVERLAY_BUTTON_TIME_Y = 40;
 
 //---------------------------------String Constexpr
 const constexpr std::string CAMERA_NAME = "ZappyCamera";

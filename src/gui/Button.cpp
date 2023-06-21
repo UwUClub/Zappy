@@ -7,13 +7,9 @@
 
 #include "Button.hpp"
 #include <OGRE/Overlay/OgreFont.h>
-#include <OGRE/Overlay/OgreFontManager.h>
 #include <OGRE/Overlay/OgreOverlay.h>
 #include <OGRE/Overlay/OgreOverlayContainer.h>
 #include <OGRE/Overlay/OgreOverlayManager.h>
-#include <OGRE/Overlay/OgreOverlaySystem.h>
-#include <OGRE/Overlay/OgreTextAreaOverlayElement.h>
-#include <OgreOverlay.h>
 #include <iostream>
 #include <utility>
 #include "Constexpr.hpp"
@@ -31,7 +27,9 @@ namespace Zappy::GUI {
         try {
             SceneBuilder::createText(BUTTON_OVERLAY, _buttonText, _buttonText,
                                      Ogre::Vector2(_position.first, _position.second),
-                                     Ogre::Vector2(_dimensions.first, _dimensions.second));
+                                     Ogre::Vector2(_dimensions.first, _dimensions.second),
+                                     "Textbox", RESSOURCE_GROUP_NAME,
+                                     Ogre::Vector2(_dimensions.first - 325, OFFSET_OVERLAY_BUTTON_TIME_Y));
         } catch (const std::exception &e) {
             std::cerr << "Button error : " << e.what() << std::endl;
         }

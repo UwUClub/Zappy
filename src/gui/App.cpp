@@ -21,13 +21,11 @@
 #include "CameraHandler.hpp"
 #include "ClickHandler.hpp"
 #include "Constexpr.hpp"
-#include "InputHandler.hpp"
 #include "Inventory.hpp"
 #include "Observer.hpp"
 #include "PlayerData.hpp"
 #include "SceneBuilder.hpp"
 #include "ServerData.hpp"
-#include <unordered_map>
 
 namespace Zappy::GUI {
     App::App(Mediator &aMediator, ServerData &aServerData, const std::string &aWindowName)
@@ -65,7 +63,9 @@ namespace Zappy::GUI {
         this->displayHowToPlayMenu();
         SceneBuilder::createText(BUTTON_OVERLAY, "Current Time: " + std::to_string(_serverData._freq), "Time",
                                  Ogre::Vector2(OFFSET_OVERLAY_TIME_X, OFFSET_OVERLAY_DISPLAY_TIME_Y),
-                                 Ogre::Vector2(DIMENSION_OVERLAY_DISPLAY_TIME_X, DIMENSION_OVERLAY_DISPLAY_TIME_Y));
+                                 Ogre::Vector2(DIMENSION_OVERLAY_DISPLAY_TIME_X, DIMENSION_OVERLAY_DISPLAY_TIME_Y),
+                                 "Textbox", RESSOURCE_GROUP_NAME,
+                                 Ogre::Vector2(OFFSET_OVERLAY_BUTTON_TIME_X, OFFSET_OVERLAY_BUTTON_TIME_Y));
         this->setReady(true);
     }
 
@@ -79,12 +79,12 @@ namespace Zappy::GUI {
     {
         _buttons.emplace_back(std::make_unique<Button>(
             "Speed up", std::make_pair(OFFSET_OVERLAY_TIME_X, OFFSET_OVERLAY_BUTTON_1_TIME_Y),
-            std::make_pair(DIMENSION_OVERLAY_BUTTON_1_TIME_X, DIMENSION_OVERLAY_BUTTON_1_TIME_Y), [this] {
+            std::make_pair(DIMENSION_OVERLAY_DISPLAY_TIME_X, DIMENSION_OVERLAY_DISPLAY_TIME_Y), [this] {
                 increaseTime();
             }));
         _buttons.emplace_back(std::make_unique<Button>(
             "Speed down", std::make_pair(OFFSET_OVERLAY_TIME_X, OFFSET_OVERLAY_BUTTON_2_TIME_Y),
-            std::make_pair(DIMENSION_OVERLAY_BUTTON_2_TIME_X, DIMENSION_OVERLAY_BUTTON_2_TIME_Y), [this] {
+            std::make_pair(DIMENSION_OVERLAY_DISPLAY_TIME_X, DIMENSION_OVERLAY_DISPLAY_TIME_Y), [this] {
                 decreaseTime();
             }));
         _buttons.emplace_back(
@@ -108,25 +108,19 @@ namespace Zappy::GUI {
     void App::displayHowToPlayMenu()
     {
         static const std::string HOW_TO_PLAY_HELP_MESSAGE =
-            "How to play:\n\nRight click + moving mouse to move camera\n\n Zoom in and out with the mouse wheel.\n\n "
-            "Press "
-            "left "
-            "shift and left click to rotate the camera around a central point (can be moved, see above)\n\n Press the "
-            "space bar "
-            "to reset the camera.\n\n Left click on a tile to display its content\n\n Left click on a player to "
-            "display "
-            "its "
-            "inventory\n\n Left click on an egg to display its inventory\n\n Left click on a button to interact with "
-            "it\n\n "
-            "Press 'ESC' to quit the game\n\n"
+            "How to play:\n\nRight click + moving mouse to move camera       Zoom in and out with the mouse wheel.\n"
+            "Press the space bar to reset the camera         Left click on a tile to display its content\n"
+            "Left click on a player to display its inventory    Left click on an egg to display its inventory\n"
+            "Left click on a button to interact with it        Press 'ESC' to quit the game\n"
+            "Press left shift and left click to rotate the camera around a central point (can be moved, see above)\n\n"
             "Press any key to dismiss this message\n";
         const auto myWindowHeight = static_cast<float>(this->getRenderWindow()->getHeight());
         const auto myWindowWidth = static_cast<float>(this->getRenderWindow()->getWidth());
-        const Ogre::Vector2 myPos = {myWindowWidth / 2.0F / 2.0F, myWindowHeight / 2.0F / 2.0F};
-        const Ogre::Vector2 myDimension = {1500, 700};
+        const Ogre::Vector2 myPos = {0, myWindowHeight / 2.0F / 2.0F - 70};
+        const Ogre::Vector2 myDimension = {myWindowWidth, 800};
 
         SceneBuilder::createText(HELP_CONTROLS_OVERLAY, HOW_TO_PLAY_HELP_MESSAGE, HELP_CONTROLS_OVERLAY_PREFIX, myPos,
-                                 myDimension);
+                                 myDimension, "Textbox", RESSOURCE_GROUP_NAME, Ogre::Vector2(300, 275));
     }
 
     void App::instantiateApp()
