@@ -17,9 +17,9 @@ static void send_welcome_data(data_t *data, const int remaining_slots)
     char *str_remaining_slots = NULL;
     char *world_dimensions = NULL;
 
-    str_remaining_slots = int_to_s(remaining_slots - 1);
-    str_remaining_slots = concat_str(str_remaining_slots, "\n");
-    world_dimensions = get_world_dimensions(data);
+    asprintf(&str_remaining_slots, "%d\n", remaining_slots - 1);
+    asprintf(&world_dimensions, "%d %d\n", data->map->width,
+        data->map->height);
     send_to_client(data->clients, data->curr_cli_index, str_remaining_slots);
     send_to_client(data->clients, data->curr_cli_index, world_dimensions);
     free(str_remaining_slots);

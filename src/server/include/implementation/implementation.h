@@ -39,13 +39,6 @@
     int append_player_client(data_t *data, char *team_name);
 
     /**
-    * @brief Get a string containing the world dimensions of the server
-    * @param data The current server data, clients and current client index
-    * @return String containing the world dimensions
-    */
-    char *get_world_dimensions(data_t *data);
-
-    /**
      * @brief Check if the client is a player
      * @param clients Client list of the server
      * @param i The index of the player
