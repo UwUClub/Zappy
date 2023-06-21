@@ -41,7 +41,6 @@ namespace Zappy::GUI {
             myAnim->setEnabled(false);
             myAnim->setTimePosition(0);
             myAnim->setLoop(false);
-            std::cout << "Animation " << aAnimationName << " removed" << std::endl;
         } catch (const std::exception &e) {
             std::cerr << e.what() << std::endl;
         }

@@ -225,12 +225,16 @@ namespace Zappy::GUI {
                                                                                      {Orientation::EAST, 90},
                                                                                      {Orientation::SOUTH, 0},
                                                                                      {Orientation::WEST, 270}};
-        Ogre::SceneNode *myNode = aSceneManager->getSceneNode(myPlayerId);
+        try {
+            Ogre::SceneNode *myNode = aSceneManager->getSceneNode(myPlayerId);
 
-        myNode->setPosition(static_cast<float>(aPlayer.getPosition().first * MAP_OFFSET), PLAYER_Y_POS,
-                            static_cast<float>(aPlayer.getPosition().second * MAP_OFFSET));
-        myNode->setOrientation(
-            Ogre::Quaternion(Ogre::Degree(myOrientationMap.at(aPlayer.getOrientation())), Ogre::Vector3::UNIT_Y));
+            myNode->setPosition(static_cast<float>(aPlayer.getPosition().first * MAP_OFFSET), PLAYER_Y_POS,
+                                static_cast<float>(aPlayer.getPosition().second * MAP_OFFSET));
+            myNode->setOrientation(
+                Ogre::Quaternion(Ogre::Degree(myOrientationMap.at(aPlayer.getOrientation())), Ogre::Vector3::UNIT_Y));
+        } catch (Ogre::Exception &e) {
+            std::cerr << e.what() << std::endl;
+        }
     }
 
 } // namespace Zappy::GUI
