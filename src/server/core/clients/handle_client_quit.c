@@ -11,17 +11,16 @@
 void handle_client_quit(data_t *data)
 {
     client_t *cli = data->clients[data->curr_cli_index];
-    char *msg = NULL;
 
     if (cli->player != NULL) {
         do_pdi(data, cli->player->id);
     }
     close_single_client(cli);
     free(cli);
-    data->clients[data->curr_cli_index] = NULL;
-    for (int i = data->curr_cli_index; data->clients[i]; i++) {
+    for (int i = data->curr_cli_index; i < data->nb_clients; i++) {
         data->clients[i] = data->clients[i + 1];
-    }
+    }    
+    data->clients[data->nb_clients] = NULL;
     data->nb_clients--;
     data->curr_cli_index--;
 }
