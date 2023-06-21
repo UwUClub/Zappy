@@ -24,14 +24,14 @@ static int move_forward(data_t *data, __attribute__((unused)) char **args)
         data->map->width, data->map->height);
     send_to_client(data->clients, data->curr_cli_index, "ok\n");
     send_ppo_to_all_gui(data, data->clients[data->curr_cli_index]->player);
-    return 0;
+    return SUCCESS_STATUS;
 }
 
 int schedule_forward(data_t *data, char **args)
 {
     if (args != NULL) {
-        return 1;
+        return ERROR_STATUS;
     }
     append_scheduler_to_queue(data, &move_forward, args, FORWARD_DELAY);
-    return 0;
+    return SUCCESS_STATUS;
 }

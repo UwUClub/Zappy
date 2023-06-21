@@ -60,14 +60,14 @@ static int eject_cmd(data_t *data, __attribute__((unused)) char **args)
     }
     hatch_eggs_at_pos(data, kicker->pos);
     send_to_client(data->clients, data->curr_cli_index, "ok\n");
-    return 0;
+    return SUCCESS_STATUS;
 }
 
 int schedule_eject(data_t *data, char **args)
 {
     if (args != NULL) {
-        return 1;
+        return ERROR_STATUS;
     }
     append_scheduler_to_queue(data, &eject_cmd, args, EJECT_DELAY);
-    return 0;
+    return SUCCESS_STATUS;
 }
