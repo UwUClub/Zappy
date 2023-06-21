@@ -16,6 +16,7 @@ add_executable(test_zappy
         ../src/gui/handlers/events/CameraHandler.cpp
         ../src/gui/handlers/events/InputHandler.cpp
         ../src/gui/handlers/events/ClickHandler.cpp
+        ../src/gui/handlers/AnimationHandler.cpp
         ../src/gui/cli/ClientApi.cpp
         ../src/gui/cli/ClientApi+Listener.cpp
         ../src/gui/cli/ItemPacket.cpp
