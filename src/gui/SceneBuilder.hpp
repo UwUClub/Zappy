@@ -136,6 +136,14 @@ namespace Zappy::GUI {
              */
             static void setPlayerPosAndOrientation(Ogre::SceneManager *aSceneManager, const PlayerData &aPlayer);
 
+            /**
+             * @brief Set the Player Orientation object
+             *
+             * @param aPlayer the playerData
+             * @param aSceneManager the scene manager
+             */
+            static void setPlayerOrientation(Ogre::SceneManager *aSceneManager, const PlayerData &aPlayer);
+
         private:
     };
 } // namespace Zappy::GUI

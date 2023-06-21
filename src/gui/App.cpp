@@ -27,6 +27,7 @@
 #include "ClickHandler.hpp"
 #include "Constexpr.hpp"
 #include "Inventory.hpp"
+#include "MovementHandler.hpp"
 #include "Observer.hpp"
 #include "PlayerData.hpp"
 #include "SceneBuilder.hpp"
@@ -62,7 +63,7 @@ namespace Zappy::GUI {
 
         _cameraHandler.reset(myHandlers.first);
         _clickHandler.reset(myHandlers.second);
-        myScnMgr->setSkyBox(true, "Skybox", 5000, true, Ogre::Quaternion::IDENTITY, "Zappy");
+        myScnMgr->setSkyBox(true, "Skybox", 50000, true, Ogre::Quaternion::IDENTITY, "Zappy");
         _inventory = std::make_unique<Inventory>(*this);
 
         this->createButtons();
@@ -212,6 +213,19 @@ namespace Zappy::GUI {
     {
         for (auto &mySet : _animatedEntities) {
             mySet.second->updateAnimation(aEvent.timeSinceLastFrame);
+        }
+        for (auto &mySet : _moveEntities) {
+            if (mySet.second->willTeleport()) {
+                _animatedEntities[mySet.first]->playAnimation("JumpStart", false);
+                mySet.second->teleport();
+                continue;
+            }
+            if (!mySet.second->isMoving()) {
+                _animatedEntities[mySet.first]->removeAnimation("RunTop");
+                _animatedEntities[mySet.first]->removeAnimation("RunBase");
+                continue;
+            }
+            mySet.second->updateMovement(aEvent.timeSinceLastFrame, _serverData._freq);
         }
         return true;
     }
