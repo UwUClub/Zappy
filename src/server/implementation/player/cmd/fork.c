@@ -20,7 +20,7 @@ static void append_egg(data_t *data, const unsigned int team_id,
         sizeof(egg_t *) * (nb_eggs + 2));
     data->teams[team_id]->eggs[nb_eggs] = init_egg(data, pos_x, pos_y);
     data->teams[team_id]->eggs[nb_eggs + 1] = NULL;
-    do_enw(data, data->teams[team_id]->eggs[nb_eggs]);
+    send_enw_to_all_gui(data, data->teams[team_id]->eggs[nb_eggs]);
 }
 
 static int fork_cmd(data_t *data, __attribute__((unused)) char **args)

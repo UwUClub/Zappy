@@ -141,11 +141,18 @@
     void do_pfk(data_t *data, const unsigned int player_id);
 
     /**
-     * @brief Sends egg progenitor, id and position to gui
+     * @brief Sends egg progenitor, id and position to all gui clients
      * @param data The current server data, clients and current client index
      * @param egg The egg to show
     */
-    void do_enw(data_t *data, egg_t *egg);
+    void send_enw_to_all_gui(data_t *data, egg_t *egg);
+
+    /**
+     * @brief Sends egg progenitor, id and position to current gui client
+     * @param data The current server data, clients and current client index
+     * @param egg The egg to show
+    */
+    void send_enw_to_current_cli(data_t *data, egg_t *egg);
 
     /**
      * @brief Notify player connection to all gui clients

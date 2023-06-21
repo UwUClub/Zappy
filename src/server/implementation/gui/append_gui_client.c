@@ -30,7 +30,7 @@ static void run_enw_through_eggs(data_t *data)
 {
     for (int i = 0; data->teams[i]; i++) {
         for (int j = 0; data->teams[i]->eggs[j]; j++) {
-            do_enw(data, data->teams[i]->eggs[j]);
+            send_enw_to_current_cli(data, data->teams[i]->eggs[j]);
         }
     }
 }
