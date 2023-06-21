@@ -30,19 +30,19 @@ const constexpr int DIMENSION_OVERLAY_DISPLAY_TIME_X = 410;
 const constexpr int DIMENSION_OVERLAY_DISPLAY_TIME_Y = 60;
 
 //---------------------------------String Constexpr
-const constexpr std::string CAMERA_NAME = "ZappyCamera";
-const constexpr std::string SCENE_MAN_NAME = "ZappySceneMng";
-const constexpr std::string WINDOW_NAME = "UwU Zappy UwU";
-const constexpr std::string RESSOURCE_GROUP_NAME = "Zappy";
-const constexpr std::string BUTTON_OVERLAY = "ButtonOverlay";
-const constexpr std::string HELP_CONTROLS_OVERLAY = "HelpContOverlay";
-const constexpr std::string HELP_CONTROLS_OVERLAY_PREFIX = "Help";
-const constexpr std::string FONT_NAME = "BttfFont";
-const constexpr std::string INVENTORY_OVERLAY = "InventoryOver";
-const constexpr std::string FONT_NAME_SRC = "BTTF.ttf";
-const constexpr std::string TILE_MODEL_NAME = "Rock.mesh";
-const constexpr std::string PLAYER_MODEL_NAME = "Sinbad.mesh";
-const constexpr std::string EGG_MODEL_NAME = "Egg.mesh";
-const constexpr std::string EGG_PREFIX_NAME = "Egg_";
-const constexpr std::string PLAYER_PREFIX_NAME = "Player_";
+static const std::string CAMERA_NAME = "ZappyCamera";
+static const std::string SCENE_MAN_NAME = "ZappySceneMng";
+static const std::string WINDOW_NAME = "UwU Zappy UwU";
+static const std::string RESSOURCE_GROUP_NAME = "Zappy";
+static const std::string BUTTON_OVERLAY = "ButtonOverlay";
+static const std::string HELP_CONTROLS_OVERLAY = "HelpContOverlay";
+static const std::string HELP_CONTROLS_OVERLAY_PREFIX = "Help";
+static const std::string FONT_NAME = "BttfFont";
+static const std::string INVENTORY_OVERLAY = "InventoryOver";
+static const std::string FONT_NAME_SRC = "BTTF.ttf";
+static const std::string TILE_MODEL_NAME = "Rock.mesh";
+static const std::string PLAYER_MODEL_NAME = "Sinbad.mesh";
+static const std::string EGG_MODEL_NAME = "Egg.mesh";
+static const std::string EGG_PREFIX_NAME = "Egg_";
+static const std::string PLAYER_PREFIX_NAME = "Player_";
 #endif /* !CONSTEXPR_HPP_ */
