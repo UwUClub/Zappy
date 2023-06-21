@@ -34,6 +34,7 @@ namespace Zappy::GUI {
              * @brief Add an animation to the handler
              *
              * @param animationName the name of the animation to play
+             * @param aLoop if the animation should loop
              */
             void playAnimation(const std::string &aAnimationName, bool aLoop = true);
 

@@ -76,6 +76,7 @@ namespace Zappy::GUI {
              *
              * @param aSceneManager The scene manager to use
              * @param aServerData The server data of the game
+             * @param aAnimatedEntities The animated entities
              */
             static void buildConnectedPlayersAndEggs(
                 Ogre::SceneManager *aSceneManager, const ServerData &aServerData,
@@ -96,6 +97,7 @@ namespace Zappy::GUI {
              *
              * @param aSceneManager The scene manager to use
              * @param aPlayerData The player data representing the player to create
+             * @param aAnimatedEntities The animated entities
              */
             static void
             createPlayer(Ogre::SceneManager *aSceneManager, const PlayerData &aPlayerData,

@@ -64,7 +64,7 @@ namespace Zappy::GUI {
 
         _cameraHandler.reset(myHandlers.first);
         _clickHandler.reset(myHandlers.second);
-        myScnMgr->setSkyBox(true, "Examples/SpaceSkyBox", 5000);
+        myScnMgr->setSkyBox(true, "Skybox", 5000, true, Ogre::Quaternion::IDENTITY, "Zappy");
         _inventory = std::make_unique<Inventory>(*this);
 
         this->createButtons();
