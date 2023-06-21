@@ -16,7 +16,7 @@ static void rm_resources_from_tile(data_t *data, pos_t *pos,
         data->map->tiles[pos->x][pos->y][rsrc] -=
         elevation_secret[target_lvl - 2][rsrc + 1];
     }
-    do_bct_to_all_gui(data, pos->x, pos->y);
+    send_bct_to_all_gui(data, pos->x, pos->y);
 }
 
 static void set_players_freeze_state(data_t *data, pos_t *pos,
@@ -35,7 +35,7 @@ static void increment_players_level(data_t *data, pos_t *pos,
 {
     for (int i = 0; data->clients[i]; i++) {
         if (is_player_valid_for_incantation(data->clients, i, pos,
-        target_lvl)){
+        target_lvl)) {
             data->clients[i]->player->level = target_lvl;
             send_plv_to_all_gui(data, data->clients[i]->player);
         }
@@ -50,13 +50,13 @@ static int do_incantation(data_t *data, char **args)
     set_players_freeze_state(data, author->pos, target_lvl, 0);
     if (!check_tile_for_incantation(data, author->pos, target_lvl, 0)) {
         send_to_client(data->clients, data->curr_cli_index, "ko\n");
-        return 1;
+        return ERROR_STATUS;
     }
     rm_resources_from_tile(data, author->pos, target_lvl);
     increment_players_level(data, author->pos, target_lvl);
     do_pie(data, author->pos, target_lvl);
     send_to_client(data->clients, data->curr_cli_index, "ok\n");
-    return 0;
+    return SUCCESS_STATUS;
 }
 
 int schedule_incantation(data_t *data, char **args)
@@ -65,10 +65,10 @@ int schedule_incantation(data_t *data, char **args)
 
     if (args || !check_tile_for_incantation(data, author->pos,
         author->level + 1, 1)) {
-        return 1;
+        return ERROR_STATUS;
     }
     set_players_freeze_state(data, author->pos, author->level + 1, 1);
     do_pic(data, author);
     append_scheduler_to_queue(data, &do_incantation, args, INCANTATION_DELAY);
-    return 0;
+    return SUCCESS_STATUS;
 }

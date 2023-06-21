@@ -61,7 +61,7 @@ static int look(data_t *data, char **args)
     char *look = NULL;
 
     if (args != NULL)
-        return 1;
+        return ERROR_STATUS;
     look = calloc(2000, sizeof(char));
     if (data->clients[data->curr_cli_index]->player->orientation == NORTH)
         look_front_tiles(0, -1, data, &look);
@@ -74,13 +74,13 @@ static int look(data_t *data, char **args)
     strcat(look, "]\n\0");
     send_to_client(data->clients, data->curr_cli_index, look);
     free(look);
-    return 0;
+    return SUCCESS_STATUS;
 }
 
 int schedule_look(data_t *data, char **args)
 {
     if (args != NULL)
-        return 1;
+        return ERROR_STATUS;
     append_scheduler_to_queue(data, &look, NULL, LOOK_DELAY);
-    return 0;
+    return SUCCESS_STATUS;
 }

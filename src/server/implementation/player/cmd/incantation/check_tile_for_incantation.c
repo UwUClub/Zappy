@@ -14,7 +14,7 @@ static int check_resources_on_tile(map_t *map, pos_t *pos,
     for (int rsrc = 1; rsrc < TILE_SIZE; rsrc++) {
         if (map->tiles[pos->x][pos->y][rsrc] <
             elevation_secret[target_lvl - 2][rsrc + 1]) {
-            return 0;
+            return SUCCESS_STATUS;
         }
     }
     return 1;
@@ -39,7 +39,7 @@ static int check_players_on_tile(client_t **clients, pos_t *pos,
         is_valid = is_player_valid_for_incantation(clients, i, pos, target_lvl);
         if (check_ongoing_cmd && is_valid &&
             clients[i]->player->pending_cmd_queue[0]) {
-            return 0;
+            return SUCCESS_STATUS;
         }
         if (is_valid) {
             count++;

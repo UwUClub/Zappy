@@ -45,14 +45,14 @@ static int broadcast(data_t *data, char **args)
     send_broadcast_to_players(data, content);
     send_to_client(data->clients, data->curr_cli_index, "ok\n");
     free(content);
-    return 0;
+    return SUCCESS_STATUS;
 }
 
 int schedule_broadcast(data_t *data, char **args)
 {
     if (!args) {
-        return 1;
+        return ERROR_STATUS;
     }
     append_scheduler_to_queue(data, &broadcast, args, BROADCAST_DELAY);
-    return 0;
+    return SUCCESS_STATUS;
 }

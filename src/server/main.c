@@ -21,8 +21,8 @@ int main(int ac, char **av)
     srand((unsigned) time(&t));
     data = init_server_data(ac, av);
     if (!data)
-        return 84;
+        return ERROR_STATUS;
     launch_server(data);
     free_server_data(data);
-    return 0;
+    return SUCCESS_STATUS;
 }

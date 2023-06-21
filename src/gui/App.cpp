@@ -11,12 +11,17 @@
 #include <OGRE/Overlay/OgreFontManager.h>
 #include <OGRE/Overlay/OgreOverlayManager.h>
 #include <OGRE/Overlay/OgreOverlaySystem.h>
+#include <OGRE/Overlay/OgreTextAreaOverlayElement.h>
+#include <Ogre.h>
+#include <OgreCamera.h>
+#include <OgreCommon.h>
 #include <OgreFont.h>
 #include <OgreInput.h>
 #include <OgreRenderWindow.h>
 #include <OgreResourceGroupManager.h>
 #include <memory>
 #include <utility>
+#include "AnimationHandler.hpp"
 #include "Button.hpp"
 #include "CameraHandler.hpp"
 #include "ClickHandler.hpp"
@@ -48,15 +53,16 @@ namespace Zappy::GUI {
         }
         Ogre::RTShader::ShaderGenerator *myShadergen = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
         myShadergen->addSceneManager(myScnMgr);
+        myScnMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
 
         auto myNodeCenterPos = SceneBuilder::buildMap(myScnMgr, _serverData);
         cameraReturn myHandlers = SceneBuilder::buildCamera(myScnMgr, myNodeCenterPos, this->getRenderWindow(), *this);
         SceneBuilder::buildLights(myScnMgr, myNodeCenterPos);
-        SceneBuilder::buildConnectedPlayersAndEggs(myScnMgr, _serverData);
+        SceneBuilder::buildConnectedPlayersAndEggs(myScnMgr, _serverData, _animatedEntities);
 
         _cameraHandler.reset(myHandlers.first);
         _clickHandler.reset(myHandlers.second);
-        myScnMgr->setSkyBox(true, "Examples/SpaceSkyBox", 5000);
+        myScnMgr->setSkyBox(true, "Skybox", 5000, true, Ogre::Quaternion::IDENTITY, "Zappy");
         _inventory = std::make_unique<Inventory>(*this);
 
         this->createButtons();
@@ -200,5 +206,13 @@ namespace Zappy::GUI {
     std::unique_ptr<Inventory> &App::getInventory()
     {
         return _inventory;
+    }
+
+    bool App::frameRenderingQueued(const Ogre::FrameEvent &aEvent)
+    {
+        for (auto &mySet : _animatedEntities) {
+            mySet.second->updateAnimation(aEvent.timeSinceLastFrame);
+        }
+        return true;
     }
 } // namespace Zappy::GUI

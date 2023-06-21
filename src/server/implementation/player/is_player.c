@@ -14,5 +14,5 @@ int is_player(client_t **clients, const int i)
         clients[i]->player->team_name != NULL) {
         return 1;
     }
-    return 0;
+    return SUCCESS_STATUS;
 }

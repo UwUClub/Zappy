@@ -12,7 +12,7 @@ char *concat_str(char *str1, const char *str2)
 {
     char *result = NULL;
 
-    result = malloc(strlen(str1) + strlen(str2) + 1);
+    result = (char *) malloc(strlen(str1) + strlen(str2) + 1);
     strcpy(result, str1);
     strcat(result, str2);
     free(str1);
