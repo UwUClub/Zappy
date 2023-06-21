@@ -14,9 +14,7 @@ int do_seg(data_t *data, const char *team_name)
 
     if (team_name == NULL)
         return SUCCESS_STATUS;
-    msg = strdup("seg ");
-    msg = concat_str(msg, team_name);
-    msg = concat_str(msg, "\n");
+    asprintf(&msg, "seg %s\n", team_name);
     send_to_all_gui(data->clients, msg);
     free(msg);
     return ERROR_STATUS;
