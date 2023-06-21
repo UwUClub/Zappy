@@ -29,9 +29,10 @@ static void send_broadcast_to_players(data_t *data, const char *content)
 
 static void send_broadcast_to_gui(data_t *data, const char *content)
 {
+    int curr_cli_id = data->clients[data->curr_cli_index]->player->id;
     char *msg = NULL;
 
-    asprintf(&msg, "pbc %d %s\n", data->curr_cli_index, content);
+    asprintf(&msg, "pbc %d %s\n", curr_cli_id, content);
     send_to_all_gui(data->clients, msg);
     free(msg);
 }
