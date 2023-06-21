@@ -26,7 +26,7 @@ int do_ppo(data_t *data, char **args)
 
     if (!args || word_array_len(args) != 1 || !is_int(args[0]))
         return ERROR_STATUS;
-    player = get_player_by_id(data, atoi(args[0]));
+    player = get_player_by_id(data->clients, atoi(args[0]));
     if (!player)
         return ERROR_STATUS;
     asprintf(&msg, "ppo %s %d %d %d\n", args[0], player->pos->x, player->pos->y,

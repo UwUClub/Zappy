@@ -1,11 +1,15 @@
 #include "ClientApi.hpp"
 #include <arpa/inet.h>
 #include <cerrno>
+#include <csignal>
+#include <cstddef>
 #include <cstdio>
 #include <cstring>
 #include <functional>
 #include <iostream>
 #include <netinet/in.h>
+#include <pthread.h>
+#include <sstream>
 #include <string>
 #include <syncstream>
 #include <sys/select.h>
@@ -27,7 +31,8 @@ namespace Zappy::GUI {
           _teamName(std::move(aTeamName)),
           _connectStatus(-1),
           _serverFd(-1),
-          _serverData(aServerData)
+          _serverData(aServerData),
+          _threadId(pthread_self())
     {
         this->setReady(true);
     }
@@ -42,6 +47,9 @@ namespace Zappy::GUI {
     void ClientApi::run()
     {
         try {
+            _threadId = pthread_self();
+            auto mySig = signal(SIGUSR1, [](int) {
+            });
             while (true) {
                 this->update();
             }
@@ -65,22 +73,18 @@ namespace Zappy::GUI {
     int ClientApi::update()
     {
         fd_set myReadFds = {0};
-        fd_set myWriteFds = {0};
 
         FD_ZERO(&myReadFds);
-        FD_ZERO(&myWriteFds);
         FD_SET(_serverFd, &myReadFds);
-        if (_writeBuffer.length() > 0) {
-            FD_SET(_serverFd, &myWriteFds);
-        }
-        select(FD_SETSIZE, &myReadFds, &myWriteFds, nullptr, nullptr);
+
+        select(FD_SETSIZE, &myReadFds, nullptr, nullptr, nullptr);
         if (_serverFd == -1) {
             throw ClientException("Closed connection");
         }
-        if (FD_ISSET(_serverFd, &myReadFds)) {
+        if (FD_ISSET(_serverFd, &myReadFds) && _writeBuffer.empty()) {
             readFromServer();
         }
-        if (FD_ISSET(_serverFd, &myWriteFds)) {
+        if (!_writeBuffer.empty()) {
             writeToServer();
         }
         return 0;
@@ -98,7 +102,8 @@ namespace Zappy::GUI {
 
     void ClientApi::sendCommand(const std::string &aCommand)
     {
-        _writeBuffer += aCommand + "\n";
+        _writeBuffer.append(aCommand + "\n");
+        pthread_kill(_threadId, SIGUSR1);
     }
 
     int ClientApi::getConnectStatus() const
@@ -149,7 +154,7 @@ namespace Zappy::GUI {
     void ClientApi::writeToServer()
     {
         dprintf(_serverFd, "%s", _writeBuffer.c_str());
-        std::cout << "@write: " << _writeBuffer;
+        std::cout << "@write: " << _writeBuffer << std::endl;
         _writeBuffer = "";
     }
 
@@ -157,6 +162,10 @@ namespace Zappy::GUI {
     {
         if (aNotification == "Disconnect") {
             this->disconnect();
+        }
+        std::cout << "@notify: " << aNotification << std::endl;
+        if (aNotification.find("sst") != std::string::npos) {
+            this->sendCommand(aNotification);
         }
     }
 } // namespace Zappy::GUI

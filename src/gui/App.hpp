@@ -8,6 +8,7 @@
 #ifndef APP_HPP_
 #define APP_HPP_
 #include <OGRE/Bites/OgreApplicationContext.h>
+#include <OgreEntity.h>
 #include <OgreRoot.h>
 #include <OgreSceneManager.h>
 #include <functional>
@@ -25,6 +26,7 @@ namespace Zappy::GUI {
     class PlayerData;
     class Inventory;
     struct ServerData;
+    class AnimationHandler;
 
     /**
      * @brief Main class of the GUI
@@ -187,8 +189,37 @@ namespace Zappy::GUI {
              */
             void CreateMaterial(const std::string &aPath);
 
+            /**
+             * @brief Start the incantation animation
+             *
+             * @param aNotification the notification
+             */
+            void startedIncantation(const std::string &aNotification);
+
+            /**
+             * @brief Stop the incantation animation
+             *
+             * @param aNotification the notification
+             */
+            void stoppedIncantation(const std::string &aNotification);
+
+            /**
+             * @brief See OgreBites::ApplicationContext documentation
+             *
+             * @param aEvent the event
+             * @return true
+             */
+            bool frameRenderingQueued(const Ogre::FrameEvent &aEvent) final;
+
+            /**
+             * @brief Add the idle animation to the players
+             *
+             */
+            void addIdleAnimationToPlayers(Ogre::SceneManager *aSceneManager);
+
             std::unique_ptr<CameraHandler> _cameraHandler;
             std::unique_ptr<ClickHandler> _clickHandler;
+            std::unordered_map<Ogre::Entity *, std::unique_ptr<AnimationHandler>> _animatedEntities;
             std::vector<std::unique_ptr<Button>> _buttons;
             std::unique_ptr<Inventory> _inventory;
             const ServerData &_serverData;
@@ -196,7 +227,8 @@ namespace Zappy::GUI {
                 _notificationMap = {{"pnw", &App::addPlayer},           {"pdi", &App::removePlayer},
                                     {"ppo", &App::movePlayer},          {"smg", &App::displayServerMessage},
                                     {"sgt", &App::updateDisplayedTime}, {"enw", &App::addEgg},
-                                    {"edi", &App::removeEgg},           {"ebo", &App::removeEgg}};
+                                    {"edi", &App::removeEgg},           {"ebo", &App::removeEgg},
+                                    {"pic", &App::startedIncantation},  {"pie", &App::stoppedIncantation}};
     };
 } // namespace Zappy::GUI
 

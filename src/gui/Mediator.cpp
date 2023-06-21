@@ -17,8 +17,7 @@ namespace Zappy::GUI {
     Mediator::Mediator(ParserData &parserData)
         : _serverData(std::make_unique<ServerData>()),
           _app(nullptr),
-          _client(std::make_unique<ClientApi>(parserData.getAddress(), parserData.getPort(), "GRAPHIC", *this,
-                                              *this->_serverData))
+          _client(parserData.getAddress(), parserData.getPort(), "GRAPHIC", *this, *this->_serverData)
     {}
 
     Mediator::~Mediator() = default;
@@ -27,18 +26,16 @@ namespace Zappy::GUI {
     {
         const auto myType = aObserver->getObserverType();
 
-        if (_client == nullptr || _app == nullptr) {
+        if (_app == nullptr) {
             return;
         }
 
-        if (myType == ObserverType::APP && _client->isReady()) {
-            _client->getNotified(aNotification);
-            std::cout << "Client notified " << aNotification << std::endl;
+        if (myType == ObserverType::APP && _client.isReady()) {
+            _client.getNotified(aNotification);
             return;
         }
         if (myType == ObserverType::CLIENT && _app->isReady()) {
             _app->getNotified(aNotification);
-            std::cout << "App notified " << aNotification << std::endl;
             return;
         }
     }
@@ -46,8 +43,8 @@ namespace Zappy::GUI {
     void Mediator::start()
     {
         try {
-            _client->joinGame();
-            std::thread myCliThread(&Zappy::GUI::ClientApi::run, *_client);
+            _client.joinGame();
+            std::thread myCliThread(&Zappy::GUI::ClientApi::run, &_client);
 
             _app = std::make_unique<App>(*this, *_serverData);
 

@@ -39,7 +39,7 @@ char *int_to_s(int nbr)
     }
     if (nbr < 0)
         length++;
-    str = malloc(sizeof(char) * ((unsigned int) (length + 1)));
+    str = (char *) malloc(sizeof(char) * ((unsigned int) (length + 1)));
     memset(str, '0', (size_t) length);
     if (nbr < 0) {
         str[length - 1] = '-';

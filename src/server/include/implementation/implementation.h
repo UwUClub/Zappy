@@ -100,11 +100,11 @@
 
     /**
     * @brief Get the player by his id
-    * @param data The current server data, clients and current client index
+    * @param clients The client list of the server
     * @param id The id of the player
     * @return The player if found, NULL otherwise
     */
-    player_t *get_player_by_id(data_t *data, const unsigned int id);
+    player_t *get_player_by_id(client_t **clients, const unsigned int id);
 
     /**
     * @brief Get the number of eggs in a team
@@ -129,5 +129,13 @@
     * @return The index of the team if found, -1 otherwise
     */
     int get_team_index_by_name(team_t **teams, const char *name);
+
+    /**
+     * @brief Normalize a position to fit the map
+     * @param pos The position to normalize
+     * @param width The width of the map
+     * @param height The height of the map
+     */
+    void normalize_pos(pos_t *pos, const int width, const int height);
 
 #endif /* ZAPPY_IMPLEMENTATION_H */
