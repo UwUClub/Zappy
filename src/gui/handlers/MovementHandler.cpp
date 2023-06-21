@@ -39,7 +39,7 @@ namespace Zappy::GUI {
     void MovementHandler::updateMovement(Ogre::Real aTimeSinceLastFrame, int aServerSpd)
     {
         auto myPos = _entity->getParentSceneNode()->getPosition();
-        Ogre::Real myMoveSpd = aServerSpd * aTimeSinceLastFrame;
+        Ogre::Real myMoveSpd = aServerSpd / 10 * aTimeSinceLastFrame;
 
         if (_willTeleport) {
             return;

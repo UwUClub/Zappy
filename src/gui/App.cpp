@@ -222,6 +222,7 @@ namespace Zappy::GUI {
         }
         for (auto &mySet : _moveEntities) {
             if (mySet.second->willTeleport()) {
+                _animatedEntities[mySet.first]->playAnimation("JumpStart", false);
                 mySet.second->teleport();
                 continue;
             }
