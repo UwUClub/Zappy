@@ -39,16 +39,14 @@ namespace Zappy::GUI {
 
     ClientApi::~ClientApi()
     {
-        if (_serverFd != -1) {
-            close(_serverFd);
-        }
+        this->disconnect();
     }
 
     void ClientApi::run()
     {
         try {
             _threadId = pthread_self();
-            auto mySig = signal(SIGUSR1, [](int) {
+            signal(SIGUSR1, [](int) {
             });
             while (true) {
                 this->update();
@@ -163,7 +161,6 @@ namespace Zappy::GUI {
         if (aNotification == "Disconnect") {
             this->disconnect();
         }
-        std::cout << "@notify: " << aNotification << std::endl;
         if (aNotification.find("sst") != std::string::npos) {
             this->sendCommand(aNotification);
         }

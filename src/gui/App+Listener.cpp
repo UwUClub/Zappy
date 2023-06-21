@@ -41,15 +41,7 @@ namespace Zappy::GUI {
         auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
         auto myPlayerData = _serverData._players.back();
 
-        SceneBuilder::createPlayer(myScnMgr, myPlayerData);
-
-        auto *myPlayer = myScnMgr->getEntity(PLAYER_PREFIX_NAME + myPlayerData.getId());
-
-        if (_animatedEntities[myPlayer] == nullptr) {
-            _animatedEntities[myPlayer] = std::make_unique<AnimationHandler>(myPlayer);
-        }
-        _animatedEntities[myPlayer]->addAnimation("IdleBase");
-        _animatedEntities[myPlayer]->addAnimation("IdleTop");
+        SceneBuilder::createPlayer(myScnMgr, myPlayerData, _animatedEntities);
     }
 
     void App::removePlayer(const std::string &aNotification)
@@ -139,30 +131,68 @@ namespace Zappy::GUI {
         while (myStream >> myIndex) {
             auto *myPlayer = myScnMgr->getEntity(PLAYER_PREFIX_NAME + myIndex);
 
-            if (_animatedEntities[myPlayer] == nullptr) {
-                _animatedEntities[myPlayer] = std::make_unique<AnimationHandler>(myPlayer);
-            }
-
-            _animatedEntities[myPlayer]->removeAnimation("IdleBase");
-            _animatedEntities[myPlayer]->removeAnimation("IdleTop");
-            _animatedEntities[myPlayer]->addAnimation("Dance");
+            _animatedEntities[myPlayer]->playAnimation("Dance");
         }
     }
 
     void App::stoppedIncantation(const std::string &aNotification)
     {
         std::istringstream myStream(aNotification);
-        int myX = 0;
-        int myY = 0;
+        auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
+        unsigned int myX = 0;
+        unsigned int myY = 0;
 
         myStream >> myX >> myY;
-        for (auto &myPlayer : _animatedEntities) {
-            if (myPlayer.second == nullptr) {
-                myPlayer.second = std::make_unique<AnimationHandler>(myPlayer.first);
+        for (const auto &myPlayerData : _serverData._players) {
+            if (myPlayerData.getPosition().first != myX && myPlayerData.getPosition().second != myY) {
+                continue;
             }
-            myPlayer.second->removeAnimation("Dance");
-            myPlayer.second->addAnimation("IdleBase");
-            myPlayer.second->addAnimation("IdleTop");
+            auto *myPlayer = myScnMgr->getEntity(PLAYER_PREFIX_NAME + myPlayerData.getId());
+
+            _animatedEntities[myPlayer]->removeAnimation("Dance");
         }
+    }
+
+    void App::droppedRessources(const std::string &aNotification)
+    {
+        std::istringstream myStream(aNotification);
+        auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
+
+        std::string myId;
+
+        myStream >> myId;
+
+        auto *myPlayer = myScnMgr->getEntity(PLAYER_PREFIX_NAME + myId);
+
+        _animatedEntities[myPlayer]->playAnimation("SliceVertical", false);
+    }
+
+    void App::playerExpulsion(const std::string &aNotification)
+    {
+        std::istringstream myStream(aNotification);
+        auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
+
+        std::string myId;
+
+        myStream >> myId;
+
+        auto *myPlayer = myScnMgr->getEntity(PLAYER_PREFIX_NAME + myId);
+
+        _animatedEntities[myPlayer]->playAnimation("SliceHorizontal", false);
+    }
+
+    void App::collectedRessources(const std::string &aNotification)
+    {
+        std::istringstream myStream(aNotification);
+
+        auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
+
+        std::string myId;
+
+        myStream >> myId;
+
+        auto *myPlayer = myScnMgr->getEntity(PLAYER_PREFIX_NAME + myId);
+
+        _animatedEntities[myPlayer]->playAnimation("JumpEnd", false);
     }
 } // namespace Zappy::GUI

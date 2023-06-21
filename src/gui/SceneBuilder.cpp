@@ -17,6 +17,7 @@
 #include <OgreSceneNode.h>
 #include <algorithm>
 #include <iostream>
+#include "AnimationHandler.hpp"
 #include "App.hpp"
 #include "CameraHandler.hpp"
 #include "ClickHandler.hpp"
@@ -95,13 +96,15 @@ namespace Zappy::GUI {
         return {nullptr, nullptr};
     }
 
-    void SceneBuilder::buildConnectedPlayersAndEggs(Ogre::SceneManager *aSceneManager, const ServerData &aServerData)
+    void SceneBuilder::buildConnectedPlayersAndEggs(
+        Ogre::SceneManager *aSceneManager, const ServerData &aServerData,
+        std::unordered_map<Ogre::Entity *, std::unique_ptr<AnimationHandler>> &aAnimatedEntities)
     {
         auto myPlayerData = aServerData._players;
         auto myEggData = aServerData._eggs;
 
         for (const auto &myPlayer : myPlayerData) {
-            SceneBuilder::createPlayer(aSceneManager, myPlayer);
+            SceneBuilder::createPlayer(aSceneManager, myPlayer, aAnimatedEntities);
         }
         for (const auto &myEgg : myEggData) {
             SceneBuilder::createEgg(aSceneManager, myEgg);
@@ -127,7 +130,9 @@ namespace Zappy::GUI {
         }
     }
 
-    void SceneBuilder::createPlayer(Ogre::SceneManager *aSceneManager, const PlayerData &aPlayerData)
+    void
+    SceneBuilder::createPlayer(Ogre::SceneManager *aSceneManager, const PlayerData &aPlayerData,
+                               std::unordered_map<Ogre::Entity *, std::unique_ptr<AnimationHandler>> &aAnimatedEntities)
     {
         static const constexpr Ogre::Real myScale = 0.5F;
         const std::string myPlayerName = PLAYER_PREFIX_NAME + aPlayerData.getId();
@@ -140,6 +145,7 @@ namespace Zappy::GUI {
             myNode->setScale(myScale, myScale, myScale);
 
             SceneBuilder::setPlayerPosAndOrientation(aSceneManager, aPlayerData);
+            aAnimatedEntities[myEntity] = std::make_unique<AnimationHandler>(myEntity);
         } catch (Ogre::Exception &e) {
             std::cerr << e.what() << std::endl;
         }
