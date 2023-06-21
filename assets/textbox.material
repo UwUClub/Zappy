@@ -1,0 +1,15 @@
+material Textbox
+{
+    technique
+    {
+        pass
+        {
+            texture_unit
+            {
+                texture Textbox.png
+            }
+            scene_blend alpha_blend
+            depth_write off
+        }
+    }
+}
