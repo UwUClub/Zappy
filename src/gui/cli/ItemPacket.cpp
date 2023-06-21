@@ -52,7 +52,7 @@ namespace Zappy::GUI {
                                                                                            _thystame++;
                                                                                        }}};
 
-        if (myInventoryMap.find(aA) == myInventoryMap.end()) {
+        if (myInventoryMap.find(aA) == myInventoryMap.cend()) {
             return;
         }
         myInventoryMap.at(aA)();
@@ -88,7 +88,7 @@ namespace Zappy::GUI {
                                                                                            _thystame--;
                                                                                        }}};
 
-        if (myInventoryMap.find(aA) == myInventoryMap.end()) {
+        if (myInventoryMap.find(aA) == myInventoryMap.cend()) {
             return;
         }
         myInventoryMap.at(aA)();
