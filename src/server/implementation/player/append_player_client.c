@@ -56,8 +56,9 @@ int append_player_client(data_t *data, char *team_name)
     init_player(&(data->clients[data->curr_cli_index]), team_name, data->map);
     find_egg_to_hatch(data, team_name);
     send_welcome_data(data, remaining_slots);
-    do_ebo(data);
-    do_pnw(data);
+    send_ebo_to_all_gui(data);
+    send_pnw_to_all_gui(data);
+    send_pin_to_all_gui(data, data->clients[data->curr_cli_index]->player);
     data->clients[data->curr_cli_index]->is_registered = 1;
     return SUCCESS_STATUS;
 }

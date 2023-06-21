@@ -8,6 +8,7 @@
 #include "implementation.h"
 #include "resources.h"
 #include "ranges.h"
+#include "gui_cmd.h"
 
 static void eat_food(data_t *data)
 {
@@ -15,6 +16,7 @@ static void eat_food(data_t *data)
 
     player->inventory[FOOD]--;
     player->remaining_digestion_ms = (DIGESTION_TIME * MS_FACTOR) / data->freq;
+    send_pin_to_all_gui(data, player);
 }
 
 void handle_player_digestion(data_t *data, unsigned long long elapsed_time_ms)
