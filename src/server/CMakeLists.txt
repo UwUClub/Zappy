@@ -1,4 +1,4 @@
-set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wpedantic")
+set(CMAKE_CXX_FLAGS "-Wall -Wextra -Wpedantic -std=gnu99")
 
 add_executable(zappy_server
         main.c

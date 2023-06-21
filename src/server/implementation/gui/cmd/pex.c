@@ -14,5 +14,5 @@ int do_pex(data_t *data, const int player_id)
     asprintf(&msg, "pex %d\n", player_id);
     send_to_all_gui(data->clients, msg);
     free(msg);
-    return 0;
+    return SUCCESS_STATUS;
 }

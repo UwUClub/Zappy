@@ -5,9 +5,6 @@
 ** write_to_client
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "core.h"
 #include "utils.h"
 
@@ -46,5 +43,5 @@ int write_to_selected_client(data_t *data, client_t **client)
     }
     free((*client)->output);
     (*client)->output = strdup("");
-    return 0;
+    return SUCCESS_STATUS;
 }

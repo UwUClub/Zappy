@@ -8,6 +8,7 @@
 #ifndef APP_HPP_
 #define APP_HPP_
 #include <OGRE/Bites/OgreApplicationContext.h>
+#include <OgreEntity.h>
 #include <OgreRoot.h>
 #include <OgreSceneManager.h>
 #include <functional>
@@ -23,7 +24,9 @@ namespace Zappy::GUI {
     class ClickHandler;
     class Button;
     class PlayerData;
+    class Inventory;
     struct ServerData;
+    class AnimationHandler;
 
     /**
      * @brief Main class of the GUI
@@ -78,6 +81,12 @@ namespace Zappy::GUI {
              * @return std::vector<std::unique_ptr<Button>>&
              */
             std::vector<std::unique_ptr<Button>> &getButtons();
+
+            /**
+             * @brief Get the Inventory objectry
+             * @return  std::unique_ptr<Inventory>&
+             */
+            [[nodiscard]] std::unique_ptr<Inventory> &getInventory();
 
         private:
             /**
@@ -173,15 +182,72 @@ namespace Zappy::GUI {
              */
             void removeEgg(const std::string &aNotification);
 
+            /**
+             * @brief Create a material
+             * @param aPath the path of the material
+             * @return Ogre::MaterialPtr the material
+             */
+            void CreateMaterial(const std::string &aPath);
+
+            /**
+             * @brief Start the incantation animation
+             *
+             * @param aNotification the notification
+             */
+            void startedIncantation(const std::string &aNotification);
+
+            /**
+             * @brief Stop the incantation animation
+             *
+             * @param aNotification the notification
+             */
+            void stoppedIncantation(const std::string &aNotification);
+
+            /**
+             * @brief Triggered when the player drops ressources
+             *
+             * @param aNotification the notification
+             */
+            void droppedRessources(const std::string &aNotification);
+
+            /**
+             * @brief Triggered when the player collects ressources
+             *
+             * @param aNotification the notification
+             */
+            void collectedRessources(const std::string &aNotification);
+
+            /**
+             * @brief Triggered when a player is ejecting another player
+             *
+             * @param aNotification  the notification
+             */
+            void playerExpulsion(const std::string &aNotification);
+
+            /**
+             * @brief See OgreBites::ApplicationContext documentation
+             *
+             * @param aEvent the event
+             * @return true
+             */
+            bool frameRenderingQueued(const Ogre::FrameEvent &aEvent) final;
+
             std::unique_ptr<CameraHandler> _cameraHandler;
             std::unique_ptr<ClickHandler> _clickHandler;
+            std::unordered_map<Ogre::Entity *, std::unique_ptr<AnimationHandler>> _animatedEntities;
             std::vector<std::unique_ptr<Button>> _buttons;
+            std::unique_ptr<Inventory> _inventory;
             const ServerData &_serverData;
             static const inline std::unordered_map<std::string, std::function<void(App &, const std::string &)>>
-                _notificationMap = {{"pnw", &App::addPlayer},           {"pdi", &App::removePlayer},
-                                    {"ppo", &App::movePlayer},          {"smg", &App::displayServerMessage},
-                                    {"sgt", &App::updateDisplayedTime}, {"enw", &App::addEgg},
-                                    {"edi", &App::removeEgg},           {"ebo", &App::removeEgg}};
+                _notificationMap = {
+                    {"pnw", &App::addPlayer},           {"pdi", &App::removePlayer},
+                    {"ppo", &App::movePlayer},          {"smg", &App::displayServerMessage},
+                    {"sgt", &App::updateDisplayedTime}, {"enw", &App::addEgg},
+                    {"edi", &App::removeEgg},           {"ebo", &App::removeEgg},
+                    {"pic", &App::startedIncantation},  {"pie", &App::stoppedIncantation},
+                    {"pex", &App::playerExpulsion},     {"pdr", &App::droppedRessources},
+                    {"pgt", &App::collectedRessources},
+                };
     };
 } // namespace Zappy::GUI
 

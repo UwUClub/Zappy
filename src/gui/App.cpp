@@ -9,32 +9,25 @@
 #include <OGRE/Bites/OgreApplicationContext.h>
 #include <OGRE/OgreSceneManager.h>
 #include <OGRE/Overlay/OgreFontManager.h>
-#include <OGRE/Overlay/OgreOverlayContainer.h>
 #include <OGRE/Overlay/OgreOverlayManager.h>
 #include <OGRE/Overlay/OgreOverlaySystem.h>
 #include <OGRE/Overlay/OgreTextAreaOverlayElement.h>
 #include <Ogre.h>
 #include <OgreCamera.h>
+#include <OgreCommon.h>
 #include <OgreFont.h>
 #include <OgreInput.h>
-#include <OgreLight.h>
-#include <OgreOverlay.h>
-#include <OgreOverlayManager.h>
-#include <OgrePrerequisites.h>
 #include <OgreRenderWindow.h>
 #include <OgreResourceGroupManager.h>
-#include <OgreRoot.h>
-#include <OgreSceneNode.h>
-#include <algorithm>
-#include <functional>
 #include <memory>
 #include <utility>
+#include "AnimationHandler.hpp"
 #include "Button.hpp"
 #include "CameraHandler.hpp"
 #include "ClickHandler.hpp"
-#include "ClientApi.hpp"
 #include "Constexpr.hpp"
 #include "InputHandler.hpp"
+#include "Inventory.hpp"
 #include "Observer.hpp"
 #include "PlayerData.hpp"
 #include "SceneBuilder.hpp"
@@ -62,15 +55,17 @@ namespace Zappy::GUI {
         }
         Ogre::RTShader::ShaderGenerator *myShadergen = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
         myShadergen->addSceneManager(myScnMgr);
+        myScnMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
 
         auto myNodeCenterPos = SceneBuilder::buildMap(myScnMgr, _serverData);
         cameraReturn myHandlers = SceneBuilder::buildCamera(myScnMgr, myNodeCenterPos, this->getRenderWindow(), *this);
         SceneBuilder::buildLights(myScnMgr, myNodeCenterPos);
-        SceneBuilder::buildConnectedPlayersAndEggs(myScnMgr, _serverData);
+        SceneBuilder::buildConnectedPlayersAndEggs(myScnMgr, _serverData, _animatedEntities);
 
         _cameraHandler.reset(myHandlers.first);
         _clickHandler.reset(myHandlers.second);
-        myScnMgr->setSkyBox(true, "Examples/SpaceSkyBox", 5000);
+        myScnMgr->setSkyBox(true, "Skybox", 5000, true, Ogre::Quaternion::IDENTITY, "Zappy");
+        _inventory = std::make_unique<Inventory>(*this);
 
         this->createButtons();
         this->displayHowToPlayMenu();
@@ -98,27 +93,43 @@ namespace Zappy::GUI {
             std::make_pair(DIMENSION_OVERLAY_BUTTON_2_TIME_X, DIMENSION_OVERLAY_BUTTON_2_TIME_Y), [this] {
                 decreaseTime();
             }));
+        _buttons.emplace_back(
+            std::make_unique<Button>("Next", std::make_pair(1800, 540), std::make_pair(150, 35), [this] {
+                _inventory->switchDisplayedPlayer();
+            }));
+        _buttons.back()->setDisplayed(false);
+    }
+
+    void App::CreateMaterial(const std::string &aPath)
+    {
+        Ogre::TextureManager *myTextureManager = Ogre::TextureManager::getSingletonPtr();
+        Ogre::MaterialPtr myMaterial = Ogre::MaterialManager::getSingleton().create(aPath, RESSOURCE_GROUP_NAME);
+        Ogre::TexturePtr myTexture = myTextureManager->load(aPath, RESSOURCE_GROUP_NAME);
+
+        Ogre::Technique *myTechnique = myMaterial->getTechnique(0);
+        Ogre::Pass *pass = myTechnique->getPass(0);
+        pass->createTextureUnitState(myTexture->getName());
     }
 
     void App::displayHowToPlayMenu()
     {
         static const std::string HOW_TO_PLAY_HELP_MESSAGE =
-            "How to play:\n\nRight click + moving mouse to move camera\n\n Zoom in and out with the mouse wheel.\n\n "
+            "How to play:\nRight click + moving mouse to move camera\n Zoom in and out with the mouse wheel.\n\n "
             "Press "
             "left "
-            "shift and left click to rotate the camera around a central point (can be moved, see above)\n\n Press the "
+            "shift and left click to rotate the camera around a central point\n Press the "
             "space bar "
             "to reset the camera.\n\n Left click on a tile to display its content\n\n Left click on a player to "
             "display "
             "its "
-            "inventory\n\n Left click on an egg to display its inventory\n\n Left click on a button to interact with "
-            "it\n\n "
-            "Press 'ESC' to quit the game\n\n"
+            "inventory\n Left click on an egg to display its inventory\n Left click on a button to interact with "
+            "it\n "
+            "Press 'ESC' to quit the game\n"
             "Press any key to dismiss this message\n";
         const auto myWindowHeight = static_cast<float>(this->getRenderWindow()->getHeight());
         const auto myWindowWidth = static_cast<float>(this->getRenderWindow()->getWidth());
-        const Ogre::Vector2 myPos = {myWindowWidth / 2.0F / 2.0F, myWindowHeight / 2.0F / 2.0F};
-        const Ogre::Vector2 myDimension = {1500, 700};
+        const Ogre::Vector2 myPos = {myWindowWidth / 6, myWindowHeight / 2.0F / 2.0F};
+        const Ogre::Vector2 myDimension = {1800, 700};
 
         SceneBuilder::createText(HELP_CONTROLS_OVERLAY, HOW_TO_PLAY_HELP_MESSAGE, HELP_CONTROLS_OVERLAY_PREFIX, myPos,
                                  myDimension);
@@ -138,11 +149,12 @@ namespace Zappy::GUI {
                                                                            RESSOURCE_GROUP_NAME);
             Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
             Ogre::ResourceGroupManager::getSingleton().loadResourceGroup(RESSOURCE_GROUP_NAME);
+            this->CreateMaterial("Inventory.png");
             myScnMgr->createEntity(PLAYER_MODEL_NAME);
             myScnMgr->createEntity(EGG_MODEL_NAME);
             myScnMgr->createEntity(TILE_MODEL_NAME);
-
             myOverlayManager.create(BUTTON_OVERLAY);
+            myOverlayManager.create(INVENTORY_OVERLAY);
             myOverlayManager.create(HELP_CONTROLS_OVERLAY);
 
             Ogre::FontPtr myFont = Ogre::FontManager::getSingleton().create(FONT_NAME, RESSOURCE_GROUP_NAME);
@@ -195,5 +207,18 @@ namespace Zappy::GUI {
         std::string myCommand = "sst " + std::to_string(myNewTime);
 
         _mediator.alert(this, myCommand);
+    }
+
+    std::unique_ptr<Inventory> &App::getInventory()
+    {
+        return _inventory;
+    }
+
+    bool App::frameRenderingQueued(const Ogre::FrameEvent &aEvent)
+    {
+        for (auto &mySet : _animatedEntities) {
+            mySet.second->updateAnimation(aEvent.timeSinceLastFrame);
+        }
+        return true;
     }
 } // namespace Zappy::GUI

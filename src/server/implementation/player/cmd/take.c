@@ -27,11 +27,11 @@ static int take(data_t *data, char **args)
             data->map->tiles[player_pos->x][player_pos->y][i] -= 1;
             send_to_client(data->clients, data->curr_cli_index, "ok\n");
             do_pgt(data, i);
-            return 0;
+            return SUCCESS_STATUS;
         }
     }
     send_to_client(data->clients, data->curr_cli_index, "ko\n");
-    return 1;
+    return ERROR_STATUS;
 }
 
 int schedule_take(data_t *data, char **args)
@@ -39,14 +39,14 @@ int schedule_take(data_t *data, char **args)
     pos_t *player_pos = data->clients[data->curr_cli_index]->player->pos;
 
     if (args == NULL || word_array_len(args) != 1) {
-        return 1;
+        return ERROR_STATUS;
     }
     for (int i = 0; i < NB_RESOURCES; i++) {
         if (strcmp(args[0], resource[i]) == 0 &&
         is_resource_on_tile(data, i, player_pos)) {
             append_scheduler_to_queue(data, &take, args, TAKE_DELAY);
-            return 0;
+            return SUCCESS_STATUS;
         }
     }
-    return 1;
+    return ERROR_STATUS;
 }

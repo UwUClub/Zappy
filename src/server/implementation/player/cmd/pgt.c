@@ -14,5 +14,5 @@ int do_pgt(data_t *data, int resource)
     asprintf(&msg, "pgt %d %d\n", data->curr_cli_index, resource);
     send_to_all_gui(data->clients, msg);
     free(msg);
-    return 0;
+    return SUCCESS_STATUS;
 }
