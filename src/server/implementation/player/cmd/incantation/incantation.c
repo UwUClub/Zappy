@@ -16,7 +16,7 @@ static void rm_resources_from_tile(data_t *data, pos_t *pos,
         data->map->tiles[pos->x][pos->y][rsrc] -=
         elevation_secret[target_lvl - 2][rsrc + 1];
     }
-    do_bct_to_all_gui(data, pos->x, pos->y);
+    send_bct_to_all_gui(data, pos->x, pos->y);
 }
 
 static void set_players_freeze_state(data_t *data, pos_t *pos,
