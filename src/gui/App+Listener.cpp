@@ -83,7 +83,7 @@ namespace Zappy::GUI {
         _animatedEntities[myPlayer]->playAnimation("RunBase");
         _animatedEntities[myPlayer]->playAnimation("RunTop");
         _moveEntities[myPlayer]->setArrivalPoint(myArrivalPoint);
-        // SceneBuilder::setPlayerPosAndOrientation(myScnMgr, *myPlayerData);
+        SceneBuilder::setPlayerOrientation(myScnMgr, *myPlayerData);
     }
 
     void App::displayServerMessage(const std::string &aNotification)
