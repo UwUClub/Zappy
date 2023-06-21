@@ -51,7 +51,7 @@ int append_player_client(data_t *data, char *team_name)
     remaining_slots = get_nb_eggs(data, team_name);
     if (remaining_slots <= 0) {
         send_to_client(data->clients, data->curr_cli_index, "ko\n");
-        return 84;
+        return ERROR_STATUS;
     }
     init_player(&(data->clients[data->curr_cli_index]), team_name, data->map);
     find_egg_to_hatch(data, team_name);
@@ -59,5 +59,5 @@ int append_player_client(data_t *data, char *team_name)
     do_ebo(data);
     do_pnw(data);
     data->clients[data->curr_cli_index]->is_registered = 1;
-    return 0;
+    return SUCCESS_STATUS;
 }

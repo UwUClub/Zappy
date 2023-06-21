@@ -13,7 +13,7 @@
 int detect_win(data_t *data)
 {
     if (data->clients == NULL)
-        return 0;
+        return SUCCESS_STATUS;
     for (int i = 0; data->clients[i] != NULL; i++) {
         if (is_player(data->clients, i) &&
             data->clients[i]->player->level == MAX_LEVEL) {
@@ -21,5 +21,5 @@ int detect_win(data_t *data)
             return 1;
         }
     }
-    return 0;
+    return SUCCESS_STATUS;
 }

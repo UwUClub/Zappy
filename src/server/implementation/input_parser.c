@@ -22,7 +22,7 @@ static int parse_team_name(data_t *data)
         }
     }
     send_to_client(data->clients, data->curr_cli_index, "ko\n");
-    return 0;
+    return SUCCESS_STATUS;
 }
 
 static int parse_cmd(data_t *data)

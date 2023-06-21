@@ -6,7 +6,6 @@
 */
 
 #define _GNU_SOURCE
-#include <stdio.h>
 #include "implementation.h"
 #include "utils.h"
 #include "ranges.h"
@@ -18,10 +17,10 @@ int do_pin(data_t *data, char **args)
     char *tmp = NULL;
 
     if (!args || word_array_len(args) != 1 || !is_int(args[0]))
-        return 1;
+        return ERROR_STATUS;
     player = get_player_by_id(data->clients, atoi(args[0]));
     if (!player)
-        return 1;
+        return ERROR_STATUS;
     asprintf(&msg, "pin %s %d %d", args[0], player->pos->x, player->pos->y);
     for (int i = 0; i < TILE_SIZE; i++) {
         asprintf(&tmp, " %d", player->inventory[i]);
@@ -31,5 +30,5 @@ int do_pin(data_t *data, char **args)
     msg = concat_str(msg, "\n");
     send_to_client(data->clients, data->curr_cli_index, msg);
     free(msg);
-    return 0;
+    return SUCCESS_STATUS;
 }

@@ -19,14 +19,14 @@ static int connect_nbr(data_t *data, __attribute__((unused)) char **args)
     asprintf(&msg, "%d\n", nb);
     send_to_client(data->clients, data->curr_cli_index, msg);
     free(msg);
-    return 0;
+    return SUCCESS_STATUS;
 }
 
 int schedule_connect_nbr(data_t *data, char **args)
 {
     if (args != NULL) {
-        return 1;
+        return ERROR_STATUS;
     }
     append_scheduler_to_queue(data, &connect_nbr, args, CONNECT_NBR_DELAY);
-    return 0;
+    return SUCCESS_STATUS;
 }

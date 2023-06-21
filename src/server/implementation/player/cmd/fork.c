@@ -33,18 +33,18 @@ static int fork_cmd(data_t *data, __attribute__((unused)) char **args)
             do_pfk(data, data->clients[data->curr_cli_index]->player->id);
             append_egg(data, i, player_pos->x, player_pos->y);
             send_to_client(data->clients, data->curr_cli_index, "ok\n");
-            return 0;
+            return SUCCESS_STATUS;
         }
     }
     send_to_client(data->clients, data->curr_cli_index, "ko\n");
-    return 1;
+    return ERROR_STATUS;
 }
 
 int schedule_fork(data_t *data, char **args)
 {
     if (args != NULL) {
-        return 1;
+        return ERROR_STATUS;
     }
     append_scheduler_to_queue(data, &fork_cmd, args, FORK_DELAY);
-    return 0;
+    return SUCCESS_STATUS;
 }
