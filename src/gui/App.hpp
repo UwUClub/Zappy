@@ -27,6 +27,7 @@ namespace Zappy::GUI {
     class Inventory;
     struct ServerData;
     class AnimationHandler;
+    class MovementHandler;
 
     /**
      * @brief Main class of the GUI
@@ -235,6 +236,7 @@ namespace Zappy::GUI {
             std::unique_ptr<CameraHandler> _cameraHandler;
             std::unique_ptr<ClickHandler> _clickHandler;
             std::unordered_map<Ogre::Entity *, std::unique_ptr<AnimationHandler>> _animatedEntities;
+            std::unordered_map<Ogre::Entity *, std::unique_ptr<MovementHandler>> _moveEntities;
             std::vector<std::unique_ptr<Button>> _buttons;
             std::unique_ptr<Inventory> _inventory;
             const ServerData &_serverData;

@@ -41,7 +41,6 @@ namespace Zappy::GUI {
             myAnim->setEnabled(false);
             myAnim->setTimePosition(0);
             myAnim->setLoop(false);
-            std::cout << "Animation " << aAnimationName << " removed" << std::endl;
         } catch (const std::exception &e) {
             std::cerr << e.what() << std::endl;
         }
@@ -59,8 +58,12 @@ namespace Zappy::GUI {
                 continue;
             }
             if (myAnim.second->hasEnded() && !myAnim.second->getLoop()) {
+                if (myAnim.second->getAnimationName() == "JumpStart") {
+                    playAnimation("JumpEnd", false);
+
+                    continue;
+                }
                 removeAnimation(myAnim.second->getAnimationName());
-                continue;
             }
             myAnim.second->addTime(aTimeSinceLastFrame);
         }

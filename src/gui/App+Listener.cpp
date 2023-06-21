@@ -17,11 +17,13 @@
 #include <OgreRoot.h>
 #include <OgreTextAreaOverlayElement.h>
 #include <fstream>
+#include <memory>
 #include <sstream>
 #include <string>
 #include "AnimationHandler.hpp"
 #include "App.hpp"
 #include "Constexpr.hpp"
+#include "MovementHandler.hpp"
 #include "SceneBuilder.hpp"
 #include "ServerData.hpp"
 
@@ -42,6 +44,9 @@ namespace Zappy::GUI {
         auto myPlayerData = _serverData._players.back();
 
         SceneBuilder::createPlayer(myScnMgr, myPlayerData, _animatedEntities);
+
+        auto *myPlayer = myScnMgr->getEntity(PLAYER_PREFIX_NAME + myPlayerData.getId());
+        _moveEntities[myPlayer] = std::make_unique<MovementHandler>(myPlayer, _serverData._mapSize);
     }
 
     void App::removePlayer(const std::string &aNotification)
@@ -52,6 +57,7 @@ namespace Zappy::GUI {
 
         myStream >> myIndex;
         _animatedEntities.erase(myScnMgr->getEntity(PLAYER_PREFIX_NAME + myIndex));
+        _moveEntities.erase(myScnMgr->getEntity(PLAYER_PREFIX_NAME + myIndex));
         myScnMgr->destroyEntity(PLAYER_PREFIX_NAME + myIndex);
     }
 
@@ -70,7 +76,14 @@ namespace Zappy::GUI {
         if (myPlayerData == _serverData._players.cend()) {
             return;
         }
-        SceneBuilder::setPlayerPosAndOrientation(myScnMgr, *myPlayerData);
+        auto *myPlayer = myScnMgr->getEntity(PLAYER_PREFIX_NAME + myIndex);
+        Ogre::Vector3 myArrivalPoint(static_cast<float>(myPlayerData->getPosition().first * MAP_OFFSET), PLAYER_Y_POS,
+                                     static_cast<float>(myPlayerData->getPosition().second * MAP_OFFSET));
+
+        _animatedEntities[myPlayer]->playAnimation("RunBase");
+        _animatedEntities[myPlayer]->playAnimation("RunTop");
+        _moveEntities[myPlayer]->setArrivalPoint(myArrivalPoint);
+        // SceneBuilder::setPlayerPosAndOrientation(myScnMgr, *myPlayerData);
     }
 
     void App::displayServerMessage(const std::string &aNotification)
