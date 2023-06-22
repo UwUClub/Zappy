@@ -59,7 +59,7 @@ namespace Zappy::GUI {
         auto myNodeCenterPos = SceneBuilder::buildMap(myScnMgr, _serverData);
         cameraReturn myHandlers = SceneBuilder::buildCamera(myScnMgr, myNodeCenterPos, this->getRenderWindow(), *this);
         SceneBuilder::buildLights(myScnMgr, myNodeCenterPos);
-        SceneBuilder::buildConnectedPlayersAndEggs(myScnMgr, _serverData, _animatedEntities);
+        SceneBuilder::buildConnectedPlayersAndEggs(myScnMgr, _serverData, _animatedEntities, _moveEntities);
 
         _cameraHandler.reset(myHandlers.first);
         _clickHandler.reset(myHandlers.second);
