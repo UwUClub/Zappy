@@ -24,19 +24,19 @@ namespace Zappy::GUI {
 
             /**
              * @brief fillItemPacket with the data from the server
-             * @param aItemPacketData 
+             * @param aItemPacketData
              */
             void fillItemPacket(std::vector<int> &aItemPacketData);
 
             /**
              * @brief add resources to the item packet
-             * @param aA 
+             * @param aA
              */
             void addResources(int aA);
 
             /**
              * @brief remove resources from the item packet
-             * @param aA 
+             * @param aA
              */
             void removeResources(int aA);
 
