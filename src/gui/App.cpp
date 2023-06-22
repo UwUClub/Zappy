@@ -229,4 +229,27 @@ namespace Zappy::GUI {
         }
         return true;
     }
+
+    bool App::frameEnded([[maybe_unused]] const Ogre::FrameEvent &aEvent)
+    {
+        auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
+
+        for (const auto &myEntityName : _toRemove) {
+            try {
+                auto *myEntity = myScnMgr->getEntity(myEntityName);
+
+                if (_animatedEntities.find(myEntity) != _animatedEntities.cend()) {
+                    _animatedEntities.erase(myEntity);
+                }
+                if (_moveEntities.find(myEntity) != _moveEntities.cend()) {
+                    _moveEntities.erase(myEntity);
+                }
+                myScnMgr->destroyEntity(myEntityName);
+            } catch (const Ogre::Exception &e) {
+                std::cerr << e.what() << std::endl;
+            }
+        }
+        _toRemove.clear();
+        return true;
+    }
 } // namespace Zappy::GUI
