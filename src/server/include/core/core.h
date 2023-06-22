@@ -8,8 +8,6 @@
 #ifndef ZAPPY_SERVER_CORE_H
     #define ZAPPY_SERVER_CORE_H
 
-    #define _GNU_SOURCE
-
     #define SUCCESS_STATUS 0
     #define ERROR_STATUS 84
 
