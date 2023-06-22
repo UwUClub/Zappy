@@ -25,7 +25,7 @@ static char *add_tile_content(char **look, int x, int y, data_t *data)
     }
     free(clients);
     for (int i = 0; i < TILE_SIZE; i++) {
-        for (int j = 0; j < data->map->tiles[y][x][i]; j++) {
+        for (int j = 0; j < data->map->tiles[x][y][i]; j++) {
             strcat((*look), " \0");
             strcat((*look), resource[i]);
         }
@@ -36,15 +36,15 @@ static void look_front_tiles(int x, int y, data_t *data, char **look)
 {
     int x_tile = 0;
     int y_tile = 0;
-    int player_x = data->clients[data->curr_cli_index]->player->pos_x;
-    int player_y = data->clients[data->curr_cli_index]->player->pos_y;
+    int player_x = data->clients[data->curr_cli_index]->player->pos->x;
+    int player_y = data->clients[data->curr_cli_index]->player->pos->y;
 
     strcat((*look), "[\0");
     add_tile_content(look, player_x, player_y, data);
     for (int i = 1; i <=
         data->clients[data->curr_cli_index]->player->level; i++) {
         x_tile = player_x + (x * i) + (i * y);
-        y_tile = player_y + (y * i) + (i * x);
+        y_tile = player_y + (y * i) + (i * x * (-1));
         for (int j = 0; j < i * 2 + 1; j++) {
             x_tile = calc_outbound(x_tile, data->map->width);
             y_tile = calc_outbound(y_tile, data->map->height);
@@ -61,7 +61,7 @@ static int look(data_t *data, char **args)
     char *look = NULL;
 
     if (args != NULL)
-        return 1;
+        return ERROR_STATUS;
     look = calloc(2000, sizeof(char));
     if (data->clients[data->curr_cli_index]->player->orientation == NORTH)
         look_front_tiles(0, -1, data, &look);
@@ -71,16 +71,16 @@ static int look(data_t *data, char **args)
         look_front_tiles(1, 0, data, &look);
     if (data->clients[data->curr_cli_index]->player->orientation == WEST)
         look_front_tiles(-1, 0, data, &look);
-    strcat(look, "]\n\0");
+    strcat(look, " ]\n\0");
     send_to_client(data->clients, data->curr_cli_index, look);
     free(look);
-    return 0;
+    return SUCCESS_STATUS;
 }
 
 int schedule_look(data_t *data, char **args)
 {
     if (args != NULL)
-        return 1;
+        return ERROR_STATUS;
     append_scheduler_to_queue(data, &look, NULL, LOOK_DELAY);
-    return 0;
+    return SUCCESS_STATUS;
 }

@@ -2,6 +2,9 @@
 
 #include <iostream>
 #include <vector>
+#include "EggData.hpp"
+#include "Mediator.hpp"
+#include "Observer.hpp"
 #include "PlayerData.hpp"
 
 namespace Zappy::GUI {
@@ -26,6 +29,7 @@ namespace Zappy::GUI {
             std::vector<TileContent> _mapTiles;
             std::vector<std::string> _teamNames;
             std::vector<PlayerData> _players;
+            std::vector<EggData> _eggs;
             int _freq {0};
     };
 } // namespace Zappy::GUI

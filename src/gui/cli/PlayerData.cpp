@@ -1,9 +1,11 @@
 #include "PlayerData.hpp"
+#include <utility>
+#include "ItemPacket.hpp"
 
 namespace Zappy::GUI {
-    PlayerData::PlayerData(const std::string &aId)
+    PlayerData::PlayerData(std::string aId)
         : _position(std::make_pair(0, 0)),
-          _id(aId)
+          _id(std::move(aId))
     {}
 
     PlayerData::~PlayerData() = default;
@@ -23,7 +25,7 @@ namespace Zappy::GUI {
         if (aOrientation > 4 || aOrientation < 1) {
             return;
         }
-        _orientation = static_cast<Orientation>(aOrientation - 1);
+        _orientation = static_cast<Orientation>(aOrientation);
     }
 
     void PlayerData::setLevel(int aLevel)
@@ -34,6 +36,43 @@ namespace Zappy::GUI {
     void PlayerData::setInventory(ItemPacket &aInventory)
     {
         _inventory = aInventory;
+    }
+
+    void PlayerData::setInventory(int aSlot, int aQuantity)
+    {
+        static const std::unordered_map<int, std::function<void(ItemPacket &, int)>> myInventoryMap = {
+            {Ressources::FOOD,
+             [](ItemPacket &aInventory, int aQuant) {
+                 aInventory._food = aQuant;
+             }},
+            {Ressources::LINEMATE,
+             [](ItemPacket &aInventory, int aQuant) {
+                 aInventory._linemate = aQuant;
+             }},
+            {Ressources::DERAUMERE,
+             [](ItemPacket &aInventory, int aQuant) {
+                 aInventory._deraumere = aQuant;
+             }},
+            {Ressources::SIBUR,
+             [](ItemPacket &aInventory, int aQuant) {
+                 aInventory._sibur = aQuant;
+             }},
+            {Ressources::MENDIANE,
+             [](ItemPacket &aInventory, int aQuant) {
+                 aInventory._mendiane = aQuant;
+             }},
+            {Ressources::PHIRAS,
+             [](ItemPacket &aInventory, int aQuant) {
+                 aInventory._phiras = aQuant;
+             }},
+            {Ressources::THYSTAME, [](ItemPacket &aInventory, int aQuant) {
+                 aInventory._thystame = aQuant;
+             }}};
+
+        if (myInventoryMap.find(aSlot) == myInventoryMap.end()) {
+            return;
+        }
+        myInventoryMap.at(aSlot)(_inventory, aQuantity);
     }
 
     void PlayerData::setTeamName(std::string aTeamName)
@@ -59,40 +98,41 @@ namespace Zappy::GUI {
     int PlayerData::getInventory(int aSlot) const
     {
         static const std::unordered_map<int, std::function<int(ItemPacket)>> myInventoryMap = {
-            {0,
+            {Ressources::FOOD,
              [](ItemPacket aInventory) {
                  return aInventory._food;
              }},
-            {1,
+            {Ressources::LINEMATE,
              [](ItemPacket aInventory) {
                  return aInventory._linemate;
              }},
-            {2,
+            {Ressources::DERAUMERE,
              [](ItemPacket aInventory) {
                  return aInventory._deraumere;
              }},
-            {3,
+            {Ressources::SIBUR,
              [](ItemPacket aInventory) {
                  return aInventory._sibur;
              }},
-            {4,
+            {Ressources::MENDIANE,
              [](ItemPacket aInventory) {
                  return aInventory._mendiane;
              }},
-            {5,
+            {Ressources::PHIRAS,
              [](ItemPacket aInventory) {
                  return aInventory._phiras;
              }},
-            {6, [](ItemPacket aInventory) {
+            {Ressources::THYSTAME, [](ItemPacket aInventory) {
                  return aInventory._thystame;
              }}};
+
         if (myInventoryMap.find(aSlot) == myInventoryMap.end()) {
             return -1;
         }
         return myInventoryMap.at(aSlot)(_inventory);
     }
 
-    ItemPacket PlayerData::getAllInventory()
+    ItemPacket PlayerData::getAllInventory() const
     {
         return _inventory;
     }

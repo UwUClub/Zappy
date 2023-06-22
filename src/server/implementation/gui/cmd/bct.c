@@ -5,7 +5,6 @@
 ** msz
 */
 
-#include <stdio.h>
 #include "implementation.h"
 #include "utils.h"
 
@@ -21,14 +20,13 @@ static void concat_str_item(char **result, const int item_quantity)
 
 static char *get_tile_at(data_t *data, const int x, const int y)
 {
-    int *tile = data->map->tiles[y][x];
+    int *tile = data->map->tiles[x][y];
     char *result = NULL;
 
     result = strdup("");
     for (int i = 0; i < TILE_SIZE; i++) {
         concat_str_item(&result, tile[i]);
     }
-    result = concat_str(result, "\n");
     return result;
 }
 
@@ -36,31 +34,40 @@ static int parse_args(data_t *data, char **args, int *x, int *y)
 {
     if (!args || word_array_len(args) != 2 || !is_int(args[0]) ||
     !is_int(args[1]))
-        return 84;
+        return ERROR_STATUS;
     *x = atoi(args[0]);
     *y = atoi(args[1]);
     if (*x < 0 || *x >= data->map->width || *y < 0 || *y >= data->map->height)
-        return 84;
-    return 0;
+        return ERROR_STATUS;
+    return SUCCESS_STATUS;
 }
 
-int do_bct(data_t *data, char **args)
+int send_bct_to_all_gui(data_t *data, const int x, const int y)
 {
     char *msg = NULL;
-    char *result = NULL;
+    char *resources = NULL;
+
+    resources = get_tile_at(data, x, y);
+    asprintf(&msg, "bct %d %d%s\n", x, y, resources);
+    send_to_all_gui(data->clients, msg);
+    free(resources);
+    free(msg);
+    return SUCCESS_STATUS;
+}
+
+int send_bct_to_current_cli(data_t *data, char **args)
+{
+    char *msg = NULL;
+    char *resources = NULL;
     int x = 0;
     int y = 0;
 
-    if (parse_args(data, args, &x, &y) == 84)
-        return 1;
-    msg = strdup("bct ");
-    msg = concat_str(msg, args[0]);
-    msg = concat_str(msg, " ");
-    msg = concat_str(msg, args[1]);
-    result = get_tile_at(data, x, y);
-    msg = concat_str(msg, result);
-    free(result);
+    if (parse_args(data, args, &x, &y) == ERROR_STATUS)
+        return ERROR_STATUS;
+    resources = get_tile_at(data, x, y);
+    asprintf(&msg, "bct %d %d%s\n", x, y, resources);
     send_to_client(data->clients, data->curr_cli_index, msg);
+    free(resources);
     free(msg);
-    return 0;
+    return SUCCESS_STATUS;
 }

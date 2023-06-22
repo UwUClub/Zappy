@@ -1,26 +1,44 @@
 #pragma once
 
+#include <functional>
 #include <iostream>
 #include <vector>
-#include "PlayerData.hpp"
 
 namespace Zappy::GUI {
+    enum Ressources : int
+    {
+        FOOD = 0,
+        LINEMATE = 1,
+        DERAUMERE = 2,
+        SIBUR = 3,
+        MENDIANE = 4,
+        PHIRAS = 5,
+        THYSTAME = 6
+    };
+
     class ItemPacket
     {
         public:
             ItemPacket() = default;
             ~ItemPacket() = default;
 
-            void fillItemPacket(std::vector<int> &itemPacketData)
-            {
-                _food = itemPacketData[0];
-                _linemate = itemPacketData[1];
-                _deraumere = itemPacketData[2];
-                _sibur = itemPacketData[3];
-                _mendiane = itemPacketData[4];
-                _phiras = itemPacketData[5];
-                _thystame = itemPacketData[6];
-            };
+            /**
+             * @brief fillItemPacket with the data from the server
+             * @param aItemPacketData 
+             */
+            void fillItemPacket(std::vector<int> &aItemPacketData);
+
+            /**
+             * @brief add resources to the item packet
+             * @param aA 
+             */
+            void addResources(int aA);
+
+            /**
+             * @brief remove resources from the item packet
+             * @param aA 
+             */
+            void removeResources(int aA);
 
             int _food {0};
             int _linemate {0};

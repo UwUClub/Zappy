@@ -5,8 +5,6 @@
 ** launch_server
 */
 
-#include <unistd.h>
-#include <stdio.h>
 #include <sys/stat.h>
 #include <stdlib.h>
 #include <sys/socket.h>
@@ -18,6 +16,7 @@
 #include "gui_cmd.h"
 #include "implementation.h"
 #include "utils.h"
+#include "ranges.h"
 
 static void listen_to_inputs(struct sockaddr_in *addr, int server_fd,
     data_t *data)
@@ -41,19 +40,21 @@ static void listen_to_inputs(struct sockaddr_in *addr, int server_fd,
 
 int launch_server(data_t *data)
 {
-    int server_fd = socket(PF_INET, SOCK_STREAM, 0);
-    struct sockaddr_in my_addr = get_sockaddr(inet_addr(data->ip),
-        data->port);
+    int server_fd = 0;
+    struct sockaddr_in my_addr = {0};
+
+    server_fd = socket(PF_INET, SOCK_STREAM, 0);
+    my_addr = get_sockaddr(inet_addr(data->ip), data->port);
     if (server_fd < 0)
-        return 84;
+        return ERROR_STATUS;
     setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &(int) { 1 }, sizeof(int));
     if (bind(server_fd, (const struct sockaddr *) &my_addr,
     sizeof(struct sockaddr_in)) < 0)
-        return 84;
-    if (listen(server_fd, MAX_TEAMS * data->cli_per_team) < 0)
-        return 84;
+        return ERROR_STATUS;
+    if (listen(server_fd, MAX_CLIENTS) < 0)
+        return ERROR_STATUS;
     printf("Port : %i\n", data->port);
     listen_to_inputs(&my_addr, server_fd, data);
     close(server_fd);
-    return 0;
+    return SUCCESS_STATUS;
 }

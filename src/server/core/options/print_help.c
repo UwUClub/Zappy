@@ -5,7 +5,6 @@
 ** print_help
 */
 
-#include <stdio.h>
 #include "core.h"
 
 int print_help(__attribute__((unused)) data_t *data,

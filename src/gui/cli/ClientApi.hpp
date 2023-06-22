@@ -1,16 +1,20 @@
 #pragma once
 
 #include <functional>
+#include <mutex>
 #include <netinet/in.h>
 #include <string>
+#include <thread>
 #include <utility>
 #include <vector>
-#include "ServerData.hpp"
-#include "Subscriber.hpp"
+#include "Observer.hpp"
 #include <unordered_map>
 
 namespace Zappy::GUI {
-    class ClientApi
+    class Mediator;
+    struct ServerData;
+
+    class ClientApi final : public Observer
     {
         public:
             /**
@@ -19,12 +23,18 @@ namespace Zappy::GUI {
              * @param aPort
              * @param aTeamName
              */
-            ClientApi(std::string aAddress, unsigned int aPort, std::string aTeamName);
+            ClientApi(std::string aAddress, unsigned int aPort, std::string aTeamName, Mediator &aMediator,
+                      ServerData &aServerData);
 
             /**
              * @brief ClientApi destructor
              */
-            ~ClientApi();
+            ~ClientApi() final;
+
+            /**
+             * @brief run the client, update the server data, must be called in another thread, use disconnect to stop
+             */
+            void run();
 
             /**
              * @brief run the client, update the server data, must be called in another thread, use disconnect to stop
@@ -69,6 +79,8 @@ namespace Zappy::GUI {
              * @return serverData
              */
             [[nodiscard]] const ServerData &getServerData() const;
+
+            void getNotified(const std::string &aNotification) final;
 
             /**
              * @brief register a subscriber
@@ -123,10 +135,9 @@ namespace Zappy::GUI {
             static struct sockaddr_in getSockaddr(in_addr_t aAddress, unsigned int aPort);
 
             /**
-             * @brief notify subscribers
-             * @param aNotification
+             * @brief parse information from server
              */
-            void notifySubscribers(std::string &aNotification);
+            void parseServerResponses();
 
             /**
              * @brief reading information from server
@@ -204,6 +215,48 @@ namespace Zappy::GUI {
              */
             void receiveSst(const std::string &aResponse);
 
+            /**
+             * @brief parse pdr response
+             * @param aResponse
+             */
+            void receivePdr(const std::string &aResponse);
+
+            /**
+             * @brief parse pex response
+             * @param aResponse
+             */
+            void receivePex(const std::string &aResponse);
+
+            /**
+             * @brief parse pgt response
+             * @param aResponse
+             */
+            void receivePgt(const std::string &aResponse);
+
+            /**
+             * @brief parse pdi response
+             * @param aResponse
+             */
+            void receivePdi(const std::string &aResponse);
+
+            /**
+             * @brief parse enw response
+             * @param aResponse
+             */
+            void receiveEnw(const std::string &aResponse);
+
+            /**
+             * @brief parse edi response
+             * @param aResponse
+             */
+            void receiveEdi(const std::string &aResponse);
+
+            /**
+             * @brief parse ebo response
+             * @param aResponse
+             */
+            void receiveEbo(const std::string &aResponse);
+
             // Attributes
             std::string _address;
             unsigned int _port;
@@ -212,8 +265,7 @@ namespace Zappy::GUI {
             std::string _readBuffer;
             std::string _writeBuffer;
             int _serverFd;
-            ServerData _serverData;
-            std::vector<std::reference_wrapper<Subscriber>> _subscribers;
-            bool _isInitialized;
+            ServerData &_serverData;
+            pthread_t _threadId;
     };
 } // namespace Zappy::GUI

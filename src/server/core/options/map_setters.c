@@ -5,9 +5,10 @@
 ** map_setters
 */
 
-#include <stdio.h>
 #include "core.h"
 #include "utils.h"
+#include "server_options.h"
+#include "default_values.h"
 
 static int is_value_valid(data_t *data, char *value, char option)
 {
@@ -17,7 +18,7 @@ static int is_value_valid(data_t *data, char *value, char option)
             option);
         dprintf(2, "%d and %d\n", MIN_MAP_SIZE, MAX_MAP_SIZE);
         print_help(data, NULL);
-        return 0;
+        return SUCCESS_STATUS;
     }
     return 1;
 }
@@ -25,15 +26,15 @@ static int is_value_valid(data_t *data, char *value, char option)
 int set_map_width(data_t *data, char *value)
 {
     if (!is_value_valid(data, value, 'x'))
-        return 84;
+        return ERROR_STATUS;
     data->map->width = atoi(value);
-    return 0;
+    return SUCCESS_STATUS;
 }
 
 int set_map_height(data_t *data, char *value)
 {
     if (!is_value_valid(data, value, 'y'))
-        return 84;
+        return ERROR_STATUS;
     data->map->height = atoi(value);
-    return 0;
+    return SUCCESS_STATUS;
 }

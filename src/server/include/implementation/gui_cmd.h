@@ -8,7 +8,7 @@
 #ifndef ZAPPY_GUI_CMD_H
     #define ZAPPY_GUI_CMD_H
 
-    #include "core.h"
+    #include "implementation.h"
 
     /**
     * @brief Executes the command sent by the client
@@ -28,12 +28,28 @@
     int do_msz(data_t *data, char **args);
 
     /**
+     * @brief Send map content to gui
+     * @param data The current server data, clients and current client index
+     * @param args The arguments of the command
+    */
+    int do_mct(data_t *data, char **args);
+
+    /**
     * @brief Sends a response to the bct command sent by the client
     * @param data The current server data, clients and current client index
     * @param args The arguments of the command
     * @return Status of the parsing / command
     */
-    int do_bct(data_t *data, char **args);
+    int send_bct_to_current_cli(data_t *data, char **args);
+
+    /**
+     * @brief Sends a response to the bct command sent by the client to all gui
+     * @param data The current server data, clients and current client index
+     * @param x The x position of the tile
+     * @param y The y position of the tile
+     * @return Status of the parsing / command
+    */
+    int send_bct_to_all_gui(data_t *data, const int x, const int y);
 
     /**
     * @brief Sends a response to the tna command sent by the client
@@ -43,12 +59,18 @@
     int do_tna(data_t *data, char **args);
 
     /**
-    * @brief Get frequency
+    * @brief Send frequency
     * @param data The current server data, clients and current client index
     * @param args The arguments of the command
-    * @return Frequency
+    * @return Status of the command
     */
     int do_sgt(data_t *data, char **args);
+
+    /**
+    * @brief Send frequency to all gui
+    * @param data The current server data, clients and current client index
+    */
+    void do_sgt_to_all_gui(data_t *data);
 
     /**
      * @brief Set the new frequency given
@@ -67,12 +89,26 @@
     int do_seg(data_t *data, const char *team_name);
 
     /**
-     * @brief Sends player id, position and inventory to gui
+     * @brief Respond player id, position and inventory to gui after a pin call
      * @param data The current server data, clients and current client index
      * @param args The arguments of the command
      * @return Status of the parsing / command
     */
     int do_pin(data_t *data, char **args);
+
+    /**
+     * @brief Sends player id, position and inventory to current gui client
+     * @param data The current server data, clients and current client index
+     * @param player The player to show
+    */
+    void send_pin_to_current_cli(data_t *data, player_t *player);
+
+    /**
+     * @brief Sends player id, position and inventory to all gui clients
+     * @param data The current server data, clients and current client index
+     * @param player The player to show
+    */
+    void send_pin_to_all_gui(data_t *data, player_t *player);
 
     /**
      * @brief Sends player id and level to gui
@@ -83,11 +119,126 @@
     int do_plv(data_t *data, char **args);
 
     /**
+     * @brief Sends player id and level to all gui
+     * @param data The current server data, clients and current client index
+     * @param player The player to show
+    */
+    void send_plv_to_all_gui(data_t *data, player_t *player);
+
+    /**
      * @brief Sends player id, position and orientation to gui
      * @param data The current server data, clients and current client index
      * @param args The arguments of the command
      * @return Status of the parsing / command
     */
     int do_ppo(data_t *data, char **args);
+
+    /**
+     * @brief Sends player id, position and orientation to all gui
+     * @param data The current server data, clients and current client index
+     * @param player The player to show
+    */
+    void send_ppo_to_all_gui(data_t *data, player_t *player);
+
+    /**
+     * @brief Sends egg progenitor to gui
+     * @param data The current server data, clients and current client index
+     * @param player_id The id of the player
+    */
+    void do_pfk(data_t *data, const unsigned int player_id);
+
+    /**
+     * @brief Sends egg progenitor, id and position to all gui clients
+     * @param data The current server data, clients and current client index
+     * @param egg The egg to show
+    */
+    void send_enw_to_all_gui(data_t *data, egg_t *egg);
+
+    /**
+     * @brief Sends egg progenitor, id and position to current gui client
+     * @param data The current server data, clients and current client index
+     * @param egg The egg to show
+    */
+    void send_enw_to_current_cli(data_t *data, egg_t *egg);
+
+    /**
+     * @brief Notify player connection to all gui clients
+     * @param data The current server data, clients and current client index
+    */
+    void send_pnw_to_all_gui(data_t *data);
+
+    /**
+     * @brief Notify player existence to current gui client
+     * @param data The current server data, clients and current client index
+     * @param player The player to show
+    */
+    void send_pnw_to_current_cli(data_t *data, player_t *player);
+
+    /**
+     * @brief Notify to all gui that a player was born and replaced an egg
+     * @param data The current server data, clients and current client index
+    */
+    void send_ebo_to_all_gui(data_t *data);
+
+    /**
+     * @brief Notify to gui that an egg hatched
+     * @param data The current server data, clients and current client index
+    */
+    void do_edi(data_t *data, const int egg_index);
+
+    /**
+     * @brief Notify to gui that a player has been expulsed
+     * @param data The current server data, clients and current client index
+    */
+    int do_pex(data_t *data, const int player_id);
+
+    /**
+     * @brief Notify to gui that a player took an object
+     * @param data The current server data, clients and current client index
+     * @param resource The id of the resource taken
+    */
+    int do_pgt(data_t *data, int resource);
+
+    /**
+     * @brief Notify to gui that a player dropped an object
+     * @param data The current server data, clients and current client index
+     * @param resource The id of the resource dropped
+    */
+    int do_pdr(data_t *data, int resource);
+
+    /**
+     * @brief Notify to gui that an incantation is beginning
+     * @param data The current server data, clients and current client index
+     * @param author The player who started the incantation
+    */
+    void do_pic(data_t *data, player_t *author);
+
+    /**
+     * @brief Notify to gui that an incantation is done
+     * @param data The current server data, clients and current client index
+     * @param pos The position of the incantation
+     * @param result_lvl The level obtained by players in the incantation
+    */
+    void do_pie(data_t *data, pos_t *pos, const int result_lvl);
+
+    /**
+     * @brief Notify to gui that a player died
+     * @param data The current server data, clients and current client index
+     * @param player_id The id of the player who died
+    */
+    void do_pdi(data_t *data, const int player_id);
+
+    static const cmd_t gui_commands[] = {
+        {"msz", &do_msz, 0},
+        {"bct", &send_bct_to_current_cli, 0},
+        {"mct", &do_mct, 0},
+        {"tna", &do_tna, 0},
+        {"sgt", &do_sgt, 0},
+        {"sst", &do_sst, 0},
+        {"pin", &do_pin, 0},
+        {"plv", &do_plv, 0},
+        {"ppo", &do_ppo, 0},
+        {NULL, NULL}
+    };
 
 #endif /* ZAPPY_GUI_CMD_H */

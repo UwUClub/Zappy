@@ -5,11 +5,7 @@
 ** single_client_lifecycle
 */
 
-<<<<<<< HEAD
-#include "core.h"
-=======
 #include "server_core.h"
->>>>>>> origin/main
 
 static void init_inventory(client_t **client)
 {

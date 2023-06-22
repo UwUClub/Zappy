@@ -7,40 +7,58 @@
 
 #include "core.h"
 #include "implementation.h"
+#include "server_data.h"
 #include "utils.h"
 #include "gui_cmd.h"
 #include "player_cmd.h"
 
-static void send_pnw(data_t *data)
+static void send_welcome_data(data_t *data, const int remaining_slots)
 {
-    player_t *player = data->clients[data->curr_cli_index]->player;
-    char *msg = NULL;
-
-    asprintf(&msg, "pnw %d %d %d %d %d %s\n", data->curr_cli_index,
-        player->pos_x, player->pos_y, player->orientation, player->level,
-        player->team_name);
-    send_to_all_gui(data->clients, msg);
-    free(msg);
-}
-
-int append_player_client(data_t *data, char *team_name)
-{
-    int remaining_slots = get_remaining_slots(data, team_name);
     char *str_remaining_slots = NULL;
     char *world_dimensions = NULL;
 
-    if (remaining_slots <= 0) {
-        send_to_client(data->clients, data->curr_cli_index, "ko\n");
-        return 84;
-    }
-    init_player(&(data->clients[data->curr_cli_index]), team_name, data->map);
-    str_remaining_slots = int_to_s(remaining_slots - 1);
-    str_remaining_slots = concat_str(str_remaining_slots, "\n");
-    world_dimensions = get_world_dimensions(data);
+    asprintf(&str_remaining_slots, "%d\n", remaining_slots - 1);
+    asprintf(&world_dimensions, "%d %d\n", data->map->width,
+        data->map->height);
     send_to_client(data->clients, data->curr_cli_index, str_remaining_slots);
     send_to_client(data->clients, data->curr_cli_index, world_dimensions);
     free(str_remaining_slots);
     free(world_dimensions);
-    send_pnw(data);
-    return 0;
+}
+
+static void find_egg_to_hatch(data_t *data, char *team_name)
+{
+    int team_index = 0;
+    int egg_index = 0;
+    egg_t *egg = NULL;
+
+    team_index = get_team_index_by_name(data->teams, team_name);
+    egg_index = rand() % get_nb_eggs(data, team_name);
+    egg = data->teams[team_index]->eggs[egg_index];
+    data->clients[data->curr_cli_index]->player->id = egg->id;
+    data->clients[data->curr_cli_index]->player->pos->x = egg->pos->x;
+    data->clients[data->curr_cli_index]->player->pos->y = egg->pos->y;
+    data->clients[data->curr_cli_index]->player->inventory[0] = egg->food;
+    data->clients[data->curr_cli_index]->player->remaining_digestion_ms =
+        egg->remaining_digestion_ms;
+    hatch_egg(data, team_index, egg_index);
+}
+
+int append_player_client(data_t *data, char *team_name)
+{
+    int remaining_slots = 0;
+
+    remaining_slots = get_nb_eggs(data, team_name);
+    if (remaining_slots <= 0) {
+        send_to_client(data->clients, data->curr_cli_index, "ko\n");
+        return ERROR_STATUS;
+    }
+    init_player(&(data->clients[data->curr_cli_index]), team_name, data->map);
+    find_egg_to_hatch(data, team_name);
+    send_welcome_data(data, remaining_slots);
+    send_ebo_to_all_gui(data);
+    send_pnw_to_all_gui(data);
+    send_pin_to_all_gui(data, data->clients[data->curr_cli_index]->player);
+    data->clients[data->curr_cli_index]->is_registered = 1;
+    return SUCCESS_STATUS;
 }

@@ -8,13 +8,19 @@
 #include "InputHandler.hpp"
 #include <OGRE/Bites/OgreInput.h>
 #include <OGRE/OgreRoot.h>
+#include <OGRE/Overlay/OgreOverlay.h>
+#include <OGRE/Overlay/OgreOverlayManager.h>
+#include <OgreOverlay.h>
+#include <OgreTextAreaOverlayElement.h>
+#include "App.hpp"
+#include "Constexpr.hpp"
 
 namespace Zappy::GUI {
-    InputHandler::InputHandler(ClientApi &client)
+    InputHandler::InputHandler(App &aApp)
         : _isLeftClickPressed(false),
           _isRightClickPressed(false),
           _isShiftPressed(false),
-          _client(client)
+          _app(aApp)
     {}
 
     InputHandler::~InputHandler() = default;
@@ -47,13 +53,16 @@ namespace Zappy::GUI {
 
     bool InputHandler::keyPressed(const OgreBites::KeyboardEvent &aEvt)
     {
+        auto *myOverlayHelp = Ogre::OverlayManager::getSingleton().getByName(HELP_CONTROLS_OVERLAY);
+
+        myOverlayHelp->hide();
         if (aEvt.keysym.sym == OgreBites::SDLK_LSHIFT) {
             _isShiftPressed = true;
             return true;
         }
         if (aEvt.keysym.sym == OgreBites::SDLK_ESCAPE) {
             Ogre::Root::getSingleton().queueEndRendering();
-            _client.disconnect();
+            _app.askDisconnection();
         }
         return true;
     }

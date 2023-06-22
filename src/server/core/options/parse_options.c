@@ -5,62 +5,70 @@
 ** parse_options
 */
 
-#include <unistd.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include "core.h"
 #include "utils.h"
+#include "server_options.h"
+#include "ranges.h"
 
-static const option_t options[] = {
-    { 'h', &print_help },
-    { 'p', &set_port },
-    { 'x', &set_map_width },
-    { 'y', &set_map_height },
-    { 'c', &set_cli_per_team },
-    { 'f', &set_freq },
-    { 'v', &set_ip },
-    { -1, NULL }
-};
 
-static void parse_team_names(data_t *data, int ac, char **av)
+static void parse_team_names(data_t *data, saved_opt_t *saved,
+    int ac, char **av)
 {
-    char *teams = NULL;
+    int length = 0;
 
-    teams = strdup("");
+    free_word_array(saved->team_names);
+    saved->team_names = malloc(sizeof(char *) * (ac + 1));
     optind--;
     for (; optind < ac && *av[optind] != '-'; optind++) {
-        teams = concat_str(teams, av[optind]);
-        teams = concat_str(teams, " ");
+        saved->team_names[length] = strdup(av[optind]);
+        length++;
     }
-    data->team_names = str_to_word_array(teams, " ");
-    free(teams);
+    saved->team_names[length] = NULL;
 }
 
-static int parse_single_option(int option, data_t *data, int ac,
-    char **av)
+int parse_cli_per_team(data_t *data, saved_opt_t *saved,
+    char *value)
+{
+    if (!value || !is_int(value) || atoi(value) < 1 ||
+    atoi(value) > MAX_CLI_PER_TEAM) {
+        dprintf(2, "\n-c option only accepts integer values ");
+        dprintf(2, "between 1 and %i\n", MAX_CLI_PER_TEAM);
+        print_help(data, NULL);
+        return ERROR_STATUS;
+    }
+    saved->nb_cli_per_team = atoi(value);
+    return SUCCESS_STATUS;
+}
+
+static int parse_single_option(int option, data_t *data, int ac, char **av)
 {
     int status = 0;
 
     for (int i = 0; options[i].flag != -1; i++) {
         if (options[i].flag == option)
             status = options[i].func(data, optarg);
-        if (status == 84)
+        if (status == ERROR_STATUS)
             return 1;
     }
     return option == 'h';
 }
 
-int parse_data_options(data_t *data, int ac, char **av)
+int parse_data_options(data_t *data, saved_opt_t *saved, int ac, char **av)
 {
     int option = 0;
 
     while (option != -1) {
         option = getopt(ac, av, "hp:x:y:n:c:f:v:");
-        if (option == 'n')
-            parse_team_names(data, ac, av);
-        if (parse_single_option(option, data, ac, av))
+        if (option == 'n') {
+            parse_team_names(data, saved, ac, av);
+        }
+        if (option == 'c' &&
+            parse_cli_per_team(data, saved, optarg) == ERROR_STATUS) {
             return 1;
+        }
+        if (parse_single_option(option, data, ac, av)) {
+            return 1;
+        }
     }
-    return 0;
+    return SUCCESS_STATUS;
 }

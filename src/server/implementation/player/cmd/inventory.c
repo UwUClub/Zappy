@@ -24,17 +24,17 @@ static int get_inventory(data_t *data, __attribute__((unused)) char **args)
         data->clients[data->curr_cli_index]->player->inventory[5],
         data->clients[data->curr_cli_index]->player->inventory[6]);
     if (value == -1)
-        return 1;
+        return ERROR_STATUS;
     send_to_client(data->clients, data->curr_cli_index, inventory);
     free(inventory);
-    return 0;
+    return SUCCESS_STATUS;
 }
 
 int schedule_inventory(data_t *data, char **args)
 {
     if (args != NULL) {
-        return 1;
+        return ERROR_STATUS;
     }
     append_scheduler_to_queue(data, &get_inventory, args, INVENTORY_DELAY);
-    return 0;
+    return SUCCESS_STATUS;
 }
