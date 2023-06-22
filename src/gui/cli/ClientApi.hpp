@@ -37,11 +37,6 @@ namespace Zappy::GUI {
             void run();
 
             /**
-             * @brief run the client, update the server data, must be called in another thread, use disconnect to stop
-             */
-            void run();
-
-            /**
              * @brief joinGame
              */
             void joinGame();
@@ -81,17 +76,6 @@ namespace Zappy::GUI {
             [[nodiscard]] const ServerData &getServerData() const;
 
             void getNotified(const std::string &aNotification) final;
-
-            /**
-             * @brief register a subscriber
-             * @param aSubscriber
-             */
-            void registerSubscriber(Subscriber &aSubscriber);
-
-            /**
-             * @brief parse information from server
-             */
-            void parseServerResponses();
 
             /**
              * @brief ClientException class

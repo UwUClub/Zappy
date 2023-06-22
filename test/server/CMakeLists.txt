@@ -2,7 +2,9 @@ cmake_minimum_required(VERSION 3.15...3.23)
 
 project(CmakeConfigPackageTests LANGUAGES CXX)
 
-add_executable(test_zappy
+include(${Catch2_SOURCE_DIR}/extras/Catch.cmake)
+
+add_executable(test_zappy_server
         normalizePos.cpp
         isPlayer.cpp
         getPlayerById.cpp
@@ -15,17 +17,21 @@ add_executable(test_zappy
         isIp.cpp
         )
 
-target_include_directories(test_zappy PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../../src/server")
-target_include_directories(test_zappy PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../../src/server/core")
-target_include_directories(test_zappy PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../../src/server/implementation")
-target_include_directories(test_zappy PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../../src/server/include")
-target_include_directories(test_zappy PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../../src/server/include/core")
-target_include_directories(test_zappy PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../../src/server/include/implementation")
-target_include_directories(test_zappy PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../../src/server/utils")
+target_include_directories(test_zappy_server PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../../src/server")
+target_include_directories(test_zappy_server PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../../src/server/core")
+target_include_directories(test_zappy_server PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../../src/server/implementation")
+target_include_directories(test_zappy_server PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../../src/server/include")
+target_include_directories(test_zappy_server PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../../src/server/include/core")
+target_include_directories(test_zappy_server PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../../src/server/include/implementation")
+target_include_directories(test_zappy_server PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../../src/server/utils")
 
-find_package(Catch2 REQUIRED)
+target_include_directories(test_zappy_server
+        PRIVATE ../../src/gui/cli
+        ../../src/gui
+        )
 
-target_link_libraries(test_zappy
-        PRIVATE
+target_link_libraries(test_zappy_server
+        PRIVATE myproject::myproject_warnings
+          myproject::myproject_options
           Catch2::Catch2WithMain
         )

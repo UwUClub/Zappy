@@ -2,23 +2,18 @@
 #include <arpa/inet.h>
 #include <cerrno>
 #include <csignal>
-#include <cstddef>
 #include <cstdio>
 #include <cstring>
-#include <functional>
 #include <iostream>
 #include <netinet/in.h>
 #include <pthread.h>
-#include <sstream>
 #include <string>
 #include <syncstream>
 #include <sys/select.h>
 #include <sys/socket.h>
 #include <unistd.h>
 #include <utility>
-#include "EggData.hpp"
 #include "Observer.hpp"
-#include "PlayerData.hpp"
 #include "ServerData.hpp"
 #include <unordered_map>
 
@@ -48,17 +43,6 @@ namespace Zappy::GUI {
             _threadId = pthread_self();
             signal(SIGUSR1, [](int) {
             });
-            while (true) {
-                this->update();
-            }
-        } catch (const ClientException &e) {
-            std::osyncstream(std::cout) << e.what() << std::endl;
-        }
-    }
-
-    void ClientApi::run()
-    {
-        try {
             while (true) {
                 this->update();
             }

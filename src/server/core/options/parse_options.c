@@ -10,7 +10,6 @@
 #include "server_options.h"
 #include "ranges.h"
 
-
 static void parse_team_names(data_t *data, saved_opt_t *saved,
     int ac, char **av)
 {

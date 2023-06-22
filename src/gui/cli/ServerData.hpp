@@ -20,11 +20,6 @@ namespace Zappy::GUI {
 
     struct ServerData
     {
-            static ServerData &getInstance()
-            {
-                static ServerData instance;
-                return instance;
-            }
             std::pair<unsigned int, unsigned int> _mapSize;
             std::vector<TileContent> _mapTiles;
             std::vector<std::string> _teamNames;

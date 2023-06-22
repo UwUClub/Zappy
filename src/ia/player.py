@@ -1,4 +1,4 @@
-from .connection import Connection
+from connection import Connection
 import time
 import random
 
@@ -25,15 +25,13 @@ class Player:
         self._direction = -1
         self._parsedMessage = ""
         self._nbFunctInList = 0
-        self._id = random.randint(8, 9999)
-
 
     ## @brief Connect to the server
     ## @param info The connection information
     def connect(self, aInfo):
         self._socket = Connection(aInfo._host, int(aInfo._port))
         return self._socket.connect()
-    
+
     ## @brief Send data to the server
     ## @param data The data to send
     def send(self, aData):
@@ -111,6 +109,8 @@ class Player:
         myForward = self.receive()
         if myForward != "ok\n":
             print("Error: Forward")
+            return ("Error: Forward")
+        return (myForward)
 
     ## @brief Send left command
     ## @return None
@@ -119,7 +119,9 @@ class Player:
         myLeft = self.receive()
         if myLeft != "ok\n":
             print ("Error: Left rotation")
-    
+            return ("Error: Left rotation")
+        return (myLeft)
+
     ## @brief Send right command
     ## @return None
     def right(self):
@@ -127,6 +129,8 @@ class Player:
         myRight = self.receive()
         if myRight != "ok\n":
             print ("Error: Right rotation")
+            return ("Error: Right rotation")
+        return (myRight)
 
     ## @brief Send take command
     ## @return None
@@ -135,9 +139,11 @@ class Player:
         myTake = self.receive()
         if myTake == "ko\n":
             print ("Object not found", aRessource)
+            return ("Object not found " + aRessource)
         elif myTake == "ok\n":
             print ("Object", aRessource, "taken")
-        
+            return ("Object " + aRessource + " taken")
+
     ## @brief Send set command
     ## @return None
     def set(self, aRessource):
@@ -145,8 +151,10 @@ class Player:
         mySet = self.receive()
         if mySet == "ko\n":
             print ("Error: Set", aRessource)
+            return ("Error: Set " + aRessource)
         elif mySet == "ok\n":
             print ("Object", aRessource, "set")
+            return ("Object " + aRessource + " set")
 
     ## @brief Send inventory command and receive the inventory
     ## @return the inventory
@@ -169,7 +177,7 @@ class Player:
         else:
             print ("Free slots:", myConnectNbr)
             return (int(myConnectNbr[-2]))
-        
+
     ## @brief Send look command and receive the map content
     ## @return the map content
     def look(self):
@@ -207,9 +215,11 @@ class Player:
         myBroadcast = self.receive()
         if myBroadcast == "ko\n":
             print ("Error: Broadcast")
+            return ("Error: Broadcast")
         else:
             print ("Broadcast:", myBroadcast)
-    
+            return ("Broadcast: " + self.decryptMessage(myBroadcast))
+
     ## @brief Send Eject command
     ## @return None
     def eject(self):
@@ -219,7 +229,7 @@ class Player:
             print ("Error: Eject")
         else:
             print ("Eject:", myEject)
-  
+
     ## @brief Send Incantation command
     ## @return Incantation status
     def incantation(self):
@@ -242,8 +252,10 @@ class Player:
         myFork = self.receive()
         if myFork == "ko\n":
             print ("Error: Fork")
+            return ("Error: Fork")
         else:
             print ("Fork:", myFork)
+            return ("Fork: " + myFork)
 
     ## @brief Parse the look command
     ## @return the look tiles
@@ -270,7 +282,7 @@ class Player:
             myResoucesOnTile.append(x.count('thystame'))
             self._lookTiles.append(myResoucesOnTile)
         return (self._lookTiles)
-    
+
     ## @brief Finds the shortest path to a tile
     ## @param aTile The tile to reach
     ## @return None
@@ -293,6 +305,22 @@ class Player:
             self.right()
         for i in range(myNbOfForward):
             self.forward()
+
+    ## @brief Finds the best tile to go to
+    ## @param aTile The tile to reach
+    ## @return The tile with most ressources useful to level up
+    def findBestTile(self):
+        myTilesToGo = []
+        myNbRessources = 0
+        mytile = 0
+        for i in range(len(self._lookTiles)):
+            for j in range(len(self._lookTiles[i])):
+                if (self._lookTiles[i][j] > myLevelCondition[self._functionIndex][j]):
+                    myNbRessources += 1
+            myTilesToGo.append(myNbRessources)
+            myNbRessources = 0
+        myTile = myTilesToGo.index(max(myTilesToGo))
+        return (myTile)
 
     ## @brief Finds the tile with most ressources
     ## @param aRessource The return of a look() parsed command
@@ -319,7 +347,7 @@ class Player:
         for i in range(1, len(aTile)):
             for j in range(aTile[i]):
                 self.take(myListObject[i])
-    
+
     ## @brief Set the ressources on the tile for the incantation
     ## @return None
     def setElevationRessources(self):
@@ -359,7 +387,7 @@ class Player:
                 self._inventory[idx] = int(myInventory[1])
                 idx+=1
             return (self._inventory)
-    
+
     ## @brief Receive broadcast message
     ## @return The broadcast message
     def parseReceiveBroadcast(self):
@@ -419,7 +447,7 @@ class Player:
     def goToLevel2(self):
         print(self.parseReceiveBroadcast())
         self.parseLook(self.look())
-        myTile = self.findRessource()
+        myTile = self.findBestTile()
         self.goTo(myTile)
         self.takeAll(self._lookTiles[myTile])
         self.parseInventory(self.inventory())
@@ -501,7 +529,7 @@ class Player:
                     self.left()
                 else:
                     self.right()
-    
+
     ## @brief Try to evolve to level 4
     ## @return None
     def goToLevel4(self):
@@ -646,7 +674,7 @@ class Player:
                     self.left()
                 else:
                     self.right()
-    
+
     ## @brief Try to evolve to level 6
     ## @return None
     def goToLevel6(self):
@@ -713,14 +741,6 @@ class Player:
                 else:
                     self.right()
                 self.fork()
-            else:
-                self.broadcast("done")
-                self._parsedMessage = "done"
-                if (random.randint(0, 1) == 1):
-                    self.left()
-                else:
-                    self.right()
-                
     
     ## @brief Try to evolve to level 7
     ## @return None
@@ -795,7 +815,7 @@ class Player:
                     self.left()
                 else:
                     self.right()
-    
+
     ## @brief Try to evolve to level 8
     ## @return None
     def goToLevel8(self):

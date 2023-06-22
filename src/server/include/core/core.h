@@ -8,7 +8,6 @@
 #ifndef ZAPPY_SERVER_CORE_H
     #define ZAPPY_SERVER_CORE_H
 
-    #define _GNU_SOURCE
     #define SUCCESS_STATUS 0
     #define ERROR_STATUS 84
 
@@ -114,99 +113,6 @@
     } instruction_t;
 
     /**
-<<<<<<<< HEAD:src/server/include/core.h
-    * @brief Init the data structure that includes all the data needed for
-    * the server
-    * @return The data structure
-    */
-    data_t *init_server_data(int ac, char **av);
-
-    /**
-    * @brief Free the data structure once the server is closed
-    * @param data The data structure to free
-    */
-    void free_server_data(data_t *data);
-
-    /**
-    * @brief Parse the arguments passed to the server
-    * @param data The data structure to set
-    * @param ac The number of arguments
-    * @param av The arguments
-    * @return Status of the parsing
-    */
-    int parse_data_options(data_t *data, int ac, char **av);
-
-    /**
-    * @brief Print the help message
-    * @param data To follow the option pattern
-    * @param value To follow the option pattern
-    * @return Status of the printing
-    */
-    int print_help(data_t *data, char *value);
-
-    /**
-    * @brief Set the data structure with the arguments passed to the server
-    * @param data The data structure to set
-    * @param value The value to set
-    * @return Status of the parsing
-    */
-    int set_port(data_t *data, char *value);
-
-    /**
-    * @brief Set the data structure with the arguments passed to the server
-    * @param data The data structure to set
-    * @param value The value to set
-    * @return Status of the parsing
-    */
-    int set_map_width(data_t *data, char *value);
-
-    /**
-    * @brief Set the data structure with the arguments passed to the server
-    * @param data The data structure to set
-    * @param value The value to set
-    * @return Status of the parsing
-    */
-    int set_map_height(data_t *data, char *value);
-
-    /**
-    * @brief Set the data structure with the arguments passed to the server
-    * @param data The data structure to set
-    * @param value The value to set
-    * @return Status of the parsing
-    */
-    int set_team_names(data_t *data, char *value);
-
-    /**
-    * @brief Set the data structure with the arguments passed to the server
-    * @param data The data structure to set
-    * @param value The value to set
-    * @return Status of the parsing
-    */
-    int set_cli_per_team(data_t *data, char *value);
-
-    /**
-    * @brief Set the data structure with the arguments passed to the server
-    * @param data The data structure to set
-    * @param value The value to set
-    * @return Status of the parsing
-    */
-    int set_freq(data_t *data, char *value);
-
-    /**
-     * @brief Set the ip of the server
-     * @param data The data structure to set
-     * @param value The value to set
-     * @return Status of the parsing
-     */
-    int set_ip(data_t *data, char *value);
-
-    /**
-    * @brief Free the data structure once the server is closed
-    * @param data The data structure to free
-    */
-    void free_data(data_t *data);
-
-    /**
     * @brief Launch the server
     * @param data_t *data
     * @return Status of the server
@@ -227,7 +133,6 @@
     * @param map_height The height of the map
     */
     void init_player(client_t **client, const char *team_name, map_t *map);
-
     /**
     * @brief Close a client
     * @param client The client to close
