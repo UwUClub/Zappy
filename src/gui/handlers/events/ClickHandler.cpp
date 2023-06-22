@@ -8,11 +8,11 @@
 #include "ClickHandler.hpp"
 #include <OgreScriptCompiler.h>
 #include <iostream>
-#include <memory>
 #include <vector>
 #include "App.hpp"
 #include "Button.hpp"
 #include "Constexpr.hpp"
+#include "Inventory.hpp"
 
 namespace Zappy::GUI {
     ClickHandler::ClickHandler(Ogre::SceneNode *aCameraNode, Ogre::RenderWindow *aRenderWindow,
@@ -21,7 +21,9 @@ namespace Zappy::GUI {
           _cameraNode(aCameraNode),
           _renderWindow(aRenderWindow),
           _sceneManager(aSceneManager),
-          _buttons(aApp.getButtons())
+          _buttons(aApp.getButtons()),
+          _selectedNode(nullptr),
+          _app(aApp)
     {}
 
     ClickHandler::~ClickHandler() = default;
@@ -36,10 +38,40 @@ namespace Zappy::GUI {
             }
 
             auto *myNode = getNodeUnderMouse(Ogre::Vector2(static_cast<float>(aEvt.x), static_cast<float>(aEvt.y)));
-            if (myNode != nullptr) {
-                // display inventory
-                myNode->showBoundingBox(!myNode->getShowBoundingBox());
+            if (myNode == nullptr) {
+                auto *myOverlayInventory = Ogre::OverlayManager::getSingleton().getByName(INVENTORY_OVERLAY);
+                _buttons.back()->setDisplayed(false);
+                myOverlayInventory->hide();
+                if (_selectedNode != nullptr)
+                    _selectedNode->showBoundingBox(false);
+                return true;
             }
+            if (myNode->getName().find("Player_") != std::string::npos) {
+                myNode->showBoundingBox(true);
+                if (_selectedNode != nullptr && _selectedNode != myNode)
+                    _selectedNode->showBoundingBox(false);
+                _selectedNode = myNode;
+                int myId = Inventory::parsePlayer(myNode->getName());
+                _app.getInventory()->displayPlayerInventory(myId, _app);
+                _buttons.back()->setDisplayed(true);
+                return true;
+            }
+            if (myNode->getName().find(' ') != std::string::npos) {
+                myNode->showBoundingBox(true);
+                if (_selectedNode != nullptr && _selectedNode != myNode)
+                    _selectedNode->showBoundingBox(false);
+                _selectedNode = myNode;
+                auto myPos = Inventory::parseTile(myNode->getName());
+                _app.getInventory()->displayTilesInventory(myPos, _app);
+                _buttons.back()->setDisplayed(false);
+                return true;
+            }
+            auto *myOverlayInventory = Ogre::OverlayManager::getSingleton().getByName(INVENTORY_OVERLAY);
+            _buttons.back()->setDisplayed(false);
+            myOverlayInventory->hide();
+            if (_selectedNode != nullptr)
+                _selectedNode->showBoundingBox(false);
+            _selectedNode = myNode;
             return true;
         }
         return true;

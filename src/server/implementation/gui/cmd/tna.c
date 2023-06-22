@@ -5,7 +5,6 @@
 ** tna
 */
 
-#include <stdio.h>
 #include "implementation.h"
 #include "utils.h"
 
@@ -14,7 +13,7 @@ int do_tna(data_t *data, char **args)
     char *result = NULL;
 
     if (args)
-        return 1;
+        return ERROR_STATUS;
     for (int i = 0; data->teams[i]; i++) {
         result = strdup("tna ");
         result = concat_str(result, data->teams[i]->name);
@@ -23,5 +22,5 @@ int do_tna(data_t *data, char **args)
         free(result);
         result = NULL;
     }
-    return 0;
+    return SUCCESS_STATUS;
 }

@@ -13,21 +13,18 @@
 const constexpr int MAP_OFFSET = 5;
 const constexpr int BASE_ANGLE = 45;
 const constexpr int PLAYER_Y_POS = 3;
-const constexpr int INVENTORY_SIZE = 7;
 const constexpr int EGG_Y_POS = 1;
 const constexpr int EGG_OFFSET_POS = 1;
 const constexpr int MY_TIME_INTERVAL = 10;
-const constexpr int CHAR_HEIGHT = 30;
+const constexpr int CHAR_HEIGHT = 50;
 const constexpr int OFFSET_OVERLAY_TIME_X = 50;
-const constexpr int OFFSET_OVERLAY_BUTTON_1_TIME_Y = 50;
-const constexpr int DIMENSION_OVERLAY_BUTTON_1_TIME_X = 170;
-const constexpr int DIMENSION_OVERLAY_BUTTON_1_TIME_Y = 35;
+const constexpr int OFFSET_OVERLAY_BUTTON_1_TIME_Y = 0;
 const constexpr int OFFSET_OVERLAY_BUTTON_2_TIME_Y = 100;
-const constexpr int DIMENSION_OVERLAY_BUTTON_2_TIME_X = 170;
-const constexpr int DIMENSION_OVERLAY_BUTTON_2_TIME_Y = 35;
-const constexpr int OFFSET_OVERLAY_DISPLAY_TIME_Y = 160;
-const constexpr int DIMENSION_OVERLAY_DISPLAY_TIME_X = 300;
-const constexpr int DIMENSION_OVERLAY_DISPLAY_TIME_Y = 35;
+const constexpr int OFFSET_OVERLAY_DISPLAY_TIME_Y = 200;
+const constexpr int DIMENSION_OVERLAY_DISPLAY_TIME_X = 500;
+const constexpr int DIMENSION_OVERLAY_DISPLAY_TIME_Y = 100;
+const constexpr int OFFSET_OVERLAY_BUTTON_TIME_X = 125;
+const constexpr int OFFSET_OVERLAY_BUTTON_TIME_Y = 40;
 
 //---------------------------------String Constexpr
 const constexpr std::string CAMERA_NAME = "ZappyCamera";
@@ -38,6 +35,7 @@ const constexpr std::string BUTTON_OVERLAY = "ButtonOverlay";
 const constexpr std::string HELP_CONTROLS_OVERLAY = "HelpContOverlay";
 const constexpr std::string HELP_CONTROLS_OVERLAY_PREFIX = "Help";
 const constexpr std::string FONT_NAME = "BttfFont";
+const constexpr std::string INVENTORY_OVERLAY = "InventoryOver";
 const constexpr std::string FONT_NAME_SRC = "BTTF.ttf";
 const constexpr std::string TILE_MODEL_NAME = "Rock.mesh";
 const constexpr std::string PLAYER_MODEL_NAME = "Sinbad.mesh";

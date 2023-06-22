@@ -9,7 +9,8 @@ The zappy project is a compilation of 3 different projects, a server, a client a
 - [Installation](#installation)
 - [Compilation](#compilation)
 - [Usage](#usage)
-- [Controls](#controls)
+- [GUI Controls](#gui-controls)
+- [Protocols](#protocols)
 - [More Details](#more-details)
 - [Testing](#testing)
 - [Credits](#credits)
@@ -76,10 +77,16 @@ make -j
 ```bash
 ./zappy_ai -p <port> -n <team> -h <hostname>
 ```
-
 If everything is working, you should see a window with a map and maybe more.
+- Start a netcat client
+```bash
+nc <ip> <port>
+```
+You should receive a "WELCOME" message. If you want to connect as a GUI, You are invited to enter ``GRAPHICAL``. Otherwise, please enter the team name of your AI. Then, you can use the adapted protocol.
 
-## Controls
+By default, the local ip is ``127.0.0.1`` and the port is ``4242``. The default team names are ``Team1``, ``Team2``, ``Team3`` and ``Team4``.
+
+## GUI Controls
 
 - Move the camera by pressing right click and moving the mouse.
 - Zoom in and out with the mouse wheel.
@@ -88,6 +95,18 @@ If everything is working, you should see a window with a map and maybe more.
 
 - Press left click on a tile or player to select it.
 - Press the escape key to quit the game.
+
+## Protocols
+
+### GUI protocol
+
+The GUI protocol can be found in the gui_protocol.pdf file at the root of this repository.
+
+### AI protocol
+
+![Foo](https://media.discordapp.net/attachments/514127963604647947/1121337146901528648/Capture_decran_2023-06-22_a_09.12.27.png)
+
+In case of bad or unknown command, the server will answer "ko"
 
 ## More Details
 

@@ -13,11 +13,11 @@
 #include <OGRE/Overlay/OgreTextAreaOverlayElement.h>
 #include <OgreEntity.h>
 #include <OgreOverlay.h>
-#include <OgrePrerequisites.h>
 #include <OgreSceneManager.h>
 #include <OgreSceneNode.h>
 #include <algorithm>
 #include <iostream>
+#include "AnimationHandler.hpp"
 #include "App.hpp"
 #include "CameraHandler.hpp"
 #include "ClickHandler.hpp"
@@ -96,13 +96,15 @@ namespace Zappy::GUI {
         return {nullptr, nullptr};
     }
 
-    void SceneBuilder::buildConnectedPlayersAndEggs(Ogre::SceneManager *aSceneManager, const ServerData &aServerData)
+    void SceneBuilder::buildConnectedPlayersAndEggs(
+        Ogre::SceneManager *aSceneManager, const ServerData &aServerData,
+        std::unordered_map<Ogre::Entity *, std::unique_ptr<AnimationHandler>> &aAnimatedEntities)
     {
         auto myPlayerData = aServerData._players;
         auto myEggData = aServerData._eggs;
 
         for (const auto &myPlayer : myPlayerData) {
-            SceneBuilder::createPlayer(aSceneManager, myPlayer);
+            SceneBuilder::createPlayer(aSceneManager, myPlayer, aAnimatedEntities);
         }
         for (const auto &myEgg : myEggData) {
             SceneBuilder::createEgg(aSceneManager, myEgg);
@@ -128,7 +130,9 @@ namespace Zappy::GUI {
         }
     }
 
-    void SceneBuilder::createPlayer(Ogre::SceneManager *aSceneManager, const PlayerData &aPlayerData)
+    void
+    SceneBuilder::createPlayer(Ogre::SceneManager *aSceneManager, const PlayerData &aPlayerData,
+                               std::unordered_map<Ogre::Entity *, std::unique_ptr<AnimationHandler>> &aAnimatedEntities)
     {
         static const constexpr Ogre::Real myScale = 0.5F;
         const std::string myPlayerName = PLAYER_PREFIX_NAME + aPlayerData.getId();
@@ -141,6 +145,7 @@ namespace Zappy::GUI {
             myNode->setScale(myScale, myScale, myScale);
 
             SceneBuilder::setPlayerPosAndOrientation(aSceneManager, aPlayerData);
+            aAnimatedEntities[myEntity] = std::make_unique<AnimationHandler>(myEntity);
         } catch (Ogre::Exception &e) {
             std::cerr << e.what() << std::endl;
         }
@@ -170,15 +175,30 @@ namespace Zappy::GUI {
 
     void SceneBuilder::createText(const std::string &aOverlayName, const std::string &aText, const std::string &aPrefix,
                                   const Ogre::Vector2 &aPosition, const Ogre::Vector2 &aDimension,
-                                  const std::string &aMaterialName, const std::string &aGroupName)
+                                  const std::string &aMaterialName, const std::string &aGroupName,
+                                  const Ogre::Vector2 &offset)
     {
-        Ogre::OverlayManager &overlayManager = Ogre::OverlayManager::getSingleton();
-        Ogre::Overlay *myOverlay = overlayManager.getByName(aOverlayName);
+        Ogre::OverlayManager &myOverlayManager = Ogre::OverlayManager::getSingleton();
+        Ogre::Overlay *myOverlay = myOverlayManager.getByName(aOverlayName);
 
-        auto *myContainer =
-            static_cast<Ogre::OverlayContainer *>(overlayManager.createOverlayElement("Panel", aPrefix + "_Panel"));
-        auto *myTextArea = static_cast<Ogre::TextAreaOverlayElement *>(
-            overlayManager.createOverlayElement("TextArea", aPrefix + "_Text"));
+        Ogre::OverlayContainer *myContainer = nullptr;
+
+        if (myOverlayManager.hasOverlayElement(aPrefix + "_Panel")) {
+            myContainer = static_cast<Ogre::OverlayContainer *>(myOverlayManager.getOverlayElement(aPrefix + "_Panel"));
+        } else {
+            myContainer = static_cast<Ogre::OverlayContainer *>(
+                myOverlayManager.createOverlayElement("Panel", aPrefix + "_Panel"));
+        }
+        Ogre::TextAreaOverlayElement *myTextArea = nullptr;
+
+        if (myOverlayManager.hasOverlayElement(aPrefix + "_Text")) {
+            myTextArea =
+                static_cast<Ogre::TextAreaOverlayElement *>(myOverlayManager.getOverlayElement(aPrefix + "_Text"));
+        } else {
+            myTextArea = static_cast<Ogre::TextAreaOverlayElement *>(
+                myOverlayManager.createOverlayElement("TextArea", aPrefix + "_Text"));
+            myContainer->addChild(myTextArea);
+        }
         Ogre::FontPtr myFont = Ogre::FontManager::getSingleton().getByName(FONT_NAME, RESSOURCE_GROUP_NAME);
 
         myContainer->setMetricsMode(Ogre::GMM_PIXELS);
@@ -187,14 +207,12 @@ namespace Zappy::GUI {
         myContainer->setDimensions(aDimension.x, aDimension.y);
 
         myTextArea->setMetricsMode(Ogre::GMM_PIXELS);
-        myTextArea->setPosition(10, 10);
+        myTextArea->setPosition(offset.x, offset.y);
         myTextArea->setCaption(aText);
         myTextArea->setCharHeight(CHAR_HEIGHT);
         myTextArea->setFontName(FONT_NAME, RESSOURCE_GROUP_NAME);
         myTextArea->setColourTop(Ogre::ColourValue(1, 1, 0));
         myTextArea->setColourBottom(Ogre::ColourValue(0, 0, 0));
-
-        myContainer->addChild(myTextArea);
 
         myOverlay->add2D(myContainer);
         myOverlay->show();
@@ -215,4 +233,16 @@ namespace Zappy::GUI {
             Ogre::Quaternion(Ogre::Degree(myOrientationMap.at(aPlayer.getOrientation())), Ogre::Vector3::UNIT_Y));
     }
 
+    void SceneBuilder::setPlayerOrientation(Ogre::SceneManager *aSceneManager, const PlayerData &aPlayer)
+    {
+        const auto &myPlayerId = PLAYER_PREFIX_NAME + aPlayer.getId();
+        static const std::unordered_map<Orientation, Ogre::Real> myOrientationMap = {{Orientation::NORTH, 180},
+                                                                                     {Orientation::EAST, 90},
+                                                                                     {Orientation::SOUTH, 0},
+                                                                                     {Orientation::WEST, 270}};
+        Ogre::SceneNode *myNode = aSceneManager->getSceneNode(myPlayerId);
+
+        myNode->setOrientation(
+            Ogre::Quaternion(Ogre::Degree(myOrientationMap.at(aPlayer.getOrientation())), Ogre::Vector3::UNIT_Y));
+    }
 } // namespace Zappy::GUI

@@ -5,9 +5,8 @@
 ** sgt
 */
 
-#include <stdio.h>
+#define _GNU_SOURCE
 #include "implementation.h"
-#include "utils.h"
 
 void do_sgt_to_all_gui(data_t *data)
 {
@@ -23,9 +22,9 @@ int do_sgt(data_t *data, char **args)
     char *result = NULL;
 
     if (args)
-        return 1;
+        return ERROR_STATUS;
     asprintf(&result, "sgt %d\n", data->freq);
     send_to_client(data->clients, data->curr_cli_index, result);
     free(result);
-    return 0;
+    return SUCCESS_STATUS;
 }

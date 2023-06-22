@@ -35,6 +35,7 @@ namespace Zappy::GUI {
         private:
             std::pair<int, int> _position;
             std::string _teamName;
+            int _food;
             int _id;
     };
 } // namespace Zappy::GUI
