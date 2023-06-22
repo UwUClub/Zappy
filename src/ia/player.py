@@ -1,4 +1,4 @@
-from connection import Connection
+from .connection import Connection
 import time
 import random
 
@@ -25,6 +25,7 @@ class Player:
         self._direction = -1
         self._parsedMessage = ""
         self._nbFunctInList = 0
+        self._id = random.randint(8, 9999)
 
     ## @brief Connect to the server
     ## @param info The connection information
@@ -71,18 +72,6 @@ class Player:
             self._lastReceivedMessage = message
             self.parseReceiveBroadcast()
             return self.receive()
-        return message
-
-    ## @brief Receive data from the server
-    ## @return The data received
-    def receive2(self):
-        message = self._socket.receive()
-        if (message == "dead\n"):
-            print("Dead")
-            self.disconnect()
-            exit(0)
-        if (message[0:7] == "message"):
-            self._lastReceivedMessage = message
         return message
 
     ## @brief Disconnect from the server
@@ -306,22 +295,6 @@ class Player:
         for i in range(myNbOfForward):
             self.forward()
 
-    ## @brief Finds the best tile to go to
-    ## @param aTile The tile to reach
-    ## @return The tile with most ressources useful to level up
-    def findBestTile(self):
-        myTilesToGo = []
-        myNbRessources = 0
-        mytile = 0
-        for i in range(len(self._lookTiles)):
-            for j in range(len(self._lookTiles[i])):
-                if (self._lookTiles[i][j] > myLevelCondition[self._functionIndex][j]):
-                    myNbRessources += 1
-            myTilesToGo.append(myNbRessources)
-            myNbRessources = 0
-        myTile = myTilesToGo.index(max(myTilesToGo))
-        return (myTile)
-
     ## @brief Finds the tile with most ressources
     ## @param aRessource The return of a look() parsed command
     ## @return The tile with most ressources
@@ -447,7 +420,7 @@ class Player:
     def goToLevel2(self):
         print(self.parseReceiveBroadcast())
         self.parseLook(self.look())
-        myTile = self.findBestTile()
+        myTile = self.findRessource()
         self.goTo(myTile)
         self.takeAll(self._lookTiles[myTile])
         self.parseInventory(self.inventory())
@@ -632,7 +605,7 @@ class Player:
         myMateId = []
         if (self.verifyIncantation() and (self._parsedMessage == "" or self._parsedMessage == "done")):
             mySelfTile = ""
-            while (len(myMateId) < 3):
+            while (len(myMateId) < 4):
                 self.broadcast("regroup 4")
                 if (self._parsedMessage[8:] not in myMateId):
                     myMateId.append(self._parsedMessage[8:])
@@ -706,7 +679,7 @@ class Player:
         myMateId = []
         if (self.verifyIncantation() and (self._parsedMessage == "" or self._parsedMessage == "done")):
             mySelfTile = ""
-            while (len(myMateId) < 3):
+            while (len(myMateId) < 4):
                 self.broadcast("regroup 5")
                 if (self._parsedMessage[8:] not in myMateId):
                     myMateId.append(self._parsedMessage[8:])
@@ -773,7 +746,7 @@ class Player:
         myMateId = []
         if (self.verifyIncantation() and (self._parsedMessage == "" or self._parsedMessage == "done")):
             mySelfTile = ""
-            while (len(myMateId) < 5):
+            while (len(myMateId) < 6):
                 self.broadcast("regroup 6")
                 if (self._parsedMessage[8:] not in myMateId):
                     myMateId.append(self._parsedMessage[8:])
@@ -847,7 +820,7 @@ class Player:
         myMateId = []
         if (self.verifyIncantation() and (self._parsedMessage == "" or self._parsedMessage == "done")):
             mySelfTile = ""
-            while (len(myMateId) < 5):
+            while (len(myMateId) < 6):
                 self.broadcast("regroup 7")
                 if (self._parsedMessage[8:] not in myMateId):
                     myMateId.append(self._parsedMessage[8:])
