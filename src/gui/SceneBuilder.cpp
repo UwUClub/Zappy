@@ -17,11 +17,13 @@
 #include <OgreSceneNode.h>
 #include <algorithm>
 #include <iostream>
+#include <memory>
 #include "AnimationHandler.hpp"
 #include "App.hpp"
 #include "CameraHandler.hpp"
 #include "ClickHandler.hpp"
 #include "Constexpr.hpp"
+#include "MovementHandler.hpp"
 #include "OGRE/OgreRenderWindow.h"
 #include "PlayerData.hpp"
 #include "ServerData.hpp"
@@ -98,13 +100,15 @@ namespace Zappy::GUI {
 
     void SceneBuilder::buildConnectedPlayersAndEggs(
         Ogre::SceneManager *aSceneManager, const ServerData &aServerData,
-        std::unordered_map<Ogre::Entity *, std::unique_ptr<AnimationHandler>> &aAnimatedEntities)
+        std::unordered_map<Ogre::Entity *, std::unique_ptr<AnimationHandler>> &aAnimatedEntities,
+        std::unordered_map<Ogre::Entity *, std::unique_ptr<MovementHandler>> &aMovingEntities)
     {
         auto myPlayerData = aServerData._players;
         auto myEggData = aServerData._eggs;
 
         for (const auto &myPlayer : myPlayerData) {
-            SceneBuilder::createPlayer(aSceneManager, myPlayer, aAnimatedEntities);
+            SceneBuilder::createPlayer(aSceneManager, myPlayer, aAnimatedEntities, aMovingEntities,
+                                       aServerData._mapSize);
         }
         for (const auto &myEgg : myEggData) {
             SceneBuilder::createEgg(aSceneManager, myEgg);
@@ -132,7 +136,9 @@ namespace Zappy::GUI {
 
     void
     SceneBuilder::createPlayer(Ogre::SceneManager *aSceneManager, const PlayerData &aPlayerData,
-                               std::unordered_map<Ogre::Entity *, std::unique_ptr<AnimationHandler>> &aAnimatedEntities)
+                               std::unordered_map<Ogre::Entity *, std::unique_ptr<AnimationHandler>> &aAnimatedEntities,
+                               std::unordered_map<Ogre::Entity *, std::unique_ptr<MovementHandler>> &aMovingEntities,
+                               const std::pair<int, int> &aMapSize)
     {
         static const constexpr Ogre::Real myScale = 0.5F;
         const std::string myPlayerName = PLAYER_PREFIX_NAME + aPlayerData.getId();
@@ -146,6 +152,7 @@ namespace Zappy::GUI {
 
             SceneBuilder::setPlayerPosAndOrientation(aSceneManager, aPlayerData);
             aAnimatedEntities[myEntity] = std::make_unique<AnimationHandler>(myEntity);
+            aMovingEntities[myEntity] = std::make_unique<MovementHandler>(myEntity, aMapSize);
         } catch (Ogre::Exception &e) {
             std::cerr << e.what() << std::endl;
         }
