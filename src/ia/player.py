@@ -339,25 +339,26 @@ class Player:
     ## @return the inventory
     def parseInventory(self, aInventory : str):
         idx = 0
-        myInventory = aInventory.split(",")
-        for x in myInventory:
-            x = str(x)
-            if x.find('[') != -1:
-                x = x.replace("[", "")
-            if x.find(']') != -1:
-                x = x.replace("]", "")
-            if x.find('\n') != -1:
-                x = x.replace("\n", "")
-            if x == '':
-                continue
-            myInventory = x.split(" ")
-            for y in myInventory:
-                y = str(y)
-                if y == '':
-                    myInventory.remove(y)
-            self._inventory[idx] = int(myInventory[1])
-            idx+=1
-        return (self._inventory)
+        if (aInventory != None):
+            myInventory = aInventory.split(",")
+            for x in myInventory:
+                x = str(x)
+                if x.find('[') != -1:
+                    x = x.replace("[", "")
+                if x.find(']') != -1:
+                    x = x.replace("]", "")
+                if x.find('\n') != -1:
+                    x = x.replace("\n", "")
+                if x == '':
+                    continue
+                myInventory = x.split(" ")
+                for y in myInventory:
+                    y = str(y)
+                    if y == '':
+                        myInventory.remove(y)
+                self._inventory[idx] = int(myInventory[1])
+                idx+=1
+            return (self._inventory)
     
     ## @brief Receive broadcast message
     ## @return The broadcast message
@@ -467,15 +468,21 @@ class Player:
                 self.parseInventory(self.inventory())
                 print ("MateId:", myMateId)
                 if (self._inventory[0] < 6):
+                    self.broadcast("done")
+                    self._parsedMessage = "done"
                     return
                 if (myMateId != ""):
                    if ((int(myMateId) > 1 and int(myMateId) < 8)):
+                        self.broadcast("done")
+                        self._parsedMessage = "done"
                         return
             while mySelfTile != myLevelCondition[self._functionIndex][0] or self._parsedMessage != "found":
                 mySelfTile = self.parseLook(self.look())[0][0]
                 self.broadcast("regroup "+myMateId)
                 self.parseInventory(self.inventory())
                 if (self._inventory[0] < 6):
+                    self.broadcast("done")
+                    self._parsedMessage = "done"
                     return
             self.setElevationRessources()
             if (self.incantation()):
@@ -532,15 +539,21 @@ class Player:
                 self.parseInventory(self.inventory())
                 print ("MateId:", myMateId)
                 if (self._inventory[0] < 6):
+                    self.broadcast("done")
+                    self._parsedMessage = "done"
                     return
                 if (myMateId != ""):
                    if ((int(myMateId) > 1 and int(myMateId) < 8)):
+                        self.broadcast("done")
+                        self._parsedMessage = "done"
                         return
             while mySelfTile != myLevelCondition[self._functionIndex][0] or self._parsedMessage != "found":
                 mySelfTile = self.parseLook(self.look())[0][0]
                 self.broadcast("regroup "+myMateId)
                 self.parseInventory(self.inventory())
                 if (self._inventory[0] < 6):
+                    self.broadcast("done")
+                    self._parsedMessage = "done"
                     return
             self.setElevationRessources()
             if (self.incantation()):
@@ -598,10 +611,14 @@ class Player:
                 self.parseInventory(self.inventory())
                 print ("MateId:", myMateId)
                 if (self._inventory[0] < 6):
+                    self.broadcast("done")
+                    self._parsedMessage = "done"
                     return
                 for i in range(len(myMateId)):
-                    if (myMateId != ['']):
+                    if (myMateId[i] != ''):
                         if ((int(myMateId[i]) > 1 and int(myMateId[i]) < 8)):
+                            self.broadcast("done")
+                            self._parsedMessage = "done"
                             return
             while mySelfTile != myLevelCondition[self._functionIndex][0] or self._parsedMessage != "found":
                 mySelfTile = self.parseLook(self.look())[0][0]
@@ -609,6 +626,8 @@ class Player:
                     self.broadcast("regroup "+myMateId[i])
                 self.parseInventory(self.inventory())
                 if (self._inventory[0] < 6):
+                    self.broadcast("done")
+                    self._parsedMessage = "done"
                     return
             self.setElevationRessources()
             if (self.incantation()):
@@ -666,10 +685,14 @@ class Player:
                 self.parseInventory(self.inventory())
                 print ("MateId:", myMateId)
                 if (self._inventory[0] < 6):
+                    self.broadcast("done")
+                    self._parsedMessage = "done"
                     return
                 for i in range(len(myMateId)):
-                    if (myMateId != ['']):
+                    if (myMateId [i] != ''):
                         if ((int(myMateId[i]) > 1 and int(myMateId[i]) < 8)):
+                            self.broadcast("done")
+                            self._parsedMessage = "done"
                             return
             while mySelfTile != myLevelCondition[self._functionIndex][0] or self._parsedMessage != "found":
                 mySelfTile = self.parseLook(self.look())[0][0]
@@ -677,6 +700,8 @@ class Player:
                     self.broadcast("regroup "+myMateId[i])
                 self.parseInventory(self.inventory())
                 if (self._inventory[0] < 6):
+                    self.broadcast("done")
+                    self._parsedMessage = "done"
                     return
             self.setElevationRessources()
             if (self.incantation()):
@@ -735,10 +760,14 @@ class Player:
                 self.parseInventory(self.inventory())
                 print ("MateId:", myMateId)
                 if (self._inventory[0] < 6):
+                    self.broadcast("done")
+                    self._parsedMessage = "done"
                     return
                 for i in range(len(myMateId)):
-                    if (myMateId != ['']):
+                    if (myMateId[i] != ''):
                         if ((int(myMateId[i]) > 1 and int(myMateId[i]) < 8)):
+                            self.broadcast("done")
+                            self._parsedMessage = "done"
                             return
             while mySelfTile != myLevelCondition[self._functionIndex][0] or self._parsedMessage != "found":
                 mySelfTile = self.parseLook(self.look())[0][0]
@@ -746,6 +775,8 @@ class Player:
                     self.broadcast("regroup "+myMateId[i])
                 self.parseInventory(self.inventory())
                 if (self._inventory[0] < 6):
+                    self.broadcast("done")
+                    self._parsedMessage = "done"
                     return
             self.setElevationRessources()
             if (self.incantation()):
@@ -803,10 +834,14 @@ class Player:
                 self.parseInventory(self.inventory())
                 print ("MateId:", myMateId)
                 if (self._inventory[0] < 6):
+                    self.broadcast("done")
+                    self._parsedMessage = "done"
                     return
                 for i in range(len(myMateId)):
-                    if (myMateId != ['']):
+                    if (myMateId[i] != ''):
                         if ((int(myMateId[i]) > 1 and int(myMateId[i]) < 8)):
+                            self.broadcast("done")
+                            self._parsedMessage = "done"
                             return
             while mySelfTile != myLevelCondition[self._functionIndex][0] or self._parsedMessage != "found":
                 mySelfTile = self.parseLook(self.look())[0][0]
@@ -814,6 +849,8 @@ class Player:
                     self.broadcast("regroup "+myMateId[i])
                 self.parseInventory(self.inventory())
                 if (self._inventory[0] < 6):
+                    self.broadcast("done")
+                    self._parsedMessage = "done"
                     return
             self.setElevationRessources()
             if (self.incantation()):
