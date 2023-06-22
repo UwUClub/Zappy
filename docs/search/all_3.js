@@ -11,7 +11,7 @@ var searchData=
   ['connection_20',['Connection',['../classia_1_1connection_1_1Connection.html',1,'ia::connection']]],
   ['connectnbr_21',['connectNbr',['../classia_1_1player_1_1Player.html#aeb2374a9b1f953d0fe4acb9bd41ce820',1,'ia::player::Player']]],
   ['createegg_22',['createEgg',['../classZappy_1_1GUI_1_1SceneBuilder.html#ac9d96c85f912c3d1baa065717b52af0b',1,'Zappy::GUI::SceneBuilder']]],
-  ['createplayer_23',['createPlayer',['../classZappy_1_1GUI_1_1SceneBuilder.html#a2db460000441889edd7f3c57bf799eb2',1,'Zappy::GUI::SceneBuilder']]],
+  ['createplayer_23',['createPlayer',['../classZappy_1_1GUI_1_1SceneBuilder.html#a3abe7f17abdca67072d7d5e7d1d4d1ab',1,'Zappy::GUI::SceneBuilder']]],
   ['createtext_24',['createText',['../classZappy_1_1GUI_1_1SceneBuilder.html#aa76acdda0a5aac6a1a936497d56557fd',1,'Zappy::GUI::SceneBuilder']]],
   ['createtile_25',['createTile',['../classZappy_1_1GUI_1_1SceneBuilder.html#ae2bb2f5647049f2af4e067d02fd8f037',1,'Zappy::GUI::SceneBuilder']]],
   ['cryptmessage_26',['cryptMessage',['../classia_1_1player_1_1Player.html#a0b2cdbc0bd37633ec18f81f4c8499ccd',1,'ia::player::Player']]]

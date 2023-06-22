@@ -33,11 +33,11 @@ static Ogre\+::\+Vector3f \mbox{\hyperlink{classZappy_1_1GUI_1_1SceneBuilder_a94
 \begin{DoxyCompactList}\small\item\em Build the map into the scene. \end{DoxyCompactList}\item 
 static camera\+Return \mbox{\hyperlink{classZappy_1_1GUI_1_1SceneBuilder_ae808769ae9313a686e95d112aad57f49}{build\+Camera}} (Ogre\+::\+Scene\+Manager $\ast$a\+Scene\+Manager, const Ogre\+::\+Vector3 \&a\+Center, Ogre\+::\+Render\+Window $\ast$a\+Render\+Window, \mbox{\hyperlink{classZappy_1_1GUI_1_1App}{App}} \&a\+App)
 \begin{DoxyCompactList}\small\item\em Build the camera into the scene. \end{DoxyCompactList}\item 
-static void \mbox{\hyperlink{classZappy_1_1GUI_1_1SceneBuilder_af1edd69bf768943bd74f2d9b56af38e2}{build\+Connected\+Players\+And\+Eggs}} (Ogre\+::\+Scene\+Manager $\ast$a\+Scene\+Manager, const \mbox{\hyperlink{structZappy_1_1GUI_1_1ServerData}{Server\+Data}} \&a\+Server\+Data, std\+::unordered\+\_\+map$<$ Ogre\+::\+Entity $\ast$, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classZappy_1_1GUI_1_1AnimationHandler}{Animation\+Handler}} $>$$>$ \&a\+Animated\+Entities)
+static void \mbox{\hyperlink{classZappy_1_1GUI_1_1SceneBuilder_abda7bf575fe3e7d596acb82e235bce75}{build\+Connected\+Players\+And\+Eggs}} (Ogre\+::\+Scene\+Manager $\ast$a\+Scene\+Manager, const \mbox{\hyperlink{structZappy_1_1GUI_1_1ServerData}{Server\+Data}} \&a\+Server\+Data, std\+::unordered\+\_\+map$<$ Ogre\+::\+Entity $\ast$, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classZappy_1_1GUI_1_1AnimationHandler}{Animation\+Handler}} $>$$>$ \&a\+Animated\+Entities, std\+::unordered\+\_\+map$<$ Ogre\+::\+Entity $\ast$, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classZappy_1_1GUI_1_1MovementHandler}{Movement\+Handler}} $>$$>$ \&a\+Moving\+Entities)
 \begin{DoxyCompactList}\small\item\em Build the players and the eggs that are already on the map. \end{DoxyCompactList}\item 
 static void \mbox{\hyperlink{classZappy_1_1GUI_1_1SceneBuilder_ae2bb2f5647049f2af4e067d02fd8f037}{create\+Tile}} (Ogre\+::\+Scene\+Manager $\ast$a\+Scene\+Manager, const Ogre\+::\+Vector2 \&a\+Position, const std\+::string \&a\+Name)
 \begin{DoxyCompactList}\small\item\em Create a Tile object. \end{DoxyCompactList}\item 
-static void \mbox{\hyperlink{classZappy_1_1GUI_1_1SceneBuilder_a2db460000441889edd7f3c57bf799eb2}{create\+Player}} (Ogre\+::\+Scene\+Manager $\ast$a\+Scene\+Manager, const \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData}{Player\+Data}} \&a\+Player\+Data, std\+::unordered\+\_\+map$<$ Ogre\+::\+Entity $\ast$, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classZappy_1_1GUI_1_1AnimationHandler}{Animation\+Handler}} $>$$>$ \&a\+Animated\+Entities)
+static void \mbox{\hyperlink{classZappy_1_1GUI_1_1SceneBuilder_a3abe7f17abdca67072d7d5e7d1d4d1ab}{create\+Player}} (Ogre\+::\+Scene\+Manager $\ast$a\+Scene\+Manager, const \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData}{Player\+Data}} \&a\+Player\+Data, std\+::unordered\+\_\+map$<$ Ogre\+::\+Entity $\ast$, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classZappy_1_1GUI_1_1AnimationHandler}{Animation\+Handler}} $>$$>$ \&a\+Animated\+Entities, std\+::unordered\+\_\+map$<$ Ogre\+::\+Entity $\ast$, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classZappy_1_1GUI_1_1MovementHandler}{Movement\+Handler}} $>$$>$ \&a\+Moving\+Entities, const std\+::pair$<$ int, int $>$ \&a\+Map\+Size)
 \begin{DoxyCompactList}\small\item\em Create a Player object. \end{DoxyCompactList}\item 
 static void \mbox{\hyperlink{classZappy_1_1GUI_1_1SceneBuilder_ac9d96c85f912c3d1baa065717b52af0b}{create\+Egg}} (Ogre\+::\+Scene\+Manager $\ast$a\+Scene\+Manager, const \mbox{\hyperlink{classZappy_1_1GUI_1_1EggData}{Egg\+Data}} \&a\+Egg\+Data)
 \begin{DoxyCompactList}\small\item\em Create a Egg object. \end{DoxyCompactList}\item 
@@ -79,11 +79,11 @@ Build the camera into the scene.
 \begin{DoxyReturn}{Returns}
 camera\+Return The camera handler and the click handler 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classZappy_1_1GUI_1_1SceneBuilder_af1edd69bf768943bd74f2d9b56af38e2}\label{classZappy_1_1GUI_1_1SceneBuilder_af1edd69bf768943bd74f2d9b56af38e2}} 
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1SceneBuilder_abda7bf575fe3e7d596acb82e235bce75}\label{classZappy_1_1GUI_1_1SceneBuilder_abda7bf575fe3e7d596acb82e235bce75}} 
 \index{Zappy::GUI::SceneBuilder@{Zappy::GUI::SceneBuilder}!buildConnectedPlayersAndEggs@{buildConnectedPlayersAndEggs}}
 \index{buildConnectedPlayersAndEggs@{buildConnectedPlayersAndEggs}!Zappy::GUI::SceneBuilder@{Zappy::GUI::SceneBuilder}}
 \doxysubsubsection{\texorpdfstring{buildConnectedPlayersAndEggs()}{buildConnectedPlayersAndEggs()}}
-{\footnotesize\ttfamily void Zappy\+::\+GUI\+::\+Scene\+Builder\+::build\+Connected\+Players\+And\+Eggs (\begin{DoxyParamCaption}\item[{Ogre\+::\+Scene\+Manager $\ast$}]{a\+Scene\+Manager,  }\item[{const \mbox{\hyperlink{structZappy_1_1GUI_1_1ServerData}{Server\+Data}} \&}]{a\+Server\+Data,  }\item[{std\+::unordered\+\_\+map$<$ Ogre\+::\+Entity $\ast$, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classZappy_1_1GUI_1_1AnimationHandler}{Animation\+Handler}} $>$$>$ \&}]{a\+Animated\+Entities }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily void Zappy\+::\+GUI\+::\+Scene\+Builder\+::build\+Connected\+Players\+And\+Eggs (\begin{DoxyParamCaption}\item[{Ogre\+::\+Scene\+Manager $\ast$}]{a\+Scene\+Manager,  }\item[{const \mbox{\hyperlink{structZappy_1_1GUI_1_1ServerData}{Server\+Data}} \&}]{a\+Server\+Data,  }\item[{std\+::unordered\+\_\+map$<$ Ogre\+::\+Entity $\ast$, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classZappy_1_1GUI_1_1AnimationHandler}{Animation\+Handler}} $>$$>$ \&}]{a\+Animated\+Entities,  }\item[{std\+::unordered\+\_\+map$<$ Ogre\+::\+Entity $\ast$, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classZappy_1_1GUI_1_1MovementHandler}{Movement\+Handler}} $>$$>$ \&}]{a\+Moving\+Entities }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
@@ -152,11 +152,11 @@ Create a Egg object.
 {\em a\+Egg\+Data} & The egg data representing the egg to create \\
 \hline
 \end{DoxyParams}
-\mbox{\Hypertarget{classZappy_1_1GUI_1_1SceneBuilder_a2db460000441889edd7f3c57bf799eb2}\label{classZappy_1_1GUI_1_1SceneBuilder_a2db460000441889edd7f3c57bf799eb2}} 
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1SceneBuilder_a3abe7f17abdca67072d7d5e7d1d4d1ab}\label{classZappy_1_1GUI_1_1SceneBuilder_a3abe7f17abdca67072d7d5e7d1d4d1ab}} 
 \index{Zappy::GUI::SceneBuilder@{Zappy::GUI::SceneBuilder}!createPlayer@{createPlayer}}
 \index{createPlayer@{createPlayer}!Zappy::GUI::SceneBuilder@{Zappy::GUI::SceneBuilder}}
 \doxysubsubsection{\texorpdfstring{createPlayer()}{createPlayer()}}
-{\footnotesize\ttfamily void Zappy\+::\+GUI\+::\+Scene\+Builder\+::create\+Player (\begin{DoxyParamCaption}\item[{Ogre\+::\+Scene\+Manager $\ast$}]{a\+Scene\+Manager,  }\item[{const \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData}{Player\+Data}} \&}]{a\+Player\+Data,  }\item[{std\+::unordered\+\_\+map$<$ Ogre\+::\+Entity $\ast$, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classZappy_1_1GUI_1_1AnimationHandler}{Animation\+Handler}} $>$$>$ \&}]{a\+Animated\+Entities }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+{\footnotesize\ttfamily void Zappy\+::\+GUI\+::\+Scene\+Builder\+::create\+Player (\begin{DoxyParamCaption}\item[{Ogre\+::\+Scene\+Manager $\ast$}]{a\+Scene\+Manager,  }\item[{const \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData}{Player\+Data}} \&}]{a\+Player\+Data,  }\item[{std\+::unordered\+\_\+map$<$ Ogre\+::\+Entity $\ast$, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classZappy_1_1GUI_1_1AnimationHandler}{Animation\+Handler}} $>$$>$ \&}]{a\+Animated\+Entities,  }\item[{std\+::unordered\+\_\+map$<$ Ogre\+::\+Entity $\ast$, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classZappy_1_1GUI_1_1MovementHandler}{Movement\+Handler}} $>$$>$ \&}]{a\+Moving\+Entities,  }\item[{const std\+::pair$<$ int, int $>$ \&}]{a\+Map\+Size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 

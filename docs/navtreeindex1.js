@@ -1,7 +1,5 @@
 var NAVTREEINDEX1 =
 {
-"structZappy_1_1GUI_1_1ServerData.html":[0,0,1,0,8],
-"structZappy_1_1GUI_1_1ServerData.html#a12f3ffd9d4dfd2fd3cdc5ebec164bbf1":[0,0,1,0,8,5],
 "structZappy_1_1GUI_1_1ServerData.html#a25594e7aa8c04c3fa262bcaee7bd12a8":[0,0,1,0,8,0],
 "structZappy_1_1GUI_1_1ServerData.html#a2f0dea19135451f0e2a1da4695e943e1":[0,0,1,0,8,3],
 "structZappy_1_1GUI_1_1ServerData.html#a30259d1446ae4490e6771c6343e7d92f":[0,0,1,0,8,1],
