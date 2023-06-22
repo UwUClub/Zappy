@@ -305,7 +305,7 @@ class Player:
             myNb = 0
             for j in range(1, len(self._lookTiles[i])):
                 myNb += self._lookTiles[i][j]
-            if (myNb > myNbMax):
+            if (myNb > myNbMax and self._lookTiles[i][0] == 0):
                 myNbMax = myNb
                 myTile = i
         if (myNbMax == 0):
@@ -439,7 +439,7 @@ class Player:
         self.goTo(myTile)
         self.takeAll(self._lookTiles[myTile])
         self.parseInventory(self.inventory())
-        if ((self._parsedMessage == "regroup 2" or self._parsedMessage == "regroup "+str(self._id)) and self._inventory[0] > 10):
+        if ((self._parsedMessage == "regroup 2" or self._parsedMessage == "regroup "+str(self._id)) and self._inventory[0] > 15):
             self.broadcast("regroup "+str(self._id))
             myTimeOut = 0
             while (self.findPlayer() == False):
@@ -463,12 +463,14 @@ class Player:
         myMateId = ""
         if (self.verifyIncantation() and (self._parsedMessage == "" or self._parsedMessage == "done")):
             mySelfTile = ""
+            myTimeOut = 0
             while (myMateId == ""):
                 self.broadcast("regroup 2")
                 myMateId = self._parsedMessage[8:]
                 self.parseInventory(self.inventory())
                 print ("MateId:", myMateId)
-                if (self._inventory[0] < 6):
+                myTimeOut += 1
+                if (self._inventory[0] < 6 or myTimeOut > 40):
                     self.broadcast("done")
                     self._parsedMessage = "done"
                     return
@@ -477,11 +479,13 @@ class Player:
                         self.broadcast("done")
                         self._parsedMessage = "done"
                         return
+            myTimeOut = 0
             while mySelfTile != myLevelCondition[self._functionIndex][0] or self._parsedMessage != "found":
                 mySelfTile = self.parseLook(self.look())[0][0]
                 self.broadcast("regroup "+myMateId)
                 self.parseInventory(self.inventory())
-                if (self._inventory[0] < 6):
+                myTimeOut += 1
+                if (self._inventory[0] < 6 or myTimeOut > 40):
                     self.broadcast("done")
                     self._parsedMessage = "done"
                     return
@@ -511,7 +515,7 @@ class Player:
         self.goTo(myTile)
         self.takeAll(self._lookTiles[myTile])
         self.parseInventory(self.inventory())
-        if ((self._parsedMessage == "regroup 3" or self._parsedMessage == "regroup "+str(self._id)) and self._inventory[0] > 10):
+        if ((self._parsedMessage == "regroup 3" or self._parsedMessage == "regroup "+str(self._id)) and self._inventory[0] > 15):
             self.broadcast("regroup "+str(self._id))
             myTimeOut = 0
             while (self.findPlayer() == False):
@@ -534,12 +538,14 @@ class Player:
         myMateId = ""
         if (self.verifyIncantation() and (self._parsedMessage == "" or self._parsedMessage == "done")):
             mySelfTile = ""
+            myTimeOut = 0
             while (myMateId == ""):
                 self.broadcast("regroup 3")
                 myMateId = self._parsedMessage[8:]
                 self.parseInventory(self.inventory())
                 print ("MateId:", myMateId)
-                if (self._inventory[0] < 6):
+                myTimeOut += 1
+                if (self._inventory[0] < 6 or myTimeOut > 40):
                     self.broadcast("done")
                     self._parsedMessage = "done"
                     return
@@ -548,11 +554,13 @@ class Player:
                         self.broadcast("done")
                         self._parsedMessage = "done"
                         return
+            myTimeOut = 0
             while mySelfTile != myLevelCondition[self._functionIndex][0] or self._parsedMessage != "found":
                 mySelfTile = self.parseLook(self.look())[0][0]
                 self.broadcast("regroup "+myMateId)
                 self.parseInventory(self.inventory())
-                if (self._inventory[0] < 6):
+                myTimeOut += 1
+                if (self._inventory[0] < 6 or myTimeOut > 40):
                     self.broadcast("done")
                     self._parsedMessage = "done"
                     return
@@ -605,13 +613,15 @@ class Player:
         myMateId = []
         if (self.verifyIncantation() and (self._parsedMessage == "" or self._parsedMessage == "done")):
             mySelfTile = ""
+            myTimeOut = 0
             while (len(myMateId) < 4):
                 self.broadcast("regroup 4")
                 if (self._parsedMessage[8:] not in myMateId):
                     myMateId.append(self._parsedMessage[8:])
                 self.parseInventory(self.inventory())
                 print ("MateId:", myMateId)
-                if (self._inventory[0] < 6):
+                myTimeOut += 1
+                if (self._inventory[0] < 6 or myTimeOut > 40):
                     self.broadcast("done")
                     self._parsedMessage = "done"
                     return
@@ -621,12 +631,14 @@ class Player:
                             self.broadcast("done")
                             self._parsedMessage = "done"
                             return
+            myTimeOut = 0
             while mySelfTile != myLevelCondition[self._functionIndex][0] or self._parsedMessage != "found":
                 mySelfTile = self.parseLook(self.look())[0][0]
                 for i in range (len(myMateId)):
                     self.broadcast("regroup "+myMateId[i])
                 self.parseInventory(self.inventory())
-                if (self._inventory[0] < 6):
+                myTimeOut += 1
+                if (self._inventory[0] < 6 or myTimeOut > 40):
                     self.broadcast("done")
                     self._parsedMessage = "done"
                     return
@@ -679,13 +691,15 @@ class Player:
         myMateId = []
         if (self.verifyIncantation() and (self._parsedMessage == "" or self._parsedMessage == "done")):
             mySelfTile = ""
+            myTimeOut = 0
             while (len(myMateId) < 4):
                 self.broadcast("regroup 5")
                 if (self._parsedMessage[8:] not in myMateId):
                     myMateId.append(self._parsedMessage[8:])
                 self.parseInventory(self.inventory())
                 print ("MateId:", myMateId)
-                if (self._inventory[0] < 6):
+                myTimeOut += 1
+                if (self._inventory[0] < 6 or myTimeOut > 40):
                     self.broadcast("done")
                     self._parsedMessage = "done"
                     return
@@ -695,12 +709,14 @@ class Player:
                             self.broadcast("done")
                             self._parsedMessage = "done"
                             return
+            myTimeOut = 0
             while mySelfTile != myLevelCondition[self._functionIndex][0] or self._parsedMessage != "found":
                 mySelfTile = self.parseLook(self.look())[0][0]
                 for i in range (len(myMateId)):
                     self.broadcast("regroup "+myMateId[i])
                 self.parseInventory(self.inventory())
-                if (self._inventory[0] < 6):
+                myTimeOut += 1
+                if (self._inventory[0] < 6 or myTimeOut > 40):
                     self.broadcast("done")
                     self._parsedMessage = "done"
                     return
@@ -746,13 +762,15 @@ class Player:
         myMateId = []
         if (self.verifyIncantation() and (self._parsedMessage == "" or self._parsedMessage == "done")):
             mySelfTile = ""
+            myTimeOut = 0
             while (len(myMateId) < 6):
                 self.broadcast("regroup 6")
                 if (self._parsedMessage[8:] not in myMateId):
                     myMateId.append(self._parsedMessage[8:])
                 self.parseInventory(self.inventory())
                 print ("MateId:", myMateId)
-                if (self._inventory[0] < 6):
+                myTimeOut += 1
+                if (self._inventory[0] < 6 or myTimeOut > 40):
                     self.broadcast("done")
                     self._parsedMessage = "done"
                     return
@@ -762,12 +780,14 @@ class Player:
                             self.broadcast("done")
                             self._parsedMessage = "done"
                             return
+            myTimeOut = 0
             while mySelfTile != myLevelCondition[self._functionIndex][0] or self._parsedMessage != "found":
                 mySelfTile = self.parseLook(self.look())[0][0]
                 for i in range (len(myMateId)):
                     self.broadcast("regroup "+myMateId[i])
                 self.parseInventory(self.inventory())
-                if (self._inventory[0] < 6):
+                myTimeOut += 1
+                if (self._inventory[0] < 6 or myTimeOut > 40):
                     self.broadcast("done")
                     self._parsedMessage = "done"
                     return
@@ -820,13 +840,15 @@ class Player:
         myMateId = []
         if (self.verifyIncantation() and (self._parsedMessage == "" or self._parsedMessage == "done")):
             mySelfTile = ""
+            myTimeOut = 0
             while (len(myMateId) < 6):
                 self.broadcast("regroup 7")
                 if (self._parsedMessage[8:] not in myMateId):
                     myMateId.append(self._parsedMessage[8:])
                 self.parseInventory(self.inventory())
                 print ("MateId:", myMateId)
-                if (self._inventory[0] < 6):
+                myTimeOut += 1
+                if (self._inventory[0] < 6 or myTimeOut > 40):
                     self.broadcast("done")
                     self._parsedMessage = "done"
                     return
@@ -836,12 +858,14 @@ class Player:
                             self.broadcast("done")
                             self._parsedMessage = "done"
                             return
+            myTimeOut = 0
             while mySelfTile != myLevelCondition[self._functionIndex][0] or self._parsedMessage != "found":
                 mySelfTile = self.parseLook(self.look())[0][0]
                 for i in range (len(myMateId)):
                     self.broadcast("regroup "+myMateId[i])
                 self.parseInventory(self.inventory())
-                if (self._inventory[0] < 6):
+                myTimeOut += 1
+                if (self._inventory[0] < 6 or myTimeOut > 40):
                     self.broadcast("done")
                     self._parsedMessage = "done"
                     return
