@@ -30,6 +30,7 @@ static int take(data_t *data, char **args)
             return SUCCESS_STATUS;
         }
     }
+    send_to_client(data->clients, data->curr_cli_index, "ko\n");
     return ERROR_STATUS;
 }
 

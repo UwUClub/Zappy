@@ -78,6 +78,7 @@ namespace Zappy::GUI {
 
     App::~App()
     {
+        Ogre::ResourceGroupManager::getSingleton().unloadResourceGroup(RESSOURCE_GROUP_NAME);
         this->closeApp();
         this->askDisconnection();
     }

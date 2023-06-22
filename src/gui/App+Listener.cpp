@@ -138,9 +138,13 @@ namespace Zappy::GUI {
 
         myStream >> myX >> myY >> myLevel;
         while (myStream >> myIndex) {
-            auto *myPlayer = myScnMgr->getEntity(PLAYER_PREFIX_NAME + myIndex);
-
-            _animatedEntities[myPlayer]->playAnimation("Dance");
+            try {
+                auto *myPlayer = myScnMgr->getEntity(PLAYER_PREFIX_NAME + myIndex);
+                _animatedEntities[myPlayer]->playAnimation("Dance");
+            } catch (const std::exception &e) {
+                std::cerr << e.what() << std::endl;
+                continue;
+            }
         }
     }
 
@@ -156,9 +160,13 @@ namespace Zappy::GUI {
             if (myPlayerData.getPosition().first != myX && myPlayerData.getPosition().second != myY) {
                 continue;
             }
-            auto *myPlayer = myScnMgr->getEntity(PLAYER_PREFIX_NAME + myPlayerData.getId());
-
-            _animatedEntities[myPlayer]->removeAnimation("Dance");
+            try {
+                auto *myPlayer = myScnMgr->getEntity(PLAYER_PREFIX_NAME + myPlayerData.getId());
+                _animatedEntities[myPlayer]->removeAnimation("Dance");
+            } catch (const std::exception &e) {
+                std::cerr << e.what() << std::endl;
+                continue;
+            }
         }
     }
 
@@ -171,9 +179,13 @@ namespace Zappy::GUI {
 
         myStream >> myId;
 
-        auto *myPlayer = myScnMgr->getEntity(PLAYER_PREFIX_NAME + myId);
-
-        _animatedEntities[myPlayer]->playAnimation("SliceVertical", false);
+        try {
+            auto *myPlayer = myScnMgr->getEntity(PLAYER_PREFIX_NAME + myId);
+            _animatedEntities[myPlayer]->playAnimation("SliceVertical", false);
+        } catch (const std::exception &e) {
+            std::cerr << e.what() << std::endl;
+            return;
+        }
     }
 
     void App::playerExpulsion(const std::string &aNotification)
@@ -185,23 +197,12 @@ namespace Zappy::GUI {
 
         myStream >> myId;
 
-        auto *myPlayer = myScnMgr->getEntity(PLAYER_PREFIX_NAME + myId);
-
-        _animatedEntities[myPlayer]->playAnimation("SliceHorizontal", false);
-    }
-
-    void App::collectedRessources(const std::string &aNotification)
-    {
-        std::istringstream myStream(aNotification);
-
-        auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
-
-        std::string myId;
-
-        myStream >> myId;
-
-        auto *myPlayer = myScnMgr->getEntity(PLAYER_PREFIX_NAME + myId);
-
-        _animatedEntities[myPlayer]->playAnimation("JumpEnd", false);
+        try {
+            auto *myPlayer = myScnMgr->getEntity(PLAYER_PREFIX_NAME + myId);
+            _animatedEntities[myPlayer]->playAnimation("SliceHorizontal", false);
+        } catch (const std::exception &e) {
+            std::cerr << e.what() << std::endl;
+            return;
+        }
     }
 } // namespace Zappy::GUI

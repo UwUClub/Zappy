@@ -44,7 +44,7 @@ static void look_front_tiles(int x, int y, data_t *data, char **look)
     for (int i = 1; i <=
         data->clients[data->curr_cli_index]->player->level; i++) {
         x_tile = player_x + (x * i) + (i * y);
-        y_tile = player_y + (y * i) + (i * x);
+        y_tile = player_y + (y * i) + (i * x * (-1));
         for (int j = 0; j < i * 2 + 1; j++) {
             x_tile = calc_outbound(x_tile, data->map->width);
             y_tile = calc_outbound(y_tile, data->map->height);
@@ -71,7 +71,7 @@ static int look(data_t *data, char **args)
         look_front_tiles(1, 0, data, &look);
     if (data->clients[data->curr_cli_index]->player->orientation == WEST)
         look_front_tiles(-1, 0, data, &look);
-    strcat(look, "]\n\0");
+    strcat(look, " ]\n\0");
     send_to_client(data->clients, data->curr_cli_index, look);
     free(look);
     return SUCCESS_STATUS;

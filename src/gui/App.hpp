@@ -212,13 +212,6 @@ namespace Zappy::GUI {
             void droppedRessources(const std::string &aNotification);
 
             /**
-             * @brief Triggered when the player collects ressources
-             *
-             * @param aNotification the notification
-             */
-            void collectedRessources(const std::string &aNotification);
-
-            /**
              * @brief Triggered when a player is ejecting another player
              *
              * @param aNotification  the notification
@@ -258,7 +251,6 @@ namespace Zappy::GUI {
                     {"edi", &App::removeEgg},           {"ebo", &App::removeEgg},
                     {"pic", &App::startedIncantation},  {"pie", &App::stoppedIncantation},
                     {"pex", &App::playerExpulsion},     {"pdr", &App::droppedRessources},
-                    {"pgt", &App::collectedRessources},
                 };
     };
 } // namespace Zappy::GUI
