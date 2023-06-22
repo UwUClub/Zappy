@@ -10,6 +10,7 @@
 
 #include <OGRE/Ogre.h>
 #include <OgrePrerequisites.h>
+#include <utility>
 
 namespace Ogre {
     class SceneManager;
@@ -23,6 +24,7 @@ namespace Zappy::GUI {
     class CameraHandler;
     class ClickHandler;
     class AnimationHandler;
+    class MovementHandler;
     class App;
 
     using cameraReturn = std::pair<CameraHandler *, ClickHandler *>;
@@ -80,7 +82,8 @@ namespace Zappy::GUI {
              */
             static void buildConnectedPlayersAndEggs(
                 Ogre::SceneManager *aSceneManager, const ServerData &aServerData,
-                std::unordered_map<Ogre::Entity *, std::unique_ptr<AnimationHandler>> &aAnimatedEntities);
+                std::unordered_map<Ogre::Entity *, std::unique_ptr<AnimationHandler>> &aAnimatedEntities,
+                std::unordered_map<Ogre::Entity *, std::unique_ptr<MovementHandler>> &aMovingEntities);
 
             /**
              * @brief Create a Tile object
@@ -101,7 +104,9 @@ namespace Zappy::GUI {
              */
             static void
             createPlayer(Ogre::SceneManager *aSceneManager, const PlayerData &aPlayerData,
-                         std::unordered_map<Ogre::Entity *, std::unique_ptr<AnimationHandler>> &aAnimatedEntities);
+                         std::unordered_map<Ogre::Entity *, std::unique_ptr<AnimationHandler>> &aAnimatedEntities,
+                         std::unordered_map<Ogre::Entity *, std::unique_ptr<MovementHandler>> &aMovingEntities,
+                         const std::pair<int, int> &aMapSize);
 
             /**
              * @brief Create a Egg object
