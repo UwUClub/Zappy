@@ -5,7 +5,6 @@
 ** plv
 */
 
-#define _GNU_SOURCE
 #include "implementation.h"
 #include "utils.h"
 

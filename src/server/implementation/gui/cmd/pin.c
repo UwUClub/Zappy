@@ -5,7 +5,6 @@
 ** pin
 */
 
-#define _GNU_SOURCE
 #include "implementation.h"
 #include "utils.h"
 #include "ranges.h"

@@ -11,7 +11,7 @@
     #define NB_RESOURCES 7
     #define SPAWN_INTERVAL 20
     #define FOOD_START 10
-    #define DIGESTION_TIME 12600
+    #define DIGESTION_TIME 126
 
     typedef enum resource_e {
         FOOD,
