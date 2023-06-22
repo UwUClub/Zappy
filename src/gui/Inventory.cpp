@@ -51,7 +51,8 @@ namespace Zappy::GUI {
             + "\nThystame: " + std::to_string(myInventory._thystame);
 
         SceneBuilder::createText(INVENTORY_OVERLAY, InventoryOverlay, "Inventory", Ogre::Vector2(1400, 20),
-                                 Ogre::Vector2(500, 300), "Inventory.png", RESSOURCE_GROUP_NAME, Ogre::Vector2(45, 15));
+                                 Ogre::Vector2(400, 500), "Inventory.png", RESSOURCE_GROUP_NAME,
+                                 Ogre::Vector2(30, 100));
     }
 
     void Inventory::displayTilesInventory(std::pair<int, int> aPos, App &aApp)
