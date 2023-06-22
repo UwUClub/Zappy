@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['map_5fs_36',['map_s',['../structmap__s.html',1,'']]],
-  ['msz_37',['msz',['../classplayer_1_1Player.html#a74a28098b83c846cef3f0821b1ac8fc3',1,'player::Player']]]
+  ['joingame_74',['joinGame',['../classZappy_1_1GUI_1_1ClientApi.html#a0a57ee6141abd42008ad46b8850df9cd',1,'Zappy::GUI::ClientApi']]]
 ];

@@ -95,49 +95,138 @@ $(document).ready(function(){initNavTree('App_8hpp_source.html',''); initResizab
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#ifndef APP_HPP_</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#define APP_HPP_</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;OGRE/Bites/OgreApplicationContext.h&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;OgreRoot.h&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;CameraHandler.hpp&quot;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;ClickHandler.hpp&quot;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &quot;ClientApi.hpp&quot;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &quot;FrameHandler.hpp&quot;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &quot;InputHandler.hpp&quot;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &quot;ServerData.hpp&quot;</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &quot;Subscriber.hpp&quot;</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">namespace </span>Zappy::GUI {</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classZappy_1_1GUI_1_1App.html">   23</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classZappy_1_1GUI_1_1App.html">App</a> final : <span class="keyword">public</span> OgreBites::ApplicationContext, <span class="keyword">public</span> <a class="code" href="classZappy_1_1GUI_1_1Subscriber.html">Subscriber</a></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;            <span class="keyword">explicit</span> <a class="code" href="classZappy_1_1GUI_1_1App.html">App</a>(<a class="code" href="classZappy_1_1GUI_1_1ClientApi.html">Zappy::GUI::ClientApi</a> &amp;client, <span class="keyword">const</span> std::string &amp;aWindowName = <span class="stringliteral">&quot;UwU Zappy UwU&quot;</span>);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;            ~<a class="code" href="classZappy_1_1GUI_1_1App.html">App</a>() <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            <a class="code" href="classZappy_1_1GUI_1_1App.html">App</a>(<span class="keyword">const</span> <a class="code" href="classZappy_1_1GUI_1_1App.html">App</a> &amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            <a class="code" href="classZappy_1_1GUI_1_1App.html">App</a> &amp;operator=(<span class="keyword">const</span> <a class="code" href="classZappy_1_1GUI_1_1App.html">App</a> &amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            <a class="code" href="classZappy_1_1GUI_1_1App.html">App</a>(<a class="code" href="classZappy_1_1GUI_1_1App.html">App</a> &amp;&amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            <a class="code" href="classZappy_1_1GUI_1_1App.html">App</a> &amp;operator=(<a class="code" href="classZappy_1_1GUI_1_1App.html">App</a> &amp;&amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            <span class="keywordtype">void</span> getNotified(std::string &amp;aNotification) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            <span class="keywordtype">void</span> setupLight(Ogre::SceneManager *aSceneManager);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            <span class="keywordtype">void</span> setupCamera(Ogre::SceneManager *aSceneManager, Ogre::Vector3 &amp;aCenter);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            <span class="keywordtype">void</span> addPlayer(<a class="code" href="classZappy_1_1GUI_1_1PlayerData.html">PlayerData</a> &amp;aPlayer, Ogre::SceneManager *aSceneManager);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            <span class="keywordtype">void</span> removePlayer(<span class="keywordtype">int</span> aIndex, Ogre::SceneManager *aSceneManager);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            Ogre::Vector3f setupMap(Ogre::SceneManager *aSceneManager);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            <a class="code" href="classZappy_1_1GUI_1_1ClientApi.html">Zappy::GUI::ClientApi</a> &amp;_client;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            std::unique_ptr&lt;CameraHandler&gt; _cameraHandler;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            std::unique_ptr&lt;FrameHandler&gt; _frameHandler;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            std::unique_ptr&lt;ClickHandler&gt; _clickHandler;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    };</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;} <span class="comment">// namespace Zappy::GUI</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* !APP_HPP_ */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="aclassZappy_1_1GUI_1_1App_html"><div class="ttname"><a href="classZappy_1_1GUI_1_1App.html">Zappy::GUI::App</a></div><div class="ttdef"><b>Definition:</b> App.hpp:24</div></div>
-<div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_html"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi.html">Zappy::GUI::ClientApi</a></div><div class="ttdef"><b>Definition:</b> ClientApi.hpp:14</div></div>
-<div class="ttc" id="aclassZappy_1_1GUI_1_1PlayerData_html"><div class="ttname"><a href="classZappy_1_1GUI_1_1PlayerData.html">Zappy::GUI::PlayerData</a></div><div class="ttdef"><b>Definition:</b> PlayerData.hpp:23</div></div>
-<div class="ttc" id="aclassZappy_1_1GUI_1_1Subscriber_html"><div class="ttname"><a href="classZappy_1_1GUI_1_1Subscriber.html">Zappy::GUI::Subscriber</a></div><div class="ttdef"><b>Definition:</b> Subscriber.hpp:14</div></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;OgreEntity.h&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;OgreRoot.h&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;OgreSceneManager.h&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &quot;Constexpr.hpp&quot;</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &quot;Observer.hpp&quot;</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">namespace </span>Zappy::GUI {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">class </span>Mediator;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">class </span>CameraHandler;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">class </span>ClickHandler;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">class </span>Button;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">class </span>PlayerData;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">class </span>Inventory;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">struct </span>ServerData;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">class </span>AnimationHandler;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">class </span>MovementHandler;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="classZappy_1_1GUI_1_1App.html">   38</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classZappy_1_1GUI_1_1App.html">App</a> final : <span class="keyword">public</span> OgreBites::ApplicationContext, <span class="keyword">public</span> <a class="code" href="classZappy_1_1GUI_1_1Observer.html">Observer</a></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            <span class="keyword">explicit</span> <a class="code" href="classZappy_1_1GUI_1_1App.html#a95bcd111cf055f03ac7387583948d825">App</a>(<a class="code" href="classZappy_1_1GUI_1_1Mediator.html">Mediator</a> &amp;aMediator, <a class="code" href="structZappy_1_1GUI_1_1ServerData.html">ServerData</a> &amp;aServerData, <span class="keyword">const</span> std::string &amp;aWindowName = WINDOW_NAME);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            ~<a class="code" href="classZappy_1_1GUI_1_1App.html">App</a>() <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            <a class="code" href="classZappy_1_1GUI_1_1App.html#a95bcd111cf055f03ac7387583948d825">App</a>(<span class="keyword">const</span> <a class="code" href="classZappy_1_1GUI_1_1App.html">App</a> &amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            <a class="code" href="classZappy_1_1GUI_1_1App.html">App</a> &amp;operator=(<span class="keyword">const</span> <a class="code" href="classZappy_1_1GUI_1_1App.html">App</a> &amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            <a class="code" href="classZappy_1_1GUI_1_1App.html#a95bcd111cf055f03ac7387583948d825">App</a>(<a class="code" href="classZappy_1_1GUI_1_1App.html">App</a> &amp;&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <a class="code" href="classZappy_1_1GUI_1_1App.html">App</a> &amp;operator=(<a class="code" href="classZappy_1_1GUI_1_1App.html">App</a> &amp;&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classZappy_1_1GUI_1_1App.html#a482c55125071d5fe3f88aadb347b462e">getNotified</a>(<span class="keyword">const</span> std::string &amp;aNotification) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classZappy_1_1GUI_1_1App.html#a449e621c59421112f151d95cf98e0d04">windowClosed</a>(Ogre::RenderWindow *aRw) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classZappy_1_1GUI_1_1App.html#a5e3e0440cf74d5912219ef1b444e99b7">askDisconnection</a>();</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            [[nodiscard]] <span class="keyword">const</span> <a class="code" href="structZappy_1_1GUI_1_1ServerData.html">ServerData</a> &amp;<a class="code" href="classZappy_1_1GUI_1_1App.html#aff3979a71a4d34c2a03752144fe2bd7f">getServerData</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            std::vector&lt;std::unique_ptr&lt;Button&gt;&gt; &amp;<a class="code" href="classZappy_1_1GUI_1_1App.html#aed49b97d26295334f2556dcddedd6c7f">getButtons</a>();</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            [[nodiscard]] std::unique_ptr&lt;Inventory&gt; &amp;<a class="code" href="classZappy_1_1GUI_1_1App.html#a1512f32c6f718e62d6737fc046ffdca5">getInventory</a>();</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            <span class="keywordtype">void</span> createButtons();</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            <span class="keyword">class </span>AppException : <span class="keyword">public</span> std::exception</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            {</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;                    <span class="keyword">explicit</span> AppException(<span class="keyword">const</span> std::string &amp;aMessage)</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;                        : _message(aMessage)</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                    {}</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                    ~AppException() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                    <span class="keyword">const</span> <span class="keywordtype">char</span> *what() <span class="keyword">const</span> noexcept <span class="keyword">override</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                    {</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                        <span class="keywordflow">return</span> _message.c_str();</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                    }</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;                <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;                    std::string _message;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            };</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            <span class="keywordtype">void</span> instantiateApp();</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            <span class="keywordtype">void</span> displayHowToPlayMenu();</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;            <span class="keywordtype">void</span> movePlayer(<span class="keyword">const</span> std::string &amp;aNotification);</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;            <span class="keywordtype">void</span> displayServerMessage(<span class="keyword">const</span> std::string &amp;aNotification);</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;            <span class="keywordtype">void</span> increaseTime();</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;            <span class="keywordtype">void</span> decreaseTime();</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;            <span class="keywordtype">void</span> updateDisplayedTime(<span class="keyword">const</span> std::string &amp;aNotification);</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;            <span class="keywordtype">void</span> addPlayer(<span class="keyword">const</span> std::string &amp;aNotification);</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160; </div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;            <span class="keywordtype">void</span> removePlayer(<span class="keyword">const</span> std::string &amp;aNotification);</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;            <span class="keywordtype">void</span> addEgg(<span class="keyword">const</span> std::string &amp;aNotification);</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160; </div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;            <span class="keywordtype">void</span> removeEgg(<span class="keyword">const</span> std::string &amp;aNotification);</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160; </div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;            <span class="keywordtype">void</span> CreateMaterial(<span class="keyword">const</span> std::string &amp;aPath);</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;            <span class="keywordtype">void</span> startedIncantation(<span class="keyword">const</span> std::string &amp;aNotification);</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;            <span class="keywordtype">void</span> stoppedIncantation(<span class="keyword">const</span> std::string &amp;aNotification);</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160; </div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;            <span class="keywordtype">void</span> droppedRessources(<span class="keyword">const</span> std::string &amp;aNotification);</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160; </div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;            <span class="keywordtype">void</span> playerExpulsion(<span class="keyword">const</span> std::string &amp;aNotification);</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160; </div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;            <span class="keywordtype">bool</span> frameRenderingQueued(<span class="keyword">const</span> Ogre::FrameEvent &amp;aEvent) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160; </div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;            <span class="keywordtype">bool</span> frameEnded(<span class="keyword">const</span> Ogre::FrameEvent &amp;aEvent) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160; </div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;            std::unique_ptr&lt;CameraHandler&gt; _cameraHandler;</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;            std::unique_ptr&lt;ClickHandler&gt; _clickHandler;</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;            std::unordered_map&lt;Ogre::Entity *, std::unique_ptr&lt;AnimationHandler&gt;&gt; _animatedEntities;</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;            std::unordered_map&lt;Ogre::Entity *, std::unique_ptr&lt;MovementHandler&gt;&gt; _moveEntities;</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;            std::vector&lt;std::unique_ptr&lt;Button&gt;&gt; _buttons;</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;            std::unique_ptr&lt;Inventory&gt; _inventory;</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;            std::vector&lt;std::string&gt; _toRemove;</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;            <span class="keyword">const</span> <a class="code" href="structZappy_1_1GUI_1_1ServerData.html">ServerData</a> &amp;_serverData;</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;            <span class="keyword">static</span> <span class="keyword">const</span> <span class="keyword">inline</span> std::unordered_map&lt;std::string, std::function&lt;void(<a class="code" href="classZappy_1_1GUI_1_1App.html">App</a> &amp;, <span class="keyword">const</span> std::string &amp;)&gt;&gt;</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;                _notificationMap = {</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;                    {<span class="stringliteral">&quot;pnw&quot;</span>, &amp;App::addPlayer},           {<span class="stringliteral">&quot;pdi&quot;</span>, &amp;App::removePlayer},</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;                    {<span class="stringliteral">&quot;ppo&quot;</span>, &amp;App::movePlayer},          {<span class="stringliteral">&quot;smg&quot;</span>, &amp;App::displayServerMessage},</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;                    {<span class="stringliteral">&quot;sgt&quot;</span>, &amp;App::updateDisplayedTime}, {<span class="stringliteral">&quot;enw&quot;</span>, &amp;App::addEgg},</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;                    {<span class="stringliteral">&quot;edi&quot;</span>, &amp;App::removeEgg},           {<span class="stringliteral">&quot;ebo&quot;</span>, &amp;App::removeEgg},</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;                    {<span class="stringliteral">&quot;pic&quot;</span>, &amp;App::startedIncantation},  {<span class="stringliteral">&quot;pie&quot;</span>, &amp;App::stoppedIncantation},</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;                    {<span class="stringliteral">&quot;pex&quot;</span>, &amp;App::playerExpulsion},     {<span class="stringliteral">&quot;pdr&quot;</span>, &amp;App::droppedRessources},</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;                };</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    };</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;} <span class="comment">// namespace Zappy::GUI</span></div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160; </div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* !APP_HPP_ */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="aclassZappy_1_1GUI_1_1App_html"><div class="ttname"><a href="classZappy_1_1GUI_1_1App.html">Zappy::GUI::App</a></div><div class="ttdoc">Main class of the GUI.</div><div class="ttdef"><b>Definition:</b> App.hpp:39</div></div>
+<div class="ttc" id="aclassZappy_1_1GUI_1_1App_html_a1512f32c6f718e62d6737fc046ffdca5"><div class="ttname"><a href="classZappy_1_1GUI_1_1App.html#a1512f32c6f718e62d6737fc046ffdca5">Zappy::GUI::App::getInventory</a></div><div class="ttdeci">std::unique_ptr&lt; Inventory &gt; &amp; getInventory()</div><div class="ttdoc">Get the Inventory objectry.</div><div class="ttdef"><b>Definition:</b> App.cpp:208</div></div>
+<div class="ttc" id="aclassZappy_1_1GUI_1_1App_html_a449e621c59421112f151d95cf98e0d04"><div class="ttname"><a href="classZappy_1_1GUI_1_1App.html#a449e621c59421112f151d95cf98e0d04">Zappy::GUI::App::windowClosed</a></div><div class="ttdeci">void windowClosed(Ogre::RenderWindow *aRw) final</div><div class="ttdoc">Overriden method from OgreBites::ApplicationContext.</div><div class="ttdef"><b>Definition:</b> App.cpp:168</div></div>
+<div class="ttc" id="aclassZappy_1_1GUI_1_1App_html_a482c55125071d5fe3f88aadb347b462e"><div class="ttname"><a href="classZappy_1_1GUI_1_1App.html#a482c55125071d5fe3f88aadb347b462e">Zappy::GUI::App::getNotified</a></div><div class="ttdeci">void getNotified(const std::string &amp;aNotification) final</div><div class="ttdoc">Overriden method from Subscriber.</div><div class="ttdef"><b>Definition:</b> App+Listener.cpp:31</div></div>
+<div class="ttc" id="aclassZappy_1_1GUI_1_1App_html_a5e3e0440cf74d5912219ef1b444e99b7"><div class="ttname"><a href="classZappy_1_1GUI_1_1App.html#a5e3e0440cf74d5912219ef1b444e99b7">Zappy::GUI::App::askDisconnection</a></div><div class="ttdeci">void askDisconnection()</div><div class="ttdoc">Ask the client to disconnect.</div><div class="ttdef"><b>Definition:</b> App.cpp:185</div></div>
+<div class="ttc" id="aclassZappy_1_1GUI_1_1App_html_a95bcd111cf055f03ac7387583948d825"><div class="ttname"><a href="classZappy_1_1GUI_1_1App.html#a95bcd111cf055f03ac7387583948d825">Zappy::GUI::App::App</a></div><div class="ttdeci">App(Mediator &amp;aMediator, ServerData &amp;aServerData, const std::string &amp;aWindowName=WINDOW_NAME)</div><div class="ttdoc">Construct a new App object.</div><div class="ttdef"><b>Definition:</b> App.cpp:37</div></div>
+<div class="ttc" id="aclassZappy_1_1GUI_1_1App_html_aed49b97d26295334f2556dcddedd6c7f"><div class="ttname"><a href="classZappy_1_1GUI_1_1App.html#aed49b97d26295334f2556dcddedd6c7f">Zappy::GUI::App::getButtons</a></div><div class="ttdeci">std::vector&lt; std::unique_ptr&lt; Button &gt; &gt; &amp; getButtons()</div><div class="ttdoc">Get the Buttons object.</div><div class="ttdef"><b>Definition:</b> App.cpp:180</div></div>
+<div class="ttc" id="aclassZappy_1_1GUI_1_1App_html_aff3979a71a4d34c2a03752144fe2bd7f"><div class="ttname"><a href="classZappy_1_1GUI_1_1App.html#aff3979a71a4d34c2a03752144fe2bd7f">Zappy::GUI::App::getServerData</a></div><div class="ttdeci">const ServerData &amp; getServerData() const</div><div class="ttdoc">Get the Server Data object.</div><div class="ttdef"><b>Definition:</b> App.cpp:175</div></div>
+<div class="ttc" id="aclassZappy_1_1GUI_1_1Mediator_html"><div class="ttname"><a href="classZappy_1_1GUI_1_1Mediator.html">Zappy::GUI::Mediator</a></div><div class="ttdef"><b>Definition:</b> Mediator.hpp:21</div></div>
+<div class="ttc" id="aclassZappy_1_1GUI_1_1Observer_html"><div class="ttname"><a href="classZappy_1_1GUI_1_1Observer.html">Zappy::GUI::Observer</a></div><div class="ttdoc">Interface for the Observer pattern.</div><div class="ttdef"><b>Definition:</b> Observer.hpp:27</div></div>
+<div class="ttc" id="astructZappy_1_1GUI_1_1ServerData_html"><div class="ttname"><a href="structZappy_1_1GUI_1_1ServerData.html">Zappy::GUI::ServerData</a></div><div class="ttdef"><b>Definition:</b> ServerData.hpp:22</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

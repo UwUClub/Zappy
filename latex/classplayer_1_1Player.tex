@@ -17,14 +17,14 @@ def \mbox{\hyperlink{classplayer_1_1Player_ae072f372f864e7bd630db18f1944005d}{se
 \begin{DoxyCompactList}\small\item\em Send data to the server. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classplayer_1_1Player_a87da183f478b9e127e753a01af5ca3c5}{receive}} (self)
 \begin{DoxyCompactList}\small\item\em Receive data from the server. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classplayer_1_1Player_a3060c9a2351c782814610cfaec37af70}{receive2}} (self)
+\begin{DoxyCompactList}\small\item\em Receive data from the server. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classplayer_1_1Player_aa05db30d8f22d8b878f027d4865a6ebd}{disconnect}} (self)
 \begin{DoxyCompactList}\small\item\em Disconnect from the server. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classplayer_1_1Player_a3b78c6ff0ed1dfc43bc5b801b5f8d84c}{preliminaries}} (self)
 \begin{DoxyCompactList}\small\item\em Send the team name and receive the welcome message. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classplayer_1_1Player_a767204e83e154041b939b9003626e73a}{set\+Team\+Name}} (self, a\+Name)
 \begin{DoxyCompactList}\small\item\em Set the team name. \end{DoxyCompactList}\item 
-def \mbox{\hyperlink{classplayer_1_1Player_a74a28098b83c846cef3f0821b1ac8fc3}{msz}} (self)
-\begin{DoxyCompactList}\small\item\em Get the map size. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classplayer_1_1Player_a15b773bb2e19602fe37acd377834e0b2}{forward}} (self)
 \begin{DoxyCompactList}\small\item\em Send forward command. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classplayer_1_1Player_ae1de0df4dc714f2984abfbc1f5b1c8e7}{left}} (self)
@@ -40,13 +40,70 @@ def \mbox{\hyperlink{classplayer_1_1Player_ade8deb9c70d265fafa94e2b4ba6cc86f}{in
 def \mbox{\hyperlink{classplayer_1_1Player_a5103f7111fd3bd7ba8c4d7d5d66513fd}{connect\+Nbr}} (self)
 \begin{DoxyCompactList}\small\item\em Send Connect\+\_\+nbr command. \end{DoxyCompactList}\item 
 def \mbox{\hyperlink{classplayer_1_1Player_a48ddfdc24df9fc1196657f7c1dde004c}{look}} (self)
-\begin{DoxyCompactList}\small\item\em Send look command and receive the map content. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Send look command and receive the map content. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classplayer_1_1Player_a954619cb340f4207360b61f55cfc79a3}{crypt\+Message}} (self, a\+Message)
+\begin{DoxyCompactList}\small\item\em Crypt the message. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classplayer_1_1Player_a3f7ad54dfa931a13bcf15e54a1e4e776}{decrypt\+Message}} (self, a\+Message)
+\begin{DoxyCompactList}\small\item\em Decrypt the message. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classplayer_1_1Player_a6baedc5ce0b3e4f0863a15f29efb951c}{broadcast}} (self, a\+Message)
+\begin{DoxyCompactList}\small\item\em Send broadcast command. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classplayer_1_1Player_a67fc7aad5d77585769a3694aec94104a}{eject}} (self)
+\begin{DoxyCompactList}\small\item\em Send Eject command. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classplayer_1_1Player_a5b109f3b3f6034200d4e021c96dee2ad}{incantation}} (self)
+\begin{DoxyCompactList}\small\item\em Send Incantation command. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classplayer_1_1Player_a8330114297249b645ac436d6b5702283}{fork}} (self)
+\begin{DoxyCompactList}\small\item\em Send Fork command. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classplayer_1_1Player_ab6ed182bd25e28371021935568bf3a9c}{parse\+Look}} (self, str a\+Look)
+\begin{DoxyCompactList}\small\item\em Parse the look command. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classplayer_1_1Player_a398b98c0b3eda2ca88c47a770e39c14b}{go\+To}} (self, a\+Tile)
+\begin{DoxyCompactList}\small\item\em Finds the shortest path to a tile. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classplayer_1_1Player_ae35b2107478f8d9114e4f3f96d8d3fa4}{find\+Ressource}} (self)
+\begin{DoxyCompactList}\small\item\em Finds the tile with most ressources. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classplayer_1_1Player_a106305f6fd2e3dbc75227a4aaac786bc}{take\+All}} (self, a\+Tile)
+\begin{DoxyCompactList}\small\item\em Take all the ressources on the tile. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classplayer_1_1Player_a54f47a6a9e4730db1d1ac31d8a408dbe}{set\+Elevation\+Ressources}} (self)
+\begin{DoxyCompactList}\small\item\em Set the ressources on the tile for the incantation. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classplayer_1_1Player_ab9699ae82e76cab35476063da4d1ca42}{verify\+Incantation}} (self)
+\begin{DoxyCompactList}\small\item\em Verify if the incantation is possible. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classplayer_1_1Player_a5fbe4346c92c94a49c001067de9b536c}{parse\+Inventory}} (self, str a\+Inventory)
+\begin{DoxyCompactList}\small\item\em Parse the inventory command. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classplayer_1_1Player_a99a19fbb4a068751adef4ccc58508152}{parse\+Receive\+Broadcast}} (self)
+\begin{DoxyCompactList}\small\item\em Receive broadcast message. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classplayer_1_1Player_a8f4c8560bcd5663fa633ee76b33d1220}{find\+Player}} (self)
+\begin{DoxyCompactList}\small\item\em Try to found the player who sent the broadcast message. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classplayer_1_1Player_aeef7464e17ef58a2de2e2e56e0bc0332}{go\+To\+Level2}} (self)
+\begin{DoxyCompactList}\small\item\em Try to evolve to level 2. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classplayer_1_1Player_a3a70e7bcc898d6bc5ee8c2e0ea49f625}{go\+To\+Level3}} (self)
+\begin{DoxyCompactList}\small\item\em Try to evolve to level 3. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classplayer_1_1Player_a87382341c4a31d94d06b5a93a02705a9}{go\+To\+Level4}} (self)
+\begin{DoxyCompactList}\small\item\em Try to evolve to level 4. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classplayer_1_1Player_ab4330eb019e98f91af332f1d0502ab81}{go\+To\+Level5}} (self)
+\begin{DoxyCompactList}\small\item\em Try to evolve to level 5. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classplayer_1_1Player_a81dfa56f8acd504ced17f37f5d8fb466}{go\+To\+Level6}} (self)
+\begin{DoxyCompactList}\small\item\em Try to evolve to level 6. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classplayer_1_1Player_aea901a0eeac62c61d762f67fc609e4d8}{go\+To\+Level7}} (self)
+\begin{DoxyCompactList}\small\item\em Try to evolve to level 7. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classplayer_1_1Player_a80953b9d38ef9ad836d9898bd2fb5597}{go\+To\+Level8}} (self)
+\begin{DoxyCompactList}\small\item\em Try to evolve to level 8. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 Class that contains the player information. 
 
 \doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classplayer_1_1Player_a6baedc5ce0b3e4f0863a15f29efb951c}\label{classplayer_1_1Player_a6baedc5ce0b3e4f0863a15f29efb951c}} 
+\index{player.Player@{player.Player}!broadcast@{broadcast}}
+\index{broadcast@{broadcast}!player.Player@{player.Player}}
+\doxysubsubsection{\texorpdfstring{broadcast()}{broadcast()}}
+{\footnotesize\ttfamily def player.\+Player.\+broadcast (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{a\+Message }\end{DoxyParamCaption})}
+
+
+
+Send broadcast command. 
+
+\begin{DoxyReturn}{Returns}
+None 
+\end{DoxyReturn}
 \mbox{\Hypertarget{classplayer_1_1Player_a3c6d0f1fff3ac302f7386647e8131660}\label{classplayer_1_1Player_a3c6d0f1fff3ac302f7386647e8131660}} 
 \index{player.Player@{player.Player}!connect@{connect}}
 \index{connect@{connect}!player.Player@{player.Player}}
@@ -75,6 +132,32 @@ Send Connect\+\_\+nbr command.
 \begin{DoxyReturn}{Returns}
 the number of free slots in the team 
 \end{DoxyReturn}
+\mbox{\Hypertarget{classplayer_1_1Player_a954619cb340f4207360b61f55cfc79a3}\label{classplayer_1_1Player_a954619cb340f4207360b61f55cfc79a3}} 
+\index{player.Player@{player.Player}!cryptMessage@{cryptMessage}}
+\index{cryptMessage@{cryptMessage}!player.Player@{player.Player}}
+\doxysubsubsection{\texorpdfstring{cryptMessage()}{cryptMessage()}}
+{\footnotesize\ttfamily def player.\+Player.\+crypt\+Message (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{a\+Message }\end{DoxyParamCaption})}
+
+
+
+Crypt the message. 
+
+\begin{DoxyReturn}{Returns}
+the crypted message 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classplayer_1_1Player_a3f7ad54dfa931a13bcf15e54a1e4e776}\label{classplayer_1_1Player_a3f7ad54dfa931a13bcf15e54a1e4e776}} 
+\index{player.Player@{player.Player}!decryptMessage@{decryptMessage}}
+\index{decryptMessage@{decryptMessage}!player.Player@{player.Player}}
+\doxysubsubsection{\texorpdfstring{decryptMessage()}{decryptMessage()}}
+{\footnotesize\ttfamily def player.\+Player.\+decrypt\+Message (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{a\+Message }\end{DoxyParamCaption})}
+
+
+
+Decrypt the message. 
+
+\begin{DoxyReturn}{Returns}
+the decrypted message 
+\end{DoxyReturn}
 \mbox{\Hypertarget{classplayer_1_1Player_aa05db30d8f22d8b878f027d4865a6ebd}\label{classplayer_1_1Player_aa05db30d8f22d8b878f027d4865a6ebd}} 
 \index{player.Player@{player.Player}!disconnect@{disconnect}}
 \index{disconnect@{disconnect}!player.Player@{player.Player}}
@@ -84,6 +167,63 @@ the number of free slots in the team
 
 
 Disconnect from the server. 
+
+\begin{DoxyReturn}{Returns}
+None 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classplayer_1_1Player_a67fc7aad5d77585769a3694aec94104a}\label{classplayer_1_1Player_a67fc7aad5d77585769a3694aec94104a}} 
+\index{player.Player@{player.Player}!eject@{eject}}
+\index{eject@{eject}!player.Player@{player.Player}}
+\doxysubsubsection{\texorpdfstring{eject()}{eject()}}
+{\footnotesize\ttfamily def player.\+Player.\+eject (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Send Eject command. 
+
+\begin{DoxyReturn}{Returns}
+None 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classplayer_1_1Player_a8f4c8560bcd5663fa633ee76b33d1220}\label{classplayer_1_1Player_a8f4c8560bcd5663fa633ee76b33d1220}} 
+\index{player.Player@{player.Player}!findPlayer@{findPlayer}}
+\index{findPlayer@{findPlayer}!player.Player@{player.Player}}
+\doxysubsubsection{\texorpdfstring{findPlayer()}{findPlayer()}}
+{\footnotesize\ttfamily def player.\+Player.\+find\+Player (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Try to found the player who sent the broadcast message. 
+
+\begin{DoxyReturn}{Returns}
+None 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classplayer_1_1Player_ae35b2107478f8d9114e4f3f96d8d3fa4}\label{classplayer_1_1Player_ae35b2107478f8d9114e4f3f96d8d3fa4}} 
+\index{player.Player@{player.Player}!findRessource@{findRessource}}
+\index{findRessource@{findRessource}!player.Player@{player.Player}}
+\doxysubsubsection{\texorpdfstring{findRessource()}{findRessource()}}
+{\footnotesize\ttfamily def player.\+Player.\+find\+Ressource (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Finds the tile with most ressources. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Ressource} & The return of a \mbox{\hyperlink{classplayer_1_1Player_a48ddfdc24df9fc1196657f7c1dde004c}{look()}} parsed command \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The tile with most ressources 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classplayer_1_1Player_a8330114297249b645ac436d6b5702283}\label{classplayer_1_1Player_a8330114297249b645ac436d6b5702283}} 
+\index{player.Player@{player.Player}!fork@{fork}}
+\index{fork@{fork}!player.Player@{player.Player}}
+\doxysubsubsection{\texorpdfstring{fork()}{fork()}}
+{\footnotesize\ttfamily def player.\+Player.\+fork (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Send Fork command. 
 
 \begin{DoxyReturn}{Returns}
 None 
@@ -100,6 +240,128 @@ Send forward command.
 
 \begin{DoxyReturn}{Returns}
 None 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classplayer_1_1Player_a398b98c0b3eda2ca88c47a770e39c14b}\label{classplayer_1_1Player_a398b98c0b3eda2ca88c47a770e39c14b}} 
+\index{player.Player@{player.Player}!goTo@{goTo}}
+\index{goTo@{goTo}!player.Player@{player.Player}}
+\doxysubsubsection{\texorpdfstring{goTo()}{goTo()}}
+{\footnotesize\ttfamily def player.\+Player.\+go\+To (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{a\+Tile }\end{DoxyParamCaption})}
+
+
+
+Finds the shortest path to a tile. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Tile} & The tile to reach \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+None 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classplayer_1_1Player_aeef7464e17ef58a2de2e2e56e0bc0332}\label{classplayer_1_1Player_aeef7464e17ef58a2de2e2e56e0bc0332}} 
+\index{player.Player@{player.Player}!goToLevel2@{goToLevel2}}
+\index{goToLevel2@{goToLevel2}!player.Player@{player.Player}}
+\doxysubsubsection{\texorpdfstring{goToLevel2()}{goToLevel2()}}
+{\footnotesize\ttfamily def player.\+Player.\+go\+To\+Level2 (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Try to evolve to level 2. 
+
+\begin{DoxyReturn}{Returns}
+None 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classplayer_1_1Player_a3a70e7bcc898d6bc5ee8c2e0ea49f625}\label{classplayer_1_1Player_a3a70e7bcc898d6bc5ee8c2e0ea49f625}} 
+\index{player.Player@{player.Player}!goToLevel3@{goToLevel3}}
+\index{goToLevel3@{goToLevel3}!player.Player@{player.Player}}
+\doxysubsubsection{\texorpdfstring{goToLevel3()}{goToLevel3()}}
+{\footnotesize\ttfamily def player.\+Player.\+go\+To\+Level3 (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Try to evolve to level 3. 
+
+\begin{DoxyReturn}{Returns}
+None 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classplayer_1_1Player_a87382341c4a31d94d06b5a93a02705a9}\label{classplayer_1_1Player_a87382341c4a31d94d06b5a93a02705a9}} 
+\index{player.Player@{player.Player}!goToLevel4@{goToLevel4}}
+\index{goToLevel4@{goToLevel4}!player.Player@{player.Player}}
+\doxysubsubsection{\texorpdfstring{goToLevel4()}{goToLevel4()}}
+{\footnotesize\ttfamily def player.\+Player.\+go\+To\+Level4 (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Try to evolve to level 4. 
+
+\begin{DoxyReturn}{Returns}
+None 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classplayer_1_1Player_ab4330eb019e98f91af332f1d0502ab81}\label{classplayer_1_1Player_ab4330eb019e98f91af332f1d0502ab81}} 
+\index{player.Player@{player.Player}!goToLevel5@{goToLevel5}}
+\index{goToLevel5@{goToLevel5}!player.Player@{player.Player}}
+\doxysubsubsection{\texorpdfstring{goToLevel5()}{goToLevel5()}}
+{\footnotesize\ttfamily def player.\+Player.\+go\+To\+Level5 (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Try to evolve to level 5. 
+
+\begin{DoxyReturn}{Returns}
+None 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classplayer_1_1Player_a81dfa56f8acd504ced17f37f5d8fb466}\label{classplayer_1_1Player_a81dfa56f8acd504ced17f37f5d8fb466}} 
+\index{player.Player@{player.Player}!goToLevel6@{goToLevel6}}
+\index{goToLevel6@{goToLevel6}!player.Player@{player.Player}}
+\doxysubsubsection{\texorpdfstring{goToLevel6()}{goToLevel6()}}
+{\footnotesize\ttfamily def player.\+Player.\+go\+To\+Level6 (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Try to evolve to level 6. 
+
+\begin{DoxyReturn}{Returns}
+None 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classplayer_1_1Player_aea901a0eeac62c61d762f67fc609e4d8}\label{classplayer_1_1Player_aea901a0eeac62c61d762f67fc609e4d8}} 
+\index{player.Player@{player.Player}!goToLevel7@{goToLevel7}}
+\index{goToLevel7@{goToLevel7}!player.Player@{player.Player}}
+\doxysubsubsection{\texorpdfstring{goToLevel7()}{goToLevel7()}}
+{\footnotesize\ttfamily def player.\+Player.\+go\+To\+Level7 (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Try to evolve to level 7. 
+
+\begin{DoxyReturn}{Returns}
+None 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classplayer_1_1Player_a80953b9d38ef9ad836d9898bd2fb5597}\label{classplayer_1_1Player_a80953b9d38ef9ad836d9898bd2fb5597}} 
+\index{player.Player@{player.Player}!goToLevel8@{goToLevel8}}
+\index{goToLevel8@{goToLevel8}!player.Player@{player.Player}}
+\doxysubsubsection{\texorpdfstring{goToLevel8()}{goToLevel8()}}
+{\footnotesize\ttfamily def player.\+Player.\+go\+To\+Level8 (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Try to evolve to level 8. 
+
+\begin{DoxyReturn}{Returns}
+None 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classplayer_1_1Player_a5b109f3b3f6034200d4e021c96dee2ad}\label{classplayer_1_1Player_a5b109f3b3f6034200d4e021c96dee2ad}} 
+\index{player.Player@{player.Player}!incantation@{incantation}}
+\index{incantation@{incantation}!player.Player@{player.Player}}
+\doxysubsubsection{\texorpdfstring{incantation()}{incantation()}}
+{\footnotesize\ttfamily def player.\+Player.\+incantation (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Send Incantation command. 
+
+\begin{DoxyReturn}{Returns}
+Incantation status 
 \end{DoxyReturn}
 \mbox{\Hypertarget{classplayer_1_1Player_ade8deb9c70d265fafa94e2b4ba6cc86f}\label{classplayer_1_1Player_ade8deb9c70d265fafa94e2b4ba6cc86f}} 
 \index{player.Player@{player.Player}!inventory@{inventory}}
@@ -140,18 +402,44 @@ Send look command and receive the map content.
 \begin{DoxyReturn}{Returns}
 the map content 
 \end{DoxyReturn}
-\mbox{\Hypertarget{classplayer_1_1Player_a74a28098b83c846cef3f0821b1ac8fc3}\label{classplayer_1_1Player_a74a28098b83c846cef3f0821b1ac8fc3}} 
-\index{player.Player@{player.Player}!msz@{msz}}
-\index{msz@{msz}!player.Player@{player.Player}}
-\doxysubsubsection{\texorpdfstring{msz()}{msz()}}
-{\footnotesize\ttfamily def player.\+Player.\+msz (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{classplayer_1_1Player_a5fbe4346c92c94a49c001067de9b536c}\label{classplayer_1_1Player_a5fbe4346c92c94a49c001067de9b536c}} 
+\index{player.Player@{player.Player}!parseInventory@{parseInventory}}
+\index{parseInventory@{parseInventory}!player.Player@{player.Player}}
+\doxysubsubsection{\texorpdfstring{parseInventory()}{parseInventory()}}
+{\footnotesize\ttfamily def player.\+Player.\+parse\+Inventory (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{str}]{a\+Inventory }\end{DoxyParamCaption})}
 
 
 
-Get the map size. 
+Parse the inventory command. 
 
 \begin{DoxyReturn}{Returns}
-None 
+the inventory 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classplayer_1_1Player_ab6ed182bd25e28371021935568bf3a9c}\label{classplayer_1_1Player_ab6ed182bd25e28371021935568bf3a9c}} 
+\index{player.Player@{player.Player}!parseLook@{parseLook}}
+\index{parseLook@{parseLook}!player.Player@{player.Player}}
+\doxysubsubsection{\texorpdfstring{parseLook()}{parseLook()}}
+{\footnotesize\ttfamily def player.\+Player.\+parse\+Look (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{str}]{a\+Look }\end{DoxyParamCaption})}
+
+
+
+Parse the look command. 
+
+\begin{DoxyReturn}{Returns}
+the look tiles 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classplayer_1_1Player_a99a19fbb4a068751adef4ccc58508152}\label{classplayer_1_1Player_a99a19fbb4a068751adef4ccc58508152}} 
+\index{player.Player@{player.Player}!parseReceiveBroadcast@{parseReceiveBroadcast}}
+\index{parseReceiveBroadcast@{parseReceiveBroadcast}!player.Player@{player.Player}}
+\doxysubsubsection{\texorpdfstring{parseReceiveBroadcast()}{parseReceiveBroadcast()}}
+{\footnotesize\ttfamily def player.\+Player.\+parse\+Receive\+Broadcast (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Receive broadcast message. 
+
+\begin{DoxyReturn}{Returns}
+The broadcast message 
 \end{DoxyReturn}
 \mbox{\Hypertarget{classplayer_1_1Player_a3b78c6ff0ed1dfc43bc5b801b5f8d84c}\label{classplayer_1_1Player_a3b78c6ff0ed1dfc43bc5b801b5f8d84c}} 
 \index{player.Player@{player.Player}!preliminaries@{preliminaries}}
@@ -171,6 +459,19 @@ None
 \index{receive@{receive}!player.Player@{player.Player}}
 \doxysubsubsection{\texorpdfstring{receive()}{receive()}}
 {\footnotesize\ttfamily def player.\+Player.\+receive (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Receive data from the server. 
+
+\begin{DoxyReturn}{Returns}
+The data received 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classplayer_1_1Player_a3060c9a2351c782814610cfaec37af70}\label{classplayer_1_1Player_a3060c9a2351c782814610cfaec37af70}} 
+\index{player.Player@{player.Player}!receive2@{receive2}}
+\index{receive2@{receive2}!player.Player@{player.Player}}
+\doxysubsubsection{\texorpdfstring{receive2()}{receive2()}}
+{\footnotesize\ttfamily def player.\+Player.\+receive2 (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
 
 
 
@@ -220,6 +521,19 @@ Send set command.
 \begin{DoxyReturn}{Returns}
 None 
 \end{DoxyReturn}
+\mbox{\Hypertarget{classplayer_1_1Player_a54f47a6a9e4730db1d1ac31d8a408dbe}\label{classplayer_1_1Player_a54f47a6a9e4730db1d1ac31d8a408dbe}} 
+\index{player.Player@{player.Player}!setElevationRessources@{setElevationRessources}}
+\index{setElevationRessources@{setElevationRessources}!player.Player@{player.Player}}
+\doxysubsubsection{\texorpdfstring{setElevationRessources()}{setElevationRessources()}}
+{\footnotesize\ttfamily def player.\+Player.\+set\+Elevation\+Ressources (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Set the ressources on the tile for the incantation. 
+
+\begin{DoxyReturn}{Returns}
+None 
+\end{DoxyReturn}
 \mbox{\Hypertarget{classplayer_1_1Player_a767204e83e154041b939b9003626e73a}\label{classplayer_1_1Player_a767204e83e154041b939b9003626e73a}} 
 \index{player.Player@{player.Player}!setTeamName@{setTeamName}}
 \index{setTeamName@{setTeamName}!player.Player@{player.Player}}
@@ -247,6 +561,37 @@ Send take command.
 
 \begin{DoxyReturn}{Returns}
 None 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classplayer_1_1Player_a106305f6fd2e3dbc75227a4aaac786bc}\label{classplayer_1_1Player_a106305f6fd2e3dbc75227a4aaac786bc}} 
+\index{player.Player@{player.Player}!takeAll@{takeAll}}
+\index{takeAll@{takeAll}!player.Player@{player.Player}}
+\doxysubsubsection{\texorpdfstring{takeAll()}{takeAll()}}
+{\footnotesize\ttfamily def player.\+Player.\+take\+All (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{a\+Tile }\end{DoxyParamCaption})}
+
+
+
+Take all the ressources on the tile. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Tile} & The tile to take the ressources from \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+None 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classplayer_1_1Player_ab9699ae82e76cab35476063da4d1ca42}\label{classplayer_1_1Player_ab9699ae82e76cab35476063da4d1ca42}} 
+\index{player.Player@{player.Player}!verifyIncantation@{verifyIncantation}}
+\index{verifyIncantation@{verifyIncantation}!player.Player@{player.Player}}
+\doxysubsubsection{\texorpdfstring{verifyIncantation()}{verifyIncantation()}}
+{\footnotesize\ttfamily def player.\+Player.\+verify\+Incantation (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Verify if the incantation is possible. 
+
+\begin{DoxyReturn}{Returns}
+True if the incantation is possible, False otherwise 
 \end{DoxyReturn}
 
 

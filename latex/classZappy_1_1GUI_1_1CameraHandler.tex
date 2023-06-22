@@ -1,5 +1,14 @@
 \hypertarget{classZappy_1_1GUI_1_1CameraHandler}{}\doxysection{Zappy\+::GUI\+::Camera\+Handler Class Reference}
 \label{classZappy_1_1GUI_1_1CameraHandler}\index{Zappy::GUI::CameraHandler@{Zappy::GUI::CameraHandler}}
+
+
+Class used to handle the camera.  
+
+
+
+
+{\ttfamily \#include $<$Camera\+Handler.\+hpp$>$}
+
 Inheritance diagram for Zappy\+::GUI\+::Camera\+Handler\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -9,19 +18,101 @@ Inheritance diagram for Zappy\+::GUI\+::Camera\+Handler\+:\begin{figure}[H]
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classZappy_1_1GUI_1_1CameraHandler_ad1127e0a266901fce9ddf84cedcb08b7}\label{classZappy_1_1GUI_1_1CameraHandler_ad1127e0a266901fce9ddf84cedcb08b7}} 
-{\bfseries Camera\+Handler} (Ogre\+::\+Scene\+Node $\ast$camera\+Node, Ogre\+::\+Vector3 center, Ogre\+::\+Real radius, \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi}{Client\+Api}} \&a\+Client)
-\item 
-\mbox{\Hypertarget{classZappy_1_1GUI_1_1CameraHandler_a684589b1e897f282ad0ec95cdc23a93d}\label{classZappy_1_1GUI_1_1CameraHandler_a684589b1e897f282ad0ec95cdc23a93d}} 
-bool {\bfseries mouse\+Moved} (const Ogre\+Bites\+::\+Mouse\+Motion\+Event \&evt) final
-\item 
-\mbox{\Hypertarget{classZappy_1_1GUI_1_1CameraHandler_ac2a038a59eef0ba00fceddf2733b6276}\label{classZappy_1_1GUI_1_1CameraHandler_ac2a038a59eef0ba00fceddf2733b6276}} 
-bool {\bfseries mouse\+Wheel\+Rolled} (const Ogre\+Bites\+::\+Mouse\+Wheel\+Event \&evt) final
-\item 
-\mbox{\Hypertarget{classZappy_1_1GUI_1_1CameraHandler_a469d9b93cfe764ae19b8d95351e4aa48}\label{classZappy_1_1GUI_1_1CameraHandler_a469d9b93cfe764ae19b8d95351e4aa48}} 
-bool {\bfseries key\+Pressed} (const Ogre\+Bites\+::\+Keyboard\+Event \&evt) final
-\end{DoxyCompactItemize}
+\mbox{\hyperlink{classZappy_1_1GUI_1_1CameraHandler_a8e27b0e4638d6045b123ace355f32097}{Camera\+Handler}} (Ogre\+::\+Scene\+Node $\ast$camera\+Node, Ogre\+::\+Vector3 center, Ogre\+::\+Real radius, \mbox{\hyperlink{classZappy_1_1GUI_1_1App}{App}} \&a\+App)
+\begin{DoxyCompactList}\small\item\em Construct a new Camera Handler object. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classZappy_1_1GUI_1_1CameraHandler_a684589b1e897f282ad0ec95cdc23a93d}{mouse\+Moved}} (const Ogre\+Bites\+::\+Mouse\+Motion\+Event \&evt) final
+\begin{DoxyCompactList}\small\item\em Method called when the mouse is moved. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classZappy_1_1GUI_1_1CameraHandler_ac2a038a59eef0ba00fceddf2733b6276}{mouse\+Wheel\+Rolled}} (const Ogre\+Bites\+::\+Mouse\+Wheel\+Event \&evt) final
+\begin{DoxyCompactList}\small\item\em Method called when the mouse wheel is rolled, see the Ogre documentation for more details. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classZappy_1_1GUI_1_1CameraHandler_a469d9b93cfe764ae19b8d95351e4aa48}{key\+Pressed}} (const Ogre\+Bites\+::\+Keyboard\+Event \&evt) final
+\begin{DoxyCompactList}\small\item\em Method called when a key is pressed. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+Class used to handle the camera. 
+
+This class is used to handle the camera, it is used to move the camera in the scene, refer to the Ogre documentation 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1CameraHandler_a8e27b0e4638d6045b123ace355f32097}\label{classZappy_1_1GUI_1_1CameraHandler_a8e27b0e4638d6045b123ace355f32097}} 
+\index{Zappy::GUI::CameraHandler@{Zappy::GUI::CameraHandler}!CameraHandler@{CameraHandler}}
+\index{CameraHandler@{CameraHandler}!Zappy::GUI::CameraHandler@{Zappy::GUI::CameraHandler}}
+\doxysubsubsection{\texorpdfstring{CameraHandler()}{CameraHandler()}}
+{\footnotesize\ttfamily Zappy\+::\+GUI\+::\+Camera\+Handler\+::\+Camera\+Handler (\begin{DoxyParamCaption}\item[{Ogre\+::\+Scene\+Node $\ast$}]{camera\+Node,  }\item[{Ogre\+::\+Vector3}]{center,  }\item[{Ogre\+::\+Real}]{radius,  }\item[{\mbox{\hyperlink{classZappy_1_1GUI_1_1App}{App}} \&}]{a\+App }\end{DoxyParamCaption})}
+
+
+
+Construct a new Camera Handler object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em camera\+Node} & The camera node to use \\
+\hline
+{\em center} & The center of the map \\
+\hline
+{\em radius} & The distance between the camera and the center \\
+\hline
+{\em a\+App} & The \mbox{\hyperlink{classZappy_1_1GUI_1_1App}{App}} object \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1CameraHandler_a469d9b93cfe764ae19b8d95351e4aa48}\label{classZappy_1_1GUI_1_1CameraHandler_a469d9b93cfe764ae19b8d95351e4aa48}} 
+\index{Zappy::GUI::CameraHandler@{Zappy::GUI::CameraHandler}!keyPressed@{keyPressed}}
+\index{keyPressed@{keyPressed}!Zappy::GUI::CameraHandler@{Zappy::GUI::CameraHandler}}
+\doxysubsubsection{\texorpdfstring{keyPressed()}{keyPressed()}}
+{\footnotesize\ttfamily bool Zappy\+::\+GUI\+::\+Camera\+Handler\+::key\+Pressed (\begin{DoxyParamCaption}\item[{const Ogre\+Bites\+::\+Keyboard\+Event \&}]{evt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [final]}}
+
+
+
+Method called when a key is pressed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em evt} & The event of the key \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a boolean (true) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1CameraHandler_a684589b1e897f282ad0ec95cdc23a93d}\label{classZappy_1_1GUI_1_1CameraHandler_a684589b1e897f282ad0ec95cdc23a93d}} 
+\index{Zappy::GUI::CameraHandler@{Zappy::GUI::CameraHandler}!mouseMoved@{mouseMoved}}
+\index{mouseMoved@{mouseMoved}!Zappy::GUI::CameraHandler@{Zappy::GUI::CameraHandler}}
+\doxysubsubsection{\texorpdfstring{mouseMoved()}{mouseMoved()}}
+{\footnotesize\ttfamily bool Zappy\+::\+GUI\+::\+Camera\+Handler\+::mouse\+Moved (\begin{DoxyParamCaption}\item[{const Ogre\+Bites\+::\+Mouse\+Motion\+Event \&}]{evt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [final]}}
+
+
+
+Method called when the mouse is moved. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em evt} & The event of the mouse \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a boolean (true) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1CameraHandler_ac2a038a59eef0ba00fceddf2733b6276}\label{classZappy_1_1GUI_1_1CameraHandler_ac2a038a59eef0ba00fceddf2733b6276}} 
+\index{Zappy::GUI::CameraHandler@{Zappy::GUI::CameraHandler}!mouseWheelRolled@{mouseWheelRolled}}
+\index{mouseWheelRolled@{mouseWheelRolled}!Zappy::GUI::CameraHandler@{Zappy::GUI::CameraHandler}}
+\doxysubsubsection{\texorpdfstring{mouseWheelRolled()}{mouseWheelRolled()}}
+{\footnotesize\ttfamily bool Zappy\+::\+GUI\+::\+Camera\+Handler\+::mouse\+Wheel\+Rolled (\begin{DoxyParamCaption}\item[{const Ogre\+Bites\+::\+Mouse\+Wheel\+Event \&}]{evt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [final]}}
+
+
+
+Method called when the mouse wheel is rolled, see the Ogre documentation for more details. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em evt} & The event of the mouse \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a boolean (true) 
+\end{DoxyReturn}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

@@ -1,0 +1,136 @@
+\hypertarget{classZappy_1_1GUI_1_1Observer}{}\doxysection{Zappy\+::GUI\+::Observer Class Reference}
+\label{classZappy_1_1GUI_1_1Observer}\index{Zappy::GUI::Observer@{Zappy::GUI::Observer}}
+
+
+Interface for the \mbox{\hyperlink{classZappy_1_1GUI_1_1Observer}{Observer}} pattern.  
+
+
+
+
+{\ttfamily \#include $<$Observer.\+hpp$>$}
+
+Inheritance diagram for Zappy\+::GUI\+::Observer\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classZappy_1_1GUI_1_1Observer}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1Observer_a019fd917622dbdb69c84e981086648fc}\label{classZappy_1_1GUI_1_1Observer_a019fd917622dbdb69c84e981086648fc}} 
+{\bfseries Observer} (\mbox{\hyperlink{classZappy_1_1GUI_1_1Mediator}{Mediator}} \&mediator, const Observer\+Type \&a\+Type)
+\item 
+virtual void \mbox{\hyperlink{classZappy_1_1GUI_1_1Observer_a298e99416516bd5849e55688497d373c}{get\+Notified}} (const std\+::string \&a\+Notification)=0
+\begin{DoxyCompactList}\small\item\em Method called by the Publisher to notify the \mbox{\hyperlink{classZappy_1_1GUI_1_1Subscriber}{Subscriber}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classZappy_1_1GUI_1_1Observer_a498e3e8cf1f3d122577dcfa1e63bdee0}{send\+Alert}} (const std\+::string \&a\+Notification)
+\begin{DoxyCompactList}\small\item\em Alert the observer of an object. \end{DoxyCompactList}\item 
+const Observer\+Type \& \mbox{\hyperlink{classZappy_1_1GUI_1_1Observer_aeb155e234512d5f0518992665e62b138}{get\+Observer\+Type}} () const
+\begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{classZappy_1_1GUI_1_1Observer}{Observer}} Type object. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classZappy_1_1GUI_1_1Observer_a7faf75aae25e23f09542d71a1b165c2a}{is\+Ready}} () const
+\begin{DoxyCompactList}\small\item\em Check if the observer is ready to listen. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classZappy_1_1GUI_1_1Observer_a0367d90aa016697bd563589a6976e817}{set\+Ready}} (bool \mbox{\hyperlink{classZappy_1_1GUI_1_1Observer_a7faf75aae25e23f09542d71a1b165c2a}{is\+Ready}})
+\begin{DoxyCompactList}\small\item\em Set the Ready object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1Observer_a52f1ebb7fd57bdaf81359f362e47fa52}\label{classZappy_1_1GUI_1_1Observer_a52f1ebb7fd57bdaf81359f362e47fa52}} 
+\mbox{\hyperlink{classZappy_1_1GUI_1_1Mediator}{Mediator}} \& {\bfseries \+\_\+mediator}
+\item 
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1Observer_a8cd7fba05753322bf3a4578e34df8f0f}\label{classZappy_1_1GUI_1_1Observer_a8cd7fba05753322bf3a4578e34df8f0f}} 
+const Observer\+Type {\bfseries \+\_\+type}
+\item 
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1Observer_a5305380d6c9d5ea8eecd465cb49a5e0f}\label{classZappy_1_1GUI_1_1Observer_a5305380d6c9d5ea8eecd465cb49a5e0f}} 
+bool {\bfseries \+\_\+is\+Ready}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Interface for the \mbox{\hyperlink{classZappy_1_1GUI_1_1Observer}{Observer}} pattern. 
+
+This interface is used to implement the \mbox{\hyperlink{classZappy_1_1GUI_1_1Observer}{Observer}} pattern, it is representing a class that can be notified by a Publisher 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1Observer_a298e99416516bd5849e55688497d373c}\label{classZappy_1_1GUI_1_1Observer_a298e99416516bd5849e55688497d373c}} 
+\index{Zappy::GUI::Observer@{Zappy::GUI::Observer}!getNotified@{getNotified}}
+\index{getNotified@{getNotified}!Zappy::GUI::Observer@{Zappy::GUI::Observer}}
+\doxysubsubsection{\texorpdfstring{getNotified()}{getNotified()}}
+{\footnotesize\ttfamily virtual void Zappy\+::\+GUI\+::\+Observer\+::get\+Notified (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{a\+Notification }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Method called by the Publisher to notify the \mbox{\hyperlink{classZappy_1_1GUI_1_1Subscriber}{Subscriber}}. 
+
+This method is called by the Publisher to notify the \mbox{\hyperlink{classZappy_1_1GUI_1_1Subscriber}{Subscriber}} of a change 
+\begin{DoxyParams}{Parameters}
+{\em a\+Notification} & The notification sent by the Publisher \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi_aeef6375d1c57529442c3d905d1e09346}{Zappy\+::\+GUI\+::\+Client\+Api}}, and \mbox{\hyperlink{classZappy_1_1GUI_1_1App_a482c55125071d5fe3f88aadb347b462e}{Zappy\+::\+GUI\+::\+App}}.
+
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1Observer_aeb155e234512d5f0518992665e62b138}\label{classZappy_1_1GUI_1_1Observer_aeb155e234512d5f0518992665e62b138}} 
+\index{Zappy::GUI::Observer@{Zappy::GUI::Observer}!getObserverType@{getObserverType}}
+\index{getObserverType@{getObserverType}!Zappy::GUI::Observer@{Zappy::GUI::Observer}}
+\doxysubsubsection{\texorpdfstring{getObserverType()}{getObserverType()}}
+{\footnotesize\ttfamily const Observer\+Type \& Zappy\+::\+GUI\+::\+Observer\+::get\+Observer\+Type (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the \mbox{\hyperlink{classZappy_1_1GUI_1_1Observer}{Observer}} Type object. 
+
+\begin{DoxyReturn}{Returns}
+Observer\+Type the type of the observer 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1Observer_a7faf75aae25e23f09542d71a1b165c2a}\label{classZappy_1_1GUI_1_1Observer_a7faf75aae25e23f09542d71a1b165c2a}} 
+\index{Zappy::GUI::Observer@{Zappy::GUI::Observer}!isReady@{isReady}}
+\index{isReady@{isReady}!Zappy::GUI::Observer@{Zappy::GUI::Observer}}
+\doxysubsubsection{\texorpdfstring{isReady()}{isReady()}}
+{\footnotesize\ttfamily bool Zappy\+::\+GUI\+::\+Observer\+::is\+Ready (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Check if the observer is ready to listen. 
+
+\begin{DoxyReturn}{Returns}
+true if it is ready 
+
+false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1Observer_a498e3e8cf1f3d122577dcfa1e63bdee0}\label{classZappy_1_1GUI_1_1Observer_a498e3e8cf1f3d122577dcfa1e63bdee0}} 
+\index{Zappy::GUI::Observer@{Zappy::GUI::Observer}!sendAlert@{sendAlert}}
+\index{sendAlert@{sendAlert}!Zappy::GUI::Observer@{Zappy::GUI::Observer}}
+\doxysubsubsection{\texorpdfstring{sendAlert()}{sendAlert()}}
+{\footnotesize\ttfamily void Zappy\+::\+GUI\+::\+Observer\+::send\+Alert (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{a\+Notification }\end{DoxyParamCaption})}
+
+
+
+Alert the observer of an object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Notification} & the notification \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1Observer_a0367d90aa016697bd563589a6976e817}\label{classZappy_1_1GUI_1_1Observer_a0367d90aa016697bd563589a6976e817}} 
+\index{Zappy::GUI::Observer@{Zappy::GUI::Observer}!setReady@{setReady}}
+\index{setReady@{setReady}!Zappy::GUI::Observer@{Zappy::GUI::Observer}}
+\doxysubsubsection{\texorpdfstring{setReady()}{setReady()}}
+{\footnotesize\ttfamily void Zappy\+::\+GUI\+::\+Observer\+::set\+Ready (\begin{DoxyParamCaption}\item[{bool}]{is\+Ready }\end{DoxyParamCaption})}
+
+
+
+Set the Ready object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em is\+Ready} & the new value \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/gui/Observer.\+hpp\item 
+src/gui/Observer.\+cpp\end{DoxyCompactItemize}

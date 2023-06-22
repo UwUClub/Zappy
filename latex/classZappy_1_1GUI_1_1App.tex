@@ -1,5 +1,14 @@
 \hypertarget{classZappy_1_1GUI_1_1App}{}\doxysection{Zappy\+::GUI\+::App Class Reference}
 \label{classZappy_1_1GUI_1_1App}\index{Zappy::GUI::App@{Zappy::GUI::App}}
+
+
+Main class of the GUI.  
+
+
+
+
+{\ttfamily \#include $<$App.\+hpp$>$}
+
 Inheritance diagram for Zappy\+::GUI\+::App\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -9,9 +18,8 @@ Inheritance diagram for Zappy\+::GUI\+::App\+:\begin{figure}[H]
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classZappy_1_1GUI_1_1App_a25a054fc4dc6a27ce8fc8ff08b3268d8}\label{classZappy_1_1GUI_1_1App_a25a054fc4dc6a27ce8fc8ff08b3268d8}} 
-{\bfseries App} (\mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi}{Zappy\+::\+GUI\+::\+Client\+Api}} \&client, const std\+::string \&a\+Window\+Name=\char`\"{}UwU Zappy UwU\char`\"{})
-\item 
+\mbox{\hyperlink{classZappy_1_1GUI_1_1App_a95bcd111cf055f03ac7387583948d825}{App}} (\mbox{\hyperlink{classZappy_1_1GUI_1_1Mediator}{Mediator}} \&a\+Mediator, \mbox{\hyperlink{structZappy_1_1GUI_1_1ServerData}{Server\+Data}} \&a\+Server\+Data, const std\+::string \&a\+Window\+Name=WINDOW\+\_\+\+NAME)
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{classZappy_1_1GUI_1_1App}{App}} object. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classZappy_1_1GUI_1_1App_ab9238cd0a9d7ef2d6cb02fe918353c3a}\label{classZappy_1_1GUI_1_1App_ab9238cd0a9d7ef2d6cb02fe918353c3a}} 
 {\bfseries App} (const \mbox{\hyperlink{classZappy_1_1GUI_1_1App}{App}} \&)=delete
 \item 
@@ -24,12 +32,107 @@ Inheritance diagram for Zappy\+::GUI\+::App\+:\begin{figure}[H]
 \mbox{\Hypertarget{classZappy_1_1GUI_1_1App_ad9a87a4e0f0bd43ecfd11a8959c20ce8}\label{classZappy_1_1GUI_1_1App_ad9a87a4e0f0bd43ecfd11a8959c20ce8}} 
 \mbox{\hyperlink{classZappy_1_1GUI_1_1App}{App}} \& {\bfseries operator=} (\mbox{\hyperlink{classZappy_1_1GUI_1_1App}{App}} \&\&)=delete
 \item 
-\mbox{\Hypertarget{classZappy_1_1GUI_1_1App_af20e49697c2d068a170deac66fa48da0}\label{classZappy_1_1GUI_1_1App_af20e49697c2d068a170deac66fa48da0}} 
-void {\bfseries get\+Notified} (std\+::string \&a\+Notification) final
-\end{DoxyCompactItemize}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1App_a482c55125071d5fe3f88aadb347b462e}\label{classZappy_1_1GUI_1_1App_a482c55125071d5fe3f88aadb347b462e}} 
+void \mbox{\hyperlink{classZappy_1_1GUI_1_1App_a482c55125071d5fe3f88aadb347b462e}{get\+Notified}} (const std\+::string \&a\+Notification) final
+\begin{DoxyCompactList}\small\item\em Overriden method from \mbox{\hyperlink{classZappy_1_1GUI_1_1Subscriber}{Subscriber}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classZappy_1_1GUI_1_1App_a449e621c59421112f151d95cf98e0d04}{window\+Closed}} (Ogre\+::\+Render\+Window $\ast$a\+Rw) final
+\begin{DoxyCompactList}\small\item\em Overriden method from Ogre\+Bites\+::\+Application\+Context. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1App_a5e3e0440cf74d5912219ef1b444e99b7}\label{classZappy_1_1GUI_1_1App_a5e3e0440cf74d5912219ef1b444e99b7}} 
+void \mbox{\hyperlink{classZappy_1_1GUI_1_1App_a5e3e0440cf74d5912219ef1b444e99b7}{ask\+Disconnection}} ()
+\begin{DoxyCompactList}\small\item\em Ask the client to disconnect. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{structZappy_1_1GUI_1_1ServerData}{Server\+Data}} \& \mbox{\hyperlink{classZappy_1_1GUI_1_1App_aff3979a71a4d34c2a03752144fe2bd7f}{get\+Server\+Data}} () const
+\begin{DoxyCompactList}\small\item\em Get the Server Data object. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classZappy_1_1GUI_1_1Button}{Button}} $>$ $>$ \& \mbox{\hyperlink{classZappy_1_1GUI_1_1App_aed49b97d26295334f2556dcddedd6c7f}{get\+Buttons}} ()
+\begin{DoxyCompactList}\small\item\em Get the Buttons object. \end{DoxyCompactList}\item 
+std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classZappy_1_1GUI_1_1Inventory}{Inventory}} $>$ \& \mbox{\hyperlink{classZappy_1_1GUI_1_1App_a1512f32c6f718e62d6737fc046ffdca5}{get\+Inventory}} ()
+\begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{classZappy_1_1GUI_1_1Inventory}{Inventory}} objectry. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+Main class of the GUI. 
+
+This class is the main class of the GUI, it is used to create the window and the scene, and to handle the events using Ogre, it also implements the \mbox{\hyperlink{classZappy_1_1GUI_1_1Subscriber}{Subscriber}} interface to be notified by the \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi}{Client\+Api}} 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1App_a95bcd111cf055f03ac7387583948d825}\label{classZappy_1_1GUI_1_1App_a95bcd111cf055f03ac7387583948d825}} 
+\index{Zappy::GUI::App@{Zappy::GUI::App}!App@{App}}
+\index{App@{App}!Zappy::GUI::App@{Zappy::GUI::App}}
+\doxysubsubsection{\texorpdfstring{App()}{App()}}
+{\footnotesize\ttfamily Zappy\+::\+GUI\+::\+App\+::\+App (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classZappy_1_1GUI_1_1Mediator}{Mediator}} \&}]{a\+Mediator,  }\item[{\mbox{\hyperlink{structZappy_1_1GUI_1_1ServerData}{Server\+Data}} \&}]{a\+Server\+Data,  }\item[{const std\+::string \&}]{a\+Window\+Name = {\ttfamily WINDOW\+\_\+NAME} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Construct a new \mbox{\hyperlink{classZappy_1_1GUI_1_1App}{App}} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Client} & the client api (network) \\
+\hline
+{\em a\+Window\+Name} & the name of the window, default value is \char`\"{}\+Uw\+U Zappy Uw\+U\char`\"{} \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1App_aed49b97d26295334f2556dcddedd6c7f}\label{classZappy_1_1GUI_1_1App_aed49b97d26295334f2556dcddedd6c7f}} 
+\index{Zappy::GUI::App@{Zappy::GUI::App}!getButtons@{getButtons}}
+\index{getButtons@{getButtons}!Zappy::GUI::App@{Zappy::GUI::App}}
+\doxysubsubsection{\texorpdfstring{getButtons()}{getButtons()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classZappy_1_1GUI_1_1Button}{Button}} $>$ $>$ \& Zappy\+::\+GUI\+::\+App\+::get\+Buttons (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the Buttons object. 
+
+\begin{DoxyReturn}{Returns}
+std\+::vector$<$std\+::unique\+\_\+ptr$<$\+Button$>$$>$\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1App_a1512f32c6f718e62d6737fc046ffdca5}\label{classZappy_1_1GUI_1_1App_a1512f32c6f718e62d6737fc046ffdca5}} 
+\index{Zappy::GUI::App@{Zappy::GUI::App}!getInventory@{getInventory}}
+\index{getInventory@{getInventory}!Zappy::GUI::App@{Zappy::GUI::App}}
+\doxysubsubsection{\texorpdfstring{getInventory()}{getInventory()}}
+{\footnotesize\ttfamily std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classZappy_1_1GUI_1_1Inventory}{Inventory}} $>$ \& Zappy\+::\+GUI\+::\+App\+::get\+Inventory (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Get the \mbox{\hyperlink{classZappy_1_1GUI_1_1Inventory}{Inventory}} objectry. 
+
+\begin{DoxyReturn}{Returns}
+std\+::unique\+\_\+ptr$<$\+Inventory$>$\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1App_aff3979a71a4d34c2a03752144fe2bd7f}\label{classZappy_1_1GUI_1_1App_aff3979a71a4d34c2a03752144fe2bd7f}} 
+\index{Zappy::GUI::App@{Zappy::GUI::App}!getServerData@{getServerData}}
+\index{getServerData@{getServerData}!Zappy::GUI::App@{Zappy::GUI::App}}
+\doxysubsubsection{\texorpdfstring{getServerData()}{getServerData()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{structZappy_1_1GUI_1_1ServerData}{Server\+Data}} \& Zappy\+::\+GUI\+::\+App\+::get\+Server\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Get the Server Data object. 
+
+\begin{DoxyReturn}{Returns}
+const \mbox{\hyperlink{structZappy_1_1GUI_1_1ServerData}{Server\+Data}}\& 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1App_a449e621c59421112f151d95cf98e0d04}\label{classZappy_1_1GUI_1_1App_a449e621c59421112f151d95cf98e0d04}} 
+\index{Zappy::GUI::App@{Zappy::GUI::App}!windowClosed@{windowClosed}}
+\index{windowClosed@{windowClosed}!Zappy::GUI::App@{Zappy::GUI::App}}
+\doxysubsubsection{\texorpdfstring{windowClosed()}{windowClosed()}}
+{\footnotesize\ttfamily void Zappy\+::\+GUI\+::\+App\+::window\+Closed (\begin{DoxyParamCaption}\item[{Ogre\+::\+Render\+Window $\ast$}]{a\+Rw }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [final]}}
+
+
+
+Overriden method from Ogre\+Bites\+::\+Application\+Context. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Rw} & the render window \\
+\hline
+\end{DoxyParams}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
 src/gui/App.\+hpp\item 
+src/gui/App+\+Listener.\+cpp\item 
 src/gui/App.\+cpp\end{DoxyCompactItemize}

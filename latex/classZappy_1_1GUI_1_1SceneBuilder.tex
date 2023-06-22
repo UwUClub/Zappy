@@ -1,0 +1,257 @@
+\hypertarget{classZappy_1_1GUI_1_1SceneBuilder}{}\doxysection{Zappy\+::GUI\+::Scene\+Builder Class Reference}
+\label{classZappy_1_1GUI_1_1SceneBuilder}\index{Zappy::GUI::SceneBuilder@{Zappy::GUI::SceneBuilder}}
+
+
+Class used to build the scene.  
+
+
+
+
+{\ttfamily \#include $<$Scene\+Builder.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1SceneBuilder_a32504a15697fbbdfa7af5c36b15224cf}\label{classZappy_1_1GUI_1_1SceneBuilder_a32504a15697fbbdfa7af5c36b15224cf}} 
+{\bfseries Scene\+Builder} (const \mbox{\hyperlink{classZappy_1_1GUI_1_1SceneBuilder}{Scene\+Builder}} \&)=delete
+\item 
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1SceneBuilder_a1ccf36754e85ae447610b3825ced4da0}\label{classZappy_1_1GUI_1_1SceneBuilder_a1ccf36754e85ae447610b3825ced4da0}} 
+\mbox{\hyperlink{classZappy_1_1GUI_1_1SceneBuilder}{Scene\+Builder}} \& {\bfseries operator=} (const \mbox{\hyperlink{classZappy_1_1GUI_1_1SceneBuilder}{Scene\+Builder}} \&)=delete
+\item 
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1SceneBuilder_a3a751ba15250f1fa8a82b40c663d9f83}\label{classZappy_1_1GUI_1_1SceneBuilder_a3a751ba15250f1fa8a82b40c663d9f83}} 
+{\bfseries Scene\+Builder} (\mbox{\hyperlink{classZappy_1_1GUI_1_1SceneBuilder}{Scene\+Builder}} \&\&)=delete
+\item 
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1SceneBuilder_a25efb14a24cdc08b235846c189e721bb}\label{classZappy_1_1GUI_1_1SceneBuilder_a25efb14a24cdc08b235846c189e721bb}} 
+\mbox{\hyperlink{classZappy_1_1GUI_1_1SceneBuilder}{Scene\+Builder}} \& {\bfseries operator=} (\mbox{\hyperlink{classZappy_1_1GUI_1_1SceneBuilder}{Scene\+Builder}} \&\&)=delete
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classZappy_1_1GUI_1_1SceneBuilder_a5b0d1f80d9056a108a8af99f6798572f}{build\+Lights}} (Ogre\+::\+Scene\+Manager $\ast$a\+Scene\+Manager, const Ogre\+::\+Vector3 \&a\+Center)
+\begin{DoxyCompactList}\small\item\em Build the lights into the scene. \end{DoxyCompactList}\item 
+static Ogre\+::\+Vector3f \mbox{\hyperlink{classZappy_1_1GUI_1_1SceneBuilder_a94d5e0523b45bb885313a3e7056070c9}{build\+Map}} (Ogre\+::\+Scene\+Manager $\ast$a\+Scene\+Manager, const \mbox{\hyperlink{structZappy_1_1GUI_1_1ServerData}{Server\+Data}} \&a\+Server\+Data)
+\begin{DoxyCompactList}\small\item\em Build the map into the scene. \end{DoxyCompactList}\item 
+static camera\+Return \mbox{\hyperlink{classZappy_1_1GUI_1_1SceneBuilder_ae808769ae9313a686e95d112aad57f49}{build\+Camera}} (Ogre\+::\+Scene\+Manager $\ast$a\+Scene\+Manager, const Ogre\+::\+Vector3 \&a\+Center, Ogre\+::\+Render\+Window $\ast$a\+Render\+Window, \mbox{\hyperlink{classZappy_1_1GUI_1_1App}{App}} \&a\+App)
+\begin{DoxyCompactList}\small\item\em Build the camera into the scene. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classZappy_1_1GUI_1_1SceneBuilder_af1edd69bf768943bd74f2d9b56af38e2}{build\+Connected\+Players\+And\+Eggs}} (Ogre\+::\+Scene\+Manager $\ast$a\+Scene\+Manager, const \mbox{\hyperlink{structZappy_1_1GUI_1_1ServerData}{Server\+Data}} \&a\+Server\+Data, std\+::unordered\+\_\+map$<$ Ogre\+::\+Entity $\ast$, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classZappy_1_1GUI_1_1AnimationHandler}{Animation\+Handler}} $>$$>$ \&a\+Animated\+Entities)
+\begin{DoxyCompactList}\small\item\em Build the players and the eggs that are already on the map. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classZappy_1_1GUI_1_1SceneBuilder_ae2bb2f5647049f2af4e067d02fd8f037}{create\+Tile}} (Ogre\+::\+Scene\+Manager $\ast$a\+Scene\+Manager, const Ogre\+::\+Vector2 \&a\+Position, const std\+::string \&a\+Name)
+\begin{DoxyCompactList}\small\item\em Create a Tile object. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classZappy_1_1GUI_1_1SceneBuilder_a2db460000441889edd7f3c57bf799eb2}{create\+Player}} (Ogre\+::\+Scene\+Manager $\ast$a\+Scene\+Manager, const \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData}{Player\+Data}} \&a\+Player\+Data, std\+::unordered\+\_\+map$<$ Ogre\+::\+Entity $\ast$, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classZappy_1_1GUI_1_1AnimationHandler}{Animation\+Handler}} $>$$>$ \&a\+Animated\+Entities)
+\begin{DoxyCompactList}\small\item\em Create a Player object. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classZappy_1_1GUI_1_1SceneBuilder_ac9d96c85f912c3d1baa065717b52af0b}{create\+Egg}} (Ogre\+::\+Scene\+Manager $\ast$a\+Scene\+Manager, const \mbox{\hyperlink{classZappy_1_1GUI_1_1EggData}{Egg\+Data}} \&a\+Egg\+Data)
+\begin{DoxyCompactList}\small\item\em Create a Egg object. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classZappy_1_1GUI_1_1SceneBuilder_aa76acdda0a5aac6a1a936497d56557fd}{create\+Text}} (const std\+::string \&a\+Overlay\+Name, const std\+::string \&a\+Text, const std\+::string \&a\+Prefix, const Ogre\+::\+Vector2 \&a\+Position, const Ogre\+::\+Vector2 \&a\+Dimension, const std\+::string \&a\+Material\+Name=\char`\"{}Base\+White\char`\"{}, const std\+::string \&a\+Group\+Name=\char`\"{}General\char`\"{}, const Ogre\+::\+Vector2 \&a\+Offset=Ogre\+::\+Vector2(10, 10))
+\begin{DoxyCompactList}\small\item\em Create a Text object. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classZappy_1_1GUI_1_1SceneBuilder_a860b860ab6ed517a866dd49a655a6940}{set\+Player\+Pos\+And\+Orientation}} (Ogre\+::\+Scene\+Manager $\ast$a\+Scene\+Manager, const \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData}{Player\+Data}} \&a\+Player)
+\begin{DoxyCompactList}\small\item\em Set the Player Pos And Orientation object. \end{DoxyCompactList}\item 
+static void \mbox{\hyperlink{classZappy_1_1GUI_1_1SceneBuilder_ab5b059c21fd115da4c998ae75c65ad55}{set\+Player\+Orientation}} (Ogre\+::\+Scene\+Manager $\ast$a\+Scene\+Manager, const \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData}{Player\+Data}} \&a\+Player)
+\begin{DoxyCompactList}\small\item\em Set the Player Orientation object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class used to build the scene. 
+
+This class is used to build the scene, it contains only static methods 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1SceneBuilder_ae808769ae9313a686e95d112aad57f49}\label{classZappy_1_1GUI_1_1SceneBuilder_ae808769ae9313a686e95d112aad57f49}} 
+\index{Zappy::GUI::SceneBuilder@{Zappy::GUI::SceneBuilder}!buildCamera@{buildCamera}}
+\index{buildCamera@{buildCamera}!Zappy::GUI::SceneBuilder@{Zappy::GUI::SceneBuilder}}
+\doxysubsubsection{\texorpdfstring{buildCamera()}{buildCamera()}}
+{\footnotesize\ttfamily camera\+Return Zappy\+::\+GUI\+::\+Scene\+Builder\+::build\+Camera (\begin{DoxyParamCaption}\item[{Ogre\+::\+Scene\+Manager $\ast$}]{a\+Scene\+Manager,  }\item[{const Ogre\+::\+Vector3 \&}]{a\+Center,  }\item[{Ogre\+::\+Render\+Window $\ast$}]{a\+Render\+Window,  }\item[{\mbox{\hyperlink{classZappy_1_1GUI_1_1App}{App}} \&}]{a\+App }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Build the camera into the scene. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Scene\+Manager} & The scene manager to use \\
+\hline
+{\em a\+Center} & The center of the map \\
+\hline
+{\em a\+Render\+Window} & The render window to use \\
+\hline
+{\em a\+App} & The app to use \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+camera\+Return The camera handler and the click handler 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1SceneBuilder_af1edd69bf768943bd74f2d9b56af38e2}\label{classZappy_1_1GUI_1_1SceneBuilder_af1edd69bf768943bd74f2d9b56af38e2}} 
+\index{Zappy::GUI::SceneBuilder@{Zappy::GUI::SceneBuilder}!buildConnectedPlayersAndEggs@{buildConnectedPlayersAndEggs}}
+\index{buildConnectedPlayersAndEggs@{buildConnectedPlayersAndEggs}!Zappy::GUI::SceneBuilder@{Zappy::GUI::SceneBuilder}}
+\doxysubsubsection{\texorpdfstring{buildConnectedPlayersAndEggs()}{buildConnectedPlayersAndEggs()}}
+{\footnotesize\ttfamily void Zappy\+::\+GUI\+::\+Scene\+Builder\+::build\+Connected\+Players\+And\+Eggs (\begin{DoxyParamCaption}\item[{Ogre\+::\+Scene\+Manager $\ast$}]{a\+Scene\+Manager,  }\item[{const \mbox{\hyperlink{structZappy_1_1GUI_1_1ServerData}{Server\+Data}} \&}]{a\+Server\+Data,  }\item[{std\+::unordered\+\_\+map$<$ Ogre\+::\+Entity $\ast$, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classZappy_1_1GUI_1_1AnimationHandler}{Animation\+Handler}} $>$$>$ \&}]{a\+Animated\+Entities }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Build the players and the eggs that are already on the map. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Scene\+Manager} & The scene manager to use \\
+\hline
+{\em a\+Server\+Data} & The server data of the game \\
+\hline
+{\em a\+Animated\+Entities} & The animated entities \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1SceneBuilder_a5b0d1f80d9056a108a8af99f6798572f}\label{classZappy_1_1GUI_1_1SceneBuilder_a5b0d1f80d9056a108a8af99f6798572f}} 
+\index{Zappy::GUI::SceneBuilder@{Zappy::GUI::SceneBuilder}!buildLights@{buildLights}}
+\index{buildLights@{buildLights}!Zappy::GUI::SceneBuilder@{Zappy::GUI::SceneBuilder}}
+\doxysubsubsection{\texorpdfstring{buildLights()}{buildLights()}}
+{\footnotesize\ttfamily void Zappy\+::\+GUI\+::\+Scene\+Builder\+::build\+Lights (\begin{DoxyParamCaption}\item[{Ogre\+::\+Scene\+Manager $\ast$}]{a\+Scene\+Manager,  }\item[{const Ogre\+::\+Vector3 \&}]{a\+Center }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Build the lights into the scene. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Scene\+Manager} & The scene manager to use \\
+\hline
+{\em a\+Center} & The center of the map \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1SceneBuilder_a94d5e0523b45bb885313a3e7056070c9}\label{classZappy_1_1GUI_1_1SceneBuilder_a94d5e0523b45bb885313a3e7056070c9}} 
+\index{Zappy::GUI::SceneBuilder@{Zappy::GUI::SceneBuilder}!buildMap@{buildMap}}
+\index{buildMap@{buildMap}!Zappy::GUI::SceneBuilder@{Zappy::GUI::SceneBuilder}}
+\doxysubsubsection{\texorpdfstring{buildMap()}{buildMap()}}
+{\footnotesize\ttfamily Ogre\+::\+Vector3f Zappy\+::\+GUI\+::\+Scene\+Builder\+::build\+Map (\begin{DoxyParamCaption}\item[{Ogre\+::\+Scene\+Manager $\ast$}]{a\+Scene\+Manager,  }\item[{const \mbox{\hyperlink{structZappy_1_1GUI_1_1ServerData}{Server\+Data}} \&}]{a\+Server\+Data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Build the map into the scene. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Scene\+Manager} & The scene manager to use \\
+\hline
+{\em a\+Server\+Data} & The server data of the game \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Ogre\+::\+Vector3f The center of the map 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1SceneBuilder_ac9d96c85f912c3d1baa065717b52af0b}\label{classZappy_1_1GUI_1_1SceneBuilder_ac9d96c85f912c3d1baa065717b52af0b}} 
+\index{Zappy::GUI::SceneBuilder@{Zappy::GUI::SceneBuilder}!createEgg@{createEgg}}
+\index{createEgg@{createEgg}!Zappy::GUI::SceneBuilder@{Zappy::GUI::SceneBuilder}}
+\doxysubsubsection{\texorpdfstring{createEgg()}{createEgg()}}
+{\footnotesize\ttfamily void Zappy\+::\+GUI\+::\+Scene\+Builder\+::create\+Egg (\begin{DoxyParamCaption}\item[{Ogre\+::\+Scene\+Manager $\ast$}]{a\+Scene\+Manager,  }\item[{const \mbox{\hyperlink{classZappy_1_1GUI_1_1EggData}{Egg\+Data}} \&}]{a\+Egg\+Data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Create a Egg object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Scene\+Manager} & The scene manager to use \\
+\hline
+{\em a\+Egg\+Data} & The egg data representing the egg to create \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1SceneBuilder_a2db460000441889edd7f3c57bf799eb2}\label{classZappy_1_1GUI_1_1SceneBuilder_a2db460000441889edd7f3c57bf799eb2}} 
+\index{Zappy::GUI::SceneBuilder@{Zappy::GUI::SceneBuilder}!createPlayer@{createPlayer}}
+\index{createPlayer@{createPlayer}!Zappy::GUI::SceneBuilder@{Zappy::GUI::SceneBuilder}}
+\doxysubsubsection{\texorpdfstring{createPlayer()}{createPlayer()}}
+{\footnotesize\ttfamily void Zappy\+::\+GUI\+::\+Scene\+Builder\+::create\+Player (\begin{DoxyParamCaption}\item[{Ogre\+::\+Scene\+Manager $\ast$}]{a\+Scene\+Manager,  }\item[{const \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData}{Player\+Data}} \&}]{a\+Player\+Data,  }\item[{std\+::unordered\+\_\+map$<$ Ogre\+::\+Entity $\ast$, std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classZappy_1_1GUI_1_1AnimationHandler}{Animation\+Handler}} $>$$>$ \&}]{a\+Animated\+Entities }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Create a Player object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Scene\+Manager} & The scene manager to use \\
+\hline
+{\em a\+Player\+Data} & The player data representing the player to create \\
+\hline
+{\em a\+Animated\+Entities} & The animated entities \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1SceneBuilder_aa76acdda0a5aac6a1a936497d56557fd}\label{classZappy_1_1GUI_1_1SceneBuilder_aa76acdda0a5aac6a1a936497d56557fd}} 
+\index{Zappy::GUI::SceneBuilder@{Zappy::GUI::SceneBuilder}!createText@{createText}}
+\index{createText@{createText}!Zappy::GUI::SceneBuilder@{Zappy::GUI::SceneBuilder}}
+\doxysubsubsection{\texorpdfstring{createText()}{createText()}}
+{\footnotesize\ttfamily void Zappy\+::\+GUI\+::\+Scene\+Builder\+::create\+Text (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{a\+Overlay\+Name,  }\item[{const std\+::string \&}]{a\+Text,  }\item[{const std\+::string \&}]{a\+Prefix,  }\item[{const Ogre\+::\+Vector2 \&}]{a\+Position,  }\item[{const Ogre\+::\+Vector2 \&}]{a\+Dimension,  }\item[{const std\+::string \&}]{a\+Material\+Name = {\ttfamily \char`\"{}BaseWhite\char`\"{}},  }\item[{const std\+::string \&}]{a\+Group\+Name = {\ttfamily \char`\"{}General\char`\"{}},  }\item[{const Ogre\+::\+Vector2 \&}]{a\+Offset = {\ttfamily Ogre\+:\+:Vector2(10,~10)} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Create a Text object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Overlay\+Name} & The name of the overlay to use \\
+\hline
+{\em a\+Text} & The text to display \\
+\hline
+{\em a\+Prefix} & The prefix to use (will be used to create the overlays elements, ex\+: \char`\"{}\+Time\char`\"{} will create \char`\"{}\+Time\+\_\+\+Panel\char`\"{} \+: overlay\+Area, \char`\"{}\+Time\+\_\+\+Text\char`\"{} \+: Text\+Area) \\
+\hline
+{\em a\+Position} & The position of the text \\
+\hline
+{\em a\+Dimension} & The dimension of the background \\
+\hline
+{\em a\+Material\+Name} & The material to use if any \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1SceneBuilder_ae2bb2f5647049f2af4e067d02fd8f037}\label{classZappy_1_1GUI_1_1SceneBuilder_ae2bb2f5647049f2af4e067d02fd8f037}} 
+\index{Zappy::GUI::SceneBuilder@{Zappy::GUI::SceneBuilder}!createTile@{createTile}}
+\index{createTile@{createTile}!Zappy::GUI::SceneBuilder@{Zappy::GUI::SceneBuilder}}
+\doxysubsubsection{\texorpdfstring{createTile()}{createTile()}}
+{\footnotesize\ttfamily void Zappy\+::\+GUI\+::\+Scene\+Builder\+::create\+Tile (\begin{DoxyParamCaption}\item[{Ogre\+::\+Scene\+Manager $\ast$}]{a\+Scene\+Manager,  }\item[{const Ogre\+::\+Vector2 \&}]{a\+Position,  }\item[{const std\+::string \&}]{a\+Name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Create a Tile object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Scene\+Manager} & The scene manager to use \\
+\hline
+{\em a\+Position} & The position of the tile \\
+\hline
+{\em a\+Name} & The name of the tile \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1SceneBuilder_ab5b059c21fd115da4c998ae75c65ad55}\label{classZappy_1_1GUI_1_1SceneBuilder_ab5b059c21fd115da4c998ae75c65ad55}} 
+\index{Zappy::GUI::SceneBuilder@{Zappy::GUI::SceneBuilder}!setPlayerOrientation@{setPlayerOrientation}}
+\index{setPlayerOrientation@{setPlayerOrientation}!Zappy::GUI::SceneBuilder@{Zappy::GUI::SceneBuilder}}
+\doxysubsubsection{\texorpdfstring{setPlayerOrientation()}{setPlayerOrientation()}}
+{\footnotesize\ttfamily void Zappy\+::\+GUI\+::\+Scene\+Builder\+::set\+Player\+Orientation (\begin{DoxyParamCaption}\item[{Ogre\+::\+Scene\+Manager $\ast$}]{a\+Scene\+Manager,  }\item[{const \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData}{Player\+Data}} \&}]{a\+Player }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Set the Player Orientation object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Player} & the player\+Data \\
+\hline
+{\em a\+Scene\+Manager} & the scene manager \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1SceneBuilder_a860b860ab6ed517a866dd49a655a6940}\label{classZappy_1_1GUI_1_1SceneBuilder_a860b860ab6ed517a866dd49a655a6940}} 
+\index{Zappy::GUI::SceneBuilder@{Zappy::GUI::SceneBuilder}!setPlayerPosAndOrientation@{setPlayerPosAndOrientation}}
+\index{setPlayerPosAndOrientation@{setPlayerPosAndOrientation}!Zappy::GUI::SceneBuilder@{Zappy::GUI::SceneBuilder}}
+\doxysubsubsection{\texorpdfstring{setPlayerPosAndOrientation()}{setPlayerPosAndOrientation()}}
+{\footnotesize\ttfamily void Zappy\+::\+GUI\+::\+Scene\+Builder\+::set\+Player\+Pos\+And\+Orientation (\begin{DoxyParamCaption}\item[{Ogre\+::\+Scene\+Manager $\ast$}]{a\+Scene\+Manager,  }\item[{const \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData}{Player\+Data}} \&}]{a\+Player }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Set the Player Pos And Orientation object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Player} & the player\+Data \\
+\hline
+{\em a\+Scene\+Manager} & the scene manager \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/gui/Scene\+Builder.\+hpp\item 
+src/gui/Scene\+Builder.\+cpp\end{DoxyCompactItemize}

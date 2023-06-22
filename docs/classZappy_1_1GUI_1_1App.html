@@ -82,27 +82,33 @@ $(document).ready(function(){initNavTree('classZappy_1_1GUI_1_1App.html',''); in
 
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="classZappy_1_1GUI_1_1App-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">Zappy::GUI::App Class Reference<span class="mlabels"><span class="mlabel">final</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Main class of the GUI.  
+ <a href="classZappy_1_1GUI_1_1App.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="App_8hpp_source.html">App.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for Zappy::GUI::App:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="classZappy_1_1GUI_1_1App.png" usemap="#Zappy::GUI::App_map" alt=""/>
   <map id="Zappy::GUI::App_map" name="Zappy::GUI::App_map">
-<area href="classZappy_1_1GUI_1_1Subscriber.html" alt="Zappy::GUI::Subscriber" shape="rect" coords="189,0,368,24"/>
+<area href="classZappy_1_1GUI_1_1Observer.html" title="Interface for the Observer pattern." alt="Zappy::GUI::Observer" shape="rect" coords="189,0,368,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a25a054fc4dc6a27ce8fc8ff08b3268d8"><td class="memItemLeft" align="right" valign="top"><a id="a25a054fc4dc6a27ce8fc8ff08b3268d8"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>App</b> (<a class="el" href="classZappy_1_1GUI_1_1ClientApi.html">Zappy::GUI::ClientApi</a> &amp;client, const std::string &amp;aWindowName=&quot;UwU Zappy UwU&quot;)</td></tr>
-<tr class="separator:a25a054fc4dc6a27ce8fc8ff08b3268d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95bcd111cf055f03ac7387583948d825"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classZappy_1_1GUI_1_1App.html#a95bcd111cf055f03ac7387583948d825">App</a> (<a class="el" href="classZappy_1_1GUI_1_1Mediator.html">Mediator</a> &amp;aMediator, <a class="el" href="structZappy_1_1GUI_1_1ServerData.html">ServerData</a> &amp;aServerData, const std::string &amp;aWindowName=WINDOW_NAME)</td></tr>
+<tr class="memdesc:a95bcd111cf055f03ac7387583948d825"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="classZappy_1_1GUI_1_1App.html" title="Main class of the GUI.">App</a> object.  <a href="classZappy_1_1GUI_1_1App.html#a95bcd111cf055f03ac7387583948d825">More...</a><br /></td></tr>
+<tr class="separator:a95bcd111cf055f03ac7387583948d825"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab9238cd0a9d7ef2d6cb02fe918353c3a"><td class="memItemLeft" align="right" valign="top"><a id="ab9238cd0a9d7ef2d6cb02fe918353c3a"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>App</b> (const <a class="el" href="classZappy_1_1GUI_1_1App.html">App</a> &amp;)=delete</td></tr>
 <tr class="separator:ab9238cd0a9d7ef2d6cb02fe918353c3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -115,12 +121,209 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad9a87a4e0f0bd43ecfd11a8959c20ce8"><td class="memItemLeft" align="right" valign="top"><a id="ad9a87a4e0f0bd43ecfd11a8959c20ce8"></a>
 <a class="el" href="classZappy_1_1GUI_1_1App.html">App</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classZappy_1_1GUI_1_1App.html">App</a> &amp;&amp;)=delete</td></tr>
 <tr class="separator:ad9a87a4e0f0bd43ecfd11a8959c20ce8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af20e49697c2d068a170deac66fa48da0"><td class="memItemLeft" align="right" valign="top"><a id="af20e49697c2d068a170deac66fa48da0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>getNotified</b> (std::string &amp;aNotification) final</td></tr>
-<tr class="separator:af20e49697c2d068a170deac66fa48da0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a482c55125071d5fe3f88aadb347b462e"><td class="memItemLeft" align="right" valign="top"><a id="a482c55125071d5fe3f88aadb347b462e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classZappy_1_1GUI_1_1App.html#a482c55125071d5fe3f88aadb347b462e">getNotified</a> (const std::string &amp;aNotification) final</td></tr>
+<tr class="memdesc:a482c55125071d5fe3f88aadb347b462e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overriden method from <a class="el" href="classZappy_1_1GUI_1_1Subscriber.html">Subscriber</a>. <br /></td></tr>
+<tr class="separator:a482c55125071d5fe3f88aadb347b462e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a449e621c59421112f151d95cf98e0d04"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classZappy_1_1GUI_1_1App.html#a449e621c59421112f151d95cf98e0d04">windowClosed</a> (Ogre::RenderWindow *aRw) final</td></tr>
+<tr class="memdesc:a449e621c59421112f151d95cf98e0d04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overriden method from OgreBites::ApplicationContext.  <a href="classZappy_1_1GUI_1_1App.html#a449e621c59421112f151d95cf98e0d04">More...</a><br /></td></tr>
+<tr class="separator:a449e621c59421112f151d95cf98e0d04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e3e0440cf74d5912219ef1b444e99b7"><td class="memItemLeft" align="right" valign="top"><a id="a5e3e0440cf74d5912219ef1b444e99b7"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classZappy_1_1GUI_1_1App.html#a5e3e0440cf74d5912219ef1b444e99b7">askDisconnection</a> ()</td></tr>
+<tr class="memdesc:a5e3e0440cf74d5912219ef1b444e99b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ask the client to disconnect. <br /></td></tr>
+<tr class="separator:a5e3e0440cf74d5912219ef1b444e99b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff3979a71a4d34c2a03752144fe2bd7f"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structZappy_1_1GUI_1_1ServerData.html">ServerData</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classZappy_1_1GUI_1_1App.html#aff3979a71a4d34c2a03752144fe2bd7f">getServerData</a> () const</td></tr>
+<tr class="memdesc:aff3979a71a4d34c2a03752144fe2bd7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Server Data object.  <a href="classZappy_1_1GUI_1_1App.html#aff3979a71a4d34c2a03752144fe2bd7f">More...</a><br /></td></tr>
+<tr class="separator:aff3979a71a4d34c2a03752144fe2bd7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed49b97d26295334f2556dcddedd6c7f"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::unique_ptr&lt; <a class="el" href="classZappy_1_1GUI_1_1Button.html">Button</a> &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classZappy_1_1GUI_1_1App.html#aed49b97d26295334f2556dcddedd6c7f">getButtons</a> ()</td></tr>
+<tr class="memdesc:aed49b97d26295334f2556dcddedd6c7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Buttons object.  <a href="classZappy_1_1GUI_1_1App.html#aed49b97d26295334f2556dcddedd6c7f">More...</a><br /></td></tr>
+<tr class="separator:aed49b97d26295334f2556dcddedd6c7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1512f32c6f718e62d6737fc046ffdca5"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="classZappy_1_1GUI_1_1Inventory.html">Inventory</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classZappy_1_1GUI_1_1App.html#a1512f32c6f718e62d6737fc046ffdca5">getInventory</a> ()</td></tr>
+<tr class="memdesc:a1512f32c6f718e62d6737fc046ffdca5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the <a class="el" href="classZappy_1_1GUI_1_1Inventory.html">Inventory</a> objectry.  <a href="classZappy_1_1GUI_1_1App.html#a1512f32c6f718e62d6737fc046ffdca5">More...</a><br /></td></tr>
+<tr class="separator:a1512f32c6f718e62d6737fc046ffdca5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classZappy_1_1GUI_1_1Observer"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classZappy_1_1GUI_1_1Observer')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classZappy_1_1GUI_1_1Observer.html">Zappy::GUI::Observer</a></td></tr>
+<tr class="memitem:a019fd917622dbdb69c84e981086648fc inherit pub_methods_classZappy_1_1GUI_1_1Observer"><td class="memItemLeft" align="right" valign="top"><a id="a019fd917622dbdb69c84e981086648fc"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Observer</b> (<a class="el" href="classZappy_1_1GUI_1_1Mediator.html">Mediator</a> &amp;mediator, const ObserverType &amp;aType)</td></tr>
+<tr class="separator:a019fd917622dbdb69c84e981086648fc inherit pub_methods_classZappy_1_1GUI_1_1Observer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a498e3e8cf1f3d122577dcfa1e63bdee0 inherit pub_methods_classZappy_1_1GUI_1_1Observer"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classZappy_1_1GUI_1_1Observer.html#a498e3e8cf1f3d122577dcfa1e63bdee0">sendAlert</a> (const std::string &amp;aNotification)</td></tr>
+<tr class="memdesc:a498e3e8cf1f3d122577dcfa1e63bdee0 inherit pub_methods_classZappy_1_1GUI_1_1Observer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Alert the observer of an object.  <a href="classZappy_1_1GUI_1_1Observer.html#a498e3e8cf1f3d122577dcfa1e63bdee0">More...</a><br /></td></tr>
+<tr class="separator:a498e3e8cf1f3d122577dcfa1e63bdee0 inherit pub_methods_classZappy_1_1GUI_1_1Observer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb155e234512d5f0518992665e62b138 inherit pub_methods_classZappy_1_1GUI_1_1Observer"><td class="memItemLeft" align="right" valign="top">const ObserverType &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classZappy_1_1GUI_1_1Observer.html#aeb155e234512d5f0518992665e62b138">getObserverType</a> () const</td></tr>
+<tr class="memdesc:aeb155e234512d5f0518992665e62b138 inherit pub_methods_classZappy_1_1GUI_1_1Observer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the <a class="el" href="classZappy_1_1GUI_1_1Observer.html" title="Interface for the Observer pattern.">Observer</a> Type object.  <a href="classZappy_1_1GUI_1_1Observer.html#aeb155e234512d5f0518992665e62b138">More...</a><br /></td></tr>
+<tr class="separator:aeb155e234512d5f0518992665e62b138 inherit pub_methods_classZappy_1_1GUI_1_1Observer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7faf75aae25e23f09542d71a1b165c2a inherit pub_methods_classZappy_1_1GUI_1_1Observer"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classZappy_1_1GUI_1_1Observer.html#a7faf75aae25e23f09542d71a1b165c2a">isReady</a> () const</td></tr>
+<tr class="memdesc:a7faf75aae25e23f09542d71a1b165c2a inherit pub_methods_classZappy_1_1GUI_1_1Observer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the observer is ready to listen.  <a href="classZappy_1_1GUI_1_1Observer.html#a7faf75aae25e23f09542d71a1b165c2a">More...</a><br /></td></tr>
+<tr class="separator:a7faf75aae25e23f09542d71a1b165c2a inherit pub_methods_classZappy_1_1GUI_1_1Observer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0367d90aa016697bd563589a6976e817 inherit pub_methods_classZappy_1_1GUI_1_1Observer"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classZappy_1_1GUI_1_1Observer.html#a0367d90aa016697bd563589a6976e817">setReady</a> (bool <a class="el" href="classZappy_1_1GUI_1_1Observer.html#a7faf75aae25e23f09542d71a1b165c2a">isReady</a>)</td></tr>
+<tr class="memdesc:a0367d90aa016697bd563589a6976e817 inherit pub_methods_classZappy_1_1GUI_1_1Observer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the Ready object.  <a href="classZappy_1_1GUI_1_1Observer.html#a0367d90aa016697bd563589a6976e817">More...</a><br /></td></tr>
+<tr class="separator:a0367d90aa016697bd563589a6976e817 inherit pub_methods_classZappy_1_1GUI_1_1Observer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_attribs_classZappy_1_1GUI_1_1Observer"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classZappy_1_1GUI_1_1Observer')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classZappy_1_1GUI_1_1Observer.html">Zappy::GUI::Observer</a></td></tr>
+<tr class="memitem:a52f1ebb7fd57bdaf81359f362e47fa52 inherit pro_attribs_classZappy_1_1GUI_1_1Observer"><td class="memItemLeft" align="right" valign="top"><a id="a52f1ebb7fd57bdaf81359f362e47fa52"></a>
+<a class="el" href="classZappy_1_1GUI_1_1Mediator.html">Mediator</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>_mediator</b></td></tr>
+<tr class="separator:a52f1ebb7fd57bdaf81359f362e47fa52 inherit pro_attribs_classZappy_1_1GUI_1_1Observer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cd7fba05753322bf3a4578e34df8f0f inherit pro_attribs_classZappy_1_1GUI_1_1Observer"><td class="memItemLeft" align="right" valign="top"><a id="a8cd7fba05753322bf3a4578e34df8f0f"></a>
+const ObserverType&#160;</td><td class="memItemRight" valign="bottom"><b>_type</b></td></tr>
+<tr class="separator:a8cd7fba05753322bf3a4578e34df8f0f inherit pro_attribs_classZappy_1_1GUI_1_1Observer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5305380d6c9d5ea8eecd465cb49a5e0f inherit pro_attribs_classZappy_1_1GUI_1_1Observer"><td class="memItemLeft" align="right" valign="top"><a id="a5305380d6c9d5ea8eecd465cb49a5e0f"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>_isReady</b></td></tr>
+<tr class="separator:a5305380d6c9d5ea8eecd465cb49a5e0f inherit pro_attribs_classZappy_1_1GUI_1_1Observer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Main class of the GUI. </p>
+<p>This class is the main class of the GUI, it is used to create the window and the scene, and to handle the events using Ogre, it also implements the <a class="el" href="classZappy_1_1GUI_1_1Subscriber.html">Subscriber</a> interface to be notified by the <a class="el" href="classZappy_1_1GUI_1_1ClientApi.html">ClientApi</a> </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a95bcd111cf055f03ac7387583948d825"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95bcd111cf055f03ac7387583948d825">&#9670;&nbsp;</a></span>App()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Zappy::GUI::App::App </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classZappy_1_1GUI_1_1Mediator.html">Mediator</a> &amp;&#160;</td>
+          <td class="paramname"><em>aMediator</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structZappy_1_1GUI_1_1ServerData.html">ServerData</a> &amp;&#160;</td>
+          <td class="paramname"><em>aServerData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>aWindowName</em> = <code>WINDOW_NAME</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Construct a new <a class="el" href="classZappy_1_1GUI_1_1App.html" title="Main class of the GUI.">App</a> object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">aClient</td><td>the client api (network) </td></tr>
+    <tr><td class="paramname">aWindowName</td><td>the name of the window, default value is "UwU Zappy UwU" </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aed49b97d26295334f2556dcddedd6c7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed49b97d26295334f2556dcddedd6c7f">&#9670;&nbsp;</a></span>getButtons()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::unique_ptr&lt; <a class="el" href="classZappy_1_1GUI_1_1Button.html">Button</a> &gt; &gt; &amp; Zappy::GUI::App::getButtons </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the Buttons object. </p>
+<dl class="section return"><dt>Returns</dt><dd>std::vector&lt;std::unique_ptr&lt;Button&gt;&gt;&amp; </dd></dl>
+
+</div>
+</div>
+<a id="a1512f32c6f718e62d6737fc046ffdca5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1512f32c6f718e62d6737fc046ffdca5">&#9670;&nbsp;</a></span>getInventory()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt; <a class="el" href="classZappy_1_1GUI_1_1Inventory.html">Inventory</a> &gt; &amp; Zappy::GUI::App::getInventory </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the <a class="el" href="classZappy_1_1GUI_1_1Inventory.html">Inventory</a> objectry. </p>
+<dl class="section return"><dt>Returns</dt><dd>std::unique_ptr&lt;Inventory&gt;&amp; </dd></dl>
+
+</div>
+</div>
+<a id="aff3979a71a4d34c2a03752144fe2bd7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff3979a71a4d34c2a03752144fe2bd7f">&#9670;&nbsp;</a></span>getServerData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structZappy_1_1GUI_1_1ServerData.html">ServerData</a> &amp; Zappy::GUI::App::getServerData </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the Server Data object. </p>
+<dl class="section return"><dt>Returns</dt><dd>const <a class="el" href="structZappy_1_1GUI_1_1ServerData.html">ServerData</a>&amp; </dd></dl>
+
+</div>
+</div>
+<a id="a449e621c59421112f151d95cf98e0d04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a449e621c59421112f151d95cf98e0d04">&#9670;&nbsp;</a></span>windowClosed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Zappy::GUI::App::windowClosed </td>
+          <td>(</td>
+          <td class="paramtype">Ogre::RenderWindow *&#160;</td>
+          <td class="paramname"><em>aRw</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">final</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Overriden method from OgreBites::ApplicationContext. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">aRw</td><td>the render window </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/gui/<a class="el" href="App_8hpp_source.html">App.hpp</a></li>
+<li>src/gui/App+Listener.cpp</li>
 <li>src/gui/App.cpp</li>
 </ul>
 </div><!-- contents -->

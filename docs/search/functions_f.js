@@ -1,7 +1,10 @@
 var searchData=
 [
-  ['_7eclientapi_140',['~ClientApi',['../classZappy_1_1GUI_1_1ClientApi.html#aeb643a6aca56fccf94f80a91aabc76b2',1,'Zappy::GUI::ClientApi']]],
-  ['_7eclientexception_141',['~ClientException',['../classZappy_1_1GUI_1_1ClientApi_1_1ClientException.html#aa843df5ce09c9a9d3629ea236ab7d644',1,'Zappy::GUI::ClientApi::ClientException']]],
-  ['_7eparserexception_142',['~ParserException',['../classZappy_1_1GUI_1_1ParserData_1_1ParserException.html#af225143e67a19d22b080f207e7d07d8b',1,'Zappy::GUI::ParserData::ParserException']]],
-  ['_7eplayerdata_143',['~PlayerData',['../classZappy_1_1GUI_1_1PlayerData.html#a46b8206e69f289dd3a7e8b7283698c98',1,'Zappy::GUI::PlayerData']]]
+  ['receive_268',['receive',['../classconnection_1_1Connection.html#ab1af0014f264dc33e9298bc87b272c20',1,'connection.Connection.receive()'],['../classplayer_1_1Player.html#a87da183f478b9e127e753a01af5ca3c5',1,'player.Player.receive(self)']]],
+  ['receive2_269',['receive2',['../classplayer_1_1Player.html#a3060c9a2351c782814610cfaec37af70',1,'player::Player']]],
+  ['registersubscriber_270',['registerSubscriber',['../classZappy_1_1GUI_1_1ClientApi.html#a75a9a6447c2c83bc5f884cdf142a0bcb',1,'Zappy::GUI::ClientApi']]],
+  ['removeanimation_271',['removeAnimation',['../classZappy_1_1GUI_1_1AnimationHandler.html#a2db6bf137aa033cf2a1e0ce13a40250d',1,'Zappy::GUI::AnimationHandler']]],
+  ['removeresources_272',['removeResources',['../classZappy_1_1GUI_1_1ItemPacket.html#ad4de74343e619f66971bf4b09496aed3',1,'Zappy::GUI::ItemPacket']]],
+  ['right_273',['right',['../classplayer_1_1Player.html#ad6fbf53afd43ae13157acbe6fb859c73',1,'player::Player']]],
+  ['run_274',['run',['../classZappy_1_1GUI_1_1ClientApi.html#a56f160b8b369354c1a15af4eca955272',1,'Zappy::GUI::ClientApi::run()'],['../classZappy_1_1GUI_1_1ClientApi.html#a56f160b8b369354c1a15af4eca955272',1,'Zappy::GUI::ClientApi::run()']]]
 ];

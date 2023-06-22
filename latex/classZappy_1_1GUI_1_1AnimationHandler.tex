@@ -1,0 +1,85 @@
+\hypertarget{classZappy_1_1GUI_1_1AnimationHandler}{}\doxysection{Zappy\+::GUI\+::Animation\+Handler Class Reference}
+\label{classZappy_1_1GUI_1_1AnimationHandler}\index{Zappy::GUI::AnimationHandler@{Zappy::GUI::AnimationHandler}}
+
+
+Handle the animations.  
+
+
+
+
+{\ttfamily \#include $<$Animation\+Handler.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1AnimationHandler_a8850de44b76a3f5331eb432f843c3dac}\label{classZappy_1_1GUI_1_1AnimationHandler_a8850de44b76a3f5331eb432f843c3dac}} 
+\mbox{\hyperlink{classZappy_1_1GUI_1_1AnimationHandler_a8850de44b76a3f5331eb432f843c3dac}{Animation\+Handler}} (Ogre\+::\+Entity $\ast$a\+Entity)
+\begin{DoxyCompactList}\small\item\em Construct a new Animation Handler object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1AnimationHandler_a3fcb3c9f209fc34beb240d41c0a5f862}\label{classZappy_1_1GUI_1_1AnimationHandler_a3fcb3c9f209fc34beb240d41c0a5f862}} 
+\mbox{\hyperlink{classZappy_1_1GUI_1_1AnimationHandler_a3fcb3c9f209fc34beb240d41c0a5f862}{$\sim$\+Animation\+Handler}} ()
+\begin{DoxyCompactList}\small\item\em Destroy the Animation Handler object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classZappy_1_1GUI_1_1AnimationHandler_a62a93ed3592a126dc32900f1413c35a9}{play\+Animation}} (const std\+::string \&a\+Animation\+Name, bool a\+Loop=true)
+\begin{DoxyCompactList}\small\item\em Add an animation to the handler. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classZappy_1_1GUI_1_1AnimationHandler_a2db6bf137aa033cf2a1e0ce13a40250d}{remove\+Animation}} (const std\+::string \&a\+Animation\+Name)
+\begin{DoxyCompactList}\small\item\em Remove an animation from the handler. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classZappy_1_1GUI_1_1AnimationHandler_a9a39ca6e3d431223d6a893bf76f517bd}{update\+Animation}} (Ogre\+::\+Real a\+Time\+Since\+Last\+Frame)
+\begin{DoxyCompactList}\small\item\em Update the time. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Handle the animations. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1AnimationHandler_a62a93ed3592a126dc32900f1413c35a9}\label{classZappy_1_1GUI_1_1AnimationHandler_a62a93ed3592a126dc32900f1413c35a9}} 
+\index{Zappy::GUI::AnimationHandler@{Zappy::GUI::AnimationHandler}!playAnimation@{playAnimation}}
+\index{playAnimation@{playAnimation}!Zappy::GUI::AnimationHandler@{Zappy::GUI::AnimationHandler}}
+\doxysubsubsection{\texorpdfstring{playAnimation()}{playAnimation()}}
+{\footnotesize\ttfamily void Zappy\+::\+GUI\+::\+Animation\+Handler\+::play\+Animation (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{a\+Animation\+Name,  }\item[{bool}]{a\+Loop = {\ttfamily true} }\end{DoxyParamCaption})}
+
+
+
+Add an animation to the handler. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em animation\+Name} & the name of the animation to play \\
+\hline
+{\em a\+Loop} & if the animation should loop \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1AnimationHandler_a2db6bf137aa033cf2a1e0ce13a40250d}\label{classZappy_1_1GUI_1_1AnimationHandler_a2db6bf137aa033cf2a1e0ce13a40250d}} 
+\index{Zappy::GUI::AnimationHandler@{Zappy::GUI::AnimationHandler}!removeAnimation@{removeAnimation}}
+\index{removeAnimation@{removeAnimation}!Zappy::GUI::AnimationHandler@{Zappy::GUI::AnimationHandler}}
+\doxysubsubsection{\texorpdfstring{removeAnimation()}{removeAnimation()}}
+{\footnotesize\ttfamily void Zappy\+::\+GUI\+::\+Animation\+Handler\+::remove\+Animation (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{a\+Animation\+Name }\end{DoxyParamCaption})}
+
+
+
+Remove an animation from the handler. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Animation\+Name} & the name of the animation to remove \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1AnimationHandler_a9a39ca6e3d431223d6a893bf76f517bd}\label{classZappy_1_1GUI_1_1AnimationHandler_a9a39ca6e3d431223d6a893bf76f517bd}} 
+\index{Zappy::GUI::AnimationHandler@{Zappy::GUI::AnimationHandler}!updateAnimation@{updateAnimation}}
+\index{updateAnimation@{updateAnimation}!Zappy::GUI::AnimationHandler@{Zappy::GUI::AnimationHandler}}
+\doxysubsubsection{\texorpdfstring{updateAnimation()}{updateAnimation()}}
+{\footnotesize\ttfamily void Zappy\+::\+GUI\+::\+Animation\+Handler\+::update\+Animation (\begin{DoxyParamCaption}\item[{Ogre\+::\+Real}]{a\+Time\+Since\+Last\+Frame }\end{DoxyParamCaption})}
+
+
+
+Update the time. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Time\+Since\+Last\+Frame} & the time since the last frame \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/gui/handlers/Animation\+Handler.\+hpp\item 
+src/gui/handlers/Animation\+Handler.\+cpp\end{DoxyCompactItemize}

@@ -95,30 +95,87 @@ $(document).ready(function(){initNavTree('gui__cmd_8h_source.html',''); initResi
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#ifndef ZAPPY_GUI_CMD_H</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">    #define ZAPPY_GUI_CMD_H</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">    #include &quot;core.h&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">    #include &quot;implementation.h&quot;</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordtype">int</span> execute_gui_cmd(<a class="code" href="structdata__s.html">data_t</a> *data, <span class="keywordtype">char</span> *cmd, <span class="keywordtype">char</span> **args);</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordtype">int</span> do_msz(<a class="code" href="structdata__s.html">data_t</a> *data, <span class="keywordtype">char</span> **args);</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">int</span> do_bct(<a class="code" href="structdata__s.html">data_t</a> *data, <span class="keywordtype">char</span> **args);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">int</span> do_tna(<a class="code" href="structdata__s.html">data_t</a> *data, <span class="keywordtype">char</span> **args);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">int</span> do_mct(<a class="code" href="structdata__s.html">data_t</a> *data, <span class="keywordtype">char</span> **args);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">int</span> send_bct_to_current_cli(<a class="code" href="structdata__s.html">data_t</a> *data, <span class="keywordtype">char</span> **args);</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">int</span> do_sgt(<a class="code" href="structdata__s.html">data_t</a> *data, <span class="keywordtype">char</span> **args);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">int</span> do_sst(<a class="code" href="structdata__s.html">data_t</a> *data, <span class="keywordtype">char</span> **args);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">int</span> send_bct_to_all_gui(<a class="code" href="structdata__s.html">data_t</a> *data, <span class="keyword">const</span> <span class="keywordtype">int</span> x, <span class="keyword">const</span> <span class="keywordtype">int</span> y);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">int</span> do_tna(<a class="code" href="structdata__s.html">data_t</a> *data, <span class="keywordtype">char</span> **args);</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">int</span> do_seg(<a class="code" href="structdata__s.html">data_t</a> *data, <span class="keyword">const</span> <span class="keywordtype">char</span> *team_name);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">int</span> do_sgt(<a class="code" href="structdata__s.html">data_t</a> *data, <span class="keywordtype">char</span> **args);</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">int</span> do_pin(<a class="code" href="structdata__s.html">data_t</a> *data, <span class="keywordtype">char</span> **args);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordtype">int</span> do_plv(<a class="code" href="structdata__s.html">data_t</a> *data, <span class="keywordtype">char</span> **args);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordtype">int</span> do_ppo(<a class="code" href="structdata__s.html">data_t</a> *data, <span class="keywordtype">char</span> **args);</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* ZAPPY_GUI_CMD_H */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="astructdata__s_html"><div class="ttname"><a href="structdata__s.html">data_s</a></div><div class="ttdef"><b>Definition:</b> core.h:72</div></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">void</span> do_sgt_to_all_gui(<a class="code" href="structdata__s.html">data_t</a> *data);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordtype">int</span> do_sst(<a class="code" href="structdata__s.html">data_t</a> *data, <span class="keywordtype">char</span> **args);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordtype">int</span> do_seg(<a class="code" href="structdata__s.html">data_t</a> *data, <span class="keyword">const</span> <span class="keywordtype">char</span> *team_name);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordtype">int</span> do_pin(<a class="code" href="structdata__s.html">data_t</a> *data, <span class="keywordtype">char</span> **args);</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordtype">void</span> send_pin_to_current_cli(<a class="code" href="structdata__s.html">data_t</a> *data, <a class="code" href="structplayer__s.html">player_t</a> *player);</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keywordtype">void</span> send_pin_to_all_gui(<a class="code" href="structdata__s.html">data_t</a> *data, <a class="code" href="structplayer__s.html">player_t</a> *player);</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keywordtype">int</span> do_plv(<a class="code" href="structdata__s.html">data_t</a> *data, <span class="keywordtype">char</span> **args);</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordtype">void</span> send_plv_to_all_gui(<a class="code" href="structdata__s.html">data_t</a> *data, <a class="code" href="structplayer__s.html">player_t</a> *player);</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keywordtype">int</span> do_ppo(<a class="code" href="structdata__s.html">data_t</a> *data, <span class="keywordtype">char</span> **args);</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <span class="keywordtype">void</span> send_ppo_to_all_gui(<a class="code" href="structdata__s.html">data_t</a> *data, <a class="code" href="structplayer__s.html">player_t</a> *player);</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    <span class="keywordtype">void</span> do_pfk(<a class="code" href="structdata__s.html">data_t</a> *data, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> player_id);</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keywordtype">void</span> send_enw_to_all_gui(<a class="code" href="structdata__s.html">data_t</a> *data, <a class="code" href="structegg__s.html">egg_t</a> *egg);</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <span class="keywordtype">void</span> send_enw_to_current_cli(<a class="code" href="structdata__s.html">data_t</a> *data, <a class="code" href="structegg__s.html">egg_t</a> *egg);</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keywordtype">void</span> send_pnw_to_all_gui(<a class="code" href="structdata__s.html">data_t</a> *data);</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <span class="keywordtype">void</span> send_pnw_to_current_cli(<a class="code" href="structdata__s.html">data_t</a> *data, <a class="code" href="structplayer__s.html">player_t</a> *player);</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160; </div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    <span class="keywordtype">void</span> send_ebo_to_all_gui(<a class="code" href="structdata__s.html">data_t</a> *data);</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160; </div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    <span class="keywordtype">void</span> do_edi(<a class="code" href="structdata__s.html">data_t</a> *data, <span class="keyword">const</span> <span class="keywordtype">int</span> egg_index);</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    <span class="keywordtype">int</span> do_pex(<a class="code" href="structdata__s.html">data_t</a> *data, <span class="keyword">const</span> <span class="keywordtype">int</span> player_id);</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160; </div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    <span class="keywordtype">int</span> do_pgt(<a class="code" href="structdata__s.html">data_t</a> *data, <span class="keywordtype">int</span> resource);</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160; </div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    <span class="keywordtype">int</span> do_pdr(<a class="code" href="structdata__s.html">data_t</a> *data, <span class="keywordtype">int</span> resource);</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160; </div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    <span class="keywordtype">void</span> do_pic(<a class="code" href="structdata__s.html">data_t</a> *data, <a class="code" href="structplayer__s.html">player_t</a> *author);</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160; </div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    <span class="keywordtype">void</span> do_pie(<a class="code" href="structdata__s.html">data_t</a> *data, <a class="code" href="structpos__s.html">pos_t</a> *pos, <span class="keyword">const</span> <span class="keywordtype">int</span> result_lvl);</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160; </div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <span class="keywordtype">void</span> do_pdi(<a class="code" href="structdata__s.html">data_t</a> *data, <span class="keyword">const</span> <span class="keywordtype">int</span> player_id);</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160; </div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="structcmd__s.html">cmd_t</a> gui_commands[] = {</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;        {<span class="stringliteral">&quot;msz&quot;</span>, &amp;do_msz, 0},</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;        {<span class="stringliteral">&quot;bct&quot;</span>, &amp;send_bct_to_current_cli, 0},</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;        {<span class="stringliteral">&quot;mct&quot;</span>, &amp;do_mct, 0},</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        {<span class="stringliteral">&quot;tna&quot;</span>, &amp;do_tna, 0},</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;        {<span class="stringliteral">&quot;sgt&quot;</span>, &amp;do_sgt, 0},</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;        {<span class="stringliteral">&quot;sst&quot;</span>, &amp;do_sst, 0},</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;        {<span class="stringliteral">&quot;pin&quot;</span>, &amp;do_pin, 0},</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;        {<span class="stringliteral">&quot;plv&quot;</span>, &amp;do_plv, 0},</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;        {<span class="stringliteral">&quot;ppo&quot;</span>, &amp;do_ppo, 0},</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;        {NULL, NULL}</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    };</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160; </div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* ZAPPY_GUI_CMD_H */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="astructcmd__s_html"><div class="ttname"><a href="structcmd__s.html">cmd_s</a></div><div class="ttdef"><b>Definition:</b> implementation.h:13</div></div>
+<div class="ttc" id="astructdata__s_html"><div class="ttname"><a href="structdata__s.html">data_s</a></div><div class="ttdef"><b>Definition:</b> core.h:92</div></div>
+<div class="ttc" id="astructegg__s_html"><div class="ttname"><a href="structegg__s.html">egg_s</a></div><div class="ttdef"><b>Definition:</b> core.h:74</div></div>
+<div class="ttc" id="astructplayer__s_html"><div class="ttname"><a href="structplayer__s.html">player_s</a></div><div class="ttdef"><b>Definition:</b> core.h:48</div></div>
+<div class="ttc" id="astructpos__s_html"><div class="ttname"><a href="structpos__s.html">pos_s</a></div><div class="ttdef"><b>Definition:</b> core.h:37</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

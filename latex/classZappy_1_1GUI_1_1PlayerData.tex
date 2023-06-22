@@ -3,8 +3,8 @@
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classZappy_1_1GUI_1_1PlayerData_a122bf2eec7398632b6d14021ffedc834}\label{classZappy_1_1GUI_1_1PlayerData_a122bf2eec7398632b6d14021ffedc834}} 
-\mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData_a122bf2eec7398632b6d14021ffedc834}{Player\+Data}} (const std\+::string \&a\+Id)
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1PlayerData_a0f0156a9d09d53ec7f437d697b97a90d}\label{classZappy_1_1GUI_1_1PlayerData_a0f0156a9d09d53ec7f437d697b97a90d}} 
+\mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData_a0f0156a9d09d53ec7f437d697b97a90d}{Player\+Data}} (std\+::string a\+Id)
 \begin{DoxyCompactList}\small\item\em Player constructor. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classZappy_1_1GUI_1_1PlayerData_a46b8206e69f289dd3a7e8b7283698c98}\label{classZappy_1_1GUI_1_1PlayerData_a46b8206e69f289dd3a7e8b7283698c98}} 
 \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData_a46b8206e69f289dd3a7e8b7283698c98}{$\sim$\+Player\+Data}} ()
@@ -19,6 +19,8 @@ void \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData_ac19d854148fa19ab2ef66d1b1
 \begin{DoxyCompactList}\small\item\em Set the level of the player. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData_ad8caf618ba379f1af7950ea5fc1e26ee}{set\+Inventory}} (\mbox{\hyperlink{classZappy_1_1GUI_1_1ItemPacket}{Item\+Packet}} \&a\+Inventory)
 \begin{DoxyCompactList}\small\item\em Set the inventory of the player. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData_aaae66095dfcfe521d09676d03a9ab590}{set\+Inventory}} (int a\+Slot, int a\+Quantity)
+\begin{DoxyCompactList}\small\item\em Set the inventory of the player. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData_a3a911977b7e884a0410b7ea94a67a3c6}{set\+Team\+Name}} (std\+::string a\+Team\+Name)
 \begin{DoxyCompactList}\small\item\em Set the team name of the player. \end{DoxyCompactList}\item 
 const std\+::pair$<$ unsigned int, unsigned int $>$ \& \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData_a67576b3d541ce6c17486bdc01635f2d8}{get\+Position}} () const
@@ -31,18 +33,18 @@ int \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData_a8998904a8c905f18680335382c
 \begin{DoxyCompactList}\small\item\em Get the level of the player. \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData_a79d4bed5b687e8fb023af6f7c5e27377}{get\+Inventory}} (int a\+Slot) const
 \begin{DoxyCompactList}\small\item\em Get the inventory of the player. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classZappy_1_1GUI_1_1ItemPacket}{Item\+Packet}} \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData_a8541400c72b3c52dcc661e280bec3777}{get\+All\+Inventory}} ()
+\mbox{\hyperlink{classZappy_1_1GUI_1_1ItemPacket}{Item\+Packet}} \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData_ab0e30069e480f1fa4dd3690f5c6540d5}{get\+All\+Inventory}} () const
 \begin{DoxyCompactList}\small\item\em Get the inventory of the player. \end{DoxyCompactList}\item 
 const std\+::string \& \mbox{\hyperlink{classZappy_1_1GUI_1_1PlayerData_af9d752ece384b40d4c25e1cb10e96231}{get\+Team\+Name}} () const
 \begin{DoxyCompactList}\small\item\em Get the team name of the player. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classZappy_1_1GUI_1_1PlayerData_a8541400c72b3c52dcc661e280bec3777}\label{classZappy_1_1GUI_1_1PlayerData_a8541400c72b3c52dcc661e280bec3777}} 
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1PlayerData_ab0e30069e480f1fa4dd3690f5c6540d5}\label{classZappy_1_1GUI_1_1PlayerData_ab0e30069e480f1fa4dd3690f5c6540d5}} 
 \index{Zappy::GUI::PlayerData@{Zappy::GUI::PlayerData}!getAllInventory@{getAllInventory}}
 \index{getAllInventory@{getAllInventory}!Zappy::GUI::PlayerData@{Zappy::GUI::PlayerData}}
 \doxysubsubsection{\texorpdfstring{getAllInventory()}{getAllInventory()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classZappy_1_1GUI_1_1ItemPacket}{Item\+Packet}} Zappy\+::\+GUI\+::\+Player\+Data\+::get\+All\+Inventory (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{classZappy_1_1GUI_1_1ItemPacket}{Item\+Packet}} Zappy\+::\+GUI\+::\+Player\+Data\+::get\+All\+Inventory (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
 
 
 
@@ -134,10 +136,25 @@ Get the team name of the player.
 \begin{DoxyReturn}{Returns}
 std\+::string 
 \end{DoxyReturn}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1PlayerData_aaae66095dfcfe521d09676d03a9ab590}\label{classZappy_1_1GUI_1_1PlayerData_aaae66095dfcfe521d09676d03a9ab590}} 
+\index{Zappy::GUI::PlayerData@{Zappy::GUI::PlayerData}!setInventory@{setInventory}}
+\index{setInventory@{setInventory}!Zappy::GUI::PlayerData@{Zappy::GUI::PlayerData}}
+\doxysubsubsection{\texorpdfstring{setInventory()}{setInventory()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Zappy\+::\+GUI\+::\+Player\+Data\+::set\+Inventory (\begin{DoxyParamCaption}\item[{int}]{a\+Slot,  }\item[{int}]{a\+Quantity }\end{DoxyParamCaption})}
+
+
+
+Set the inventory of the player. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Slot} & \\
+\hline
+\end{DoxyParams}
 \mbox{\Hypertarget{classZappy_1_1GUI_1_1PlayerData_ad8caf618ba379f1af7950ea5fc1e26ee}\label{classZappy_1_1GUI_1_1PlayerData_ad8caf618ba379f1af7950ea5fc1e26ee}} 
 \index{Zappy::GUI::PlayerData@{Zappy::GUI::PlayerData}!setInventory@{setInventory}}
 \index{setInventory@{setInventory}!Zappy::GUI::PlayerData@{Zappy::GUI::PlayerData}}
-\doxysubsubsection{\texorpdfstring{setInventory()}{setInventory()}}
+\doxysubsubsection{\texorpdfstring{setInventory()}{setInventory()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
 {\footnotesize\ttfamily void Zappy\+::\+GUI\+::\+Player\+Data\+::set\+Inventory (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classZappy_1_1GUI_1_1ItemPacket}{Item\+Packet}} \&}]{a\+Inventory }\end{DoxyParamCaption})}
 
 

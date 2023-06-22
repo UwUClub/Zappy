@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['forward_14',['forward',['../classplayer_1_1Player.html#a15b773bb2e19602fe37acd377834e0b2',1,'player::Player']]],
-  ['framehandler_15',['FrameHandler',['../classZappy_1_1GUI_1_1FrameHandler.html',1,'Zappy::GUI']]]
+  ['data_5fs_27',['data_s',['../structdata__s.html',1,'']]],
+  ['decryptmessage_28',['decryptMessage',['../classplayer_1_1Player.html#a3f7ad54dfa931a13bcf15e54a1e4e776',1,'player::Player']]],
+  ['disconnect_29',['disconnect',['../classZappy_1_1GUI_1_1ClientApi.html#a6b8975daedac42858b91691f066ced58',1,'Zappy::GUI::ClientApi::disconnect()'],['../classconnection_1_1Connection.html#aafe1e2f2d06f2a5614b0626576609422',1,'connection.Connection.disconnect()'],['../classplayer_1_1Player.html#aa05db30d8f22d8b878f027d4865a6ebd',1,'player.Player.disconnect()']]]
 ];

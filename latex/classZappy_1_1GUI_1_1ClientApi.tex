@@ -1,5 +1,11 @@
 \hypertarget{classZappy_1_1GUI_1_1ClientApi}{}\doxysection{Zappy\+::GUI\+::Client\+Api Class Reference}
 \label{classZappy_1_1GUI_1_1ClientApi}\index{Zappy::GUI::ClientApi@{Zappy::GUI::ClientApi}}
+Inheritance diagram for Zappy\+::GUI\+::Client\+Api\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classZappy_1_1GUI_1_1ClientApi}
+\end{center}
+\end{figure}
 \doxysubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -8,11 +14,14 @@ class \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi_1_1ClientException}{Client
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi_a15a19d723611f6c61f5f247112460b32}{Client\+Api}} (std\+::string a\+Address, unsigned int a\+Port, std\+::string a\+Team\+Name)
+\mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi_a487dfe0c313a5ad452fa8043f153df06}{Client\+Api}} (std\+::string a\+Address, unsigned int a\+Port, std\+::string a\+Team\+Name, \mbox{\hyperlink{classZappy_1_1GUI_1_1Mediator}{Mediator}} \&a\+Mediator, \mbox{\hyperlink{structZappy_1_1GUI_1_1ServerData}{Server\+Data}} \&a\+Server\+Data)
 \begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi}{Client\+Api}} constructor. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classZappy_1_1GUI_1_1ClientApi_aeb643a6aca56fccf94f80a91aabc76b2}\label{classZappy_1_1GUI_1_1ClientApi_aeb643a6aca56fccf94f80a91aabc76b2}} 
-\mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi_aeb643a6aca56fccf94f80a91aabc76b2}{$\sim$\+Client\+Api}} ()
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1ClientApi_ad8b9997ce9659e2583ffb252ff880a3e}\label{classZappy_1_1GUI_1_1ClientApi_ad8b9997ce9659e2583ffb252ff880a3e}} 
+\mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi_ad8b9997ce9659e2583ffb252ff880a3e}{$\sim$\+Client\+Api}} () final
 \begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi}{Client\+Api}} destructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1ClientApi_a56f160b8b369354c1a15af4eca955272}\label{classZappy_1_1GUI_1_1ClientApi_a56f160b8b369354c1a15af4eca955272}} 
+void \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi_a56f160b8b369354c1a15af4eca955272}{run}} ()
+\begin{DoxyCompactList}\small\item\em run the client, update the server data, must be called in another thread, use disconnect to stop \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classZappy_1_1GUI_1_1ClientApi_a56f160b8b369354c1a15af4eca955272}\label{classZappy_1_1GUI_1_1ClientApi_a56f160b8b369354c1a15af4eca955272}} 
 void \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi_a56f160b8b369354c1a15af4eca955272}{run}} ()
 \begin{DoxyCompactList}\small\item\em run the client, update the server data, must be called in another thread, use disconnect to stop \end{DoxyCompactList}\item 
@@ -32,19 +41,22 @@ void \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi_ab06cd586fb8286744d71e363a8
 \begin{DoxyCompactList}\small\item\em Append a command to the write buffer. \end{DoxyCompactList}\item 
 const \mbox{\hyperlink{structZappy_1_1GUI_1_1ServerData}{Server\+Data}} \& \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi_a1476368818de1ac789f87931e8e9e1a7}{get\+Server\+Data}} () const
 \begin{DoxyCompactList}\small\item\em geting the server data \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi_aeef6375d1c57529442c3d905d1e09346}{get\+Notified}} (const std\+::string \&a\+Notification) final
+\begin{DoxyCompactList}\small\item\em Method called by the Publisher to notify the \mbox{\hyperlink{classZappy_1_1GUI_1_1Subscriber}{Subscriber}}. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi_a75a9a6447c2c83bc5f884cdf142a0bcb}{register\+Subscriber}} (\mbox{\hyperlink{classZappy_1_1GUI_1_1Subscriber}{Subscriber}} \&a\+Subscriber)
 \begin{DoxyCompactList}\small\item\em register a subscriber \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classZappy_1_1GUI_1_1ClientApi_af44476f034727b91c4013b8a0edee45b}\label{classZappy_1_1GUI_1_1ClientApi_af44476f034727b91c4013b8a0edee45b}} 
 void \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi_af44476f034727b91c4013b8a0edee45b}{parse\+Server\+Responses}} ()
 \begin{DoxyCompactList}\small\item\em parse information from server \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\mbox{\Hypertarget{classZappy_1_1GUI_1_1ClientApi_a15a19d723611f6c61f5f247112460b32}\label{classZappy_1_1GUI_1_1ClientApi_a15a19d723611f6c61f5f247112460b32}} 
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1ClientApi_a487dfe0c313a5ad452fa8043f153df06}\label{classZappy_1_1GUI_1_1ClientApi_a487dfe0c313a5ad452fa8043f153df06}} 
 \index{Zappy::GUI::ClientApi@{Zappy::GUI::ClientApi}!ClientApi@{ClientApi}}
 \index{ClientApi@{ClientApi}!Zappy::GUI::ClientApi@{Zappy::GUI::ClientApi}}
 \doxysubsubsection{\texorpdfstring{ClientApi()}{ClientApi()}}
-{\footnotesize\ttfamily Zappy\+::\+GUI\+::\+Client\+Api\+::\+Client\+Api (\begin{DoxyParamCaption}\item[{std\+::string}]{a\+Address,  }\item[{unsigned int}]{a\+Port,  }\item[{std\+::string}]{a\+Team\+Name }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily Zappy\+::\+GUI\+::\+Client\+Api\+::\+Client\+Api (\begin{DoxyParamCaption}\item[{std\+::string}]{a\+Address,  }\item[{unsigned int}]{a\+Port,  }\item[{std\+::string}]{a\+Team\+Name,  }\item[{\mbox{\hyperlink{classZappy_1_1GUI_1_1Mediator}{Mediator}} \&}]{a\+Mediator,  }\item[{\mbox{\hyperlink{structZappy_1_1GUI_1_1ServerData}{Server\+Data}} \&}]{a\+Server\+Data }\end{DoxyParamCaption})}
 
 
 
@@ -75,6 +87,25 @@ geting the connect status
 \begin{DoxyReturn}{Returns}
 connect\+Status 
 \end{DoxyReturn}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1ClientApi_aeef6375d1c57529442c3d905d1e09346}\label{classZappy_1_1GUI_1_1ClientApi_aeef6375d1c57529442c3d905d1e09346}} 
+\index{Zappy::GUI::ClientApi@{Zappy::GUI::ClientApi}!getNotified@{getNotified}}
+\index{getNotified@{getNotified}!Zappy::GUI::ClientApi@{Zappy::GUI::ClientApi}}
+\doxysubsubsection{\texorpdfstring{getNotified()}{getNotified()}}
+{\footnotesize\ttfamily void Zappy\+::\+GUI\+::\+Client\+Api\+::get\+Notified (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{a\+Notification }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [final]}, {\ttfamily [virtual]}}
+
+
+
+Method called by the Publisher to notify the \mbox{\hyperlink{classZappy_1_1GUI_1_1Subscriber}{Subscriber}}. 
+
+This method is called by the Publisher to notify the \mbox{\hyperlink{classZappy_1_1GUI_1_1Subscriber}{Subscriber}} of a change 
+\begin{DoxyParams}{Parameters}
+{\em a\+Notification} & The notification sent by the Publisher \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classZappy_1_1GUI_1_1Observer_a298e99416516bd5849e55688497d373c}{Zappy\+::\+GUI\+::\+Observer}}.
+
 \mbox{\Hypertarget{classZappy_1_1GUI_1_1ClientApi_a1476368818de1ac789f87931e8e9e1a7}\label{classZappy_1_1GUI_1_1ClientApi_a1476368818de1ac789f87931e8e9e1a7}} 
 \index{Zappy::GUI::ClientApi@{Zappy::GUI::ClientApi}!getServerData@{getServerData}}
 \index{getServerData@{getServerData}!Zappy::GUI::ClientApi@{Zappy::GUI::ClientApi}}
@@ -149,4 +180,5 @@ server\+Data
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
 src/gui/cli/Client\+Api.\+hpp\item 
+src/gui/cli/Client\+Api+\+Listener.\+cpp\item 
 src/gui/cli/Client\+Api.\+cpp\end{DoxyCompactItemize}

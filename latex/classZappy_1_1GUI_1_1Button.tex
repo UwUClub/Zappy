@@ -1,0 +1,82 @@
+\hypertarget{classZappy_1_1GUI_1_1Button}{}\doxysection{Zappy\+::GUI\+::Button Class Reference}
+\label{classZappy_1_1GUI_1_1Button}\index{Zappy::GUI::Button@{Zappy::GUI::Button}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classZappy_1_1GUI_1_1Button_a506d27d17bd1838a77c5bd73cbb9df44}{Button}} (const std\+::string \&a\+Button\+Text, const std\+::pair$<$ float, float $>$ \&a\+Position, const std\+::pair$<$ float, float $>$ \&a\+Dimension, std\+::function$<$ void()$>$ a\+Callback)
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{classZappy_1_1GUI_1_1Button}{Button}} object. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classZappy_1_1GUI_1_1Button_a7730caf50faa9bbc55639c37086f10f2}{is\+On\+Button}} (const Ogre\+::\+Vector2 \&mouse\+Pos) const
+\begin{DoxyCompactList}\small\item\em Check if the mouse is on the button. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1Button_a4265a7beaedcca04c11eb460b308b885}\label{classZappy_1_1GUI_1_1Button_a4265a7beaedcca04c11eb460b308b885}} 
+void \mbox{\hyperlink{classZappy_1_1GUI_1_1Button_a4265a7beaedcca04c11eb460b308b885}{on\+Click}} ()
+\begin{DoxyCompactList}\small\item\em Call the callback of the button. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classZappy_1_1GUI_1_1Button_a78f41bc80d0a0168affca69c5f897aa5}{set\+Displayed}} (bool displayed)
+\begin{DoxyCompactList}\small\item\em Set the displayed state of the button. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1Button_a506d27d17bd1838a77c5bd73cbb9df44}\label{classZappy_1_1GUI_1_1Button_a506d27d17bd1838a77c5bd73cbb9df44}} 
+\index{Zappy::GUI::Button@{Zappy::GUI::Button}!Button@{Button}}
+\index{Button@{Button}!Zappy::GUI::Button@{Zappy::GUI::Button}}
+\doxysubsubsection{\texorpdfstring{Button()}{Button()}}
+{\footnotesize\ttfamily Zappy\+::\+GUI\+::\+Button\+::\+Button (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{a\+Button\+Text,  }\item[{const std\+::pair$<$ float, float $>$ \&}]{a\+Position,  }\item[{const std\+::pair$<$ float, float $>$ \&}]{a\+Dimension,  }\item[{std\+::function$<$ void()$>$}]{a\+Callback }\end{DoxyParamCaption})}
+
+
+
+Construct a new \mbox{\hyperlink{classZappy_1_1GUI_1_1Button}{Button}} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Button\+Text} & The text to display on the button \\
+\hline
+{\em a\+Position} & The position of the button \\
+\hline
+{\em a\+Dimension} & The dimension of the background \\
+\hline
+{\em a\+Callback} & The callback to call when the button is clicked \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1Button_a7730caf50faa9bbc55639c37086f10f2}\label{classZappy_1_1GUI_1_1Button_a7730caf50faa9bbc55639c37086f10f2}} 
+\index{Zappy::GUI::Button@{Zappy::GUI::Button}!isOnButton@{isOnButton}}
+\index{isOnButton@{isOnButton}!Zappy::GUI::Button@{Zappy::GUI::Button}}
+\doxysubsubsection{\texorpdfstring{isOnButton()}{isOnButton()}}
+{\footnotesize\ttfamily bool Zappy\+::\+GUI\+::\+Button\+::is\+On\+Button (\begin{DoxyParamCaption}\item[{const Ogre\+::\+Vector2 \&}]{mouse\+Pos }\end{DoxyParamCaption}) const}
+
+
+
+Check if the mouse is on the button. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mouse\+Pos} & The position of the mouse \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the mouse is on the button 
+
+false if the mouse is not on the button 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1Button_a78f41bc80d0a0168affca69c5f897aa5}\label{classZappy_1_1GUI_1_1Button_a78f41bc80d0a0168affca69c5f897aa5}} 
+\index{Zappy::GUI::Button@{Zappy::GUI::Button}!setDisplayed@{setDisplayed}}
+\index{setDisplayed@{setDisplayed}!Zappy::GUI::Button@{Zappy::GUI::Button}}
+\doxysubsubsection{\texorpdfstring{setDisplayed()}{setDisplayed()}}
+{\footnotesize\ttfamily void Zappy\+::\+GUI\+::\+Button\+::set\+Displayed (\begin{DoxyParamCaption}\item[{bool}]{displayed }\end{DoxyParamCaption})}
+
+
+
+Set the displayed state of the button. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em displayed} & The new displayed state \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/gui/Button.\+hpp\item 
+src/gui/Button.\+cpp\end{DoxyCompactItemize}

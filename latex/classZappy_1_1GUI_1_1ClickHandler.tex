@@ -1,5 +1,14 @@
 \hypertarget{classZappy_1_1GUI_1_1ClickHandler}{}\doxysection{Zappy\+::GUI\+::Click\+Handler Class Reference}
 \label{classZappy_1_1GUI_1_1ClickHandler}\index{Zappy::GUI::ClickHandler@{Zappy::GUI::ClickHandler}}
+
+
+Class used to handle the mouse clicks.  
+
+
+
+
+{\ttfamily \#include $<$Click\+Handler.\+hpp$>$}
+
 Inheritance diagram for Zappy\+::GUI\+::Click\+Handler\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -9,18 +18,17 @@ Inheritance diagram for Zappy\+::GUI\+::Click\+Handler\+:\begin{figure}[H]
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classZappy_1_1GUI_1_1ClickHandler_aff4139f2d47c955056428e1b3fc43762}\label{classZappy_1_1GUI_1_1ClickHandler_aff4139f2d47c955056428e1b3fc43762}} 
-{\bfseries Click\+Handler} (Ogre\+::\+Scene\+Node $\ast$camera\+Node, Ogre\+::\+Render\+Window $\ast$render\+Window, Ogre\+::\+Scene\+Manager $\ast$scene\+Manager, \mbox{\hyperlink{classZappy_1_1GUI_1_1ClientApi}{Client\+Api}} \&client)
-\item 
-\mbox{\Hypertarget{classZappy_1_1GUI_1_1ClickHandler_a620526366f43b7402355c2273ed3c06f}\label{classZappy_1_1GUI_1_1ClickHandler_a620526366f43b7402355c2273ed3c06f}} 
-bool {\bfseries mouse\+Pressed} (const Ogre\+Bites\+::\+Mouse\+Button\+Event \&evt) override
-\end{DoxyCompactItemize}
+\mbox{\hyperlink{classZappy_1_1GUI_1_1ClickHandler_a07711d7136dbf91ea5b791f247804907}{Click\+Handler}} (Ogre\+::\+Scene\+Node $\ast$camera\+Node, Ogre\+::\+Render\+Window $\ast$render\+Window, Ogre\+::\+Scene\+Manager $\ast$scene\+Manager, \mbox{\hyperlink{classZappy_1_1GUI_1_1App}{App}} \&a\+App)
+\begin{DoxyCompactList}\small\item\em Construct a new Click Handler object. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classZappy_1_1GUI_1_1ClickHandler_a3556c1e7233902279e64c437892946a5}{mouse\+Pressed}} (const Ogre\+Bites\+::\+Mouse\+Button\+Event \&evt) final
+\begin{DoxyCompactList}\small\item\em see the Ogre documentation for more details \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classZappy_1_1GUI_1_1ClickHandler_a1b344db76e50e90d68c3af63c3077e25}\label{classZappy_1_1GUI_1_1ClickHandler_a1b344db76e50e90d68c3af63c3077e25}} 
-Ogre\+::\+Scene\+Node $\ast$ {\bfseries get\+Node\+Under\+Mouse} (const Ogre\+::\+Vector2 \&mouse\+Pos)
-\end{DoxyCompactItemize}
+Ogre\+::\+Scene\+Node $\ast$ \mbox{\hyperlink{classZappy_1_1GUI_1_1ClickHandler_a1b344db76e50e90d68c3af63c3077e25}{get\+Node\+Under\+Mouse}} (const Ogre\+::\+Vector2 \&mouse\+Pos)
+\begin{DoxyCompactList}\small\item\em Get the Node Under Mouse object. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classZappy_1_1GUI_1_1ClickHandler_a85374f3c4e8c1f308d9c0db78896e1a7}{exec\+Button}} (const Ogre\+::\+Vector2 \&mouse\+Pos)
+\begin{DoxyCompactList}\small\item\em Call the callback of the button. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -32,7 +40,102 @@ Ogre\+::\+Render\+Window $\ast$ {\bfseries \+\_\+render\+Window}
 \item 
 \mbox{\Hypertarget{classZappy_1_1GUI_1_1ClickHandler_a387acaaa2527f899c44b8c7d39a63b5f}\label{classZappy_1_1GUI_1_1ClickHandler_a387acaaa2527f899c44b8c7d39a63b5f}} 
 Ogre\+::\+Scene\+Manager $\ast$ {\bfseries \+\_\+scene\+Manager}
+\item 
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1ClickHandler_ad1994bcf437c057e40d84bb56a36c752}\label{classZappy_1_1GUI_1_1ClickHandler_ad1994bcf437c057e40d84bb56a36c752}} 
+std\+::vector$<$ std\+::unique\+\_\+ptr$<$ \mbox{\hyperlink{classZappy_1_1GUI_1_1Button}{Button}} $>$ $>$ \& {\bfseries \+\_\+buttons}
+\item 
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1ClickHandler_a840461bba9110b96ab098a4b9bdb08a3}\label{classZappy_1_1GUI_1_1ClickHandler_a840461bba9110b96ab098a4b9bdb08a3}} 
+Ogre\+::\+Scene\+Node $\ast$ {\bfseries \+\_\+selected\+Node}
+\item 
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1ClickHandler_acec50b2b5578a24c55640142bbf0a3bc}\label{classZappy_1_1GUI_1_1ClickHandler_acec50b2b5578a24c55640142bbf0a3bc}} 
+\mbox{\hyperlink{classZappy_1_1GUI_1_1App}{App}} \& {\bfseries \+\_\+app}
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Class used to handle the mouse clicks. 
+
+This class is used to handle the mouse clicks, it is used to select a node in the scene, refer to the Ogre documentation 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1ClickHandler_a07711d7136dbf91ea5b791f247804907}\label{classZappy_1_1GUI_1_1ClickHandler_a07711d7136dbf91ea5b791f247804907}} 
+\index{Zappy::GUI::ClickHandler@{Zappy::GUI::ClickHandler}!ClickHandler@{ClickHandler}}
+\index{ClickHandler@{ClickHandler}!Zappy::GUI::ClickHandler@{Zappy::GUI::ClickHandler}}
+\doxysubsubsection{\texorpdfstring{ClickHandler()}{ClickHandler()}}
+{\footnotesize\ttfamily Zappy\+::\+GUI\+::\+Click\+Handler\+::\+Click\+Handler (\begin{DoxyParamCaption}\item[{Ogre\+::\+Scene\+Node $\ast$}]{camera\+Node,  }\item[{Ogre\+::\+Render\+Window $\ast$}]{render\+Window,  }\item[{Ogre\+::\+Scene\+Manager $\ast$}]{scene\+Manager,  }\item[{\mbox{\hyperlink{classZappy_1_1GUI_1_1App}{App}} \&}]{a\+App }\end{DoxyParamCaption})}
+
+
+
+Construct a new Click Handler object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em camera\+Node} & The camera node to use \\
+\hline
+{\em render\+Window} & The render window to use \\
+\hline
+{\em scene\+Manager} & The scene manager to use \\
+\hline
+{\em a\+App} & The \mbox{\hyperlink{classZappy_1_1GUI_1_1App}{App}} object \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1ClickHandler_a85374f3c4e8c1f308d9c0db78896e1a7}\label{classZappy_1_1GUI_1_1ClickHandler_a85374f3c4e8c1f308d9c0db78896e1a7}} 
+\index{Zappy::GUI::ClickHandler@{Zappy::GUI::ClickHandler}!execButton@{execButton}}
+\index{execButton@{execButton}!Zappy::GUI::ClickHandler@{Zappy::GUI::ClickHandler}}
+\doxysubsubsection{\texorpdfstring{execButton()}{execButton()}}
+{\footnotesize\ttfamily bool Zappy\+::\+GUI\+::\+Click\+Handler\+::exec\+Button (\begin{DoxyParamCaption}\item[{const Ogre\+::\+Vector2 \&}]{mouse\+Pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Call the callback of the button. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mouse\+Pos} & The position of the mouse \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if a button has been clicked, false otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1ClickHandler_a1b344db76e50e90d68c3af63c3077e25}\label{classZappy_1_1GUI_1_1ClickHandler_a1b344db76e50e90d68c3af63c3077e25}} 
+\index{Zappy::GUI::ClickHandler@{Zappy::GUI::ClickHandler}!getNodeUnderMouse@{getNodeUnderMouse}}
+\index{getNodeUnderMouse@{getNodeUnderMouse}!Zappy::GUI::ClickHandler@{Zappy::GUI::ClickHandler}}
+\doxysubsubsection{\texorpdfstring{getNodeUnderMouse()}{getNodeUnderMouse()}}
+{\footnotesize\ttfamily Ogre\+::\+Scene\+Node $\ast$ Zappy\+::\+GUI\+::\+Click\+Handler\+::get\+Node\+Under\+Mouse (\begin{DoxyParamCaption}\item[{const Ogre\+::\+Vector2 \&}]{mouse\+Pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Get the Node Under Mouse object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mouse\+Pos} & The position of the mouse \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Ogre\+::\+Scene\+Node$\ast$ The node under the mouse 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1ClickHandler_a3556c1e7233902279e64c437892946a5}\label{classZappy_1_1GUI_1_1ClickHandler_a3556c1e7233902279e64c437892946a5}} 
+\index{Zappy::GUI::ClickHandler@{Zappy::GUI::ClickHandler}!mousePressed@{mousePressed}}
+\index{mousePressed@{mousePressed}!Zappy::GUI::ClickHandler@{Zappy::GUI::ClickHandler}}
+\doxysubsubsection{\texorpdfstring{mousePressed()}{mousePressed()}}
+{\footnotesize\ttfamily bool Zappy\+::\+GUI\+::\+Click\+Handler\+::mouse\+Pressed (\begin{DoxyParamCaption}\item[{const Ogre\+Bites\+::\+Mouse\+Button\+Event \&}]{evt }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [final]}}
+
+
+
+see the Ogre documentation for more details 
+
+
+\begin{DoxyParams}{Parameters}
+{\em evt} & The event of the mouse \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a boolean (true) 
+\end{DoxyReturn}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

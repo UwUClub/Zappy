@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['map_5fs_84',['map_s',['../structmap__s.html',1,'']]]
+  ['framehandler_161',['FrameHandler',['../classZappy_1_1GUI_1_1FrameHandler.html',1,'Zappy::GUI']]]
 ];

@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['clientapi_96',['ClientApi',['../classZappy_1_1GUI_1_1ClientApi.html#a15a19d723611f6c61f5f247112460b32',1,'Zappy::GUI::ClientApi']]],
-  ['clientexception_97',['ClientException',['../classZappy_1_1GUI_1_1ClientApi_1_1ClientException.html#a7245848ba9d5cf696887b8085abf66f9',1,'Zappy::GUI::ClientApi::ClientException']]],
-  ['connect_98',['connect',['../classconnection_1_1Connection.html#a1aa10a076223deb0bfefce9411c165da',1,'connection.Connection.connect()'],['../classplayer_1_1Player.html#a3c6d0f1fff3ac302f7386647e8131660',1,'player.Player.connect(self, aInfo)']]],
-  ['connectnbr_99',['connectNbr',['../classplayer_1_1Player.html#a5103f7111fd3bd7ba8c4d7d5d66513fd',1,'player::Player']]]
+  ['addresources_185',['addResources',['../classZappy_1_1GUI_1_1ItemPacket.html#a99e8a6cd86ff829b44c1eb24f4779768',1,'Zappy::GUI::ItemPacket']]],
+  ['alert_186',['alert',['../classZappy_1_1GUI_1_1Mediator.html#a4c3c9837ad4e099e25f76eb0e6b7273c',1,'Zappy::GUI::Mediator']]],
+  ['animationhandler_187',['AnimationHandler',['../classZappy_1_1GUI_1_1AnimationHandler.html#a8850de44b76a3f5331eb432f843c3dac',1,'Zappy::GUI::AnimationHandler']]],
+  ['app_188',['App',['../classZappy_1_1GUI_1_1App.html#a95bcd111cf055f03ac7387583948d825',1,'Zappy::GUI::App']]],
+  ['askdisconnection_189',['askDisconnection',['../classZappy_1_1GUI_1_1App.html#a5e3e0440cf74d5912219ef1b444e99b7',1,'Zappy::GUI::App']]]
 ];

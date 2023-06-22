@@ -100,40 +100,44 @@ $(document).ready(function(){initNavTree('CameraHandler_8hpp_source.html',''); i
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;OgreMath.h&gt;</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;OgrePrerequisites.h&gt;</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;OgreRenderWindow.h&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &quot;ClientApi.hpp&quot;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &quot;InputHandler.hpp&quot;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">namespace </span>Zappy::GUI {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">const</span> constexpr <span class="keywordtype">int</span> BASE_ANGLE = 45;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classZappy_1_1GUI_1_1CameraHandler.html">   22</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classZappy_1_1GUI_1_1CameraHandler.html">CameraHandler</a> final : <span class="keyword">public</span> <a class="code" href="classZappy_1_1GUI_1_1InputHandler.html">InputHandler</a></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;            <a class="code" href="classZappy_1_1GUI_1_1CameraHandler.html">CameraHandler</a>(Ogre::SceneNode *cameraNode, Ogre::Vector3 center, Ogre::Real radius, <a class="code" href="classZappy_1_1GUI_1_1ClientApi.html">ClientApi</a> &amp;aClient);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;            ~<a class="code" href="classZappy_1_1GUI_1_1CameraHandler.html">CameraHandler</a>() <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            <span class="keywordtype">bool</span> mouseMoved(<span class="keyword">const</span> OgreBites::MouseMotionEvent &amp;evt) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            <span class="keywordtype">bool</span> mouseWheelRolled(<span class="keyword">const</span> OgreBites::MouseWheelEvent &amp;evt) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            <span class="keywordtype">bool</span> keyPressed(<span class="keyword">const</span> OgreBites::KeyboardEvent &amp;evt) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            <span class="keywordtype">void</span> updateCameraPosition();</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            Ogre::SceneNode *_cameraNode;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            Ogre::Vector3 _cameraPositionBase;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            Ogre::Vector3 _center;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            Ogre::Vector3 _centerBase;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            Ogre::Real _radius;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            Ogre::Real _radiusBase;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            Ogre::Radian _inclination;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            Ogre::Radian _azimuth;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    };</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;} <span class="comment">// namespace Zappy::GUI</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* !CAMERAHANDLER_HPP_ */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="aclassZappy_1_1GUI_1_1CameraHandler_html"><div class="ttname"><a href="classZappy_1_1GUI_1_1CameraHandler.html">Zappy::GUI::CameraHandler</a></div><div class="ttdef"><b>Definition:</b> CameraHandler.hpp:23</div></div>
-<div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_html"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi.html">Zappy::GUI::ClientApi</a></div><div class="ttdef"><b>Definition:</b> ClientApi.hpp:14</div></div>
-<div class="ttc" id="aclassZappy_1_1GUI_1_1InputHandler_html"><div class="ttname"><a href="classZappy_1_1GUI_1_1InputHandler.html">Zappy::GUI::InputHandler</a></div><div class="ttdef"><b>Definition:</b> InputHandler.hpp:16</div></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &quot;InputHandler.hpp&quot;</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace </span>Zappy::GUI {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">class </span>App;</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classZappy_1_1GUI_1_1CameraHandler.html">   25</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classZappy_1_1GUI_1_1CameraHandler.html">CameraHandler</a> final : <span class="keyword">public</span> <a class="code" href="classZappy_1_1GUI_1_1InputHandler.html">InputHandler</a></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            <a class="code" href="classZappy_1_1GUI_1_1CameraHandler.html#a8e27b0e4638d6045b123ace355f32097">CameraHandler</a>(Ogre::SceneNode *cameraNode, Ogre::Vector3 center, Ogre::Real radius, <a class="code" href="classZappy_1_1GUI_1_1App.html">App</a> &amp;aApp);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            ~<a class="code" href="classZappy_1_1GUI_1_1CameraHandler.html">CameraHandler</a>() <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            <span class="keywordtype">bool</span> <a class="code" href="classZappy_1_1GUI_1_1CameraHandler.html#a684589b1e897f282ad0ec95cdc23a93d">mouseMoved</a>(<span class="keyword">const</span> OgreBites::MouseMotionEvent &amp;evt) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <span class="keywordtype">bool</span> <a class="code" href="classZappy_1_1GUI_1_1CameraHandler.html#ac2a038a59eef0ba00fceddf2733b6276">mouseWheelRolled</a>(<span class="keyword">const</span> OgreBites::MouseWheelEvent &amp;evt) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            <span class="keywordtype">bool</span> <a class="code" href="classZappy_1_1GUI_1_1CameraHandler.html#a469d9b93cfe764ae19b8d95351e4aa48">keyPressed</a>(<span class="keyword">const</span> OgreBites::KeyboardEvent &amp;evt) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            <span class="keywordtype">void</span> updateCameraPosition();</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            Ogre::SceneNode *_cameraNode;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            Ogre::Vector3 _cameraPositionBase;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            Ogre::Vector3 _center;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            Ogre::Vector3 _centerBase;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            Ogre::Real _radius;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            Ogre::Real _radiusBase;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            Ogre::Radian _inclination;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            Ogre::Radian _azimuth;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    };</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;} <span class="comment">// namespace Zappy::GUI</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* !CAMERAHANDLER_HPP_ */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="aclassZappy_1_1GUI_1_1App_html"><div class="ttname"><a href="classZappy_1_1GUI_1_1App.html">Zappy::GUI::App</a></div><div class="ttdoc">Main class of the GUI.</div><div class="ttdef"><b>Definition:</b> App.hpp:39</div></div>
+<div class="ttc" id="aclassZappy_1_1GUI_1_1CameraHandler_html"><div class="ttname"><a href="classZappy_1_1GUI_1_1CameraHandler.html">Zappy::GUI::CameraHandler</a></div><div class="ttdoc">Class used to handle the camera.</div><div class="ttdef"><b>Definition:</b> CameraHandler.hpp:26</div></div>
+<div class="ttc" id="aclassZappy_1_1GUI_1_1CameraHandler_html_a469d9b93cfe764ae19b8d95351e4aa48"><div class="ttname"><a href="classZappy_1_1GUI_1_1CameraHandler.html#a469d9b93cfe764ae19b8d95351e4aa48">Zappy::GUI::CameraHandler::keyPressed</a></div><div class="ttdeci">bool keyPressed(const OgreBites::KeyboardEvent &amp;evt) final</div><div class="ttdoc">Method called when a key is pressed.</div><div class="ttdef"><b>Definition:</b> CameraHandler.cpp:72</div></div>
+<div class="ttc" id="aclassZappy_1_1GUI_1_1CameraHandler_html_a684589b1e897f282ad0ec95cdc23a93d"><div class="ttname"><a href="classZappy_1_1GUI_1_1CameraHandler.html#a684589b1e897f282ad0ec95cdc23a93d">Zappy::GUI::CameraHandler::mouseMoved</a></div><div class="ttdeci">bool mouseMoved(const OgreBites::MouseMotionEvent &amp;evt) final</div><div class="ttdoc">Method called when the mouse is moved.</div><div class="ttdef"><b>Definition:</b> CameraHandler.cpp:38</div></div>
+<div class="ttc" id="aclassZappy_1_1GUI_1_1CameraHandler_html_a8e27b0e4638d6045b123ace355f32097"><div class="ttname"><a href="classZappy_1_1GUI_1_1CameraHandler.html#a8e27b0e4638d6045b123ace355f32097">Zappy::GUI::CameraHandler::CameraHandler</a></div><div class="ttdeci">CameraHandler(Ogre::SceneNode *cameraNode, Ogre::Vector3 center, Ogre::Real radius, App &amp;aApp)</div><div class="ttdoc">Construct a new Camera Handler object.</div><div class="ttdef"><b>Definition:</b> CameraHandler.cpp:24</div></div>
+<div class="ttc" id="aclassZappy_1_1GUI_1_1CameraHandler_html_ac2a038a59eef0ba00fceddf2733b6276"><div class="ttname"><a href="classZappy_1_1GUI_1_1CameraHandler.html#ac2a038a59eef0ba00fceddf2733b6276">Zappy::GUI::CameraHandler::mouseWheelRolled</a></div><div class="ttdeci">bool mouseWheelRolled(const OgreBites::MouseWheelEvent &amp;evt) final</div><div class="ttdoc">Method called when the mouse wheel is rolled, see the Ogre documentation for more details.</div><div class="ttdef"><b>Definition:</b> CameraHandler.cpp:59</div></div>
+<div class="ttc" id="aclassZappy_1_1GUI_1_1InputHandler_html"><div class="ttname"><a href="classZappy_1_1GUI_1_1InputHandler.html">Zappy::GUI::InputHandler</a></div><div class="ttdoc">Class used to handle the mouse events.</div><div class="ttdef"><b>Definition:</b> InputHandler.hpp:20</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

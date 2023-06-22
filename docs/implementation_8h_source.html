@@ -105,30 +105,44 @@ $(document).ready(function(){initNavTree('implementation_8h_source.html',''); in
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">int</span> parse_input(<a class="code" href="structdata__s.html">data_t</a> *data);</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">int</span> get_remaining_slots(<a class="code" href="structdata__s.html">data_t</a> *data, <span class="keywordtype">char</span> *team_name);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">int</span> append_gui_client(<a class="code" href="structdata__s.html">data_t</a> *data);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">int</span> append_gui_client(<a class="code" href="structdata__s.html">data_t</a> *data);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">int</span> append_player_client(<a class="code" href="structdata__s.html">data_t</a> *data, <span class="keywordtype">char</span> *team_name);</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">int</span> append_player_client(<a class="code" href="structdata__s.html">data_t</a> *data, <span class="keywordtype">char</span> *team_name);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">int</span> is_player(<a class="code" href="structclient__s.html">client_t</a> **clients, <span class="keyword">const</span> <span class="keywordtype">int</span> i);</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">char</span> *get_world_dimensions(<a class="code" href="structdata__s.html">data_t</a> *data);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">void</span> handle_pending_cmd(<a class="code" href="structdata__s.html">data_t</a> *data,</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span> elapsed_time_ms);</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">int</span> is_player(<a class="code" href="structdata__s.html">data_t</a> *data, <span class="keyword">const</span> <span class="keywordtype">int</span> i);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">void</span> handle_player_digestion(<a class="code" href="structdata__s.html">data_t</a> *data,</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span> elapsed_time_ms);</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> handle_pending_cmd(<a class="code" href="structdata__s.html">data_t</a> *data,</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span> elapsed_time_ms);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">void</span> handle_player_digestion(<a class="code" href="structdata__s.html">data_t</a> *data,</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span> elapsed_time_ms);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordtype">void</span> kill_player(<a class="code" href="structdata__s.html">data_t</a> *data);</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <a class="code" href="structplayer__s.html">player_t</a> *get_player_by_id(<a class="code" href="structdata__s.html">data_t</a> *data, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <span class="keywordtype">id</span>);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">void</span> handle_eggs_digestion(<a class="code" href="structdata__s.html">data_t</a> *data,</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <span class="keywordtype">long</span> elapsed_time_ms);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">void</span> hatch_egg(<a class="code" href="structdata__s.html">data_t</a> *data, <span class="keyword">const</span> <span class="keywordtype">int</span> team_index, <span class="keyword">const</span> <span class="keywordtype">int</span> egg_index);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">void</span> hatch_eggs_at_pos(<a class="code" href="structdata__s.html">data_t</a> *data, <a class="code" href="structpos__s.html">pos_t</a> *pos);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordtype">void</span> kill_player(<a class="code" href="structdata__s.html">data_t</a> *data);</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* ZAPPY_IMPLEMENTATION_H */</span><span class="preprocessor"></span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <a class="code" href="structplayer__s.html">player_t</a> *get_player_by_id(<a class="code" href="structclient__s.html">client_t</a> **clients, <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <span class="keywordtype">id</span>);</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordtype">int</span> get_nb_eggs(<a class="code" href="structdata__s.html">data_t</a> *data, <span class="keyword">const</span> <span class="keywordtype">char</span> *team_name);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <a class="code" href="structteam__s.html">team_t</a> *get_team_by_name(<a class="code" href="structteam__s.html">team_t</a> **teams, <span class="keyword">const</span> <span class="keywordtype">char</span> *name);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keywordtype">int</span> get_team_index_by_name(<a class="code" href="structteam__s.html">team_t</a> **teams, <span class="keyword">const</span> <span class="keywordtype">char</span> *name);</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keywordtype">void</span> normalize_pos(<a class="code" href="structpos__s.html">pos_t</a> *pos, <span class="keyword">const</span> <span class="keywordtype">int</span> width, <span class="keyword">const</span> <span class="keywordtype">int</span> height);</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="preprocessor">#endif </span><span class="comment">/* ZAPPY_IMPLEMENTATION_H */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="astructclient__s_html"><div class="ttname"><a href="structclient__s.html">client_s</a></div><div class="ttdef"><b>Definition:</b> core.h:60</div></div>
 <div class="ttc" id="astructcmd__s_html"><div class="ttname"><a href="structcmd__s.html">cmd_s</a></div><div class="ttdef"><b>Definition:</b> implementation.h:13</div></div>
-<div class="ttc" id="astructdata__s_html"><div class="ttname"><a href="structdata__s.html">data_s</a></div><div class="ttdef"><b>Definition:</b> core.h:72</div></div>
-<div class="ttc" id="astructplayer__s_html"><div class="ttname"><a href="structplayer__s.html">player_s</a></div><div class="ttdef"><b>Definition:</b> core.h:47</div></div>
+<div class="ttc" id="astructdata__s_html"><div class="ttname"><a href="structdata__s.html">data_s</a></div><div class="ttdef"><b>Definition:</b> core.h:92</div></div>
+<div class="ttc" id="astructplayer__s_html"><div class="ttname"><a href="structplayer__s.html">player_s</a></div><div class="ttdef"><b>Definition:</b> core.h:48</div></div>
+<div class="ttc" id="astructpos__s_html"><div class="ttname"><a href="structpos__s.html">pos_s</a></div><div class="ttdef"><b>Definition:</b> core.h:37</div></div>
+<div class="ttc" id="astructteam__s_html"><div class="ttname"><a href="structteam__s.html">team_s</a></div><div class="ttdef"><b>Definition:</b> core.h:82</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

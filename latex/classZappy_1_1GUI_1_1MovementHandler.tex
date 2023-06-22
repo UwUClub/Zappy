@@ -1,0 +1,117 @@
+\hypertarget{classZappy_1_1GUI_1_1MovementHandler}{}\doxysection{Zappy\+::GUI\+::Movement\+Handler Class Reference}
+\label{classZappy_1_1GUI_1_1MovementHandler}\index{Zappy::GUI::MovementHandler@{Zappy::GUI::MovementHandler}}
+
+
+Handle the movement of the entity.  
+
+
+
+
+{\ttfamily \#include $<$Movement\+Handler.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classZappy_1_1GUI_1_1MovementHandler_a1992df466cb6764b40673a03b3269fab}{Movement\+Handler}} (Ogre\+::\+Entity $\ast$a\+Entity, const std\+::pair$<$ int, int $>$ \&a\+Map\+Size)
+\begin{DoxyCompactList}\small\item\em Construct a new Movement Handler object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classZappy_1_1GUI_1_1MovementHandler_af48e4aa6474afe2f42a0993882bdc357}{set\+Arrival\+Point}} (const Ogre\+::\+Vector3 \&a\+Arrival\+Point)
+\begin{DoxyCompactList}\small\item\em Set the Arrival Point object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classZappy_1_1GUI_1_1MovementHandler_a17ff28904b308a1efc627680dfb5b4fe}{update\+Movement}} (Ogre\+::\+Real a\+Time\+Since\+Last\+Frame, int a\+Server\+Spd)
+\begin{DoxyCompactList}\small\item\em Update the movement. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classZappy_1_1GUI_1_1MovementHandler_a47b904b46fb724e983f3ba61f196a97d}{is\+Moving}} () const
+\begin{DoxyCompactList}\small\item\em Check if the entity is moving. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classZappy_1_1GUI_1_1MovementHandler_a5a099c2a0cf92881f00f8c6ded3ac515}{will\+Teleport}} () const
+\begin{DoxyCompactList}\small\item\em Check if the entity will teleport. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1MovementHandler_add6f9b47fd5f1e4ffca0184c621c09a1}\label{classZappy_1_1GUI_1_1MovementHandler_add6f9b47fd5f1e4ffca0184c621c09a1}} 
+void \mbox{\hyperlink{classZappy_1_1GUI_1_1MovementHandler_add6f9b47fd5f1e4ffca0184c621c09a1}{teleport}} ()
+\begin{DoxyCompactList}\small\item\em Teleport the entity. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Handle the movement of the entity. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1MovementHandler_a1992df466cb6764b40673a03b3269fab}\label{classZappy_1_1GUI_1_1MovementHandler_a1992df466cb6764b40673a03b3269fab}} 
+\index{Zappy::GUI::MovementHandler@{Zappy::GUI::MovementHandler}!MovementHandler@{MovementHandler}}
+\index{MovementHandler@{MovementHandler}!Zappy::GUI::MovementHandler@{Zappy::GUI::MovementHandler}}
+\doxysubsubsection{\texorpdfstring{MovementHandler()}{MovementHandler()}}
+{\footnotesize\ttfamily Zappy\+::\+GUI\+::\+Movement\+Handler\+::\+Movement\+Handler (\begin{DoxyParamCaption}\item[{Ogre\+::\+Entity $\ast$}]{a\+Entity,  }\item[{const std\+::pair$<$ int, int $>$ \&}]{a\+Map\+Size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Construct a new Movement Handler object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Entity} & The entity to move \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1MovementHandler_a47b904b46fb724e983f3ba61f196a97d}\label{classZappy_1_1GUI_1_1MovementHandler_a47b904b46fb724e983f3ba61f196a97d}} 
+\index{Zappy::GUI::MovementHandler@{Zappy::GUI::MovementHandler}!isMoving@{isMoving}}
+\index{isMoving@{isMoving}!Zappy::GUI::MovementHandler@{Zappy::GUI::MovementHandler}}
+\doxysubsubsection{\texorpdfstring{isMoving()}{isMoving()}}
+{\footnotesize\ttfamily bool Zappy\+::\+GUI\+::\+Movement\+Handler\+::is\+Moving (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Check if the entity is moving. 
+
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1MovementHandler_af48e4aa6474afe2f42a0993882bdc357}\label{classZappy_1_1GUI_1_1MovementHandler_af48e4aa6474afe2f42a0993882bdc357}} 
+\index{Zappy::GUI::MovementHandler@{Zappy::GUI::MovementHandler}!setArrivalPoint@{setArrivalPoint}}
+\index{setArrivalPoint@{setArrivalPoint}!Zappy::GUI::MovementHandler@{Zappy::GUI::MovementHandler}}
+\doxysubsubsection{\texorpdfstring{setArrivalPoint()}{setArrivalPoint()}}
+{\footnotesize\ttfamily void Zappy\+::\+GUI\+::\+Movement\+Handler\+::set\+Arrival\+Point (\begin{DoxyParamCaption}\item[{const Ogre\+::\+Vector3 \&}]{a\+Arrival\+Point }\end{DoxyParamCaption})}
+
+
+
+Set the Arrival Point object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Arrival\+Point} & The arrival point \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1MovementHandler_a17ff28904b308a1efc627680dfb5b4fe}\label{classZappy_1_1GUI_1_1MovementHandler_a17ff28904b308a1efc627680dfb5b4fe}} 
+\index{Zappy::GUI::MovementHandler@{Zappy::GUI::MovementHandler}!updateMovement@{updateMovement}}
+\index{updateMovement@{updateMovement}!Zappy::GUI::MovementHandler@{Zappy::GUI::MovementHandler}}
+\doxysubsubsection{\texorpdfstring{updateMovement()}{updateMovement()}}
+{\footnotesize\ttfamily void Zappy\+::\+GUI\+::\+Movement\+Handler\+::update\+Movement (\begin{DoxyParamCaption}\item[{Ogre\+::\+Real}]{a\+Time\+Since\+Last\+Frame,  }\item[{int}]{a\+Server\+Spd }\end{DoxyParamCaption})}
+
+
+
+Update the movement. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Time\+Since\+Last\+Frame} & The time since the last frame \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1MovementHandler_a5a099c2a0cf92881f00f8c6ded3ac515}\label{classZappy_1_1GUI_1_1MovementHandler_a5a099c2a0cf92881f00f8c6ded3ac515}} 
+\index{Zappy::GUI::MovementHandler@{Zappy::GUI::MovementHandler}!willTeleport@{willTeleport}}
+\index{willTeleport@{willTeleport}!Zappy::GUI::MovementHandler@{Zappy::GUI::MovementHandler}}
+\doxysubsubsection{\texorpdfstring{willTeleport()}{willTeleport()}}
+{\footnotesize\ttfamily bool Zappy\+::\+GUI\+::\+Movement\+Handler\+::will\+Teleport (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Check if the entity will teleport. 
+
+\begin{DoxyReturn}{Returns}
+true 
+
+false 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/gui/handlers/Movement\+Handler.\+hpp\item 
+src/gui/handlers/Movement\+Handler.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,68 @@
+\hypertarget{classZappy_1_1GUI_1_1Mediator}{}\doxysection{Zappy\+::GUI\+::Mediator Class Reference}
+\label{classZappy_1_1GUI_1_1Mediator}\index{Zappy::GUI::Mediator@{Zappy::GUI::Mediator}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classZappy_1_1GUI_1_1Mediator_ad39262473bd8c186a643a5ab2eca2dda}{Mediator}} (\mbox{\hyperlink{classZappy_1_1GUI_1_1ParserData}{Parser\+Data}} \&parser\+Data)
+\begin{DoxyCompactList}\small\item\em Construct a new \mbox{\hyperlink{classZappy_1_1GUI_1_1Mediator}{Mediator}} object. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classZappy_1_1GUI_1_1Mediator_a4c3c9837ad4e099e25f76eb0e6b7273c}{alert}} (\mbox{\hyperlink{classZappy_1_1GUI_1_1Observer}{Observer}} $\ast$a\+Observer, const std\+::string \&a\+Notification)
+\begin{DoxyCompactList}\small\item\em Alert the observer of an object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1Mediator_a778b06b25d6de4a782a1ae26ebcabbf0}\label{classZappy_1_1GUI_1_1Mediator_a778b06b25d6de4a782a1ae26ebcabbf0}} 
+void \mbox{\hyperlink{classZappy_1_1GUI_1_1Mediator_a778b06b25d6de4a782a1ae26ebcabbf0}{start}} ()
+\begin{DoxyCompactList}\small\item\em Start the game loop. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1Mediator_ac77188786a2f4f0e640f678620150979}\label{classZappy_1_1GUI_1_1Mediator_ac77188786a2f4f0e640f678620150979}} 
+{\bfseries Mediator} (const \mbox{\hyperlink{classZappy_1_1GUI_1_1Mediator}{Mediator}} \&)=delete
+\item 
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1Mediator_aa4ef6bbcaf98d7bd1cf59181c4508d2b}\label{classZappy_1_1GUI_1_1Mediator_aa4ef6bbcaf98d7bd1cf59181c4508d2b}} 
+\mbox{\hyperlink{classZappy_1_1GUI_1_1Mediator}{Mediator}} \& {\bfseries operator=} (const \mbox{\hyperlink{classZappy_1_1GUI_1_1Mediator}{Mediator}} \&)=delete
+\item 
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1Mediator_ac0e8802768eac9a93cf1b4db525fb822}\label{classZappy_1_1GUI_1_1Mediator_ac0e8802768eac9a93cf1b4db525fb822}} 
+{\bfseries Mediator} (\mbox{\hyperlink{classZappy_1_1GUI_1_1Mediator}{Mediator}} \&\&)=delete
+\item 
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1Mediator_afc8472b0f3c039604fa10d494d131160}\label{classZappy_1_1GUI_1_1Mediator_afc8472b0f3c039604fa10d494d131160}} 
+\mbox{\hyperlink{classZappy_1_1GUI_1_1Mediator}{Mediator}} \& {\bfseries operator=} (\mbox{\hyperlink{classZappy_1_1GUI_1_1Mediator}{Mediator}} \&\&)=delete
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1Mediator_ad39262473bd8c186a643a5ab2eca2dda}\label{classZappy_1_1GUI_1_1Mediator_ad39262473bd8c186a643a5ab2eca2dda}} 
+\index{Zappy::GUI::Mediator@{Zappy::GUI::Mediator}!Mediator@{Mediator}}
+\index{Mediator@{Mediator}!Zappy::GUI::Mediator@{Zappy::GUI::Mediator}}
+\doxysubsubsection{\texorpdfstring{Mediator()}{Mediator()}}
+{\footnotesize\ttfamily Zappy\+::\+GUI\+::\+Mediator\+::\+Mediator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classZappy_1_1GUI_1_1ParserData}{Parser\+Data}} \&}]{parser\+Data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+
+
+Construct a new \mbox{\hyperlink{classZappy_1_1GUI_1_1Mediator}{Mediator}} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em parser\+Data} & The parser data received from the CLI \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classZappy_1_1GUI_1_1Mediator_a4c3c9837ad4e099e25f76eb0e6b7273c}\label{classZappy_1_1GUI_1_1Mediator_a4c3c9837ad4e099e25f76eb0e6b7273c}} 
+\index{Zappy::GUI::Mediator@{Zappy::GUI::Mediator}!alert@{alert}}
+\index{alert@{alert}!Zappy::GUI::Mediator@{Zappy::GUI::Mediator}}
+\doxysubsubsection{\texorpdfstring{alert()}{alert()}}
+{\footnotesize\ttfamily void Zappy\+::\+GUI\+::\+Mediator\+::alert (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classZappy_1_1GUI_1_1Observer}{Observer}} $\ast$}]{a\+Observer,  }\item[{const std\+::string \&}]{a\+Notification }\end{DoxyParamCaption})}
+
+
+
+Alert the observer of an object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a\+Observer} & the observer that is alerting \\
+\hline
+{\em a\+Notification} & the notification \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/gui/Mediator.\+hpp\item 
+src/gui/Mediator.\+cpp\end{DoxyCompactItemize}
