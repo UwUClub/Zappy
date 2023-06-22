@@ -58,6 +58,9 @@ namespace Zappy::GUI {
                 continue;
             }
             if (myAnim.second->hasEnded() && !myAnim.second->getLoop()) {
+                if (myAnim.second->getAnimationName() == "JumpStart") {
+                    playAnimation("JumpEnd", false);
+                }
                 removeAnimation(myAnim.second->getAnimationName());
                 continue;
             }

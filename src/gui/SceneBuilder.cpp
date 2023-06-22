@@ -237,4 +237,16 @@ namespace Zappy::GUI {
         }
     }
 
+    void SceneBuilder::setPlayerOrientation(Ogre::SceneManager *aSceneManager, const PlayerData &aPlayer)
+    {
+        const auto &myPlayerId = PLAYER_PREFIX_NAME + aPlayer.getId();
+        static const std::unordered_map<Orientation, Ogre::Real> myOrientationMap = {{Orientation::NORTH, 180},
+                                                                                     {Orientation::EAST, 90},
+                                                                                     {Orientation::SOUTH, 0},
+                                                                                     {Orientation::WEST, 270}};
+        Ogre::SceneNode *myNode = aSceneManager->getSceneNode(myPlayerId);
+
+        myNode->setOrientation(
+            Ogre::Quaternion(Ogre::Degree(myOrientationMap.at(aPlayer.getOrientation())), Ogre::Vector3::UNIT_Y));
+    }
 } // namespace Zappy::GUI

@@ -17,11 +17,13 @@
 #include <OgreRoot.h>
 #include <OgreTextAreaOverlayElement.h>
 #include <fstream>
+#include <memory>
 #include <sstream>
 #include <string>
 #include "AnimationHandler.hpp"
 #include "App.hpp"
 #include "Constexpr.hpp"
+#include "MovementHandler.hpp"
 #include "SceneBuilder.hpp"
 #include "ServerData.hpp"
 
@@ -42,21 +44,18 @@ namespace Zappy::GUI {
         auto myPlayerData = _serverData._players.back();
 
         SceneBuilder::createPlayer(myScnMgr, myPlayerData, _animatedEntities);
+
+        auto *myPlayer = myScnMgr->getEntity(PLAYER_PREFIX_NAME + myPlayerData.getId());
+        _moveEntities[myPlayer] = std::make_unique<MovementHandler>(myPlayer, _serverData._mapSize);
     }
 
     void App::removePlayer(const std::string &aNotification)
     {
         std::istringstream myStream(aNotification);
         std::string myIndex;
-        auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
 
         myStream >> myIndex;
-        try {
-            _animatedEntities.erase(myScnMgr->getEntity(PLAYER_PREFIX_NAME + myIndex));
-            myScnMgr->destroyEntity(PLAYER_PREFIX_NAME + myIndex);
-        } catch (const std::exception &e) {
-            std::cerr << e.what() << std::endl;
-        }
+        _toRemove.push_back(PLAYER_PREFIX_NAME + myIndex);
     }
 
     void App::movePlayer(const std::string &aNotification)
@@ -74,7 +73,14 @@ namespace Zappy::GUI {
         if (myPlayerData == _serverData._players.cend()) {
             return;
         }
-        SceneBuilder::setPlayerPosAndOrientation(myScnMgr, *myPlayerData);
+        auto *myPlayer = myScnMgr->getEntity(PLAYER_PREFIX_NAME + myIndex);
+        Ogre::Vector3 myArrivalPoint(static_cast<float>(myPlayerData->getPosition().first * MAP_OFFSET), PLAYER_Y_POS,
+                                     static_cast<float>(myPlayerData->getPosition().second * MAP_OFFSET));
+
+        _animatedEntities[myPlayer]->playAnimation("RunBase");
+        _animatedEntities[myPlayer]->playAnimation("RunTop");
+        _moveEntities[myPlayer]->setArrivalPoint(myArrivalPoint);
+        SceneBuilder::setPlayerOrientation(myScnMgr, *myPlayerData);
     }
 
     void App::displayServerMessage(const std::string &aNotification)
@@ -114,17 +120,11 @@ namespace Zappy::GUI {
 
     void App::removeEgg(const std::string &aNotification)
     {
-        auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
         std::istringstream myStream(aNotification);
         std::string myIndex;
 
         myStream >> myIndex;
-        try {
-            myScnMgr->destroyEntity(EGG_PREFIX_NAME + myIndex);
-            std::cout << "Egg " << myIndex << " has hatched" << std::endl;
-        } catch (const std::exception &e) {
-            std::cerr << e.what() << std::endl;
-        }
+        _toRemove.push_back(EGG_PREFIX_NAME + myIndex);
     }
 
     void App::startedIncantation(const std::string &aNotification)

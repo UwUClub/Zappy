@@ -5,7 +5,6 @@
 ** sgt
 */
 
-#define _GNU_SOURCE
 #include "implementation.h"
 
 void do_sgt_to_all_gui(data_t *data)

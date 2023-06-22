@@ -10,7 +10,7 @@
 #include "ranges.h"
 #include "gui_cmd.h"
 
-static int get_nb_laying_resources(data_t *data, int resource_id)
+static int get_nb_laying_resources(data_t *data, const int resource_id)
 {
     int total = 0;
 
@@ -22,7 +22,8 @@ static int get_nb_laying_resources(data_t *data, int resource_id)
     return total;
 }
 
-static void spawn_resource_type(data_t *data, int resource_id, float density)
+static void spawn_resource_type(data_t *data, const int resource_id,
+    const float density)
 {
     int total = data->map->width * data->map->height * density;
     int x = 0;
@@ -33,19 +34,15 @@ static void spawn_resource_type(data_t *data, int resource_id, float density)
         x = rand() % data->map->width;
         y = rand() % data->map->height;
         data->map->tiles[x][y][resource_id] += 1;
-        do_bct_to_all_gui(data, x, y);
+        send_bct_to_all_gui(data, x, y);
     }
 }
 
 static void spawn_resources(data_t *data)
 {
-    spawn_resource_type(data, FOOD, FOOD_DENSITY);
-    spawn_resource_type(data, LINEMATE, LINEMATE_DENSITY);
-    spawn_resource_type(data, DERAUMERE, DERAUMERE_DENSITY);
-    spawn_resource_type(data, SIBUR, SIBUR_DENSITY);
-    spawn_resource_type(data, MENDIANE, MENDIANE_DENSITY);
-    spawn_resource_type(data, PHIRAS, PHIRAS_DENSITY);
-    spawn_resource_type(data, THYSTAME, THYSTAME_DENSITY);
+    for (int i = FOOD; i < NB_RESOURCES; i++) {
+        spawn_resource_type(data, i, resource_densities[i]);
+    }
 }
 
 void handle_resource_spawn(data_t *data, unsigned long long elapsed_time_ms)

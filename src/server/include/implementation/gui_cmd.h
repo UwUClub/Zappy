@@ -28,12 +28,19 @@
     int do_msz(data_t *data, char **args);
 
     /**
+     * @brief Send map content to gui
+     * @param data The current server data, clients and current client index
+     * @param args The arguments of the command
+    */
+    int do_mct(data_t *data, char **args);
+
+    /**
     * @brief Sends a response to the bct command sent by the client
     * @param data The current server data, clients and current client index
     * @param args The arguments of the command
     * @return Status of the parsing / command
     */
-    int do_bct(data_t *data, char **args);
+    int send_bct_to_current_cli(data_t *data, char **args);
 
     /**
      * @brief Sends a response to the bct command sent by the client to all gui
@@ -42,7 +49,7 @@
      * @param y The y position of the tile
      * @return Status of the parsing / command
     */
-    int do_bct_to_all_gui(data_t *data, const int x, const int y);
+    int send_bct_to_all_gui(data_t *data, const int x, const int y);
 
     /**
     * @brief Sends a response to the tna command sent by the client
@@ -82,12 +89,26 @@
     int do_seg(data_t *data, const char *team_name);
 
     /**
-     * @brief Sends player id, position and inventory to gui
+     * @brief Respond player id, position and inventory to gui after a pin call
      * @param data The current server data, clients and current client index
      * @param args The arguments of the command
      * @return Status of the parsing / command
     */
     int do_pin(data_t *data, char **args);
+
+    /**
+     * @brief Sends player id, position and inventory to current gui client
+     * @param data The current server data, clients and current client index
+     * @param player The player to show
+    */
+    void send_pin_to_current_cli(data_t *data, player_t *player);
+
+    /**
+     * @brief Sends player id, position and inventory to all gui clients
+     * @param data The current server data, clients and current client index
+     * @param player The player to show
+    */
+    void send_pin_to_all_gui(data_t *data, player_t *player);
 
     /**
      * @brief Sends player id and level to gui
@@ -127,30 +148,37 @@
     void do_pfk(data_t *data, const unsigned int player_id);
 
     /**
-     * @brief Sends egg progenitor, id and position to gui
+     * @brief Sends egg progenitor, id and position to all gui clients
      * @param data The current server data, clients and current client index
      * @param egg The egg to show
     */
-    void do_enw(data_t *data, egg_t *egg);
+    void send_enw_to_all_gui(data_t *data, egg_t *egg);
 
     /**
-     * @brief Notify player connection to gui
+     * @brief Sends egg progenitor, id and position to current gui client
+     * @param data The current server data, clients and current client index
+     * @param egg The egg to show
+    */
+    void send_enw_to_current_cli(data_t *data, egg_t *egg);
+
+    /**
+     * @brief Notify player connection to all gui clients
      * @param data The current server data, clients and current client index
     */
-    void do_pnw(data_t *data);
+    void send_pnw_to_all_gui(data_t *data);
 
     /**
-     * @brief Notify player existence to specific gui
+     * @brief Notify player existence to current gui client
      * @param data The current server data, clients and current client index
      * @param player The player to show
     */
-    void do_single_pnw(data_t *data, player_t *player);
+    void send_pnw_to_current_cli(data_t *data, player_t *player);
 
     /**
-     * @brief Notify to gui that a player was born and replaced an egg
+     * @brief Notify to all gui that a player was born and replaced an egg
      * @param data The current server data, clients and current client index
     */
-    void do_ebo(data_t *data);
+    void send_ebo_to_all_gui(data_t *data);
 
     /**
      * @brief Notify to gui that an egg hatched
@@ -202,7 +230,8 @@
 
     static const cmd_t gui_commands[] = {
         {"msz", &do_msz, 0},
-        {"bct", &do_bct, 0},
+        {"bct", &send_bct_to_current_cli, 0},
+        {"mct", &do_mct, 0},
         {"tna", &do_tna, 0},
         {"sgt", &do_sgt, 0},
         {"sst", &do_sst, 0},

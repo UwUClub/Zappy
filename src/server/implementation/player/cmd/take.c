@@ -21,7 +21,7 @@ static int take(data_t *data, char **args)
     pos_t *player_pos = data->clients[data->curr_cli_index]->player->pos;
 
     for (int i = 0; i < NB_RESOURCES; i++) {
-        if (strcmp(args[0], resource[i]) == 0
+        if (strcmp(args[0], resource_names[i]) == 0
             && is_resource_on_tile(data, i, player_pos)) {
             data->clients[data->curr_cli_index]->player->inventory[i] += 1;
             data->map->tiles[player_pos->x][player_pos->y][i] -= 1;
@@ -42,7 +42,7 @@ int schedule_take(data_t *data, char **args)
         return ERROR_STATUS;
     }
     for (int i = 0; i < NB_RESOURCES; i++) {
-        if (strcmp(args[0], resource[i]) == 0 &&
+        if (strcmp(args[0], resource_names[i]) == 0 &&
         is_resource_on_tile(data, i, player_pos)) {
             append_scheduler_to_queue(data, &take, args, TAKE_DELAY);
             return SUCCESS_STATUS;

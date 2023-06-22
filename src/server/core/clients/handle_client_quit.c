@@ -19,7 +19,7 @@ void handle_client_quit(data_t *data)
     free(cli);
     for (int i = data->curr_cli_index; i < data->nb_clients; i++) {
         data->clients[i] = data->clients[i + 1];
-    }    
+    }
     data->clients[data->nb_clients] = NULL;
     data->nb_clients--;
     data->curr_cli_index--;

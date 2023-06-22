@@ -42,7 +42,7 @@ static int parse_args(data_t *data, char **args, int *x, int *y)
     return SUCCESS_STATUS;
 }
 
-int do_bct_to_all_gui(data_t *data, const int x, const int y)
+int send_bct_to_all_gui(data_t *data, const int x, const int y)
 {
     char *msg = NULL;
     char *resources = NULL;
@@ -55,7 +55,7 @@ int do_bct_to_all_gui(data_t *data, const int x, const int y)
     return SUCCESS_STATUS;
 }
 
-int do_bct(data_t *data, char **args)
+int send_bct_to_current_cli(data_t *data, char **args)
 {
     char *msg = NULL;
     char *resources = NULL;

@@ -17,9 +17,9 @@ static void send_welcome_data(data_t *data, const int remaining_slots)
     char *str_remaining_slots = NULL;
     char *world_dimensions = NULL;
 
-    str_remaining_slots = int_to_s(remaining_slots - 1);
-    str_remaining_slots = concat_str(str_remaining_slots, "\n");
-    world_dimensions = get_world_dimensions(data);
+    asprintf(&str_remaining_slots, "%d\n", remaining_slots - 1);
+    asprintf(&world_dimensions, "%d %d\n", data->map->width,
+        data->map->height);
     send_to_client(data->clients, data->curr_cli_index, str_remaining_slots);
     send_to_client(data->clients, data->curr_cli_index, world_dimensions);
     free(str_remaining_slots);
@@ -56,8 +56,9 @@ int append_player_client(data_t *data, char *team_name)
     init_player(&(data->clients[data->curr_cli_index]), team_name, data->map);
     find_egg_to_hatch(data, team_name);
     send_welcome_data(data, remaining_slots);
-    do_ebo(data);
-    do_pnw(data);
+    send_ebo_to_all_gui(data);
+    send_pnw_to_all_gui(data);
+    send_pin_to_all_gui(data, data->clients[data->curr_cli_index]->player);
     data->clients[data->curr_cli_index]->is_registered = 1;
     return SUCCESS_STATUS;
 }
