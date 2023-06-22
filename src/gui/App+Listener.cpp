@@ -53,12 +53,9 @@ namespace Zappy::GUI {
     {
         std::istringstream myStream(aNotification);
         std::string myIndex;
-        auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
 
         myStream >> myIndex;
-        _animatedEntities.erase(myScnMgr->getEntity(PLAYER_PREFIX_NAME + myIndex));
-        _moveEntities.erase(myScnMgr->getEntity(PLAYER_PREFIX_NAME + myIndex));
-        myScnMgr->destroyEntity(PLAYER_PREFIX_NAME + myIndex);
+        _toRemove.push_back(PLAYER_PREFIX_NAME + myIndex);
     }
 
     void App::movePlayer(const std::string &aNotification)
@@ -123,12 +120,11 @@ namespace Zappy::GUI {
 
     void App::removeEgg(const std::string &aNotification)
     {
-        auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
         std::istringstream myStream(aNotification);
         std::string myIndex;
 
         myStream >> myIndex;
-        myScnMgr->destroyEntity(EGG_PREFIX_NAME + myIndex);
+        _toRemove.push_back(EGG_PREFIX_NAME + myIndex);
     }
 
     void App::startedIncantation(const std::string &aNotification)
