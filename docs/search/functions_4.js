@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['decryptmessage_207',['decryptMessage',['../classplayer_1_1Player.html#a3f7ad54dfa931a13bcf15e54a1e4e776',1,'player::Player']]],
-  ['disconnect_208',['disconnect',['../classZappy_1_1GUI_1_1ClientApi.html#a6b8975daedac42858b91691f066ced58',1,'Zappy::GUI::ClientApi::disconnect()'],['../classconnection_1_1Connection.html#aafe1e2f2d06f2a5614b0626576609422',1,'connection.Connection.disconnect()'],['../classplayer_1_1Player.html#aa05db30d8f22d8b878f027d4865a6ebd',1,'player.Player.disconnect()']]]
+  ['decryptmessage_202',['decryptMessage',['../classia_1_1player_1_1Player.html#ad66f2d784b6246bcd11d6766b29e8293',1,'ia::player::Player']]],
+  ['disconnect_203',['disconnect',['../classZappy_1_1GUI_1_1ClientApi.html#a6b8975daedac42858b91691f066ced58',1,'Zappy::GUI::ClientApi::disconnect()'],['../classia_1_1connection_1_1Connection.html#a2bb38b025247e9aab8d7c73f3f8b7be7',1,'ia.connection.Connection.disconnect()'],['../classia_1_1player_1_1Player.html#a5988e0aeb72d17ff40aa517cbcdbd806',1,'ia.player.Player.disconnect()']]]
 ];

@@ -43,7 +43,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "AnimationHandler_8hpp_source.html",
-"dir_fe70112c37f9b2a5461b4e0269503199.html"
+"structZappy_1_1GUI_1_1ServerData.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

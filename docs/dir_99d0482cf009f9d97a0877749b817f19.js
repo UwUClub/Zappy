@@ -8,6 +8,5 @@ var dir_99d0482cf009f9d97a0877749b817f19 =
     [ "Inventory.hpp", "Inventory_8hpp_source.html", null ],
     [ "Mediator.hpp", "Mediator_8hpp_source.html", null ],
     [ "Observer.hpp", "Observer_8hpp_source.html", null ],
-    [ "SceneBuilder.hpp", "SceneBuilder_8hpp_source.html", null ],
-    [ "Subscriber.hpp", "Subscriber_8hpp_source.html", null ]
+    [ "SceneBuilder.hpp", "SceneBuilder_8hpp_source.html", null ]
 ];

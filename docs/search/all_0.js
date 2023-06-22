@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['_5f_5finit_5f_5f_0',['__init__',['../classconnection_1_1Connection.html#af4f9af89cb1c67618cb92b87279f692e',1,'connection.Connection.__init__()'],['../classparser_1_1Config.html#a637dfc461e974041553aa7dcad321d6b',1,'parser.Config.__init__()'],['../classplayer_1_1Player.html#a208e7d0ae3cef2a90515526ac7cd0c26',1,'player.Player.__init__()']]]
+  ['_5f_5finit_5f_5f_0',['__init__',['../classia_1_1connection_1_1Connection.html#ae796a310b12f33e9e576b7c773ce6f5b',1,'ia.connection.Connection.__init__()'],['../classia_1_1iaParser_1_1Config.html#a5bc2ea1987c826e5861f8d1c7740fb35',1,'ia.iaParser.Config.__init__()'],['../classia_1_1player_1_1Player.html#a3f2ecdcc27544c9ef97eb1fae5897698',1,'ia.player.Player.__init__()']]]
 ];

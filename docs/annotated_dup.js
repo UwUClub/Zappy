@@ -1,13 +1,15 @@
 var annotated_dup =
 [
-    [ "connection", null, [
-      [ "Connection", "classconnection_1_1Connection.html", "classconnection_1_1Connection" ]
-    ] ],
-    [ "parser", null, [
-      [ "Config", "classparser_1_1Config.html", "classparser_1_1Config" ]
-    ] ],
-    [ "player", null, [
-      [ "Player", "classplayer_1_1Player.html", "classplayer_1_1Player" ]
+    [ "ia", null, [
+      [ "connection", null, [
+        [ "Connection", "classia_1_1connection_1_1Connection.html", "classia_1_1connection_1_1Connection" ]
+      ] ],
+      [ "iaParser", null, [
+        [ "Config", "classia_1_1iaParser_1_1Config.html", "classia_1_1iaParser_1_1Config" ]
+      ] ],
+      [ "player", null, [
+        [ "Player", "classia_1_1player_1_1Player.html", "classia_1_1player_1_1Player" ]
+      ] ]
     ] ],
     [ "Zappy", null, [
       [ "GUI", null, [
@@ -24,13 +26,11 @@ var annotated_dup =
         [ "CameraHandler", "classZappy_1_1GUI_1_1CameraHandler.html", "classZappy_1_1GUI_1_1CameraHandler" ],
         [ "ClickHandler", "classZappy_1_1GUI_1_1ClickHandler.html", "classZappy_1_1GUI_1_1ClickHandler" ],
         [ "InputHandler", "classZappy_1_1GUI_1_1InputHandler.html", "classZappy_1_1GUI_1_1InputHandler" ],
-        [ "FrameHandler", "classZappy_1_1GUI_1_1FrameHandler.html", "classZappy_1_1GUI_1_1FrameHandler" ],
         [ "MovementHandler", "classZappy_1_1GUI_1_1MovementHandler.html", "classZappy_1_1GUI_1_1MovementHandler" ],
         [ "Inventory", "classZappy_1_1GUI_1_1Inventory.html", "classZappy_1_1GUI_1_1Inventory" ],
         [ "Mediator", "classZappy_1_1GUI_1_1Mediator.html", "classZappy_1_1GUI_1_1Mediator" ],
         [ "Observer", "classZappy_1_1GUI_1_1Observer.html", "classZappy_1_1GUI_1_1Observer" ],
-        [ "SceneBuilder", "classZappy_1_1GUI_1_1SceneBuilder.html", "classZappy_1_1GUI_1_1SceneBuilder" ],
-        [ "Subscriber", "classZappy_1_1GUI_1_1Subscriber.html", "classZappy_1_1GUI_1_1Subscriber" ]
+        [ "SceneBuilder", "classZappy_1_1GUI_1_1SceneBuilder.html", "classZappy_1_1GUI_1_1SceneBuilder" ]
       ] ]
     ] ],
     [ "client_s", "structclient__s.html", "structclient__s" ],

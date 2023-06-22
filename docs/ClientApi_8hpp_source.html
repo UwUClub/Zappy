@@ -111,123 +111,114 @@ $(document).ready(function(){initNavTree('ClientApi_8hpp_source.html',''); initR
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classZappy_1_1GUI_1_1ClientApi.html#a56f160b8b369354c1a15af4eca955272">run</a>();</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classZappy_1_1GUI_1_1ClientApi.html#a56f160b8b369354c1a15af4eca955272">   42</a></span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classZappy_1_1GUI_1_1ClientApi.html#a56f160b8b369354c1a15af4eca955272">run</a>();</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classZappy_1_1GUI_1_1ClientApi.html#a0a57ee6141abd42008ad46b8850df9cd">joinGame</a>();</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classZappy_1_1GUI_1_1ClientApi.html#a0a57ee6141abd42008ad46b8850df9cd">joinGame</a>();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classZappy_1_1GUI_1_1ClientApi.html#a6b8975daedac42858b91691f066ced58">disconnect</a>();</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classZappy_1_1GUI_1_1ClientApi.html#a6b8975daedac42858b91691f066ced58">disconnect</a>();</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            [[nodiscard]] <span class="keywordtype">int</span> <a class="code" href="classZappy_1_1GUI_1_1ClientApi.html#aab0b80f8b4d0876b27e1fd604ebcd228">getConnectStatus</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            [[nodiscard]] <span class="keywordtype">int</span> <a class="code" href="classZappy_1_1GUI_1_1ClientApi.html#a5389a484a4049855a78732fe5bed98be">getServerFd</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            <span class="keywordtype">int</span> <a class="code" href="classZappy_1_1GUI_1_1ClientApi.html#aa7b6f662add7f445aade3d28bba31aed">update</a>();</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classZappy_1_1GUI_1_1ClientApi.html#ab06cd586fb8286744d71e363a8dbdbcf">sendCommand</a>(<span class="keyword">const</span> std::string &amp;aCommand);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            [[nodiscard]] <span class="keyword">const</span> <a class="code" href="structZappy_1_1GUI_1_1ServerData.html">ServerData</a> &amp;<a class="code" href="classZappy_1_1GUI_1_1ClientApi.html#a1476368818de1ac789f87931e8e9e1a7">getServerData</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classZappy_1_1GUI_1_1ClientApi.html#aeef6375d1c57529442c3d905d1e09346">getNotified</a>(<span class="keyword">const</span> std::string &amp;aNotification) <span class="keyword">final</span>;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="classZappy_1_1GUI_1_1ClientApi.html#a75a9a6447c2c83bc5f884cdf142a0bcb">   89</a></span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classZappy_1_1GUI_1_1ClientApi.html#a75a9a6447c2c83bc5f884cdf142a0bcb">registerSubscriber</a>(<a class="code" href="classZappy_1_1GUI_1_1Subscriber.html">Subscriber</a> &amp;aSubscriber);</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classZappy_1_1GUI_1_1ClientApi.html#af44476f034727b91c4013b8a0edee45b">parseServerResponses</a>();</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="classZappy_1_1GUI_1_1ClientApi_1_1ClientException.html">   99</a></span>&#160;            <span class="keyword">class </span><a class="code" href="classZappy_1_1GUI_1_1ClientApi_1_1ClientException.html">ClientException</a> : <span class="keyword">public</span> std::exception</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            {</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="classZappy_1_1GUI_1_1ClientApi_1_1ClientException.html#a7245848ba9d5cf696887b8085abf66f9">  106</a></span>&#160;                    <span class="keyword">explicit</span> <a class="code" href="classZappy_1_1GUI_1_1ClientApi_1_1ClientException.html#a7245848ba9d5cf696887b8085abf66f9">ClientException</a>(std::string aMessage)</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                        : _message(std::move(aMessage))</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                    {}</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="classZappy_1_1GUI_1_1ClientApi_1_1ClientException.html#aa843df5ce09c9a9d3629ea236ab7d644">  113</a></span>&#160;                    <a class="code" href="classZappy_1_1GUI_1_1ClientApi_1_1ClientException.html#aa843df5ce09c9a9d3629ea236ab7d644">~ClientException</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="classZappy_1_1GUI_1_1ClientApi_1_1ClientException.html#ac22207e1489f48ce484f81e8d6f4c903">  119</a></span>&#160;                    [[nodiscard]] <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="classZappy_1_1GUI_1_1ClientApi_1_1ClientException.html#ac22207e1489f48ce484f81e8d6f4c903">what</a>() const noexcept<span class="keyword"> override</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="keyword">                    </span>{</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                        <span class="keywordflow">return</span> _message.c_str();</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                    }</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                    std::string _message;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;            };</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;            <span class="keyword">static</span> <span class="keyword">struct </span>sockaddr_in getSockaddr(in_addr_t aAddress, unsigned int aPort);</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classZappy_1_1GUI_1_1ClientApi.html#af44476f034727b91c4013b8a0edee45b">parseServerResponses</a>();</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            [[nodiscard]] <span class="keywordtype">int</span> <a class="code" href="classZappy_1_1GUI_1_1ClientApi.html#aab0b80f8b4d0876b27e1fd604ebcd228">getConnectStatus</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            [[nodiscard]] <span class="keywordtype">int</span> <a class="code" href="classZappy_1_1GUI_1_1ClientApi.html#a5389a484a4049855a78732fe5bed98be">getServerFd</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            <span class="keywordtype">int</span> <a class="code" href="classZappy_1_1GUI_1_1ClientApi.html#aa7b6f662add7f445aade3d28bba31aed">update</a>();</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classZappy_1_1GUI_1_1ClientApi.html#ab06cd586fb8286744d71e363a8dbdbcf">sendCommand</a>(<span class="keyword">const</span> std::string &amp;aCommand);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            [[nodiscard]] <span class="keyword">const</span> <a class="code" href="structZappy_1_1GUI_1_1ServerData.html">ServerData</a> &amp;<a class="code" href="classZappy_1_1GUI_1_1ClientApi.html#a1476368818de1ac789f87931e8e9e1a7">getServerData</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            <span class="keywordtype">void</span> <a class="code" href="classZappy_1_1GUI_1_1ClientApi.html#aeef6375d1c57529442c3d905d1e09346">getNotified</a>(<span class="keyword">const</span> std::string &amp;aNotification) <span class="keyword">final</span>;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="classZappy_1_1GUI_1_1ClientApi_1_1ClientException.html">   83</a></span>&#160;            <span class="keyword">class </span><a class="code" href="classZappy_1_1GUI_1_1ClientApi_1_1ClientException.html">ClientException</a> : <span class="keyword">public</span> std::exception</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            {</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="classZappy_1_1GUI_1_1ClientApi_1_1ClientException.html#a7245848ba9d5cf696887b8085abf66f9">   90</a></span>&#160;                    <span class="keyword">explicit</span> <a class="code" href="classZappy_1_1GUI_1_1ClientApi_1_1ClientException.html#a7245848ba9d5cf696887b8085abf66f9">ClientException</a>(std::string aMessage)</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                        : _message(std::move(aMessage))</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                    {}</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="classZappy_1_1GUI_1_1ClientApi_1_1ClientException.html#aa843df5ce09c9a9d3629ea236ab7d644">   97</a></span>&#160;                    <a class="code" href="classZappy_1_1GUI_1_1ClientApi_1_1ClientException.html#aa843df5ce09c9a9d3629ea236ab7d644">~ClientException</a>() <span class="keyword">override</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="classZappy_1_1GUI_1_1ClientApi_1_1ClientException.html#ac22207e1489f48ce484f81e8d6f4c903">  103</a></span>&#160;                    [[nodiscard]] <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code" href="classZappy_1_1GUI_1_1ClientApi_1_1ClientException.html#ac22207e1489f48ce484f81e8d6f4c903">what</a>() const noexcept<span class="keyword"> override</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="keyword">                    </span>{</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                        <span class="keywordflow">return</span> _message.c_str();</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                    }</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;                    std::string _message;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            };</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            <span class="keyword">static</span> <span class="keyword">struct </span>sockaddr_in getSockaddr(in_addr_t aAddress, unsigned int aPort);</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            <span class="keywordtype">void</span> parseServerResponses();</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;            <span class="keywordtype">void</span> readFromServer();</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;            <span class="keywordtype">void</span> writeToServer();</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;            <span class="keywordtype">void</span> receiveWelcome(<span class="keyword">const</span> std::string &amp;aResponse);</div>
 <div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;            <span class="keywordtype">void</span> readFromServer();</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;            <span class="keywordtype">void</span> writeToServer();</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;            <span class="keywordtype">void</span> receiveWelcome(<span class="keyword">const</span> std::string &amp;aResponse);</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;            <span class="keywordtype">void</span> receiveError(<span class="keyword">const</span> std::string &amp;aResponse);</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;            <span class="keywordtype">void</span> receiveMsz(<span class="keyword">const</span> std::string &amp;aResponse);</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;            <span class="keywordtype">void</span> receiveBct(<span class="keyword">const</span> std::string &amp;aResponse);</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160; </div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;            <span class="keywordtype">void</span> receiveTna(<span class="keyword">const</span> std::string &amp;aResponse);</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; </div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;            <span class="keywordtype">void</span> receivePpo(<span class="keyword">const</span> std::string &amp;aResponse);</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160; </div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;            <span class="keywordtype">void</span> receivePlv(<span class="keyword">const</span> std::string &amp;aResponse);</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160; </div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;            <span class="keywordtype">void</span> receivePin(<span class="keyword">const</span> std::string &amp;aResponse);</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;            <span class="keywordtype">void</span> receivePnw(<span class="keyword">const</span> std::string &amp;aResponse);</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160; </div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;            <span class="keywordtype">void</span> receiveSgt(<span class="keyword">const</span> std::string &amp;aResponse);</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160; </div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;            <span class="keywordtype">void</span> receiveSst(<span class="keyword">const</span> std::string &amp;aResponse);</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160; </div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;            <span class="keywordtype">void</span> receivePdr(<span class="keyword">const</span> std::string &amp;aResponse);</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160; </div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;            <span class="keywordtype">void</span> receivePex(<span class="keyword">const</span> std::string &amp;aResponse);</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160; </div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;            <span class="keywordtype">void</span> receivePgt(<span class="keyword">const</span> std::string &amp;aResponse);</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160; </div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;            <span class="keywordtype">void</span> receivePdi(<span class="keyword">const</span> std::string &amp;aResponse);</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160; </div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;            <span class="keywordtype">void</span> receiveEnw(<span class="keyword">const</span> std::string &amp;aResponse);</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160; </div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;            <span class="keywordtype">void</span> receiveEdi(<span class="keyword">const</span> std::string &amp;aResponse);</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160; </div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;            <span class="keywordtype">void</span> receiveEbo(<span class="keyword">const</span> std::string &amp;aResponse);</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160; </div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;            <span class="comment">// Attributes</span></div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;            std::string _address;</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;            <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> _port;</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;            std::string _teamName;</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;            <span class="keywordtype">int</span> _connectStatus;</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;            std::string _readBuffer;</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;            std::string _writeBuffer;</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;            <span class="keywordtype">int</span> _serverFd;</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;            <a class="code" href="structZappy_1_1GUI_1_1ServerData.html">ServerData</a> &amp;_serverData;</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;            pthread_t _threadId;</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    };</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;} <span class="comment">// namespace Zappy::GUI</span></div>
-<div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_1_1ClientException_html"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi_1_1ClientException.html">Zappy::GUI::ClientApi::ClientException</a></div><div class="ttdoc">ClientException class.</div><div class="ttdef"><b>Definition:</b> ClientApi.hpp:100</div></div>
-<div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_1_1ClientException_html_a7245848ba9d5cf696887b8085abf66f9"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi_1_1ClientException.html#a7245848ba9d5cf696887b8085abf66f9">Zappy::GUI::ClientApi::ClientException::ClientException</a></div><div class="ttdeci">ClientException(std::string aMessage)</div><div class="ttdoc">ClientException constructor.</div><div class="ttdef"><b>Definition:</b> ClientApi.hpp:106</div></div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;            <span class="keywordtype">void</span> receiveError(<span class="keyword">const</span> std::string &amp;aResponse);</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;            <span class="keywordtype">void</span> receiveMsz(<span class="keyword">const</span> std::string &amp;aResponse);</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;            <span class="keywordtype">void</span> receiveBct(<span class="keyword">const</span> std::string &amp;aResponse);</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;            <span class="keywordtype">void</span> receiveTna(<span class="keyword">const</span> std::string &amp;aResponse);</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;            <span class="keywordtype">void</span> receivePpo(<span class="keyword">const</span> std::string &amp;aResponse);</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;            <span class="keywordtype">void</span> receivePlv(<span class="keyword">const</span> std::string &amp;aResponse);</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;            <span class="keywordtype">void</span> receivePin(<span class="keyword">const</span> std::string &amp;aResponse);</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160; </div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;            <span class="keywordtype">void</span> receivePnw(<span class="keyword">const</span> std::string &amp;aResponse);</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;            <span class="keywordtype">void</span> receiveSgt(<span class="keyword">const</span> std::string &amp;aResponse);</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160; </div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;            <span class="keywordtype">void</span> receiveSst(<span class="keyword">const</span> std::string &amp;aResponse);</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160; </div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;            <span class="keywordtype">void</span> receivePdr(<span class="keyword">const</span> std::string &amp;aResponse);</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160; </div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;            <span class="keywordtype">void</span> receivePex(<span class="keyword">const</span> std::string &amp;aResponse);</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160; </div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;            <span class="keywordtype">void</span> receivePgt(<span class="keyword">const</span> std::string &amp;aResponse);</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160; </div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;            <span class="keywordtype">void</span> receivePdi(<span class="keyword">const</span> std::string &amp;aResponse);</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160; </div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;            <span class="keywordtype">void</span> receiveEnw(<span class="keyword">const</span> std::string &amp;aResponse);</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160; </div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;            <span class="keywordtype">void</span> receiveEdi(<span class="keyword">const</span> std::string &amp;aResponse);</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160; </div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;            <span class="keywordtype">void</span> receiveEbo(<span class="keyword">const</span> std::string &amp;aResponse);</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160; </div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;            <span class="comment">// Attributes</span></div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;            std::string _address;</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;            <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> _port;</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;            std::string _teamName;</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;            <span class="keywordtype">int</span> _connectStatus;</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;            std::string _readBuffer;</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;            std::string _writeBuffer;</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;            <span class="keywordtype">int</span> _serverFd;</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;            <a class="code" href="structZappy_1_1GUI_1_1ServerData.html">ServerData</a> &amp;_serverData;</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;            pthread_t _threadId;</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    };</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;} <span class="comment">// namespace Zappy::GUI</span></div>
+<div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_1_1ClientException_html"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi_1_1ClientException.html">Zappy::GUI::ClientApi::ClientException</a></div><div class="ttdoc">ClientException class.</div><div class="ttdef"><b>Definition:</b> ClientApi.hpp:84</div></div>
+<div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_1_1ClientException_html_a7245848ba9d5cf696887b8085abf66f9"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi_1_1ClientException.html#a7245848ba9d5cf696887b8085abf66f9">Zappy::GUI::ClientApi::ClientException::ClientException</a></div><div class="ttdeci">ClientException(std::string aMessage)</div><div class="ttdoc">ClientException constructor.</div><div class="ttdef"><b>Definition:</b> ClientApi.hpp:90</div></div>
 <div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_1_1ClientException_html_aa843df5ce09c9a9d3629ea236ab7d644"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi_1_1ClientException.html#aa843df5ce09c9a9d3629ea236ab7d644">Zappy::GUI::ClientApi::ClientException::~ClientException</a></div><div class="ttdeci">~ClientException() override=default</div><div class="ttdoc">ClientException destructor.</div></div>
-<div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_1_1ClientException_html_ac22207e1489f48ce484f81e8d6f4c903"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi_1_1ClientException.html#ac22207e1489f48ce484f81e8d6f4c903">Zappy::GUI::ClientApi::ClientException::what</a></div><div class="ttdeci">const char * what() const noexcept override</div><div class="ttdoc">Return the message of the exception.</div><div class="ttdef"><b>Definition:</b> ClientApi.hpp:119</div></div>
+<div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_1_1ClientException_html_ac22207e1489f48ce484f81e8d6f4c903"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi_1_1ClientException.html#ac22207e1489f48ce484f81e8d6f4c903">Zappy::GUI::ClientApi::ClientException::what</a></div><div class="ttdeci">const char * what() const noexcept override</div><div class="ttdoc">Return the message of the exception.</div><div class="ttdef"><b>Definition:</b> ClientApi.hpp:103</div></div>
 <div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_html"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi.html">Zappy::GUI::ClientApi</a></div><div class="ttdef"><b>Definition:</b> ClientApi.hpp:18</div></div>
-<div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_html_a0a57ee6141abd42008ad46b8850df9cd"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi.html#a0a57ee6141abd42008ad46b8850df9cd">Zappy::GUI::ClientApi::joinGame</a></div><div class="ttdeci">void joinGame()</div><div class="ttdoc">joinGame</div><div class="ttdef"><b>Definition:</b> ClientApi.cpp:70</div></div>
-<div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_html_a1476368818de1ac789f87931e8e9e1a7"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi.html#a1476368818de1ac789f87931e8e9e1a7">Zappy::GUI::ClientApi::getServerData</a></div><div class="ttdeci">const ServerData &amp; getServerData() const</div><div class="ttdoc">geting the server data</div><div class="ttdef"><b>Definition:</b> ClientApi.cpp:128</div></div>
-<div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_html_a487dfe0c313a5ad452fa8043f153df06"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi.html#a487dfe0c313a5ad452fa8043f153df06">Zappy::GUI::ClientApi::ClientApi</a></div><div class="ttdeci">ClientApi(std::string aAddress, unsigned int aPort, std::string aTeamName, Mediator &amp;aMediator, ServerData &amp;aServerData)</div><div class="ttdoc">ClientApi constructor.</div><div class="ttdef"><b>Definition:</b> ClientApi.cpp:26</div></div>
-<div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_html_a5389a484a4049855a78732fe5bed98be"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi.html#a5389a484a4049855a78732fe5bed98be">Zappy::GUI::ClientApi::getServerFd</a></div><div class="ttdeci">int getServerFd() const</div><div class="ttdoc">geting the server fd</div><div class="ttdef"><b>Definition:</b> ClientApi.cpp:123</div></div>
-<div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_html_a56f160b8b369354c1a15af4eca955272"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi.html#a56f160b8b369354c1a15af4eca955272">Zappy::GUI::ClientApi::run</a></div><div class="ttdeci">void run()</div><div class="ttdoc">run the client, update the server data, must be called in another thread, use disconnect to stop</div><div class="ttdef"><b>Definition:</b> ClientApi.cpp:45</div></div>
-<div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_html_a6b8975daedac42858b91691f066ced58"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi.html#a6b8975daedac42858b91691f066ced58">Zappy::GUI::ClientApi::disconnect</a></div><div class="ttdeci">void disconnect()</div><div class="ttdoc">disconnect</div><div class="ttdef"><b>Definition:</b> ClientApi.cpp:102</div></div>
-<div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_html_a75a9a6447c2c83bc5f884cdf142a0bcb"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi.html#a75a9a6447c2c83bc5f884cdf142a0bcb">Zappy::GUI::ClientApi::registerSubscriber</a></div><div class="ttdeci">void registerSubscriber(Subscriber &amp;aSubscriber)</div><div class="ttdoc">register a subscriber</div></div>
-<div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_html_aa7b6f662add7f445aade3d28bba31aed"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi.html#aa7b6f662add7f445aade3d28bba31aed">Zappy::GUI::ClientApi::update</a></div><div class="ttdeci">int update()</div><div class="ttdoc">geting the server data</div><div class="ttdef"><b>Definition:</b> ClientApi.cpp:82</div></div>
-<div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_html_aab0b80f8b4d0876b27e1fd604ebcd228"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi.html#aab0b80f8b4d0876b27e1fd604ebcd228">Zappy::GUI::ClientApi::getConnectStatus</a></div><div class="ttdeci">int getConnectStatus() const</div><div class="ttdoc">geting the connect status</div><div class="ttdef"><b>Definition:</b> ClientApi.cpp:118</div></div>
-<div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_html_ab06cd586fb8286744d71e363a8dbdbcf"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi.html#ab06cd586fb8286744d71e363a8dbdbcf">Zappy::GUI::ClientApi::sendCommand</a></div><div class="ttdeci">void sendCommand(const std::string &amp;aCommand)</div><div class="ttdoc">Append a command to the write buffer.</div><div class="ttdef"><b>Definition:</b> ClientApi.cpp:112</div></div>
-<div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_html_ad8b9997ce9659e2583ffb252ff880a3e"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi.html#ad8b9997ce9659e2583ffb252ff880a3e">Zappy::GUI::ClientApi::~ClientApi</a></div><div class="ttdeci">~ClientApi() final</div><div class="ttdoc">ClientApi destructor.</div><div class="ttdef"><b>Definition:</b> ClientApi.cpp:40</div></div>
-<div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_html_aeef6375d1c57529442c3d905d1e09346"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi.html#aeef6375d1c57529442c3d905d1e09346">Zappy::GUI::ClientApi::getNotified</a></div><div class="ttdeci">void getNotified(const std::string &amp;aNotification) final</div><div class="ttdoc">Method called by the Publisher to notify the Subscriber.</div><div class="ttdef"><b>Definition:</b> ClientApi.cpp:170</div></div>
-<div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_html_af44476f034727b91c4013b8a0edee45b"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi.html#af44476f034727b91c4013b8a0edee45b">Zappy::GUI::ClientApi::parseServerResponses</a></div><div class="ttdeci">void parseServerResponses()</div><div class="ttdoc">parse information from server</div><div class="ttdef"><b>Definition:</b> ClientApi+Listener.cpp:13</div></div>
+<div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_html_a0a57ee6141abd42008ad46b8850df9cd"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi.html#a0a57ee6141abd42008ad46b8850df9cd">Zappy::GUI::ClientApi::joinGame</a></div><div class="ttdeci">void joinGame()</div><div class="ttdoc">joinGame</div><div class="ttdef"><b>Definition:</b> ClientApi.cpp:54</div></div>
+<div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_html_a1476368818de1ac789f87931e8e9e1a7"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi.html#a1476368818de1ac789f87931e8e9e1a7">Zappy::GUI::ClientApi::getServerData</a></div><div class="ttdeci">const ServerData &amp; getServerData() const</div><div class="ttdoc">geting the server data</div><div class="ttdef"><b>Definition:</b> ClientApi.cpp:112</div></div>
+<div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_html_a487dfe0c313a5ad452fa8043f153df06"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi.html#a487dfe0c313a5ad452fa8043f153df06">Zappy::GUI::ClientApi::ClientApi</a></div><div class="ttdeci">ClientApi(std::string aAddress, unsigned int aPort, std::string aTeamName, Mediator &amp;aMediator, ServerData &amp;aServerData)</div><div class="ttdoc">ClientApi constructor.</div><div class="ttdef"><b>Definition:</b> ClientApi.cpp:21</div></div>
+<div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_html_a5389a484a4049855a78732fe5bed98be"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi.html#a5389a484a4049855a78732fe5bed98be">Zappy::GUI::ClientApi::getServerFd</a></div><div class="ttdeci">int getServerFd() const</div><div class="ttdoc">geting the server fd</div><div class="ttdef"><b>Definition:</b> ClientApi.cpp:107</div></div>
+<div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_html_a56f160b8b369354c1a15af4eca955272"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi.html#a56f160b8b369354c1a15af4eca955272">Zappy::GUI::ClientApi::run</a></div><div class="ttdeci">void run()</div><div class="ttdoc">run the client, update the server data, must be called in another thread, use disconnect to stop</div><div class="ttdef"><b>Definition:</b> ClientApi.cpp:40</div></div>
+<div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_html_a6b8975daedac42858b91691f066ced58"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi.html#a6b8975daedac42858b91691f066ced58">Zappy::GUI::ClientApi::disconnect</a></div><div class="ttdeci">void disconnect()</div><div class="ttdoc">disconnect</div><div class="ttdef"><b>Definition:</b> ClientApi.cpp:86</div></div>
+<div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_html_aa7b6f662add7f445aade3d28bba31aed"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi.html#aa7b6f662add7f445aade3d28bba31aed">Zappy::GUI::ClientApi::update</a></div><div class="ttdeci">int update()</div><div class="ttdoc">geting the server data</div><div class="ttdef"><b>Definition:</b> ClientApi.cpp:66</div></div>
+<div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_html_aab0b80f8b4d0876b27e1fd604ebcd228"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi.html#aab0b80f8b4d0876b27e1fd604ebcd228">Zappy::GUI::ClientApi::getConnectStatus</a></div><div class="ttdeci">int getConnectStatus() const</div><div class="ttdoc">geting the connect status</div><div class="ttdef"><b>Definition:</b> ClientApi.cpp:102</div></div>
+<div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_html_ab06cd586fb8286744d71e363a8dbdbcf"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi.html#ab06cd586fb8286744d71e363a8dbdbcf">Zappy::GUI::ClientApi::sendCommand</a></div><div class="ttdeci">void sendCommand(const std::string &amp;aCommand)</div><div class="ttdoc">Append a command to the write buffer.</div><div class="ttdef"><b>Definition:</b> ClientApi.cpp:96</div></div>
+<div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_html_ad8b9997ce9659e2583ffb252ff880a3e"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi.html#ad8b9997ce9659e2583ffb252ff880a3e">Zappy::GUI::ClientApi::~ClientApi</a></div><div class="ttdeci">~ClientApi() final</div><div class="ttdoc">ClientApi destructor.</div><div class="ttdef"><b>Definition:</b> ClientApi.cpp:35</div></div>
+<div class="ttc" id="aclassZappy_1_1GUI_1_1ClientApi_html_aeef6375d1c57529442c3d905d1e09346"><div class="ttname"><a href="classZappy_1_1GUI_1_1ClientApi.html#aeef6375d1c57529442c3d905d1e09346">Zappy::GUI::ClientApi::getNotified</a></div><div class="ttdeci">void getNotified(const std::string &amp;aNotification) final</div><div class="ttdoc">Method called by the Publisher to notify the Subscriber.</div><div class="ttdef"><b>Definition:</b> ClientApi.cpp:154</div></div>
 <div class="ttc" id="aclassZappy_1_1GUI_1_1Mediator_html"><div class="ttname"><a href="classZappy_1_1GUI_1_1Mediator.html">Zappy::GUI::Mediator</a></div><div class="ttdef"><b>Definition:</b> Mediator.hpp:21</div></div>
 <div class="ttc" id="aclassZappy_1_1GUI_1_1Observer_html"><div class="ttname"><a href="classZappy_1_1GUI_1_1Observer.html">Zappy::GUI::Observer</a></div><div class="ttdoc">Interface for the Observer pattern.</div><div class="ttdef"><b>Definition:</b> Observer.hpp:27</div></div>
-<div class="ttc" id="aclassZappy_1_1GUI_1_1Subscriber_html"><div class="ttname"><a href="classZappy_1_1GUI_1_1Subscriber.html">Zappy::GUI::Subscriber</a></div><div class="ttdef"><b>Definition:</b> Subscriber.hpp:14</div></div>
 <div class="ttc" id="astructZappy_1_1GUI_1_1ServerData_html"><div class="ttname"><a href="structZappy_1_1GUI_1_1ServerData.html">Zappy::GUI::ServerData</a></div><div class="ttdef"><b>Definition:</b> ServerData.hpp:22</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

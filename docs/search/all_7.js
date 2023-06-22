@@ -17,12 +17,12 @@ var searchData=
   ['getserverdata_54',['getServerData',['../classZappy_1_1GUI_1_1App.html#aff3979a71a4d34c2a03752144fe2bd7f',1,'Zappy::GUI::App::getServerData()'],['../classZappy_1_1GUI_1_1ClientApi.html#a1476368818de1ac789f87931e8e9e1a7',1,'Zappy::GUI::ClientApi::getServerData() const']]],
   ['getserverfd_55',['getServerFd',['../classZappy_1_1GUI_1_1ClientApi.html#a5389a484a4049855a78732fe5bed98be',1,'Zappy::GUI::ClientApi']]],
   ['getteamname_56',['getTeamName',['../classZappy_1_1GUI_1_1EggData.html#aca0c38da0e5b902a33c1429849b88419',1,'Zappy::GUI::EggData::getTeamName()'],['../classZappy_1_1GUI_1_1PlayerData.html#af9d752ece384b40d4c25e1cb10e96231',1,'Zappy::GUI::PlayerData::getTeamName()']]],
-  ['goto_57',['goTo',['../classplayer_1_1Player.html#a398b98c0b3eda2ca88c47a770e39c14b',1,'player::Player']]],
-  ['gotolevel2_58',['goToLevel2',['../classplayer_1_1Player.html#aeef7464e17ef58a2de2e2e56e0bc0332',1,'player::Player']]],
-  ['gotolevel3_59',['goToLevel3',['../classplayer_1_1Player.html#a3a70e7bcc898d6bc5ee8c2e0ea49f625',1,'player::Player']]],
-  ['gotolevel4_60',['goToLevel4',['../classplayer_1_1Player.html#a87382341c4a31d94d06b5a93a02705a9',1,'player::Player']]],
-  ['gotolevel5_61',['goToLevel5',['../classplayer_1_1Player.html#ab4330eb019e98f91af332f1d0502ab81',1,'player::Player']]],
-  ['gotolevel6_62',['goToLevel6',['../classplayer_1_1Player.html#a81dfa56f8acd504ced17f37f5d8fb466',1,'player::Player']]],
-  ['gotolevel7_63',['goToLevel7',['../classplayer_1_1Player.html#aea901a0eeac62c61d762f67fc609e4d8',1,'player::Player']]],
-  ['gotolevel8_64',['goToLevel8',['../classplayer_1_1Player.html#a80953b9d38ef9ad836d9898bd2fb5597',1,'player::Player']]]
+  ['goto_57',['goTo',['../classia_1_1player_1_1Player.html#a490b41927b2812fc5d60634a15f5b56d',1,'ia::player::Player']]],
+  ['gotolevel2_58',['goToLevel2',['../classia_1_1player_1_1Player.html#a1cef6da59918cbb3481cc654acf88d76',1,'ia::player::Player']]],
+  ['gotolevel3_59',['goToLevel3',['../classia_1_1player_1_1Player.html#a2a7f3ae1f2d4fef5957e0ce29cbc64dd',1,'ia::player::Player']]],
+  ['gotolevel4_60',['goToLevel4',['../classia_1_1player_1_1Player.html#a2135ac90589534c478d21df9934fdd41',1,'ia::player::Player']]],
+  ['gotolevel5_61',['goToLevel5',['../classia_1_1player_1_1Player.html#a197142c03810f6a66bfb9e1f363f7fe1',1,'ia::player::Player']]],
+  ['gotolevel6_62',['goToLevel6',['../classia_1_1player_1_1Player.html#a040b18803a393fd6f8de6139db77c1f7',1,'ia::player::Player']]],
+  ['gotolevel7_63',['goToLevel7',['../classia_1_1player_1_1Player.html#a15b732dab0732ab94e4d07d71fe12e16',1,'ia::player::Player']]],
+  ['gotolevel8_64',['goToLevel8',['../classia_1_1player_1_1Player.html#a0df87735fe42e0b85c3aadab0b1f30e6',1,'ia::player::Player']]]
 ];
