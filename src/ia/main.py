@@ -1,5 +1,5 @@
 import sys
-from .parser import parse
+from .iaParser import parse
 from .player import Player
 
 
