@@ -46,13 +46,14 @@ static void eject_player(data_t *data, const int player_index, player_t *kicker)
         data->clients[player_index]->player->is_freezed = 0;
     }
     send_to_client(data->clients, player_index, "eject\n");
-    do_pex(data, player->id);
+    send_ppo_to_all_gui(data, player);
 }
 
 static int eject_cmd(data_t *data, __attribute__((unused)) char **args)
 {
     player_t *kicker = data->clients[data->curr_cli_index]->player;
 
+    do_pex(data, kicker->id);
     for (int i = 0; data->clients[i]; i++) {
         if (is_player(data->clients, i) && i != data->curr_cli_index) {
             eject_player(data, i, kicker);
@@ -60,14 +61,14 @@ static int eject_cmd(data_t *data, __attribute__((unused)) char **args)
     }
     hatch_eggs_at_pos(data, kicker->pos);
     send_to_client(data->clients, data->curr_cli_index, "ok\n");
-    return 0;
+    return SUCCESS_STATUS;
 }
 
 int schedule_eject(data_t *data, char **args)
 {
     if (args != NULL) {
-        return 1;
+        return ERROR_STATUS;
     }
     append_scheduler_to_queue(data, &eject_cmd, args, EJECT_DELAY);
-    return 0;
+    return SUCCESS_STATUS;
 }

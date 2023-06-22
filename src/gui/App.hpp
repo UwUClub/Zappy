@@ -27,6 +27,7 @@ namespace Zappy::GUI {
     class Inventory;
     struct ServerData;
     class AnimationHandler;
+    class MovementHandler;
 
     /**
      * @brief Main class of the GUI
@@ -204,6 +205,20 @@ namespace Zappy::GUI {
             void stoppedIncantation(const std::string &aNotification);
 
             /**
+             * @brief Triggered when the player drops ressources
+             *
+             * @param aNotification the notification
+             */
+            void droppedRessources(const std::string &aNotification);
+
+            /**
+             * @brief Triggered when a player is ejecting another player
+             *
+             * @param aNotification  the notification
+             */
+            void playerExpulsion(const std::string &aNotification);
+
+            /**
              * @brief See OgreBites::ApplicationContext documentation
              *
              * @param aEvent the event
@@ -211,18 +226,32 @@ namespace Zappy::GUI {
              */
             bool frameRenderingQueued(const Ogre::FrameEvent &aEvent) final;
 
+            /**
+             * @brief See OgreBites::ApplicationContext documentation
+             *
+             * @param aEvent the event
+             * @return true
+             * @return false
+             */
+            bool frameEnded(const Ogre::FrameEvent &aEvent) final;
+
             std::unique_ptr<CameraHandler> _cameraHandler;
             std::unique_ptr<ClickHandler> _clickHandler;
             std::unordered_map<Ogre::Entity *, std::unique_ptr<AnimationHandler>> _animatedEntities;
+            std::unordered_map<Ogre::Entity *, std::unique_ptr<MovementHandler>> _moveEntities;
             std::vector<std::unique_ptr<Button>> _buttons;
             std::unique_ptr<Inventory> _inventory;
+            std::vector<std::string> _toRemove;
             const ServerData &_serverData;
             static const inline std::unordered_map<std::string, std::function<void(App &, const std::string &)>>
-                _notificationMap = {{"pnw", &App::addPlayer},           {"pdi", &App::removePlayer},
-                                    {"ppo", &App::movePlayer},          {"smg", &App::displayServerMessage},
-                                    {"sgt", &App::updateDisplayedTime}, {"enw", &App::addEgg},
-                                    {"edi", &App::removeEgg},           {"ebo", &App::removeEgg},
-                                    {"pic", &App::startedIncantation},  {"pie", &App::stoppedIncantation}};
+                _notificationMap = {
+                    {"pnw", &App::addPlayer},           {"pdi", &App::removePlayer},
+                    {"ppo", &App::movePlayer},          {"smg", &App::displayServerMessage},
+                    {"sgt", &App::updateDisplayedTime}, {"enw", &App::addEgg},
+                    {"edi", &App::removeEgg},           {"ebo", &App::removeEgg},
+                    {"pic", &App::startedIncantation},  {"pie", &App::stoppedIncantation},
+                    {"pex", &App::playerExpulsion},     {"pdr", &App::droppedRessources},
+                };
     };
 } // namespace Zappy::GUI
 

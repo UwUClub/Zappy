@@ -26,13 +26,12 @@
 #include "CameraHandler.hpp"
 #include "ClickHandler.hpp"
 #include "Constexpr.hpp"
-#include "InputHandler.hpp"
 #include "Inventory.hpp"
+#include "MovementHandler.hpp"
 #include "Observer.hpp"
 #include "PlayerData.hpp"
 #include "SceneBuilder.hpp"
 #include "ServerData.hpp"
-#include <unordered_map>
 
 namespace Zappy::GUI {
     App::App(Mediator &aMediator, ServerData &aServerData, const std::string &aWindowName)
@@ -60,23 +59,26 @@ namespace Zappy::GUI {
         auto myNodeCenterPos = SceneBuilder::buildMap(myScnMgr, _serverData);
         cameraReturn myHandlers = SceneBuilder::buildCamera(myScnMgr, myNodeCenterPos, this->getRenderWindow(), *this);
         SceneBuilder::buildLights(myScnMgr, myNodeCenterPos);
-        SceneBuilder::buildConnectedPlayersAndEggs(myScnMgr, _serverData);
+        SceneBuilder::buildConnectedPlayersAndEggs(myScnMgr, _serverData, _animatedEntities);
 
         _cameraHandler.reset(myHandlers.first);
         _clickHandler.reset(myHandlers.second);
-        myScnMgr->setSkyBox(true, "Examples/SpaceSkyBox", 5000);
+        myScnMgr->setSkyBox(true, "Skybox", 50000, true, Ogre::Quaternion::IDENTITY, "Zappy");
         _inventory = std::make_unique<Inventory>(*this);
 
         this->createButtons();
         this->displayHowToPlayMenu();
         SceneBuilder::createText(BUTTON_OVERLAY, "Current Time: " + std::to_string(_serverData._freq), "Time",
                                  Ogre::Vector2(OFFSET_OVERLAY_TIME_X, OFFSET_OVERLAY_DISPLAY_TIME_Y),
-                                 Ogre::Vector2(DIMENSION_OVERLAY_DISPLAY_TIME_X, DIMENSION_OVERLAY_DISPLAY_TIME_Y));
+                                 Ogre::Vector2(DIMENSION_OVERLAY_DISPLAY_TIME_X, DIMENSION_OVERLAY_DISPLAY_TIME_Y),
+                                 "Textbox", RESSOURCE_GROUP_NAME,
+                                 Ogre::Vector2(OFFSET_OVERLAY_BUTTON_TIME_X, OFFSET_OVERLAY_BUTTON_TIME_Y));
         this->setReady(true);
     }
 
     App::~App()
     {
+        Ogre::ResourceGroupManager::getSingleton().unloadResourceGroup(RESSOURCE_GROUP_NAME);
         this->closeApp();
         this->askDisconnection();
     }
@@ -85,12 +87,12 @@ namespace Zappy::GUI {
     {
         _buttons.emplace_back(std::make_unique<Button>(
             "Speed up", std::make_pair(OFFSET_OVERLAY_TIME_X, OFFSET_OVERLAY_BUTTON_1_TIME_Y),
-            std::make_pair(DIMENSION_OVERLAY_BUTTON_1_TIME_X, DIMENSION_OVERLAY_BUTTON_1_TIME_Y), [this] {
+            std::make_pair(DIMENSION_OVERLAY_DISPLAY_TIME_X, DIMENSION_OVERLAY_DISPLAY_TIME_Y), [this] {
                 increaseTime();
             }));
         _buttons.emplace_back(std::make_unique<Button>(
             "Speed down", std::make_pair(OFFSET_OVERLAY_TIME_X, OFFSET_OVERLAY_BUTTON_2_TIME_Y),
-            std::make_pair(DIMENSION_OVERLAY_BUTTON_2_TIME_X, DIMENSION_OVERLAY_BUTTON_2_TIME_Y), [this] {
+            std::make_pair(DIMENSION_OVERLAY_DISPLAY_TIME_X, DIMENSION_OVERLAY_DISPLAY_TIME_Y), [this] {
                 decreaseTime();
             }));
         _buttons.emplace_back(
@@ -114,25 +116,19 @@ namespace Zappy::GUI {
     void App::displayHowToPlayMenu()
     {
         static const std::string HOW_TO_PLAY_HELP_MESSAGE =
-            "How to play:\nRight click + moving mouse to move camera\n Zoom in and out with the mouse wheel.\n\n "
-            "Press "
-            "left "
-            "shift and left click to rotate the camera around a central point\n Press the "
-            "space bar "
-            "to reset the camera.\n\n Left click on a tile to display its content\n\n Left click on a player to "
-            "display "
-            "its "
-            "inventory\n Left click on an egg to display its inventory\n Left click on a button to interact with "
-            "it\n "
-            "Press 'ESC' to quit the game\n"
+            "How to play:\n\nRight click + moving mouse to move camera       Zoom in and out with the mouse wheel.\n"
+            "Press the space bar to reset the camera         Left click on a tile to display its content\n"
+            "Left click on a player to display its inventory    Left click on an egg to display its inventory\n"
+            "Left click on a button to interact with it        Press 'ESC' to quit the game\n"
+            "Press left shift and left click to rotate the camera around a central point (can be moved, see above)\n\n"
             "Press any key to dismiss this message\n";
         const auto myWindowHeight = static_cast<float>(this->getRenderWindow()->getHeight());
         const auto myWindowWidth = static_cast<float>(this->getRenderWindow()->getWidth());
-        const Ogre::Vector2 myPos = {myWindowWidth / 6, myWindowHeight / 2.0F / 2.0F};
-        const Ogre::Vector2 myDimension = {1800, 700};
+        const Ogre::Vector2 myPos = {0, myWindowHeight / 2.0F / 2.0F - 70};
+        const Ogre::Vector2 myDimension = {myWindowWidth, 800};
 
         SceneBuilder::createText(HELP_CONTROLS_OVERLAY, HOW_TO_PLAY_HELP_MESSAGE, HELP_CONTROLS_OVERLAY_PREFIX, myPos,
-                                 myDimension);
+                                 myDimension, "Textbox", RESSOURCE_GROUP_NAME, Ogre::Vector2(300, 275));
     }
 
     void App::instantiateApp()
@@ -213,11 +209,48 @@ namespace Zappy::GUI {
     {
         return _inventory;
     }
+
     bool App::frameRenderingQueued(const Ogre::FrameEvent &aEvent)
     {
         for (auto &mySet : _animatedEntities) {
             mySet.second->updateAnimation(aEvent.timeSinceLastFrame);
         }
+        for (auto &mySet : _moveEntities) {
+            if (mySet.second->willTeleport()) {
+                _animatedEntities[mySet.first]->playAnimation("JumpStart", false);
+                mySet.second->teleport();
+                continue;
+            }
+            if (!mySet.second->isMoving()) {
+                _animatedEntities[mySet.first]->removeAnimation("RunTop");
+                _animatedEntities[mySet.first]->removeAnimation("RunBase");
+                continue;
+            }
+            mySet.second->updateMovement(aEvent.timeSinceLastFrame, _serverData._freq);
+        }
+        return true;
+    }
+
+    bool App::frameEnded([[maybe_unused]] const Ogre::FrameEvent &aEvent)
+    {
+        auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
+
+        for (const auto &myEntityName : _toRemove) {
+            try {
+                auto *myEntity = myScnMgr->getEntity(myEntityName);
+
+                if (_animatedEntities.find(myEntity) != _animatedEntities.cend()) {
+                    _animatedEntities.erase(myEntity);
+                }
+                if (_moveEntities.find(myEntity) != _moveEntities.cend()) {
+                    _moveEntities.erase(myEntity);
+                }
+                myScnMgr->destroyEntity(myEntityName);
+            } catch (const Ogre::Exception &e) {
+                std::cerr << e.what() << std::endl;
+            }
+        }
+        _toRemove.clear();
         return true;
     }
 } // namespace Zappy::GUI

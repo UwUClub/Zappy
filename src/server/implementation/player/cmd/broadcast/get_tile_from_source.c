@@ -22,6 +22,8 @@ static int get_tile_if_x_0(int dir_y)
 {
     if (dir_y < 0)
         return 1;
+    if (dir_y == 0)
+        return 0;
     if (dir_y > 0)
         return 5;
     return -1;
@@ -49,8 +51,10 @@ static int get_tile_from_dir(orientation_t orientation, int dir_x,
         result = get_tile_if_x_0(dir_y);
     if (dir_x > 0)
         result = get_tile_if_x_positive(dir_y);
-    for (int i = 1; i < orientation; i++) {
-        result += 2;
+    if (result != 0) {
+        for (int i = 1; i < orientation; i++) {
+            result += 2;
+        }
     }
     while (result > 8) {
         result -= 8;

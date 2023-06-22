@@ -7,7 +7,7 @@
 
 #include "core.h"
 
-void do_ebo(data_t *data)
+void send_ebo_to_all_gui(data_t *data)
 {
     player_t *player = data->clients[data->curr_cli_index]->player;
     char *msg = NULL;

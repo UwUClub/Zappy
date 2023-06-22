@@ -22,6 +22,7 @@ namespace Zappy::GUI {
     struct EggData;
     class CameraHandler;
     class ClickHandler;
+    class AnimationHandler;
     class App;
 
     using cameraReturn = std::pair<CameraHandler *, ClickHandler *>;
@@ -75,8 +76,11 @@ namespace Zappy::GUI {
              *
              * @param aSceneManager The scene manager to use
              * @param aServerData The server data of the game
+             * @param aAnimatedEntities The animated entities
              */
-            static void buildConnectedPlayersAndEggs(Ogre::SceneManager *aSceneManager, const ServerData &aServerData);
+            static void buildConnectedPlayersAndEggs(
+                Ogre::SceneManager *aSceneManager, const ServerData &aServerData,
+                std::unordered_map<Ogre::Entity *, std::unique_ptr<AnimationHandler>> &aAnimatedEntities);
 
             /**
              * @brief Create a Tile object
@@ -93,8 +97,11 @@ namespace Zappy::GUI {
              *
              * @param aSceneManager The scene manager to use
              * @param aPlayerData The player data representing the player to create
+             * @param aAnimatedEntities The animated entities
              */
-            static void createPlayer(Ogre::SceneManager *aSceneManager, const PlayerData &aPlayerData);
+            static void
+            createPlayer(Ogre::SceneManager *aSceneManager, const PlayerData &aPlayerData,
+                         std::unordered_map<Ogre::Entity *, std::unique_ptr<AnimationHandler>> &aAnimatedEntities);
 
             /**
              * @brief Create a Egg object
@@ -128,6 +135,14 @@ namespace Zappy::GUI {
              * @param aSceneManager the scene manager
              */
             static void setPlayerPosAndOrientation(Ogre::SceneManager *aSceneManager, const PlayerData &aPlayer);
+
+            /**
+             * @brief Set the Player Orientation object
+             *
+             * @param aPlayer the playerData
+             * @param aSceneManager the scene manager
+             */
+            static void setPlayerOrientation(Ogre::SceneManager *aSceneManager, const PlayerData &aPlayer);
 
         private:
     };

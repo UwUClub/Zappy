@@ -34,8 +34,9 @@ namespace Zappy::GUI {
              * @brief Add an animation to the handler
              *
              * @param animationName the name of the animation to play
+             * @param aLoop if the animation should loop
              */
-            void addAnimation(const std::string &aAnimationName, bool aLoop = true);
+            void playAnimation(const std::string &aAnimationName, bool aLoop = true);
 
             /**
              * @brief Remove an animation from the handler
@@ -52,7 +53,6 @@ namespace Zappy::GUI {
             void updateAnimation(Ogre::Real aTimeSinceLastFrame);
 
         private:
-            std::set<std::string> _animationNames;
             Ogre::Entity *_entity;
     };
 } // namespace Zappy::GUI

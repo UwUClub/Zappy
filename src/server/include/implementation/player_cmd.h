@@ -169,6 +169,43 @@
         pos_t *pos, const int target_lvl);
 
     /**
+     * @brief Set players freeze state
+     * @param clients The client list of the server
+     * @param pos The position of the incantation
+     * @param target_lvl The target level
+     * @param new_state The new state of the players
+     */
+    void set_players_freeze_state(client_t **clients, pos_t *pos,
+        const int target_lvl, const int new_state);
+
+    /**
+     * @brief Increment players level
+     * @param data The current server data, clients and current client index
+     * @param pos The position of the incantation
+     * @param target_lvl The target level
+    */
+    void increment_players_level(data_t *data, pos_t *pos,
+        const int target_lvl);
+
+    /**
+     * @brief Send ko to incanting players
+     * @param clients The client list of the server
+     * @param pos The position of the incantation
+     * @param target_lvl The target level of the incantation
+    */
+    void send_ko_to_players(client_t **clients, pos_t *pos,
+        const int target_lvl);
+
+    /**
+     * @brief Send ok to incanting players except current
+     * @param data The current server data, clients and current client index
+     * @param pos The position of the incantation
+     * @param target_lvl The target level of the incantation
+    */
+    void send_ko_to_players_except_current(data_t *data, pos_t *pos,
+        const int target_lvl);
+
+    /**
      * @brief Schedule eject command
      * @param data The current server data, clients and current client index
      * @param args The arguments of the command
@@ -186,13 +223,6 @@
     */
     int get_tile_from_source(data_t *data, const unsigned int player_id,
         const unsigned int source_x, const unsigned int source_y);
-
-    /**
-     * @brief Remove all the resource consummed from a tile
-     * @param data The current server data, clients and current client index
-     * @return return 0 if success, 1 if error
-     */
-    int remove_all_resources_from_tile(data_t *data);
 
     static const cmd_t player_schedulers[] = {
         {"Forward", &schedule_forward, FORWARD_DELAY},

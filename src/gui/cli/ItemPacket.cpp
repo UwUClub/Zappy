@@ -24,35 +24,35 @@ namespace Zappy::GUI {
 
     void ItemPacket::addResources(int aA)
     {
-        static const std::unordered_map<int, std::function<void()>> myInventoryMap = {{Ressources::FOOD,
-                                                                                       [this]() {
-                                                                                           _food++;
-                                                                                       }},
-                                                                                      {Ressources::LINEMATE,
-                                                                                       [this]() {
-                                                                                           _linemate++;
-                                                                                       }},
-                                                                                      {Ressources::DERAUMERE,
-                                                                                       [this]() {
-                                                                                           _deraumere++;
-                                                                                       }},
-                                                                                      {Ressources::SIBUR,
-                                                                                       [this]() {
-                                                                                           _sibur++;
-                                                                                       }},
-                                                                                      {Ressources::MENDIANE,
-                                                                                       [this]() {
-                                                                                           _mendiane++;
-                                                                                       }},
-                                                                                      {Ressources::PHIRAS,
-                                                                                       [this]() {
-                                                                                           _phiras++;
-                                                                                       }},
-                                                                                      {Ressources::THYSTAME, [this]() {
-                                                                                           _thystame++;
-                                                                                       }}};
+        const std::unordered_map<int, std::function<void()>> myInventoryMap = {{Ressources::FOOD,
+                                                                                [this]() {
+                                                                                    _food++;
+                                                                                }},
+                                                                               {Ressources::LINEMATE,
+                                                                                [this]() {
+                                                                                    _linemate++;
+                                                                                }},
+                                                                               {Ressources::DERAUMERE,
+                                                                                [this]() {
+                                                                                    _deraumere++;
+                                                                                }},
+                                                                               {Ressources::SIBUR,
+                                                                                [this]() {
+                                                                                    _sibur++;
+                                                                                }},
+                                                                               {Ressources::MENDIANE,
+                                                                                [this]() {
+                                                                                    _mendiane++;
+                                                                                }},
+                                                                               {Ressources::PHIRAS,
+                                                                                [this]() {
+                                                                                    _phiras++;
+                                                                                }},
+                                                                               {Ressources::THYSTAME, [this]() {
+                                                                                    _thystame++;
+                                                                                }}};
 
-        if (myInventoryMap.find(aA) == myInventoryMap.end()) {
+        if (myInventoryMap.find(aA) == myInventoryMap.cend()) {
             return;
         }
         myInventoryMap.at(aA)();
@@ -60,35 +60,35 @@ namespace Zappy::GUI {
 
     void ItemPacket::removeResources(int aA)
     {
-        static const std::unordered_map<int, std::function<void()>> myInventoryMap = {{Ressources::FOOD,
-                                                                                       [this]() {
-                                                                                           _food--;
-                                                                                       }},
-                                                                                      {Ressources::LINEMATE,
-                                                                                       [this]() {
-                                                                                           _linemate--;
-                                                                                       }},
-                                                                                      {Ressources::DERAUMERE,
-                                                                                       [this]() {
-                                                                                           _deraumere--;
-                                                                                       }},
-                                                                                      {Ressources::SIBUR,
-                                                                                       [this]() {
-                                                                                           _sibur--;
-                                                                                       }},
-                                                                                      {Ressources::MENDIANE,
-                                                                                       [this]() {
-                                                                                           _mendiane--;
-                                                                                       }},
-                                                                                      {Ressources::PHIRAS,
-                                                                                       [this]() {
-                                                                                           _phiras--;
-                                                                                       }},
-                                                                                      {Ressources::THYSTAME, [this]() {
-                                                                                           _thystame--;
-                                                                                       }}};
+        const std::unordered_map<int, std::function<void()>> myInventoryMap = {{Ressources::FOOD,
+                                                                                [this]() {
+                                                                                    _food--;
+                                                                                }},
+                                                                               {Ressources::LINEMATE,
+                                                                                [this]() {
+                                                                                    _linemate--;
+                                                                                }},
+                                                                               {Ressources::DERAUMERE,
+                                                                                [this]() {
+                                                                                    _deraumere--;
+                                                                                }},
+                                                                               {Ressources::SIBUR,
+                                                                                [this]() {
+                                                                                    _sibur--;
+                                                                                }},
+                                                                               {Ressources::MENDIANE,
+                                                                                [this]() {
+                                                                                    _mendiane--;
+                                                                                }},
+                                                                               {Ressources::PHIRAS,
+                                                                                [this]() {
+                                                                                    _phiras--;
+                                                                                }},
+                                                                               {Ressources::THYSTAME, [this]() {
+                                                                                    _thystame--;
+                                                                                }}};
 
-        if (myInventoryMap.find(aA) == myInventoryMap.end()) {
+        if (myInventoryMap.find(aA) == myInventoryMap.cend()) {
             return;
         }
         myInventoryMap.at(aA)();

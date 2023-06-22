@@ -9,10 +9,11 @@
 
 int do_pdr(data_t *data, int resource)
 {
+    int curr_cli_id = data->clients[data->curr_cli_index]->player->id;
     char *msg = NULL;
 
-    asprintf(&msg, "pdr %d %d\n", data->curr_cli_index, resource);
+    asprintf(&msg, "pdr %d %d\n", curr_cli_id, resource);
     send_to_all_gui(data->clients, msg);
     free(msg);
-    return 0;
+    return SUCCESS_STATUS;
 }
