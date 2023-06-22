@@ -2,23 +2,18 @@
 #include <arpa/inet.h>
 #include <cerrno>
 #include <csignal>
-#include <cstddef>
 #include <cstdio>
 #include <cstring>
-#include <functional>
 #include <iostream>
 #include <netinet/in.h>
 #include <pthread.h>
-#include <sstream>
 #include <string>
 #include <syncstream>
 #include <sys/select.h>
 #include <sys/socket.h>
 #include <unistd.h>
 #include <utility>
-#include "EggData.hpp"
 #include "Observer.hpp"
-#include "PlayerData.hpp"
 #include "ServerData.hpp"
 #include <unordered_map>
 
