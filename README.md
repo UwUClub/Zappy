@@ -104,7 +104,7 @@ The GUI protocol can be found in the gui_protocol.pdf file at the root of this r
 
 ### AI protocol
 
-[![Foo](https://media.discordapp.net/attachments/514127963604647947/1121337146901528648/Capture_decran_2023-06-22_a_09.12.27.png)
+![Foo](https://media.discordapp.net/attachments/514127963604647947/1121337146901528648/Capture_decran_2023-06-22_a_09.12.27.png)
 
 In case of bad or unknown command, the server will answer "ko"
 
