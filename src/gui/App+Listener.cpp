@@ -43,10 +43,7 @@ namespace Zappy::GUI {
         auto *myScnMgr = this->getRoot()->getSceneManager(SCENE_MAN_NAME);
         auto myPlayerData = _serverData._players.back();
 
-        SceneBuilder::createPlayer(myScnMgr, myPlayerData, _animatedEntities);
-
-        auto *myPlayer = myScnMgr->getEntity(PLAYER_PREFIX_NAME + myPlayerData.getId());
-        _moveEntities[myPlayer] = std::make_unique<MovementHandler>(myPlayer, _serverData._mapSize);
+        SceneBuilder::createPlayer(myScnMgr, myPlayerData, _animatedEntities, _moveEntities, _serverData._mapSize);
     }
 
     void App::removePlayer(const std::string &aNotification)
