@@ -4,12 +4,12 @@ import random
 
 myListObject = ["player", "food", "linemate", "deraumere", "sibur", "mendiane", "phiras", "thystame"]
 myLevelCondition = [[1, 7, 1, 0, 0, 0, 0, 0],
-                    [2, 10, 1, 1, 1, 0, 0, 0],
-                    [2, 10, 2, 0, 1, 0, 2, 0],
-                    [4, 15, 1, 1, 2, 0, 1, 0],
-                    [4, 15, 1, 2, 1, 3, 0, 0],
-                    [6, 20, 1, 2, 3, 0, 1, 0],
-                    [6, 20, 2, 2, 2, 2, 2, 1]]
+                    [2, 15, 1, 1, 1, 0, 0, 0],
+                    [2, 15, 2, 0, 1, 0, 2, 0],
+                    [4, 20, 1, 1, 2, 0, 1, 0],
+                    [4, 20, 1, 2, 1, 3, 0, 0],
+                    [6, 25, 1, 2, 3, 0, 1, 0],
+                    [6, 25, 2, 2, 2, 2, 2, 1]]
 
 ## @brief Class that contains the player information
 class Player:
@@ -63,7 +63,7 @@ class Player:
                     self._lastReceivedMessage = message[i]
                     self.parseReceiveBroadcast()
                 else:
-                    return message[i].join('\n')
+                    return message[i]+"\n"
             return self.receive()
         if (message == "dead\n"):
             print("Dead")
@@ -225,11 +225,15 @@ class Player:
     def incantation(self):
         self.send("Incantation")
         myIncantation = self.receive()
-        if myIncantation == "ko\n":
-            print("Error: Incantation")
-            return (False)
+        if myIncantation == "Elevation underway\n":
+            myIncantation = self.receive()
+            if myIncantation == "ko\n":
+                print("Error: Incantation")
+                return (False)
+            else:
+                return (True)
         else:
-            return (True)
+            return (False)
 
     ## @brief Send Fork command
     ## @return None
@@ -303,12 +307,15 @@ class Player:
             if (myNb > myNbMax):
                 myNbMax = myNb
                 myTile = i
+        if (myNbMax == 0):
+            self.forward()
         return (myTile)
 
     ## @brief Take all the ressources on the tile
     ## @param aTile The tile to take the ressources from
     ## @return None
     def takeAll(self, aTile):
+        print(self.parseLook(self.look())[0][0])
         for i in range(1, len(aTile)):
             for j in range(aTile[i]):
                 self.take(myListObject[i])
@@ -373,7 +380,11 @@ class Player:
         if (self._direction == -1):
             return (False)
         myTile = self.parseLook(self.look())[0][0]
+        myTimeOut = 0
         while (self._direction != 0 or myTile == 1):
+            if (myTimeOut == 20):
+                self._direction = -1
+                return (False)
             print("Direction1:", self._direction)
             if (self._direction == 1):
                 self.forward()
@@ -398,6 +409,7 @@ class Player:
             myTile = self.parseLook(self.look())[0][0]
             if (myTile > 1):
                 time.sleep(1)
+            myTimeOut += 1
         self._direction = -1
         return (True)
 
@@ -415,8 +427,7 @@ class Player:
                 self.setElevationRessources()
                 if (self.incantation()):
                     self._functionIndex += 1
-                    if (self.connectNbr() == 0):
-                        self.fork()
+                    self.fork()
 
     ## @brief Try to evolve to level 3
     ## @return None
@@ -426,12 +437,13 @@ class Player:
         self.goTo(myTile)
         self.takeAll(self._lookTiles[myTile])
         self.parseInventory(self.inventory())
-        if (self._parsedMessage == "regroup 2" or self._parsedMessage == "regroup "+str(self._id)):
+        if ((self._parsedMessage == "regroup 2" or self._parsedMessage == "regroup "+str(self._id)) and self._inventory[0] > 10):
             self.broadcast("regroup "+str(self._id))
             myTimeOut = 0
             while (self.findPlayer() == False):
                 if (myTimeOut == 5):
                     return
+                self.broadcast("regroup "+str(self._id))
                 self.parseLook(self.look())
                 myTile = self.findRessource()
                 self.goTo(myTile)
@@ -452,6 +464,7 @@ class Player:
             while (myMateId == ""):
                 self.broadcast("regroup 2")
                 myMateId = self._parsedMessage[8:]
+                self.parseInventory(self.inventory())
                 print ("MateId:", myMateId)
                 if (self._inventory[0] < 6):
                     return
@@ -469,10 +482,18 @@ class Player:
                 self.broadcast("done")
                 self._parsedMessage = "done"
                 self._functionIndex += 1
+                if (random.randint(0, 1) == 1):
+                    self.left()
+                else:
+                    self.right()
                 self.fork()
             else:
                 self.broadcast("done")
                 self._parsedMessage = "done"
+                if (random.randint(0, 1) == 1):
+                    self.left()
+                else:
+                    self.right()
     
     ## @brief Try to evolve to level 4
     ## @return None
@@ -482,7 +503,7 @@ class Player:
         self.goTo(myTile)
         self.takeAll(self._lookTiles[myTile])
         self.parseInventory(self.inventory())
-        if (self._parsedMessage == "regroup 3" or self._parsedMessage == "regroup "+str(self._id)):
+        if ((self._parsedMessage == "regroup 3" or self._parsedMessage == "regroup "+str(self._id)) and self._inventory[0] > 10):
             self.broadcast("regroup "+str(self._id))
             myTimeOut = 0
             while (self.findPlayer() == False):
@@ -508,6 +529,7 @@ class Player:
             while (myMateId == ""):
                 self.broadcast("regroup 3")
                 myMateId = self._parsedMessage[8:]
+                self.parseInventory(self.inventory())
                 print ("MateId:", myMateId)
                 if (self._inventory[0] < 6):
                     return
@@ -525,10 +547,18 @@ class Player:
                 self.broadcast("done")
                 self._parsedMessage = "done"
                 self._functionIndex += 1
+                if (random.randint(0, 1) == 1):
+                    self.left()
+                else:
+                    self.right()
                 self.fork()
             else:
                 self.broadcast("done")
                 self._parsedMessage = "done"
+                if (random.randint(0, 1) == 1):
+                    self.left()
+                else:
+                    self.right()
 
     ## @brief Try to evolve to level 5
     ## @return None
@@ -538,7 +568,7 @@ class Player:
         self.goTo(myTile)
         self.takeAll(self._lookTiles[myTile])
         self.parseInventory(self.inventory())
-        if (self._parsedMessage == "regroup 4" or self._parsedMessage == "regroup "+str(self._id)):
+        if ((self._parsedMessage == "regroup 4" or self._parsedMessage == "regroup "+str(self._id)) and self._inventory[0] > 15):
             self.broadcast("regroup "+str(self._id))
             myTimeOut = 0
             while (self.findPlayer() == False):
@@ -565,12 +595,14 @@ class Player:
                 self.broadcast("regroup 4")
                 if (self._parsedMessage[8:] not in myMateId):
                     myMateId.append(self._parsedMessage[8:])
+                self.parseInventory(self.inventory())
                 print ("MateId:", myMateId)
                 if (self._inventory[0] < 6):
                     return
                 for i in range(len(myMateId)):
-                   if ((int(myMateId[i]) > 1 and int(myMateId[i]) < 8)):
-                        return
+                    if (myMateId != ['']):
+                        if ((int(myMateId[i]) > 1 and int(myMateId[i]) < 8)):
+                            return
             while mySelfTile != myLevelCondition[self._functionIndex][0] or self._parsedMessage != "found":
                 mySelfTile = self.parseLook(self.look())[0][0]
                 for i in range (len(myMateId)):
@@ -583,27 +615,40 @@ class Player:
                 self.broadcast("done")
                 self._parsedMessage = "done"
                 self._functionIndex += 1
+                if (random.randint(0, 1) == 1):
+                    self.left()
+                else:
+                    self.right()
                 self.fork()
             else:
                 self.broadcast("done")
                 self._parsedMessage = "done"
+                if (random.randint(0, 1) == 1):
+                    self.left()
+                else:
+                    self.right()
     
     ## @brief Try to evolve to level 6
     ## @return None
     def goToLevel6(self):
-        self.parseReceiveBroadcast()
         self.parseLook(self.look())
         myTile = self.findRessource()
         self.goTo(myTile)
         self.takeAll(self._lookTiles[myTile])
         self.parseInventory(self.inventory())
-        if (self._parsedMessage == "regroup 5" or self._parsedMessage == "regroup "+str(self._id)):
+        if ((self._parsedMessage == "regroup 5" or self._parsedMessage == "regroup "+str(self._id)) and self._inventory[0] > 15):
             self.broadcast("regroup "+str(self._id))
-            self.parseReceiveBroadcast()
-            if (self.findPlayer() == False):
-                print("Not found")
-                return
+            myTimeOut = 0
+            while (self.findPlayer() == False):
+                if (myTimeOut == 5):
+                    return
+                self.parseLook(self.look())
+                myTile = self.findRessource()
+                self.goTo(myTile)
+                self.takeAll(self._lookTiles[myTile])
+                myTimeOut += 1
             print("Found")
+            self.broadcast("found")
             myReceivedMessage = ""
             while (myReceivedMessage != "Current level: 6\n" and myReceivedMessage != "ko\n"):
                 myReceivedMessage = self.receive()
@@ -611,43 +656,68 @@ class Player:
                     self._functionIndex += 1
                     self.fork()
                     return
-        myMateId = ""
-        if (self.verifyIncantation() and self._parsedMessage == ""):
+        myMateId = []
+        if (self.verifyIncantation() and (self._parsedMessage == "" or self._parsedMessage == "done")):
             mySelfTile = ""
-            while (myMateId == ""):
+            while (len(myMateId) < 3):
                 self.broadcast("regroup 5")
-                self.parseReceiveBroadcast()
-                myMateId = self._parsedMessage[8:]
+                if (self._parsedMessage[8:] not in myMateId):
+                    myMateId.append(self._parsedMessage[8:])
+                self.parseInventory(self.inventory())
                 print ("MateId:", myMateId)
                 if (self._inventory[0] < 6):
                     return
-            while mySelfTile != myLevelCondition[self._functionIndex][0]:
+                for i in range(len(myMateId)):
+                    if (myMateId != ['']):
+                        if ((int(myMateId[i]) > 1 and int(myMateId[i]) < 8)):
+                            return
+            while mySelfTile != myLevelCondition[self._functionIndex][0] or self._parsedMessage != "found":
                 mySelfTile = self.parseLook(self.look())[0][0]
-                self.broadcast("regroup "+myMateId)
+                for i in range (len(myMateId)):
+                    self.broadcast("regroup "+myMateId[i])
                 self.parseInventory(self.inventory())
                 if (self._inventory[0] < 6):
                     return
             self.setElevationRessources()
             if (self.incantation()):
+                self.broadcast("done")
+                self._parsedMessage = "done"
                 self._functionIndex += 1
+                if (random.randint(0, 1) == 1):
+                    self.left()
+                else:
+                    self.right()
                 self.fork()
+            else:
+                self.broadcast("done")
+                self._parsedMessage = "done"
+                if (random.randint(0, 1) == 1):
+                    self.left()
+                else:
+                    self.right()
+                
     
     ## @brief Try to evolve to level 7
     ## @return None
     def goToLevel7(self):
-        self.parseReceiveBroadcast()
         self.parseLook(self.look())
         myTile = self.findRessource()
         self.goTo(myTile)
         self.takeAll(self._lookTiles[myTile])
         self.parseInventory(self.inventory())
-        if (self._parsedMessage == "regroup 6" or self._parsedMessage == "regroup "+str(self._id)):
+        if ((self._parsedMessage == "regroup 6" or self._parsedMessage == "regroup "+str(self._id)) and self._inventory[0] > 15):
             self.broadcast("regroup "+str(self._id))
-            self.parseReceiveBroadcast()
-            if (self.findPlayer() == False):
-                print("Not found")
-                return
+            myTimeOut = 0
+            while (self.findPlayer() == False):
+                if (myTimeOut == 5):
+                    return
+                self.parseLook(self.look())
+                myTile = self.findRessource()
+                self.goTo(myTile)
+                self.takeAll(self._lookTiles[myTile])
+                myTimeOut += 1
             print("Found")
+            self.broadcast("found")
             myReceivedMessage = ""
             while (myReceivedMessage != "Current level: 7\n" and myReceivedMessage != "ko\n"):
                 myReceivedMessage = self.receive()
@@ -655,45 +725,67 @@ class Player:
                     self._functionIndex += 1
                     self.fork()
                     return
-        myMateId = ""
-        if (self.verifyIncantation() and self._parsedMessage == ""):
+        myMateId = []
+        if (self.verifyIncantation() and (self._parsedMessage == "" or self._parsedMessage == "done")):
             mySelfTile = ""
-            while (myMateId == ""):
+            while (len(myMateId) < 5):
                 self.broadcast("regroup 6")
-                time.sleep(1)
-                self.parseReceiveBroadcast()
-                myMateId = self._parsedMessage[8:]
+                if (self._parsedMessage[8:] not in myMateId):
+                    myMateId.append(self._parsedMessage[8:])
+                self.parseInventory(self.inventory())
                 print ("MateId:", myMateId)
                 if (self._inventory[0] < 6):
                     return
-            while mySelfTile != myLevelCondition[self._functionIndex][0]:
+                for i in range(len(myMateId)):
+                    if (myMateId != ['']):
+                        if ((int(myMateId[i]) > 1 and int(myMateId[i]) < 8)):
+                            return
+            while mySelfTile != myLevelCondition[self._functionIndex][0] or self._parsedMessage != "found":
                 mySelfTile = self.parseLook(self.look())[0][0]
-                time.sleep(1)
-                self.broadcast("regroup "+myMateId)
+                for i in range (len(myMateId)):
+                    self.broadcast("regroup "+myMateId[i])
                 self.parseInventory(self.inventory())
                 if (self._inventory[0] < 6):
                     return
             self.setElevationRessources()
             if (self.incantation()):
+                self.broadcast("done")
+                self._parsedMessage = "done"
                 self._functionIndex += 1
+                if (random.randint(0, 1) == 1):
+                    self.left()
+                else:
+                    self.right()
                 self.fork()
+            else:
+                self.broadcast("done")
+                self._parsedMessage = "done"
+                if (random.randint(0, 1) == 1):
+                    self.left()
+                else:
+                    self.right()
     
     ## @brief Try to evolve to level 8
     ## @return None
     def goToLevel8(self):
-        self.parseReceiveBroadcast()
         self.parseLook(self.look())
         myTile = self.findRessource()
         self.goTo(myTile)
         self.takeAll(self._lookTiles[myTile])
         self.parseInventory(self.inventory())
-        if (self._parsedMessage == "regroup 7" or self._parsedMessage == "regroup "+str(self._id)):
+        if ((self._parsedMessage == "regroup 7" or self._parsedMessage == "regroup "+str(self._id)) and self._inventory[0] > 15):
             self.broadcast("regroup "+str(self._id))
-            self.parseReceiveBroadcast()
-            if (self.findPlayer() == False):
-                print("Not found")
-                return
+            myTimeOut = 0
+            while (self.findPlayer() == False):
+                if (myTimeOut == 5):
+                    return
+                self.parseLook(self.look())
+                myTile = self.findRessource()
+                self.goTo(myTile)
+                self.takeAll(self._lookTiles[myTile])
+                myTimeOut += 1
             print("Found")
+            self.broadcast("found")
             myReceivedMessage = ""
             while (myReceivedMessage != "Current level: 8\n" and myReceivedMessage != "ko\n"):
                 myReceivedMessage = self.receive()
@@ -701,25 +793,42 @@ class Player:
                     self._functionIndex += 1
                     self.fork()
                     return
-        myMateId = ""
-        if (self.verifyIncantation() and self._parsedMessage == ""):
+        myMateId = []
+        if (self.verifyIncantation() and (self._parsedMessage == "" or self._parsedMessage == "done")):
             mySelfTile = ""
-            while (myMateId == ""):
+            while (len(myMateId) < 5):
                 self.broadcast("regroup 7")
-                time.sleep(1)
-                self.parseReceiveBroadcast()
-                myMateId = self._parsedMessage[8:]
+                if (self._parsedMessage[8:] not in myMateId):
+                    myMateId.append(self._parsedMessage[8:])
+                self.parseInventory(self.inventory())
                 print ("MateId:", myMateId)
                 if (self._inventory[0] < 6):
                     return
-            while mySelfTile != myLevelCondition[self._functionIndex][0]:
+                for i in range(len(myMateId)):
+                    if (myMateId != ['']):
+                        if ((int(myMateId[i]) > 1 and int(myMateId[i]) < 8)):
+                            return
+            while mySelfTile != myLevelCondition[self._functionIndex][0] or self._parsedMessage != "found":
                 mySelfTile = self.parseLook(self.look())[0][0]
-                time.sleep(1)
-                self.broadcast("regroup "+myMateId)
+                for i in range (len(myMateId)):
+                    self.broadcast("regroup "+myMateId[i])
                 self.parseInventory(self.inventory())
                 if (self._inventory[0] < 6):
                     return
             self.setElevationRessources()
             if (self.incantation()):
+                self.broadcast("done")
+                self._parsedMessage = "done"
                 self._functionIndex += 1
+                if (random.randint(0, 1) == 1):
+                    self.left()
+                else:
+                    self.right()
                 self.fork()
+            else:
+                self.broadcast("done")
+                self._parsedMessage = "done"
+                if (random.randint(0, 1) == 1):
+                    self.left()
+                else:
+                    self.right()

@@ -44,7 +44,7 @@ static void look_front_tiles(int x, int y, data_t *data, char **look)
     for (int i = 1; i <=
         data->clients[data->curr_cli_index]->player->level; i++) {
         x_tile = player_x + (x * i) + (i * y);
-        y_tile = player_y + (y * i) + (i * x);
+        y_tile = player_y + (y * i) + (i * x * (-1));
         for (int j = 0; j < i * 2 + 1; j++) {
             x_tile = calc_outbound(x_tile, data->map->width);
             y_tile = calc_outbound(y_tile, data->map->height);
