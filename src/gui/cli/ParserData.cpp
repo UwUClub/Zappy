@@ -20,7 +20,7 @@ namespace Zappy::GUI {
                     _port = static_cast<unsigned int>(std::stoi(optarg));
                     break;
                 case 'h':
-                    _clientName = optarg;
+                    _address = optarg;
                     break;
                 default:
                     throw ParserException("Invalid argument");
