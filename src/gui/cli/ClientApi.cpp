@@ -56,6 +56,17 @@ namespace Zappy::GUI {
         }
     }
 
+    void ClientApi::run()
+    {
+        try {
+            while (true) {
+                this->update();
+            }
+        } catch (const ClientException &e) {
+            std::osyncstream(std::cout) << e.what() << std::endl;
+        }
+    }
+
     void ClientApi::joinGame()
     {
         struct sockaddr_in myAddr = getSockaddr(inet_addr(_address.c_str()), _port);
